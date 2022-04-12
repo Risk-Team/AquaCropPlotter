@@ -1,30 +1,70 @@
 library(shiny)
 library(shinydashboard)
 library(tidyverse)
-library(lubridate)
+library(plotly)
+library(DT)
+
+#sets of input variables to select for plotting
+input_plot_variable = c("Day1","Month1","Year1","Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet","DayN","MonthN","YearN")
+input_group_variable = c("climate.model","location","rcp","irrigation","crop","soil")
 
 #define UI dashboard
 ui <- dashboardPage(
     dashboardHeader(title = "Aquacrop"),
     
     dashboardSidebar(
-        #upload data file
-        fileInput("upload_data_files", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
-        
-        #upload parameter file
-        fileInput("upload_prm_files", "Upload parameter files (.PRM)", multiple = TRUE, accept = ".PRM"),
-        
-        #download all combined data
-        downloadButton("download_combined_dataset", "Download combined dataset")
+        sidebarMenu(
+            menuItem("upload_data", tabName = "tab_upload_data"),
+            menuItem("combined_data", tabName = "tab_combined_data"),
+            menuItem("plot", tabName = "tab_plot")
+        )
     ),
     
     dashboardBody(
-        dataTableOutput("upload_data_combined_display"),
-        dataTableOutput("upload_prm_combined_display"),
-        dataTableOutput("data_prm_combined_display"),
-        dataTableOutput("missing_prm_file_error"),
-        dataTableOutput("missing_prm_file_display")
-        
+        tabItems(
+            tabItem(tabName = "tab_upload_data",
+                    h2(
+                        #to display error when insufficient prm files are uploaded
+                        fluidRow(
+                        dataTableOutput("missing_prm_file_error"),
+                        tableOutput("missing_prm_file_display")
+                        ),
+                        #display boxes for data and prm files upload
+                        fluidRow(
+                            box(title = "Data files", status = "primary", solidHeader = TRUE,
+                                #upload data file
+                                fileInput("upload_data_files", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
+                                dataTableOutput("upload_data_combined_display")
+                            ),
+                            box(title = "Parameter files", status = "primary", solidHeader = TRUE,
+                                #upload parameter file
+                                fileInput("upload_prm_files", "Upload parameter files (.PRM)", multiple = TRUE, accept = ".PRM"),
+                                dataTableOutput("upload_prm_combined_display")
+                            )
+                        )
+                    )
+            ),
+            tabItem(tabName = "tab_combined_data",
+                    h2(
+                        #button for downloading all combined data
+                        downloadButton("download_combined_dataset", "Download combined dataset"),
+                        #display combined data table
+                        dataTableOutput("data_prm_combined_display")
+                    )
+            ),
+            tabItem(tabName = "tab_plot",
+                    h2(selectInput("y_var", "Select variable to plot on y axis", input_plot_variable, selected = "Yield"),
+                       selectInput("x_var", "Select variable to plot on x axis", input_plot_variable, selected = "Year1"),
+                       selectInput("col_var", "Select variable to group in color", input_group_variable, selected = "climate.model"),
+                       selectizeInput("facet_var", "Select variable to group in facet", input_group_variable, selected = c("soil","irrigation"),
+                                              multiple = TRUE, options = list(maxItems = 2)),
+                               
+                       plotOutput("ggplot_display"),
+                       plotlyOutput("ggplotly_display")
+                       
+                    )
+            )
+        )
     )
 )
 
@@ -64,7 +104,9 @@ server <- function(input, output, session) {
                 unnest(dataset) 
         })
     #output datatable of the combined data
-    output$upload_data_combined_display <- renderDataTable(upload_data_combined())
+    output$upload_data_combined_display <- renderDataTable(upload_data_combined() 
+                                                           %>% select(name)  
+                                                           %>% distinct())
     
     ###read uploaded parameter files and combine
     upload_prm_combined <-
@@ -83,12 +125,7 @@ server <- function(input, output, session) {
                     #read in each prm file from the list
                     prm.file = read_file(paste0(datapath))
                     #extract parameter from each param file 
-                    #in this case we use str_extract to get parameters of the first time point
-                    #if we use str_extract_all to get parameters of all simulation time points (should be all the same, but year of sowing date)
-                    #get sowing date
-                    sowing.date = str_extract(prm.file,"(?<=First day of simulation period - ).+(?=\\r\\n)") %>%
-                        unlist() %>%
-                        dmy()
+                    #in this case we use str_extract to get parameters of the first time point (should be the same for all time points)
                     #get climate model
                     climate.model = str_extract(prm.file, "(?<=\\s).+?(?=\\.CLI\\r\\n)") %>%
                         unlist() %>%
@@ -109,12 +146,13 @@ server <- function(input, output, session) {
                         unlist() %>%
                         str_replace_all("\\s","")
                     #put parameters together in a table
-                    param.table = data.frame(sowing.date, climate.model, location, rcp, crop, irrigation, soil)
+                    param.table = data.frame(climate.model, location, rcp, crop, irrigation, soil)
                 })) %>%
                 unnest(parameter)
         })
     #output datatable of the combined parameters
-    output$upload_prm_combined_display <- renderDataTable(upload_prm_combined())
+    output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() 
+                                                          %>% select(name))
     
     ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
     #find a list of any missing prm file required in the data files
@@ -122,7 +160,8 @@ server <- function(input, output, session) {
         upload_data_combined() %>%
             select(prm.file) %>%
             distinct() %>%
-            anti_join(upload_prm_combined(), by = c("prm.file" = "name"))
+            anti_join(upload_prm_combined(), by = c("prm.file" = "name")) %>%
+            rename(missing.prm.file = prm.file)
     })
     #return error if there is any missing prm files
     output$missing_prm_file_error <- reactive({
@@ -131,7 +170,7 @@ server <- function(input, output, session) {
         }
     })
     #display missing prm files
-    output$missing_prm_file_display <- renderDataTable(
+    output$missing_prm_file_display <- renderTable(
         if(nrow(missing_prm_file()) > 0){
             missing_prm_file()
         }
@@ -143,7 +182,8 @@ server <- function(input, output, session) {
                 left_join(upload_prm_combined(), by = c("prm.file" = "name"))
         })
     #output datatable of the combined data and parameters
-    output$data_prm_combined_display <- renderDataTable(data_prm_combined())
+    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined(), 
+                                                                  options = list(scrollX = TRUE)))
     #for downloading combined dataset
     output$download_combined_dataset <- downloadHandler(
         filename = "Aquacrop_combined_data.tsv",
@@ -151,6 +191,25 @@ server <- function(input, output, session) {
             write_tsv(data_prm_combined(), file)
         }
     )
+    
+
+    ###ggplot
+    output$ggplot_display <- renderPlot({
+        ggplot(data = data_prm_combined(), aes_string(x = input$x_var, y = input$y_var, group = input$col_var, col = input$col_var))+
+            geom_point()+
+            geom_smooth(method="lm")+
+            facet_grid(get(input$facet_var[1])~get(input$facet_var[2]))
+    })
+    
+    ###ggplotly
+    output$ggplotly_display <- renderPlotly({
+        pp <- ggplot(data = data_prm_combined(), aes_string(x = input$x_var, y = input$y_var, group = input$col_var, col = input$col_var))+
+            geom_point()+
+            geom_smooth(method="lm")+
+            facet_grid(get(input$facet_var[1])~get(input$facet_var[2]))
+        ggplotly(pp)
+    })
+    
 }
 
 # Run the application 
