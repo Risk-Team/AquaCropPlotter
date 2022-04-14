@@ -60,8 +60,12 @@ ui <- dashboardPage(
                                               multiple = TRUE, options = list(maxItems = 2)),
                                
                        plotOutput("ggplot_display"),
-                       plotlyOutput("ggplotly_display")
+                       plotlyOutput("ggplotly_display"),
                        
+                       selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = "climate.model",
+                                      multiple = TRUE),
+                       
+                       dataTableOutput("data_prm_combined_mean_display")
                     )
             )
         )
@@ -195,7 +199,7 @@ server <- function(input, output, session) {
 
     ###ggplot
     output$ggplot_display <- renderPlot({
-        ggplot(data = data_prm_combined(), aes_string(x = input$x_var, y = input$y_var, group = input$col_var, col = input$col_var))+
+        ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
             geom_smooth(method="lm")+
             facet_grid(get(input$facet_var[1])~get(input$facet_var[2]))
@@ -203,12 +207,22 @@ server <- function(input, output, session) {
     
     ###ggplotly
     output$ggplotly_display <- renderPlotly({
-        pp <- ggplot(data = data_prm_combined(), aes_string(x = input$x_var, y = input$y_var, group = input$col_var, col = input$col_var))+
+        pp <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
             geom_smooth(method="lm")+
             facet_grid(get(input$facet_var[1])~get(input$facet_var[2]))
         ggplotly(pp)
     })
+    
+    ### calculate mean based on grouping variable
+    data_prm_combined_mean <- reactive({
+        data_prm_combined() %>%
+            group_by(across(all_of(input$group_var))) %>%
+            summarise(mean = mean(Yield))
+    })
+    output$data_prm_combined_mean_display <- renderDataTable(datatable(data_prm_combined_mean(), 
+                                                                  options = list(scrollX = TRUE)))
+    
     
 }
 
