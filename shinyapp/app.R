@@ -53,15 +53,32 @@ ui <- dashboardPage(
                     )
             ),
             tabItem(tabName = "tab_plot",
-                    h2(selectInput("y_var", "Select variable to plot on y axis", input_plot_variable, selected = "Yield"),
-                       selectInput("x_var", "Select variable to plot on x axis", input_plot_variable, selected = "Year1"),
-                       selectInput("col_var", "Select variable to group in color", input_group_variable, selected = "climate.model"),
-                       selectizeInput("facet_var", "Select variable to group in facet", input_group_variable, selected = c("soil","irrigation"),
-                                              multiple = TRUE, options = list(maxItems = 2)),
-                               
-                       plotOutput("ggplot_display"),
-                       plotlyOutput("ggplotly_display")
-                       
+                    h2(
+                        fluidRow(
+                            box(title = "Select plotting variables",
+                                width = 4,
+                                selectInput("y_var", "Select variable to plot on y axis", input_plot_variable, selected = "Yield"),
+                                selectInput("x_var", "Select variable to plot on x axis", input_plot_variable, selected = "Year1")),
+                            box(title = "Select grouping variables",
+                                width = 4,
+                                selectInput("col_var", "Select variable to group in color", input_group_variable, selected = "rcp")),
+                            box(title = "Select facetting variables",
+                                width = 4,
+                                selectizeInput("facet_var", "Select variable to group in facet", input_group_variable, selected = c("crop","location"),
+                                               multiple = TRUE, options = list(maxItems = 2)))
+                        ),
+                        fluidRow(
+                            plotOutput("ggplot_display"),
+                            plotlyOutput("ggplotly_display") 
+                        ),
+                        fluidRow(
+                            selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = c("crop","location"),
+                                           multiple = TRUE)
+                        ),
+                        fluidRow(
+                            dataTableOutput("data_prm_combined_mean_display"),
+                            plotOutput("ggplot_mean_display")
+                        )
                     )
             )
         )
@@ -195,21 +212,38 @@ server <- function(input, output, session) {
 
     ###ggplot
     output$ggplot_display <- renderPlot({
-        ggplot(data = data_prm_combined(), aes_string(x = input$x_var, y = input$y_var, group = input$col_var, col = input$col_var))+
+        ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
             geom_smooth(method="lm")+
-            facet_grid(get(input$facet_var[1])~get(input$facet_var[2]))
+            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
     })
     
     ###ggplotly
     output$ggplotly_display <- renderPlotly({
-        pp <- ggplot(data = data_prm_combined(), aes_string(x = input$x_var, y = input$y_var, group = input$col_var, col = input$col_var))+
+        pp <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
             geom_smooth(method="lm")+
-            facet_grid(get(input$facet_var[1])~get(input$facet_var[2]))
+            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
         ggplotly(pp)
     })
     
+    ### calculate mean based on grouping variable
+    data_prm_combined_mean <- reactive({
+        data_prm_combined() %>%
+            group_by(across(all_of(c(input$group_var, input$x_var, input$col_var)))) %>%
+            summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
+                             mean))
+    })
+    #output display data mean aggregated
+    output$data_prm_combined_mean_display <- renderDataTable(datatable(data_prm_combined_mean(), 
+                                                                  options = list(scrollX = TRUE)))
+    #ggplot
+    output$ggplot_mean_display <- renderPlot({
+        ggplot(data = data_prm_combined_mean(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
+            geom_point()+
+            geom_line()+
+            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
+    })
 }
 
 # Run the application 
