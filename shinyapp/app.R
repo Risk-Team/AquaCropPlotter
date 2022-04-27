@@ -14,6 +14,7 @@ ui <- dashboardPage(
     
     dashboardSidebar(
         sidebarMenu(
+            menuItem("Home", tabName = "tab_home"),
             menuItem("upload_data", tabName = "tab_upload_data"),
             menuItem("combined_data", tabName = "tab_combined_data"),
             menuItem("plot", tabName = "tab_plot")
@@ -22,6 +23,21 @@ ui <- dashboardPage(
     
     dashboardBody(
         tabItems(
+            tabItem(tabName = "tab_home",
+                    h2(
+                        fluidRow(
+                            imageOutput("aquacrop_logo")
+                        ),
+                        fluidRow(
+                            box(title = "Aquacrop standard (single model)", status = "primary", solidHeader = TRUE,
+                                actionButton("select_aquacrop_standard", "Aquacrop standard (single model)")
+                            ),
+                            box(title = "Aquacrop plug-in (multiple models)", status = "primary", solidHeader = TRUE,
+                                actionButton("select_aquacrop_plugin", "Aquacrop plug-in (multiple models)")
+                            )
+                        )
+                    )
+            ),
             tabItem(tabName = "tab_upload_data",
                     h2(
                         #to display error when insufficient prm files are uploaded
@@ -87,6 +103,15 @@ ui <- dashboardPage(
 
 # Define server logic 
 server <- function(input, output, session) {
+    ##image logo display in home tab
+    output$aquacrop_logo <- renderImage({
+        list(
+            src = file.path("www/aquacrop_logo.png"),
+            contentType = "image/png",
+            width = 300,
+            height = 300
+        )
+    }, deleteFile = FALSE)
     
     ###read upload data files andcombine all data into dataframe
     upload_data_combined <-
