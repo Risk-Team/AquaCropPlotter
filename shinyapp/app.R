@@ -16,18 +16,19 @@ ui <- dashboardPage(
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
             menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = TRUE,
-                     menuSubItem("upload_data", tabName = "upload_data_standard", icon = icon("caret-right")),
-                     menuSubItem("plot", tabName = "plot_standard", icon = icon("caret-right"))),
+                     menuSubItem("upload_data", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
+                     menuSubItem("combined_data", tabName = "tab_combined_data_standard", icon = icon("caret-right")),
+                     menuSubItem("plot", tabName = "tab_plot_standard", icon = icon("caret-right"))),
             menuItem("Plug-in", tabName = "aquacrop_plugin", icon = icon("puzzle-piece"), startExpanded = TRUE,
-                     menuSubItem("upload_data", tabName = "tab_upload_data", icon = icon("caret-right")),
-                     menuSubItem("combined_data", tabName = "tab_combined_data", icon = icon("caret-right")),
-                     menuSubItem("plot", tabName = "tab_plot", icon = icon("caret-right"))
+                     menuSubItem("upload_data", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
+                     menuSubItem("combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
+                     menuSubItem("plot", tabName = "tab_plot_plugin", icon = icon("caret-right"))
                      )
         )
     ),
     
     dashboardBody(
-        #customise the header and sidebar 
+        #customise fonts and colors in the header and sidebar 
         tags$head(tags$style(HTML(".main-header .logo {font-weight: bold; font-size: 24px;}
                                     .main-sidebar {font-weight: bold; font-size: 20px;}
                                     .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
@@ -39,7 +40,6 @@ ui <- dashboardPage(
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9; color: #000000;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #5792c9; color: #ffffff;}
                                     .box.box-solid.box-primary>.box-header {background-color: #416D96;}
-
                                   "))),
         tabItems(
             tabItem(tabName = "tab_home",
@@ -57,7 +57,33 @@ ui <- dashboardPage(
                         )
                     )
             ),
-            tabItem(tabName = "tab_upload_data",
+            tabItem(tabName = "tab_upload_data_standard",
+                    h2(
+                        #display boxes for data and prm files upload
+                        fluidRow(
+                            box(title = "Data files", status = "primary",
+                                #upload data file
+                                fileInput("upload_data_files_standard", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
+                                dataTableOutput("upload_data_standard_combined_display")
+                            )
+                        )
+                    )
+            ),
+            tabItem(tabName = "tab_combined_data_standard",
+                    h2(
+                        ##daily data
+                        #button for downloading data
+                        downloadButton("download_data_standard_combined_daily", "Download combined daily dataset"),
+                        #display combined daily data table
+                        dataTableOutput("upload_data_standard_combined_daily_display"),
+                        ##seasonal data
+                        #button for downloading data
+                        downloadButton("download_data_standard_combined_seasonal", "Download combined seasonal dataset"),
+                        #display combined seasonal data table
+                        dataTableOutput("upload_data_standard_combined_seasonal_display")
+                    )
+            ),
+            tabItem(tabName = "tab_upload_data_plugin",
                     h2(
                         #to display error when insufficient prm files are uploaded
                         fluidRow(
@@ -79,7 +105,7 @@ ui <- dashboardPage(
                         )
                     )
             ),
-            tabItem(tabName = "tab_combined_data",
+            tabItem(tabName = "tab_combined_data_plugin",
                     h2(
                         #button for downloading all combined data
                         downloadButton("download_combined_dataset", "Download combined dataset"),
@@ -87,7 +113,7 @@ ui <- dashboardPage(
                         dataTableOutput("data_prm_combined_display")
                     )
             ),
-            tabItem(tabName = "tab_plot",
+            tabItem(tabName = "tab_plot_plugin",
                     h2(
                         fluidRow(
                             box(title = "Select plotting variables",
@@ -134,13 +160,93 @@ server <- function(input, output, session) {
     
     ###select button to enter aquacrop standard or plugin
     observeEvent(input$select_aquacrop_standard, {
-        updateTabItems(session, "menu_tabs", "aquacrop_standard")
+        updateTabItems(session, "menu_tabs", "tab_upload_data_standard")
     })
     observeEvent(input$select_aquacrop_plugin, {
-        updateTabItems(session, "menu_tabs", "tab_upload_data")
+        updateTabItems(session, "menu_tabs", "tab_upload_data_plugin")
     })
     
-    ###read upload data files andcombine all data into dataframe
+    ##########standard
+    ###upload data
+    upload_data_standard_combined <- reactive({
+            #require uploaded data files before evaluating
+            req(input$upload_data_files_standard)
+            #check to make sure uploaded files has the correct extension .OUT, return error if not 
+            upload_data_files_standard_ext <- tools::file_ext(input$upload_data_files_standard$name)
+            if(any(upload_data_files_standard_ext != "OUT")){
+                validate("Invalid data file: Please upload only .OUT files")
+            }
+
+            #list of file extensions of all output files (9 files)
+            file.extension = c("Clim.OUT","CompEC.OUT","CompWC.OUT","Crop.OUT","Inet.OUT","Prof.OUT","Run.OUT","Salt.OUT","Wabal.OUT")
+            
+            #read data
+            input$upload_data_files_standard %>%            
+                #detect file extensions
+                mutate(extension = str_extract(name, paste(file.extension, sep="|"))) %>%
+                mutate(dataset = map2(datapath, extension, function(datapath, extension){
+                    #read in data as lines, to identify blank lines that separate sections
+                    file.line = read_lines(paste0(datapath))
+                    line.before.data = which(file.line == "")[1] #first blank line comes before dataset
+                    line.after.data = which(file.line == "")[2] #second blank line comes after dataset
+                    
+                    #read in data as whole and clean spaces to tabs to allow read_tsv later
+                    file.clean = read_file(paste0(datapath)) %>%
+                        str_replace_all(" +?(?=\\S)","\t") 
+                    
+                    #read heading
+                    heading.skip = ifelse(extension == "Run.OUT", line.before.data, 
+                                          ifelse(extension %in% c("CompEC.OUT","CompWC.OUT"),line.before.data+2, line.before.data+1))
+                    heading = read_lines(file = file.clean, skip = heading.skip, n_max = 1) %>%
+                        str_split("\\t") %>%
+                        unlist() 
+                    
+                    #read in data as tsv, specify lines from blank lines sectioning identified before, add heading
+                    line.skip = ifelse(extension == "Run.OUT", line.before.data + 2, line.before.data + 3)
+                    line.n = ifelse(extension == "Run.OUT", 1, line.after.data - line.before.data - 4)
+                    data = read_tsv(file = file.clean, skip = line.skip, n_max = line.n, col_names = heading) %>%
+                        select(-1) #remove blank column at the start
+                })) %>%
+                select(-size, -type, -datapath)
+        })
+
+    #output datatable of the data file name being read
+    output$upload_data_standard_combined_display <- renderDataTable(upload_data_standard_combined() %>%
+                                                                        select(name) %>%
+                                                                        distinct(),
+                                                                    options = list(scrollX = TRUE))
+   
+    ##combined all daily data  
+    upload_data_standard_combined_daily <- reactive({reduce(upload_data_standard_combined()$dataset[upload_data_standard_combined()$extension != "Run.OUT"], #filter out Run.OUT file as data format (seasonal)  different from others (daily)
+                                                                    left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
+                                                                 })
+    #render output display
+    output$upload_data_standard_combined_daily_display <- renderDataTable(upload_data_standard_combined_daily(),
+                                                                          options = list(scrollX = TRUE))
+    #for downloading combined daily dataset
+    output$download_data_standard_combined_daily <- downloadHandler(
+        filename = "Aquacrop_standard_daily_combined_data.tsv",
+        content = function(file) {
+            write_tsv(upload_data_standard_combined_daily(), file)
+        }
+    )
+    
+    ##seasonal data
+    upload_data_standard_combined_seasonal <- reactive({as.data.frame(upload_data_standard_combined()$dataset[upload_data_standard_combined()$extension == "Run.OUT"])
+                                                                })
+    output$upload_data_standard_combined_seasonal_display <- renderDataTable(upload_data_standard_combined_seasonal(),
+                                                                             options = list(scrollX = TRUE))
+    #for downloading seasonal dataset
+    output$download_data_standard_combined_seasonal <- downloadHandler(
+        filename = "Aquacrop_standard_seasonal_combined_data.tsv",
+        content = function(file) {
+            write_tsv(upload_data_standard_combined_seasonal(), file)
+        }
+    )
+
+    
+    ##########plugin
+    ###read upload data files and combine all data into dataframe
     upload_data_combined <-
         reactive({
             #require uploaded data files before evaluating
@@ -170,7 +276,8 @@ server <- function(input, output, session) {
                     data = read_tsv(file = file.clean, skip = 4, col_names = heading) %>%
                         select(-1) #remove blank column in the first position
                 })) %>%
-                unnest(dataset) 
+                unnest(dataset) %>%
+                select(-size, -type, -datapath)
         })
     #output datatable of the combined data
     output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
@@ -218,7 +325,8 @@ server <- function(input, output, session) {
                     #put parameters together in a table
                     param.table = data.frame(climate.model, location, rcp, crop, irrigation, soil)
                 })) %>%
-                unnest(parameter)
+                unnest(parameter) %>%
+                select(-size, -type, -datapath)
         })
     #output datatable of the combined parameters
     output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
