@@ -10,18 +10,37 @@ input_group_variable = c("climate.model","location","rcp","irrigation","crop","s
 
 #define UI dashboard
 ui <- dashboardPage(
-    dashboardHeader(title = "Aquacrop"),
+    dashboardHeader(title = "ShinyAquacrop"),
     
     dashboardSidebar(
-        sidebarMenu(
-            menuItem("Home", tabName = "tab_home"),
-            menuItem("upload_data", tabName = "tab_upload_data"),
-            menuItem("combined_data", tabName = "tab_combined_data"),
-            menuItem("plot", tabName = "tab_plot")
+        sidebarMenu(id = "menu_tabs",
+            menuItem("Home", tabName = "tab_home", icon = icon("home")),
+            menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = TRUE,
+                     menuSubItem("upload_data", tabName = "upload_data_standard", icon = icon("caret-right")),
+                     menuSubItem("plot", tabName = "plot_standard", icon = icon("caret-right"))),
+            menuItem("Plug-in", tabName = "aquacrop_plugin", icon = icon("puzzle-piece"), startExpanded = TRUE,
+                     menuSubItem("upload_data", tabName = "tab_upload_data", icon = icon("caret-right")),
+                     menuSubItem("combined_data", tabName = "tab_combined_data", icon = icon("caret-right")),
+                     menuSubItem("plot", tabName = "tab_plot", icon = icon("caret-right"))
+                     )
         )
     ),
     
     dashboardBody(
+        #customise the header and sidebar 
+        tags$head(tags$style(HTML(".main-header .logo {font-weight: bold; font-size: 24px;}
+                                    .main-sidebar {font-weight: bold; font-size: 20px;}
+                                    .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
+                                    
+                                    .skin-blue .main-header .logo {background-color: #5792c9;}
+                                    .skin-blue .main-header .navbar {background-color: #5792c9;}
+                                    .skin-blue .main-sidebar {background-color: #9AB7D2; color: #9AB7D2;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #9AB7D2; color: #414042;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9; color: #000000;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #5792c9; color: #ffffff;}
+                                    .box.box-solid.box-primary>.box-header {background-color: #416D96;}
+
+                                  "))),
         tabItems(
             tabItem(tabName = "tab_home",
                     h2(
@@ -29,11 +48,11 @@ ui <- dashboardPage(
                             imageOutput("aquacrop_logo")
                         ),
                         fluidRow(
-                            box(title = "Aquacrop standard (single model)", status = "primary", solidHeader = TRUE,
-                                actionButton("select_aquacrop_standard", "Aquacrop standard (single model)")
+                            box(title = "Aquacrop standard (single season)", status = "primary", solidHeader = TRUE,
+                                actionButton("select_aquacrop_standard", "Select Aquacrop standard")
                             ),
-                            box(title = "Aquacrop plug-in (multiple models)", status = "primary", solidHeader = TRUE,
-                                actionButton("select_aquacrop_plugin", "Aquacrop plug-in (multiple models)")
+                            box(title = "Aquacrop plug-in (multiple seasons)", status = "primary", solidHeader = TRUE,
+                                actionButton("select_aquacrop_plugin", "Select Aquacrop plugin")
                             )
                         )
                     )
@@ -47,12 +66,12 @@ ui <- dashboardPage(
                         ),
                         #display boxes for data and prm files upload
                         fluidRow(
-                            box(title = "Data files", status = "primary", solidHeader = TRUE,
+                            box(title = "Data files", status = "primary",
                                 #upload data file
                                 fileInput("upload_data_files", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
                                 dataTableOutput("upload_data_combined_display")
                             ),
-                            box(title = "Parameter files", status = "primary", solidHeader = TRUE,
+                            box(title = "Parameter files", status = "primary",
                                 #upload parameter file
                                 fileInput("upload_prm_files", "Upload parameter files (.PRM)", multiple = TRUE, accept = ".PRM"),
                                 dataTableOutput("upload_prm_combined_display")
@@ -113,6 +132,14 @@ server <- function(input, output, session) {
         )
     }, deleteFile = FALSE)
     
+    ###select button to enter aquacrop standard or plugin
+    observeEvent(input$select_aquacrop_standard, {
+        updateTabItems(session, "menu_tabs", "aquacrop_standard")
+    })
+    observeEvent(input$select_aquacrop_plugin, {
+        updateTabItems(session, "menu_tabs", "tab_upload_data")
+    })
+    
     ###read upload data files andcombine all data into dataframe
     upload_data_combined <-
         reactive({
@@ -121,7 +148,7 @@ server <- function(input, output, session) {
             #check to make sure uploaded files has the correct extension .OUT, return error if not 
             upload_data_files_ext <- tools::file_ext(input$upload_data_files$name)
             if(any(upload_data_files_ext != "OUT")){
-                validate("Invalid file: Please upload only .OUT files")
+                validate("Invalid data file: Please upload only .OUT files")
             }
             #get a list of file paths from uploaded files
             input$upload_data_files %>%
@@ -146,9 +173,10 @@ server <- function(input, output, session) {
                 unnest(dataset) 
         })
     #output datatable of the combined data
-    output$upload_data_combined_display <- renderDataTable(upload_data_combined() 
-                                                           %>% select(name)  
-                                                           %>% distinct())
+    output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
+                                                           select(name) %>%
+                                                           distinct(),
+                                                           options = list(scrollX = TRUE))
     
     ###read uploaded parameter files and combine
     upload_prm_combined <-
@@ -158,7 +186,7 @@ server <- function(input, output, session) {
             #check to make sure uploaded files has the correct extension .prm, return error if not 
             upload_prm_files_ext <- tools::file_ext(input$upload_prm_files$name)
             if(any(upload_prm_files_ext != "PRM")){
-                validate("Invalid file: Please upload only .PRM files")
+                validate("Invalid parameter file: Please upload only .PRM files")
             }
             #get a list of prm file path from uploaded
             input$upload_prm_files %>%
@@ -193,12 +221,17 @@ server <- function(input, output, session) {
                 unnest(parameter)
         })
     #output datatable of the combined parameters
-    output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() 
-                                                          %>% select(name))
+    output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
+                                                          select(name) %>%
+                                                          distinct(),
+                                                          options = list(scrollX = TRUE))
     
     ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
     #find a list of any missing prm file required in the data files
     missing_prm_file <- reactive({
+        req(input$upload_data_files)
+        req(input$upload_prm_files)
+        
         upload_data_combined() %>%
             select(prm.file) %>%
             distinct() %>%
@@ -207,9 +240,12 @@ server <- function(input, output, session) {
     })
     #return error if there is any missing prm files
     output$missing_prm_file_error <- reactive({
+        req(input$upload_data_files)
+        req(input$upload_prm_files)
+        
         if(nrow(missing_prm_file()) > 0){
             validate("Missing .PRM files: Please upload the following .PRM files")
-        }
+            }
     })
     #display missing prm files
     output$missing_prm_file_display <- renderTable(
