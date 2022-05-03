@@ -3,10 +3,13 @@ library(shinydashboard)
 library(tidyverse)
 library(plotly)
 library(DT)
+library(lubridate)
 
 #sets of input variables to select for plotting
-input_plot_variable = c("Day1","Month1","Year1","Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet","DayN","MonthN","YearN")
-input_group_variable = c("climate.model","location","rcp","irrigation","crop","soil")
+input_plot_variable <- c("Day1","Month1","Year1","Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet","DayN","MonthN","YearN")
+input_group_variable <- c("climate.model","location","rcp","irrigation","crop","soil")
+input_plot_variable_standard <- c("Biomass", "Date")
+
 
 #define UI dashboard
 ui <- dashboardPage(
@@ -33,13 +36,15 @@ ui <- dashboardPage(
                                     .main-sidebar {font-weight: bold; font-size: 20px;}
                                     .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
                                     
-                                    .skin-blue .main-header .logo {background-color: #5792c9;}
-                                    .skin-blue .main-header .navbar {background-color: #5792c9;}
+                                    .skin-blue .main-header .logo {background-color: #416D96;}
+                                    .skin-blue .main-header .navbar {background-color: #f2f2f2;}
                                     .skin-blue .main-sidebar {background-color: #9AB7D2; color: #9AB7D2;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #9AB7D2; color: #414042;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9; color: #000000;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #5792c9; color: #ffffff;}
-                                    .box.box-solid.box-primary>.box-header {background-color: #416D96;}
+                                    .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
+                                    .content-wrapper, .right-side {background-color: #f2f2f2;}
+
                                   "))),
         tabItems(
             tabItem(tabName = "tab_home",
@@ -81,6 +86,21 @@ ui <- dashboardPage(
                         downloadButton("download_data_standard_combined_seasonal", "Download combined seasonal dataset"),
                         #display combined seasonal data table
                         dataTableOutput("upload_data_standard_combined_seasonal_display")
+                    )
+            ),
+            tabItem(tabName = "tab_plot_standard",
+                    h2(
+                      fluidRow(
+                        box(title = "Select plotting variables",
+                            width = 4,
+                            selectInput("y_var_standard", "Select variable to plot on y axis", input_plot_variable_standard, selected = "Biomass"),
+                            selectInput("x_var_standard", "Select variable to plot on x axis", input_plot_variable_standard, selected = "Date"))
+                      ),
+                      fluidRow(
+                        downloadButton("ggplot_standard_download", "Download plot"),
+                        plotOutput("ggplot_standard_display"),
+                        plotlyOutput("ggplotly_standard_display") 
+                      )
                     )
             ),
             tabItem(tabName = "tab_upload_data_plugin",
@@ -129,8 +149,9 @@ ui <- dashboardPage(
                                                multiple = TRUE, options = list(maxItems = 2)))
                         ),
                         fluidRow(
-                            plotOutput("ggplot_display"),
-                            plotlyOutput("ggplotly_display") 
+                            downloadButton("ggplot_plugin_download", "Download plot"),
+                            plotOutput("ggplot_plugin_display"),
+                            plotlyOutput("ggplotly_plugin_display") 
                         ),
                         fluidRow(
                             selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = c("crop","location"),
@@ -218,8 +239,10 @@ server <- function(input, output, session) {
    
     ##combined all daily data  
     upload_data_standard_combined_daily <- reactive({reduce(upload_data_standard_combined()$dataset[upload_data_standard_combined()$extension != "Run.OUT"], #filter out Run.OUT file as data format (seasonal)  different from others (daily)
-                                                                    left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
+                                                                    left_join, by = c("Day", "Month", "Year", "DAP", "Stage")) %>%
+                                                      mutate(Date = dmy(paste(Day, Month, Year, sep="-")))
                                                                  })
+      
     #render output display
     output$upload_data_standard_combined_daily_display <- renderDataTable(upload_data_standard_combined_daily(),
                                                                           options = list(scrollX = TRUE))
@@ -244,6 +267,35 @@ server <- function(input, output, session) {
         }
     )
 
+    ###ggplot standard daily data
+    cbPalette <- c("#808080", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+    
+    ggplot_standard <- reactive({
+      ggplot(data = upload_data_standard_combined_daily(), aes(x = .data[[input$x_var_standard]], y = .data[[input$y_var_standard]]))+
+        geom_point()+
+        theme_light()+
+        scale_color_manual(values=cbPalette)
+    })
+    #render ggplot display in app
+    output$ggplot_standard_display <- renderPlot({
+      ggplot_standard()
+    })
+    #for downloading ggplot
+    output$ggplot_standard_download <- downloadHandler(
+      filename = function() {"plot_standard.pdf"},
+      content = function(file) {
+        ggsave(file, plot = ggplot_standard(), device = "pdf")
+      }
+    )
+    
+    ###ggplotly
+    output$ggplotly_standard_display <- renderPlotly({
+      pp <- ggplot(data = upload_data_standard_combined_daily(), aes(x = .data[[input$x_var_standard]], y = .data[[input$y_var_standard]]))+
+        geom_point()+
+        theme_light()+
+        scale_color_manual(values=cbPalette)
+      ggplotly(pp)
+    })
     
     ##########plugin
     ###read upload data files and combine all data into dataframe
@@ -380,19 +432,36 @@ server <- function(input, output, session) {
     
 
     ###ggplot
-    output$ggplot_display <- renderPlot({
+    cbPalette <- c("#808080", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+    ggplot_plugin <- reactive({
         ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
-            geom_smooth(method="lm")+
-            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
+            geom_smooth(method="lm", se = F)+
+            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))+
+            theme_light()+
+            scale_color_manual(values=cbPalette)
     })
+    #render ggplot display in app
+    output$ggplot_plugin_display <- renderPlot({
+      ggplot_plugin()
+    })
+    #for downloading ggplot
+    output$ggplot_plugin_download <- downloadHandler(
+      filename = function() {"plot_plugin.pdf"},
+      content = function(file) {
+        ggsave(file, plot = ggplot_plugin(), device = "pdf")
+      }
+    )
     
     ###ggplotly
-    output$ggplotly_display <- renderPlotly({
+    output$ggplotly_plugin_display <- renderPlotly({
         pp <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
-            geom_smooth(method="lm")+
-            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
+            geom_smooth(method="lm", se =F )+
+            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))+
+            theme_light()+
+            scale_color_manual(values=cbPalette)
         ggplotly(pp)
     })
     
@@ -410,8 +479,11 @@ server <- function(input, output, session) {
     output$ggplot_mean_display <- renderPlot({
         ggplot(data = data_prm_combined_mean(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
             geom_point()+
-            geom_line()+
-            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
+            #geom_line()+
+            geom_smooth(method = "lm", se = F)+
+            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))+
+            theme_light()+
+            scale_color_manual(values=cbPalette)
     })
 }
 
