@@ -6,16 +6,18 @@ library(DT)
 library(lubridate)
 
 #sets of input variables to select for plotting
-input_plot_variable <- c("Day1","Month1","Year1","Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet","DayN","MonthN","YearN")
+input_plot_x_variable <- c("Year1")
+input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WPet")
 input_group_variable <- c("climate.model","location","rcp","irrigation","crop","soil")
 input_plot_variable_standard <- c("Biomass", "Date")
-
+input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple")
+input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error")
 
 #define UI dashboard
 ui <- dashboardPage(
-    dashboardHeader(title = "ShinyAquacrop"),
+    dashboardHeader(title = "ShinyAquaCrop"),
     
-    dashboardSidebar(
+    dashboardSidebar(collapsed = FALSE,
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
             menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = TRUE,
@@ -37,14 +39,24 @@ ui <- dashboardPage(
                                     .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
                                     
                                     .skin-blue .main-header .logo {background-color: #416D96;}
-                                    .skin-blue .main-header .navbar {background-color: #f2f2f2;}
+                                    .skin-blue .main-header .navbar {background-color: #416D96;}
                                     .skin-blue .main-sidebar {background-color: #9AB7D2; color: #9AB7D2;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #9AB7D2; color: #414042;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9; color: #000000;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #5792c9; color: #ffffff;}
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
-
+                                    
+                                    #add customise color to palette choices 
+                                    .option[data-value=black], .item[data-value=black]{background: #000000 !important; color: white !important;}
+                                    .option[data-value=grey], .item[data-value=grey]{background: #999999 !important; color: white !important;}
+                                    .option[data-value=skyblue], .item[data-value=skyblue]{background: #56B4E9 !important; color: black !important;}
+                                    .option[data-value=orange], .item[data-value=orange]{background: #E69F00 !important; color: black !important;}
+                                    .option[data-value=green], .item[data-value=green]{background: #009E73 !important; color: white !important;}
+                                    .option[data-value=yellow], .item[data-value=yellow]{background: #F0E442 !important; color: black !important;}
+                                    .option[data-value=blue], .item[data-value=blue]{background: #0072B2 !important; color: white !important;}
+                                    .option[data-value=vermillion], .item[data-value=vermillion]{background: #D55E00 !important; color: white !important;}
+                                    .option[data-value=purple], .item[data-value=purple]{background: #CC79A7 !important; color: black !important;}
                                   "))),
         tabItems(
             tabItem(tabName = "tab_home",
@@ -138,15 +150,20 @@ ui <- dashboardPage(
                         fluidRow(
                             box(title = "Select plotting variables",
                                 width = 4,
-                                selectInput("y_var", "Select variable to plot on y axis", input_plot_variable, selected = "Yield"),
-                                selectInput("x_var", "Select variable to plot on x axis", input_plot_variable, selected = "Year1")),
+                                selectInput("y_var", "Select variable to plot on y axis", input_plot_y_variable, selected = "Yield"),
+                                selectInput("x_var", "Select variable to plot on x axis", input_plot_x_variable, selected = "Year1"),
+                                textInput("y_var_label", "Customise y axis label"),
+                                textInput("x_var_label", "Customise x axis label")),
                             box(title = "Select grouping variables",
                                 width = 4,
-                                selectInput("col_var", "Select variable to group in color", input_group_variable, selected = "rcp")),
-                            box(title = "Select facetting variables",
+                                selectInput("col_var", "Select variable to group in color", input_group_variable, selected = "climate.model"),
+                                selectizeInput("facet_var", "Select variable to group in facet", input_group_variable,
+                                               multiple = TRUE, options = list(maxItems = 2)),
+                                selectizeInput("col_palette", "Customise color palette", input_color_choice, multiple = TRUE)),
+                            box(title = "Select plot elements",
                                 width = 4,
-                                selectizeInput("facet_var", "Select variable to group in facet", input_group_variable, selected = c("crop","location"),
-                                               multiple = TRUE, options = list(maxItems = 2)))
+                                selectizeInput("plot_element", "Select elements to plot", input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend")),
+                                )
                         ),
                         fluidRow(
                             downloadButton("ggplot_plugin_download", "Download plot"),
@@ -169,13 +186,13 @@ ui <- dashboardPage(
 
 # Define server logic 
 server <- function(input, output, session) {
-    ##image logo display in home tab
+    ##image logo display in home tab, Photo by @glenncarstenspeters on Unsplash
     output$aquacrop_logo <- renderImage({
         list(
-            src = file.path("www/aquacrop_logo.png"),
-            contentType = "image/png",
-            width = 300,
-            height = 300
+            src = file.path("www/homepage_photo.jpg"),
+            contentType = "image/jpg",
+            width = "100%",
+            height = "900px"
         )
     }, deleteFile = FALSE)
     
@@ -290,11 +307,7 @@ server <- function(input, output, session) {
     
     ###ggplotly
     output$ggplotly_standard_display <- renderPlotly({
-      pp <- ggplot(data = upload_data_standard_combined_daily(), aes(x = .data[[input$x_var_standard]], y = .data[[input$y_var_standard]]))+
-        geom_point()+
-        theme_light()+
-        scale_color_manual(values=cbPalette)
-      ggplotly(pp)
+      ggplotly(ggplot_standard())
     })
     
     ##########plugin
@@ -432,16 +445,62 @@ server <- function(input, output, session) {
     
 
     ###ggplot
-    cbPalette <- c("#808080", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-
-    ggplot_plugin <- reactive({
-        ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
-            geom_point()+
-            geom_smooth(method="lm", se = F)+
-            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))+
-            theme_light()+
-            scale_color_manual(values=cbPalette)
+    
+    #set color palette
+    custom_palette <- reactive({
+      default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+      
+      #vector of available color choices to form custom palette
+      color_choice_hex <- c("#000000","#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+      names(color_choice_hex) <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple")
+      
+      #make palette from custom colors selected from user
+      if(length(input$col_palette) > 0){
+        palette <- color_choice_hex[input$col_palette]
+      }else{
+        palette <- default_palette
+      }
+      unname(palette)
     })
+    
+    ggplot_plugin <- reactive({
+      p <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
+        theme_light()+
+        scale_color_manual(values=custom_palette())
+      
+      #select facet variable
+      if(length(input$facet_var) == 1){
+        p <- p + facet_wrap(~get(input$facet_var[1]))
+      } else if(length(input$facet_var) == 2){
+        p <- p + facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
+      } else {
+        p <- p
+      }
+      
+      #select plotting elements (geom)
+      if("point" %in% input$plot_element){
+        p <- p + geom_point()
+      }     
+      if("line" %in% input$plot_element){
+        p <- p + geom_line()
+      }
+      if("linear_trend" %in% input$plot_element){
+        p <- p + geom_smooth(method="lm", se = F)
+      }
+      if("linear_trend_error" %in% input$plot_element){
+        p <- p + geom_smooth(method="lm", se = T)
+      }
+
+      #add custom text for axis label
+      if(nchar(input$y_var_label) > 0){
+        p <- p + labs(y = paste(input$y_var_label))
+      }
+      if(nchar(input$x_var_label) > 0){
+        p <- p + labs(x = paste(input$x_var_label))
+      }
+      print(p)
+    })
+    
     #render ggplot display in app
     output$ggplot_plugin_display <- renderPlot({
       ggplot_plugin()
@@ -456,13 +515,7 @@ server <- function(input, output, session) {
     
     ###ggplotly
     output$ggplotly_plugin_display <- renderPlotly({
-        pp <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
-            geom_point()+
-            geom_smooth(method="lm", se =F )+
-            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))+
-            theme_light()+
-            scale_color_manual(values=cbPalette)
-        ggplotly(pp)
+        ggplotly(ggplot_plugin())
     })
     
     ### calculate mean based on grouping variable
