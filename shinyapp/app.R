@@ -28,7 +28,8 @@ ui <- dashboardPage(
                      menuSubItem("upload_data", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
                      menuSubItem("combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
                      menuSubItem("plot", tabName = "tab_plot_plugin", icon = icon("caret-right"))
-                     )
+                     ),
+            menuItem("Legend", tabName = "aquacrop_legend", icon = icon("book"))
         )
     ),
     
@@ -179,6 +180,12 @@ ui <- dashboardPage(
                             plotOutput("ggplot_mean_display")
                         )
                     )
+            ),
+            tabItem(tabName = "aquacrop_legend",
+                    h2(fluidRow(
+                      box(width = 12 ,dataTableOutput("legend_display"),
+                          )
+                    ))
             )
         )
     )
@@ -195,6 +202,12 @@ server <- function(input, output, session) {
             height = "900px"
         )
     }, deleteFile = FALSE)
+    
+    ##legend for varaible names
+    legend <- reactive({
+      read.csv("legend.csv")
+    })
+    output$legend_display <- renderDataTable(legend())
     
     ###select button to enter aquacrop standard or plugin
     observeEvent(input$select_aquacrop_standard, {
