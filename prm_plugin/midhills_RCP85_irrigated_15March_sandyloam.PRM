@@ -1,0 +1,3343 @@
+
+      6.1       : AquaCrop Version (May 2018)
+  42443         : First day of simulation period - 15 March 2017    
+  42588         : Last day of simulation period - 7 August 2017    
+  42443         : First day of cropping period - 15 March 2017    
+  42588         : Last day of cropping period - 7 August 2017    
+      4         : Evaporation decline factor for stage II
+      1.10      : Ke(x) Soil evaporation coefficient for fully wet and non-shaded soil surface
+      5         : Threshold for green CC below which HI can no longer increase (% cover)
+     70         : Starting depth of root zone expansion curve (% of Zmin)
+      5.00      : Maximum allowable root zone expansion (fixed at 5 cm/day)
+     -6         : Shape factor for effect water stress on root zone expansion
+     20         : Required soil water content in top soil for germination (% TAW)
+      1.0       : Adjustment factor for FAO-adjustment soil water depletion (p) by ETo
+      3         : Number of days after which deficient aeration is fully effective
+      4.00      : Exponent of senescence factor adjusting drop in photosynthetic activity of dying crop
+     12         : Decrease of p(sen) once early canopy senescence is triggered (% of p(sen))
+     10         : Thickness top soil (cm) in which soil water depletion has to be determined
+     30         : Depth [cm] of soil profile affected by water extraction by soil evaporation
+      0.30      : Considered depth (m) of soil profile for calculation of mean soil water content for CN adjustment
+      1         : CN is adjusted to Antecedent Moisture Class
+     20         : salt diffusion factor (capacity for salt diffusion in micro pores) [%]
+    100         : salt solubility [g/liter]
+     16         : shape factor for effect of soil water content gradient on capillary rise
+     12.0       : Default minimum temperature (°C) if no temperature file is specified
+     28.0       : Default maximum temperature (°C) if no temperature file is specified
+      3         : Default method for the calculation of growing degree days
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation management (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Field management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  42808         : First day of simulation period - 15 March 2018    
+  42959         : Last day of simulation period - 13 August 2018   
+  42808         : First day of cropping period - 15 March 2018    
+  42959         : Last day of cropping period - 13 August 2018   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  43173         : First day of simulation period - 15 March 2019    
+  43314         : Last day of simulation period - 3 August 2019    
+  43173         : First day of cropping period - 15 March 2019    
+  43314         : Last day of cropping period - 3 August 2019    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  43539         : First day of simulation period - 15 March 2020    
+  43694         : Last day of simulation period - 17 August 2020   
+  43539         : First day of cropping period - 15 March 2020    
+  43694         : Last day of cropping period - 17 August 2020   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  43904         : First day of simulation period - 15 March 2021    
+  44058         : Last day of simulation period - 16 August 2021   
+  43904         : First day of cropping period - 15 March 2021    
+  44058         : Last day of cropping period - 16 August 2021   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  44269         : First day of simulation period - 15 March 2022    
+  44403         : Last day of simulation period - 27 July 2022     
+  44269         : First day of cropping period - 15 March 2022    
+  44403         : Last day of cropping period - 27 July 2022     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  44634         : First day of simulation period - 15 March 2023    
+  44788         : Last day of simulation period - 16 August 2023   
+  44634         : First day of cropping period - 15 March 2023    
+  44788         : Last day of cropping period - 16 August 2023   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  45000         : First day of simulation period - 15 March 2024    
+  45145         : Last day of simulation period - 7 August 2024    
+  45000         : First day of cropping period - 15 March 2024    
+  45145         : Last day of cropping period - 7 August 2024    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  45365         : First day of simulation period - 15 March 2025    
+  45511         : Last day of simulation period - 8 August 2025    
+  45365         : First day of cropping period - 15 March 2025    
+  45511         : Last day of cropping period - 8 August 2025    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  45730         : First day of simulation period - 15 March 2026    
+  45872         : Last day of simulation period - 4 August 2026    
+  45730         : First day of cropping period - 15 March 2026    
+  45872         : Last day of cropping period - 4 August 2026    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  46095         : First day of simulation period - 15 March 2027    
+  46242         : Last day of simulation period - 9 August 2027    
+  46095         : First day of cropping period - 15 March 2027    
+  46242         : Last day of cropping period - 9 August 2027    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  46461         : First day of simulation period - 15 March 2028    
+  46603         : Last day of simulation period - 4 August 2028    
+  46461         : First day of cropping period - 15 March 2028    
+  46603         : Last day of cropping period - 4 August 2028    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  46826         : First day of simulation period - 15 March 2029    
+  46967         : Last day of simulation period - 3 August 2029    
+  46826         : First day of cropping period - 15 March 2029    
+  46967         : Last day of cropping period - 3 August 2029    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  47191         : First day of simulation period - 15 March 2030    
+  47332         : Last day of simulation period - 3 August 2030    
+  47191         : First day of cropping period - 15 March 2030    
+  47332         : Last day of cropping period - 3 August 2030    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  47556         : First day of simulation period - 15 March 2031    
+  47696         : Last day of simulation period - 2 August 2031    
+  47556         : First day of cropping period - 15 March 2031    
+  47696         : Last day of cropping period - 2 August 2031    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  47922         : First day of simulation period - 15 March 2032    
+  48062         : Last day of simulation period - 2 August 2032    
+  47922         : First day of cropping period - 15 March 2032    
+  48062         : Last day of cropping period - 2 August 2032    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  48287         : First day of simulation period - 15 March 2033    
+  48432         : Last day of simulation period - 7 August 2033    
+  48287         : First day of cropping period - 15 March 2033    
+  48432         : Last day of cropping period - 7 August 2033    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  48652         : First day of simulation period - 15 March 2034    
+  48794         : Last day of simulation period - 4 August 2034    
+  48652         : First day of cropping period - 15 March 2034    
+  48794         : Last day of cropping period - 4 August 2034    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  49017         : First day of simulation period - 15 March 2035    
+  49165         : Last day of simulation period - 10 August 2035   
+  49017         : First day of cropping period - 15 March 2035    
+  49165         : Last day of cropping period - 10 August 2035   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  49383         : First day of simulation period - 15 March 2036    
+  49531         : Last day of simulation period - 10 August 2036   
+  49383         : First day of cropping period - 15 March 2036    
+  49531         : Last day of cropping period - 10 August 2036   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  49748         : First day of simulation period - 15 March 2037    
+  49896         : Last day of simulation period - 10 August 2037   
+  49748         : First day of cropping period - 15 March 2037    
+  49896         : Last day of cropping period - 10 August 2037   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  50113         : First day of simulation period - 15 March 2038    
+  50262         : Last day of simulation period - 11 August 2038   
+  50113         : First day of cropping period - 15 March 2038    
+  50262         : Last day of cropping period - 11 August 2038   
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  50478         : First day of simulation period - 15 March 2039    
+  50609         : Last day of simulation period - 24 July 2039     
+  50478         : First day of cropping period - 15 March 2039    
+  50609         : Last day of cropping period - 24 July 2039     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  50844         : First day of simulation period - 15 March 2040    
+  50984         : Last day of simulation period - 2 August 2040    
+  50844         : First day of cropping period - 15 March 2040    
+  50984         : Last day of cropping period - 2 August 2040    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  51209         : First day of simulation period - 15 March 2041    
+  51343         : Last day of simulation period - 27 July 2041     
+  51209         : First day of cropping period - 15 March 2041    
+  51343         : Last day of cropping period - 27 July 2041     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  51574         : First day of simulation period - 15 March 2042    
+  51709         : Last day of simulation period - 28 July 2042     
+  51574         : First day of cropping period - 15 March 2042    
+  51709         : Last day of cropping period - 28 July 2042     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  51939         : First day of simulation period - 15 March 2043    
+  52075         : Last day of simulation period - 29 July 2043     
+  51939         : First day of cropping period - 15 March 2043    
+  52075         : Last day of cropping period - 29 July 2043     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  52305         : First day of simulation period - 15 March 2044    
+  52438         : Last day of simulation period - 26 July 2044     
+  52305         : First day of cropping period - 15 March 2044    
+  52438         : Last day of cropping period - 26 July 2044     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  52670         : First day of simulation period - 15 March 2045    
+  52806         : Last day of simulation period - 29 July 2045     
+  52670         : First day of cropping period - 15 March 2045    
+  52806         : Last day of cropping period - 29 July 2045     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  53035         : First day of simulation period - 15 March 2046    
+  53157         : Last day of simulation period - 15 July 2046     
+  53035         : First day of cropping period - 15 March 2046    
+  53157         : Last day of cropping period - 15 July 2046     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  53400         : First day of simulation period - 15 March 2047    
+  53537         : Last day of simulation period - 30 July 2047     
+  53400         : First day of cropping period - 15 March 2047    
+  53537         : Last day of cropping period - 30 July 2047     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  53766         : First day of simulation period - 15 March 2048    
+  53910         : Last day of simulation period - 6 August 2048    
+  53766         : First day of cropping period - 15 March 2048    
+  53910         : Last day of cropping period - 6 August 2048    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  54131         : First day of simulation period - 15 March 2049    
+  54267         : Last day of simulation period - 29 July 2049     
+  54131         : First day of cropping period - 15 March 2049    
+  54267         : Last day of cropping period - 29 July 2049     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  54496         : First day of simulation period - 15 March 2050    
+  54642         : Last day of simulation period - 8 August 2050    
+  54496         : First day of cropping period - 15 March 2050    
+  54642         : Last day of cropping period - 8 August 2050    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  54861         : First day of simulation period - 15 March 2051    
+  54989         : Last day of simulation period - 21 July 2051     
+  54861         : First day of cropping period - 15 March 2051    
+  54989         : Last day of cropping period - 21 July 2051     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  55227         : First day of simulation period - 15 March 2052    
+  55353         : Last day of simulation period - 19 July 2052     
+  55227         : First day of cropping period - 15 March 2052    
+  55353         : Last day of cropping period - 19 July 2052     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  55592         : First day of simulation period - 15 March 2053    
+  55725         : Last day of simulation period - 26 July 2053     
+  55592         : First day of cropping period - 15 March 2053    
+  55725         : Last day of cropping period - 26 July 2053     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  55957         : First day of simulation period - 15 March 2054    
+  56085         : Last day of simulation period - 21 July 2054     
+  55957         : First day of cropping period - 15 March 2054    
+  56085         : Last day of cropping period - 21 July 2054     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  56322         : First day of simulation period - 15 March 2055    
+  56449         : Last day of simulation period - 20 July 2055     
+  56322         : First day of cropping period - 15 March 2055    
+  56449         : Last day of cropping period - 20 July 2055     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  56688         : First day of simulation period - 15 March 2056    
+  56827         : Last day of simulation period - 1 August 2056    
+  56688         : First day of cropping period - 15 March 2056    
+  56827         : Last day of cropping period - 1 August 2056    
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  57053         : First day of simulation period - 15 March 2057    
+  57179         : Last day of simulation period - 19 July 2057     
+  57053         : First day of cropping period - 15 March 2057    
+  57179         : Last day of cropping period - 19 July 2057     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  57418         : First day of simulation period - 15 March 2058    
+  57552         : Last day of simulation period - 27 July 2058     
+  57418         : First day of cropping period - 15 March 2058    
+  57552         : Last day of cropping period - 27 July 2058     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  57783         : First day of simulation period - 15 March 2059    
+  57913         : Last day of simulation period - 23 July 2059     
+  57783         : First day of cropping period - 15 March 2059    
+  57913         : Last day of cropping period - 23 July 2059     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  58149         : First day of simulation period - 15 March 2060    
+  58278         : Last day of simulation period - 22 July 2060     
+  58149         : First day of cropping period - 15 March 2060    
+  58278         : Last day of cropping period - 22 July 2060     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  58514         : First day of simulation period - 15 March 2061    
+  58637         : Last day of simulation period - 16 July 2061     
+  58514         : First day of cropping period - 15 March 2061    
+  58637         : Last day of cropping period - 16 July 2061     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  58879         : First day of simulation period - 15 March 2062    
+  59007         : Last day of simulation period - 21 July 2062     
+  58879         : First day of cropping period - 15 March 2062    
+  59007         : Last day of cropping period - 21 July 2062     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  59244         : First day of simulation period - 15 March 2063    
+  59380         : Last day of simulation period - 29 July 2063     
+  59244         : First day of cropping period - 15 March 2063    
+  59380         : Last day of cropping period - 29 July 2063     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  59610         : First day of simulation period - 15 March 2064    
+  59739         : Last day of simulation period - 22 July 2064     
+  59610         : First day of cropping period - 15 March 2064    
+  59739         : Last day of cropping period - 22 July 2064     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  59975         : First day of simulation period - 15 March 2065    
+  60110         : Last day of simulation period - 28 July 2065     
+  59975         : First day of cropping period - 15 March 2065    
+  60110         : Last day of cropping period - 28 July 2065     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  60340         : First day of simulation period - 15 March 2066    
+  60465         : Last day of simulation period - 18 July 2066     
+  60340         : First day of cropping period - 15 March 2066    
+  60465         : Last day of cropping period - 18 July 2066     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  60705         : First day of simulation period - 15 March 2067    
+  60832         : Last day of simulation period - 20 July 2067     
+  60705         : First day of cropping period - 15 March 2067    
+  60832         : Last day of cropping period - 20 July 2067     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  61071         : First day of simulation period - 15 March 2068    
+  61192         : Last day of simulation period - 14 July 2068     
+  61071         : First day of cropping period - 15 March 2068    
+  61192         : Last day of cropping period - 14 July 2068     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  61436         : First day of simulation period - 15 March 2069    
+  61571         : Last day of simulation period - 28 July 2069     
+  61436         : First day of cropping period - 15 March 2069    
+  61571         : Last day of cropping period - 28 July 2069     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  61801         : First day of simulation period - 15 March 2070    
+  61927         : Last day of simulation period - 19 July 2070     
+  61801         : First day of cropping period - 15 March 2070    
+  61927         : Last day of cropping period - 19 July 2070     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  62166         : First day of simulation period - 15 March 2071    
+  62296         : Last day of simulation period - 23 July 2071     
+  62166         : First day of cropping period - 15 March 2071    
+  62296         : Last day of cropping period - 23 July 2071     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  62532         : First day of simulation period - 15 March 2072    
+  62657         : Last day of simulation period - 18 July 2072     
+  62532         : First day of cropping period - 15 March 2072    
+  62657         : Last day of cropping period - 18 July 2072     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  62897         : First day of simulation period - 15 March 2073    
+  63010         : Last day of simulation period - 6 July 2073      
+  62897         : First day of cropping period - 15 March 2073    
+  63010         : Last day of cropping period - 6 July 2073      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  63262         : First day of simulation period - 15 March 2074    
+  63384         : Last day of simulation period - 15 July 2074     
+  63262         : First day of cropping period - 15 March 2074    
+  63384         : Last day of cropping period - 15 July 2074     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  63627         : First day of simulation period - 15 March 2075    
+  63740         : Last day of simulation period - 6 July 2075      
+  63627         : First day of cropping period - 15 March 2075    
+  63740         : Last day of cropping period - 6 July 2075      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  63993         : First day of simulation period - 15 March 2076    
+  64124         : Last day of simulation period - 24 July 2076     
+  63993         : First day of cropping period - 15 March 2076    
+  64124         : Last day of cropping period - 24 July 2076     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  64358         : First day of simulation period - 15 March 2077    
+  64481         : Last day of simulation period - 16 July 2077     
+  64358         : First day of cropping period - 15 March 2077    
+  64481         : Last day of cropping period - 16 July 2077     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  64723         : First day of simulation period - 15 March 2078    
+  64846         : Last day of simulation period - 16 July 2078     
+  64723         : First day of cropping period - 15 March 2078    
+  64846         : Last day of cropping period - 16 July 2078     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  65088         : First day of simulation period - 15 March 2079    
+  65214         : Last day of simulation period - 19 July 2079     
+  65088         : First day of cropping period - 15 March 2079    
+  65214         : Last day of cropping period - 19 July 2079     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  65454         : First day of simulation period - 15 March 2080    
+  65568         : Last day of simulation period - 7 July 2080      
+  65454         : First day of cropping period - 15 March 2080    
+  65568         : Last day of cropping period - 7 July 2080      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  65819         : First day of simulation period - 15 March 2081    
+  65937         : Last day of simulation period - 11 July 2081     
+  65819         : First day of cropping period - 15 March 2081    
+  65937         : Last day of cropping period - 11 July 2081     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  66184         : First day of simulation period - 15 March 2082    
+  66316         : Last day of simulation period - 25 July 2082     
+  66184         : First day of cropping period - 15 March 2082    
+  66316         : Last day of cropping period - 25 July 2082     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  66549         : First day of simulation period - 15 March 2083    
+  66664         : Last day of simulation period - 8 July 2083      
+  66549         : First day of cropping period - 15 March 2083    
+  66664         : Last day of cropping period - 8 July 2083      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  66915         : First day of simulation period - 15 March 2084    
+  67032         : Last day of simulation period - 10 July 2084     
+  66915         : First day of cropping period - 15 March 2084    
+  67032         : Last day of cropping period - 10 July 2084     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  67280         : First day of simulation period - 15 March 2085    
+  67401         : Last day of simulation period - 14 July 2085     
+  67280         : First day of cropping period - 15 March 2085    
+  67401         : Last day of cropping period - 14 July 2085     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  67645         : First day of simulation period - 15 March 2086    
+  67758         : Last day of simulation period - 6 July 2086      
+  67645         : First day of cropping period - 15 March 2086    
+  67758         : Last day of cropping period - 6 July 2086      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  68010         : First day of simulation period - 15 March 2087    
+  68122         : Last day of simulation period - 5 July 2087      
+  68010         : First day of cropping period - 15 March 2087    
+  68122         : Last day of cropping period - 5 July 2087      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  68376         : First day of simulation period - 15 March 2088    
+  68492         : Last day of simulation period - 9 July 2088      
+  68376         : First day of cropping period - 15 March 2088    
+  68492         : Last day of cropping period - 9 July 2088      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  68741         : First day of simulation period - 15 March 2089    
+  68855         : Last day of simulation period - 7 July 2089      
+  68741         : First day of cropping period - 15 March 2089    
+  68855         : Last day of cropping period - 7 July 2089      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  69106         : First day of simulation period - 15 March 2090    
+  69221         : Last day of simulation period - 8 July 2090      
+  69106         : First day of cropping period - 15 March 2090    
+  69221         : Last day of cropping period - 8 July 2090      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  69471         : First day of simulation period - 15 March 2091    
+  69584         : Last day of simulation period - 6 July 2091      
+  69471         : First day of cropping period - 15 March 2091    
+  69584         : Last day of cropping period - 6 July 2091      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  69837         : First day of simulation period - 15 March 2092    
+  69957         : Last day of simulation period - 13 July 2092     
+  69837         : First day of cropping period - 15 March 2092    
+  69957         : Last day of cropping period - 13 July 2092     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  70202         : First day of simulation period - 15 March 2093    
+  70318         : Last day of simulation period - 9 July 2093      
+  70202         : First day of cropping period - 15 March 2093    
+  70318         : Last day of cropping period - 9 July 2093      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  70567         : First day of simulation period - 15 March 2094    
+  70687         : Last day of simulation period - 13 July 2094     
+  70567         : First day of cropping period - 15 March 2094    
+  70687         : Last day of cropping period - 13 July 2094     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  70932         : First day of simulation period - 15 March 2095    
+  71051         : Last day of simulation period - 12 July 2095     
+  70932         : First day of cropping period - 15 March 2095    
+  71051         : Last day of cropping period - 12 July 2095     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  71298         : First day of simulation period - 15 March 2096    
+  71415         : Last day of simulation period - 10 July 2096     
+  71298         : First day of cropping period - 15 March 2096    
+  71415         : Last day of cropping period - 10 July 2096     
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  71663         : First day of simulation period - 15 March 2097    
+  71775         : Last day of simulation period - 5 July 2097      
+  71663         : First day of cropping period - 15 March 2097    
+  71775         : Last day of cropping period - 5 July 2097      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  72028         : First day of simulation period - 15 March 2098    
+  72144         : Last day of simulation period - 9 July 2098      
+  72028         : First day of cropping period - 15 March 2098    
+  72144         : Last day of cropping period - 9 July 2098      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
+  72393         : First day of simulation period - 15 March 2099    
+  72505         : Last day of simulation period - 5 July 2099      
+  72393         : First day of cropping period - 15 March 2099    
+  72505         : Last day of cropping period - 5 July 2099      
+-- 1. Climate (CLI) file
+   midhills(RCP85).CLI
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.1 Temperature (TMP) file
+   mid-hills(RCP85).Tnx
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.2 Reference ET (ETo) file
+   mid-hills(RCP85).ETo
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.3 Rain (PLU) file
+   mid-hills(RCP85).PLU
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+   1.4 Atmospheric CO2 (CO2) file
+   RCP8-5.CO2
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 2. Crop (CRO) file
+   MaizeNEPAL.CRO
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 3. Irrigation (IRR) file
+   MaizeInetNEPAL.IRR
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 4. Management (MAN) file
+   OptimalNpNEPAL.MAN
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 5. Soil profile (SOL) file
+   SandyLoam.SOL
+   C:\Users\jorge\Desktop\SOFTWARES\AquaCrop\DATA\
+-- 6. Groundwater (GWT) file
+   (None)
+   (None)
+-- 7. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 8. Off-season conditions (OFF) file
+   (None)
+   (None)
