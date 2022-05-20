@@ -4,13 +4,14 @@ library(tidyverse)
 library(plotly)
 library(DT)
 library(lubridate)
+library(shinyjs)
 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
 input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WPet")
-input_group_variable <- c("climate.model","location","rcp","irrigation","crop","soil")
+input_group_variable <- c("climate","location","rcp","irrigation","crop","soil")
 input_plot_variable_standard <- c("Biomass", "Date")
-input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple")
+input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error")
 
 #define UI dashboard
@@ -20,11 +21,11 @@ ui <- dashboardPage(
     dashboardSidebar(collapsed = FALSE,
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
-            menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = TRUE,
+            menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = FALSE,
                      menuSubItem("upload_data", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
                      menuSubItem("combined_data", tabName = "tab_combined_data_standard", icon = icon("caret-right")),
                      menuSubItem("plot", tabName = "tab_plot_standard", icon = icon("caret-right"))),
-            menuItem("Plug-in", tabName = "aquacrop_plugin", icon = icon("puzzle-piece"), startExpanded = TRUE,
+            menuItem("Plug-in", tabName = "aquacrop_plugin", icon = icon("puzzle-piece"), startExpanded = FALSE,
                      menuSubItem("upload_data", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
                      menuSubItem("combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
                      menuSubItem("plot", tabName = "tab_plot_plugin", icon = icon("caret-right"))
@@ -34,46 +35,64 @@ ui <- dashboardPage(
     ),
     
     dashboardBody(
+        #use shinyjs library
+        useShinyjs(),
         #customise fonts and colors in the header and sidebar 
         tags$head(tags$style(HTML(".main-header .logo {font-weight: bold; font-size: 24px;}
-                                    .main-sidebar {font-weight: bold; font-size: 20px;}
-                                    .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
+                                    .main-sidebar {font-weight: bold; font-size: 22px;}
+                                    .treeview-menu>li>a {font-weight: bold; font-size: 22px!important;}
                                     
                                     .skin-blue .main-header .logo {background-color: #416D96;}
-                                    .skin-blue .main-header .navbar {background-color: #416D96;}
+                                    .skin-blue .main-header .navbar {background-color: #f2f2f2;}
                                     .skin-blue .main-sidebar {background-color: #9AB7D2; color: #9AB7D2;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #9AB7D2; color: #414042;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9; color: #000000;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9!important; color: #000000!important;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #5792c9; color: #ffffff;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #9AB7D2!important; color: #414042!important;}
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
                                     
                                     #add customise color to palette choices 
-                                    .option[data-value=black], .item[data-value=black]{background: #000000 !important; color: white !important;}
-                                    .option[data-value=grey], .item[data-value=grey]{background: #999999 !important; color: white !important;}
-                                    .option[data-value=skyblue], .item[data-value=skyblue]{background: #56B4E9 !important; color: black !important;}
-                                    .option[data-value=orange], .item[data-value=orange]{background: #E69F00 !important; color: black !important;}
-                                    .option[data-value=green], .item[data-value=green]{background: #009E73 !important; color: white !important;}
-                                    .option[data-value=yellow], .item[data-value=yellow]{background: #F0E442 !important; color: black !important;}
-                                    .option[data-value=blue], .item[data-value=blue]{background: #0072B2 !important; color: white !important;}
-                                    .option[data-value=vermillion], .item[data-value=vermillion]{background: #D55E00 !important; color: white !important;}
-                                    .option[data-value=purple], .item[data-value=purple]{background: #CC79A7 !important; color: black !important;}
+                                    .option[data-value=black], .item[data-value=black] {background: #000000 !important; color: white !important;}
+                                    .option[data-value=grey], .item[data-value=grey] {background: #999999 !important; color: black !important;}
+                                    .option[data-value=skyblue], .item[data-value=skyblue] {background: #56B4E9 !important; color: black !important;}
+                                    .option[data-value=orange], .item[data-value=orange] {background: #E69F00 !important; color: black !important;}
+                                    .option[data-value=green], .item[data-value=green] {background: #009E73 !important; color: black !important;}
+                                    .option[data-value=yellow], .item[data-value=yellow] {background: #F0E442 !important; color: black !important;}
+                                    .option[data-value=blue], .item[data-value=blue] {background: #0072B2 !important; color: black !important;}
+                                    .option[data-value=vermillion], .item[data-value=vermillion] {background: #D55E00 !important; color: black !important;}
+                                    .option[data-value=purple], .item[data-value=purple] {background: #CC79A7 !important; color: black !important;}
+                                    .option[data-value=red], .item[data-value=red] {background: #E41A1C !important; color: black !important;}
+                                    .option[data-value=lightgreen], .item[data-value=lightgreen] {background: #A6D854 !important; color: black !important;}
+
                                   "))),
+        
+        #customise style text size of different elements
+        tags$style(type='text/css', ".selectize-input { font-size: 22px; line-height: 22px; width:80%; } 
+                                      .selectize-dropdown { font-size: 22px; line-height: 22px; width:80%; }
+                                      .control-label { font-size: 22px; line-height: 22px; }
+                                      .btn { font-size: 20px; }
+                                      .form-control { font-size: 20px; line-height: 20px; height:42px; width:80%; }
+                                      .box-title { font-size: 32px; line-height: 22px; font-weight:bold; }
+                                      .nav-tabs { font-size: 22px; line-height: 22px; font-weight:bold; }
+                   "),
+        
         tabItems(
             tabItem(tabName = "tab_home",
-                    h2(
-                        fluidRow(
+                    #h2(
+                        #fluidRow(
                             imageOutput("aquacrop_logo")
-                        ),
-                        fluidRow(
-                            box(title = "Aquacrop standard (single season)", status = "primary", solidHeader = TRUE,
-                                actionButton("select_aquacrop_standard", "Select Aquacrop standard")
-                            ),
-                            box(title = "Aquacrop plug-in (multiple seasons)", status = "primary", solidHeader = TRUE,
-                                actionButton("select_aquacrop_plugin", "Select Aquacrop plugin")
-                            )
-                        )
-                    )
+                        #)
+                        ,
+                        # fluidRow(
+                        #     box(title = "Aquacrop standard (single season)", status = "primary", solidHeader = TRUE,
+                        #         actionButton("select_aquacrop_standard", "Select Aquacrop standard")
+                        #     ),
+                        #     box(title = "Aquacrop plug-in (multiple seasons)", status = "primary", solidHeader = TRUE,
+                        #         actionButton("select_aquacrop_plugin", "Select Aquacrop plugin")
+                        #     )
+                        # )
+                    #)
             ),
             tabItem(tabName = "tab_upload_data_standard",
                     h2(
@@ -82,7 +101,7 @@ ui <- dashboardPage(
                             box(title = "Data files", status = "primary",
                                 #upload data file
                                 fileInput("upload_data_files_standard", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
-                                dataTableOutput("upload_data_standard_combined_display")
+                                div(dataTableOutput("upload_data_standard_combined_display"), style = "font-size: 75%; width: 100%")
                             )
                         )
                     )
@@ -93,12 +112,12 @@ ui <- dashboardPage(
                         #button for downloading data
                         downloadButton("download_data_standard_combined_daily", "Download combined daily dataset"),
                         #display combined daily data table
-                        dataTableOutput("upload_data_standard_combined_daily_display"),
+                        div(dataTableOutput("upload_data_standard_combined_daily_display"), style = "font-size: 75%; width: 100%"),
                         ##seasonal data
                         #button for downloading data
                         downloadButton("download_data_standard_combined_seasonal", "Download combined seasonal dataset"),
                         #display combined seasonal data table
-                        dataTableOutput("upload_data_standard_combined_seasonal_display")
+                        div(dataTableOutput("upload_data_standard_combined_seasonal_display"), style = "font-size: 75%; width: 100%")
                     )
             ),
             tabItem(tabName = "tab_plot_standard",
@@ -125,15 +144,15 @@ ui <- dashboardPage(
                         ),
                         #display boxes for data and prm files upload
                         fluidRow(
-                            box(title = "Data files", status = "primary",
+                            box(title = "Data files", status = "primary", solidHeader = TRUE,
                                 #upload data file
-                                fileInput("upload_data_files", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
-                                dataTableOutput("upload_data_combined_display")
+                                fileInput("upload_data_files", "Upload files (.OUT)", multiple = TRUE, accept = ".OUT"),
+                                div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%")
                             ),
-                            box(title = "Parameter files", status = "primary",
+                            box(title = "Parameter files", status = "primary", solidHeader = TRUE,
                                 #upload parameter file
-                                fileInput("upload_prm_files", "Upload parameter files (.PRM)", multiple = TRUE, accept = ".PRM"),
-                                dataTableOutput("upload_prm_combined_display")
+                                fileInput("upload_prm_files", "Upload files (.PRM)", multiple = TRUE, accept = ".PRM"),
+                                div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%")
                             )
                         )
                     )
@@ -143,47 +162,86 @@ ui <- dashboardPage(
                         #button for downloading all combined data
                         downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
-                        dataTableOutput("data_prm_combined_display")
+                        div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
                     h2(
                         fluidRow(
                             box(title = "Select plotting variables",
-                                width = 4,
-                                selectInput("y_var", "Select variable to plot on y axis", input_plot_y_variable, selected = "Yield"),
-                                selectInput("x_var", "Select variable to plot on x axis", input_plot_x_variable, selected = "Year1"),
-                                textInput("y_var_label", "Customise y axis label"),
-                                textInput("x_var_label", "Customise x axis label")),
+                                width = 3,
+                                height = "350px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
+                                #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1")
+                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next1", "Next"))
+                                ),
+                            shinyjs::hidden(div(id = "hiddenbox1",
                             box(title = "Select grouping variables",
-                                width = 4,
-                                selectInput("col_var", "Select variable to group in color", input_group_variable, selected = "climate.model"),
-                                selectizeInput("facet_var", "Select variable to group in facet", input_group_variable,
+                                width = 3,
+                                height = "350px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                selectInput("col_var", "Variable to color by", input_group_variable, selected = "climate"),
+                                selectizeInput("facet_var", "Variable to split subpanels by", input_group_variable,
                                                multiple = TRUE, options = list(maxItems = 2)),
-                                selectizeInput("col_palette", "Customise color palette", input_color_choice, multiple = TRUE)),
-                            box(title = "Select plot elements",
-                                width = 4,
-                                selectizeInput("plot_element", "Select elements to plot", input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend")),
+                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next2", "Next"))
                                 )
+                            )),
+                            shinyjs::hidden(div(id = "hiddenbox2",
+                            box(title = "Select plot elements",
+                                width = 3,
+                                height = "350px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                selectizeInput("plot_element", "Elements to plot", input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend")),
+                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next3", "Next"))
+                                )
+                            ))
                         ),
                         fluidRow(
-                            downloadButton("ggplot_plugin_download", "Download plot"),
-                            plotOutput("ggplot_plugin_display"),
-                            plotlyOutput("ggplotly_plugin_display") 
+                            tabBox(width = 12,
+                                   height = "900px",
+                                   id = "plugin_plot_tabbox",
+                                   tabPanel("Standard plot",
+                                            plotOutput("ggplot_plugin_display")
+                                            ),
+                                   tabPanel("Interactive plot",
+                                            plotlyOutput("ggplotly_plugin_display")
+                                            )
+                                   ),
+                            box(title = "Customise plot",
+                                width = 3,
+                                height = "400px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                textInput("y_var_label", "Y axis label"),
+                                textInput("x_var_label", "X axis label"),
+                                selectizeInput("col_palette", "Color palette", input_color_choice, multiple = TRUE)),
+                            box(title = "Export plot",
+                                width=3,
+                                status = "primary",
+                                solidHeader = TRUE,
+                                textInput("export_plot_width", "Width (cm)"),
+                                textInput("export_plot_height", "Height (cm)"),
+                                selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
+                                downloadButton("ggplot_plugin_download", "Download"))
                         ),
                         fluidRow(
-                            selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = c("crop","location"),
-                                           multiple = TRUE)
+                            # selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = c("crop","location"),
+                            #                multiple = TRUE)
                         ),
                         fluidRow(
-                            dataTableOutput("data_prm_combined_mean_display"),
-                            plotOutput("ggplot_mean_display")
+                            # dataTableOutput("data_prm_combined_mean_display"),
+                            # plotOutput("ggplot_mean_display")
                         )
                     )
             ),
             tabItem(tabName = "aquacrop_legend",
                     h2(fluidRow(
-                      box(width = 12 ,dataTableOutput("legend_display"),
+                      box(width = 12 ,
+                          div(dataTableOutput("legend_display"), style = "font-size: 75%; width: 100%")
                           )
                     ))
             )
@@ -381,13 +439,13 @@ server <- function(input, output, session) {
                     prm.file = read_file(paste0(datapath))
                     #extract parameter from each param file 
                     #in this case we use str_extract to get parameters of the first time point (should be the same for all time points)
-                    #get climate model
-                    climate.model = str_extract(prm.file, "(?<=\\s).+?(?=\\.CLI\\r\\n)") %>%
+                    #get climate file
+                    climate = str_extract(prm.file, "(?<=\\s).+?(?=\\.CLI\\r\\n)") %>%
                         unlist() %>%
                         str_replace_all("\\s","")
-                    #from climate model, get location, rcp
-                    location = str_extract(climate.model, regex(".+(?=\\(rcp)", ignore_case = TRUE))
-                    rcp = str_extract(climate.model, regex("rcp[0-9]{2}", ignore_case = TRUE))
+                    #from climate file, get location, rcp
+                    location = str_extract(climate, regex(".+(?=\\(rcp)", ignore_case = TRUE))
+                    rcp = str_extract(climate, regex("rcp[0-9]{2}", ignore_case = TRUE))
                     #get crop
                     crop = str_extract(prm.file, "(?<=\\s).+?(?=\\.CRO\\r\\n)") %>%
                         unlist() %>%
@@ -401,7 +459,7 @@ server <- function(input, output, session) {
                         unlist() %>%
                         str_replace_all("\\s","")
                     #put parameters together in a table
-                    param.table = data.frame(climate.model, location, rcp, crop, irrigation, soil)
+                    param.table = data.frame(climate, location, rcp, crop, irrigation, soil)
                 })) %>%
                 unnest(parameter) %>%
                 select(-size, -type, -datapath)
@@ -458,14 +516,21 @@ server <- function(input, output, session) {
     
 
     ###ggplot
+    #reactive for showing next boxes to input plotting instructions
+    observeEvent(input$plot_next1, {
+      shinyjs::show(id = "hiddenbox1")
+    })
+    observeEvent(input$plot_next2, {
+      shinyjs::show(id = "hiddenbox2")
+    })
     
     #set color palette
     custom_palette <- reactive({
       default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
       
       #vector of available color choices to form custom palette
-      color_choice_hex <- c("#000000","#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-      names(color_choice_hex) <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple")
+      color_choice_hex <- c("#000000","#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#E41A1C","#A6D854")
+      names(color_choice_hex) <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
       
       #make palette from custom colors selected from user
       if(length(input$col_palette) > 0){
@@ -479,7 +544,9 @@ server <- function(input, output, session) {
     ggplot_plugin <- reactive({
       p <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
         theme_light()+
+        theme(axis.title = element_text(size = 12), axis.text = element_text(size = 10))+
         scale_color_manual(values=custom_palette())
+        
       
       #select facet variable
       if(length(input$facet_var) == 1){
@@ -522,7 +589,7 @@ server <- function(input, output, session) {
     output$ggplot_plugin_download <- downloadHandler(
       filename = function() {"plot_plugin.pdf"},
       content = function(file) {
-        ggsave(file, plot = ggplot_plugin(), device = "pdf")
+        ggsave(file, plot = ggplot_plugin(), device = paste(input$export_plot_format) , width = input$export_plot_width, height = input$export_plot_height, units = "cm")
       }
     )
     
