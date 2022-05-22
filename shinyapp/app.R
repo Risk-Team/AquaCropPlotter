@@ -5,6 +5,7 @@ library(plotly)
 library(DT)
 library(lubridate)
 library(shinyjs)
+library(shinyBS)
 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
@@ -64,7 +65,9 @@ ui <- dashboardPage(
                                     .option[data-value=purple], .item[data-value=purple] {background: #CC79A7 !important; color: black !important;}
                                     .option[data-value=red], .item[data-value=red] {background: #E41A1C !important; color: black !important;}
                                     .option[data-value=lightgreen], .item[data-value=lightgreen] {background: #A6D854 !important; color: black !important;}
-
+                                    
+                                    .btn-xs { width: 20px!important; height: 20px!important; font-size: 12px!important } #customise info popup icon
+                                    
                                   "))),
         
         #customise style text size of different elements
@@ -175,8 +178,9 @@ ui <- dashboardPage(
                                 solidHeader = TRUE,
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
                                 #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1")
-                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next1", "Next"))
+                                div(style = "position:absolute;right:1em; bottom:1em;date",actionButton("plot_next1", "Next"))
                                 ),
+                              #bsPopover("y_var", "pop up help text", placement = "bottom", trigger = "hover",options = NULL),
                             shinyjs::hidden(div(id = "hiddenbox1",
                             box(title = "Select grouping variables",
                                 width = 3,
@@ -184,8 +188,11 @@ ui <- dashboardPage(
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("col_var", "Variable to color by", input_group_variable, selected = "climate"),
-                                selectizeInput("facet_var", "Variable to split subpanels by", input_group_variable,
+                                selectizeInput("facet_var", 
+                                               label = tags$span("Variable to split subpanels by", bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
+                                               choices = input_group_variable,
                                                multiple = TRUE, options = list(maxItems = 2)),
+                                bsPopover(id = "plot_info1", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
                                 div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next2", "Next"))
                                 )
                             )),
