@@ -73,7 +73,7 @@ ui <- dashboardPage(
                                       .control-label { font-size: 22px; line-height: 22px; }
                                       .btn { font-size: 20px; }
                                       .form-control { font-size: 20px; line-height: 20px; height:42px; width:80%; }
-                                      .box-title { font-size: 32px; line-height: 22px; font-weight:bold; }
+                                      .box-title { font-size: 24px!important; line-height: 32px; font-weight:bold; }
                                       .nav-tabs { font-size: 22px; line-height: 22px; font-weight:bold; }
                    "),
         
@@ -569,6 +569,9 @@ server <- function(input, output, session) {
       }
       if("linear_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="lm", se = T)
+      }
+      if(length(input$plot_element) == 0){
+        p <- p
       }
 
       #add custom text for axis label
