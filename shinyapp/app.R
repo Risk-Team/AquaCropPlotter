@@ -177,7 +177,7 @@ ui <- dashboardPage(
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
-                                #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1")
+                                selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
                                 div(style = "position:absolute;right:1em; bottom:1em;date",actionButton("plot_next1", "Next"))
                                 ),
                               #bsPopover("y_var", "pop up help text", placement = "bottom", trigger = "hover",options = NULL),
@@ -599,7 +599,7 @@ server <- function(input, output, session) {
     output$ggplot_plugin_download <- downloadHandler(
       filename = function() {"plot_plugin.pdf"},
       content = function(file) {
-        ggsave(file, plot = ggplot_plugin(), device = paste(input$export_plot_format) , width = input$export_plot_width, height = input$export_plot_height, units = "cm")
+        ggsave(file, plot = ggplot_plugin(), device = {{input$export_plot_format}} , width = as.numeric({{input$export_plot_width}}), height = as.numeric({{input$export_plot_height}}), units = "cm")
       }
     )
     
