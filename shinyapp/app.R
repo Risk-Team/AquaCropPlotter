@@ -10,7 +10,7 @@ library(shinyBS)
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
 input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WPet")
-input_group_variable <- c("climate","location","rcp","irrigation","crop","soil")
+input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date")
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error")
@@ -23,13 +23,16 @@ ui <- dashboardPage(
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
             menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = FALSE,
-                     menuSubItem("upload_data", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
-                     menuSubItem("combined_data", tabName = "tab_combined_data_standard", icon = icon("caret-right")),
-                     menuSubItem("plot", tabName = "tab_plot_standard", icon = icon("caret-right"))),
+                     menuSubItem("Upload_data", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
+                     menuSubItem("Combined_data", tabName = "tab_combined_data_standard", icon = icon("caret-right")),
+                     menuSubItem("Plot", tabName = "tab_plot_standard", icon = icon("caret-right")),
+                     menuSubItem("Analysis", tabName = "tab_analysis_standard", icon = icon("caret-right"))
+                     ),
             menuItem("Plug-in", tabName = "aquacrop_plugin", icon = icon("puzzle-piece"), startExpanded = FALSE,
-                     menuSubItem("upload_data", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
-                     menuSubItem("combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
-                     menuSubItem("plot", tabName = "tab_plot_plugin", icon = icon("caret-right"))
+                     menuSubItem("Upload_data", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
+                     menuSubItem("Combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
+                     menuSubItem("Plot", tabName = "tab_plot_plugin", icon = icon("caret-right")),
+                     menuSubItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("caret-right"))
                      ),
             menuItem("Legend", tabName = "aquacrop_legend", icon = icon("book"))
         )
@@ -177,10 +180,9 @@ ui <- dashboardPage(
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
-                                selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
+                                #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
                                 div(style = "position:absolute;right:1em; bottom:1em;date",actionButton("plot_next1", "Next"))
                                 ),
-                              #bsPopover("y_var", "pop up help text", placement = "bottom", trigger = "hover",options = NULL),
                             shinyjs::hidden(div(id = "hiddenbox1",
                             box(title = "Select grouping variables",
                                 width = 3,
@@ -207,7 +209,8 @@ ui <- dashboardPage(
                                 )
                             ))
                         ),
-                        fluidRow(
+                        shinyjs::hidden(div(id = "hiddenbox3",
+                          fluidRow(
                             tabBox(width = 12,
                                    height = "900px",
                                    id = "plugin_plot_tabbox",
@@ -234,7 +237,8 @@ ui <- dashboardPage(
                                 textInput("export_plot_height", "Height (cm)"),
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
-                        ),
+                        )
+                        )),
                         fluidRow(
                             # selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = c("crop","location"),
                             #                multiple = TRUE)
@@ -420,7 +424,9 @@ server <- function(input, output, session) {
                         select(-1) #remove blank column in the first position
                 })) %>%
                 unnest(dataset) %>%
-                select(-size, -type, -datapath)
+                select(-size, -type, -datapath) %>%
+                mutate(sowing_dmy = dmy(paste(Day1, Month1, Year1))) %>%
+                mutate(sowing_date = paste(day(sowing_dmy), month(sowing_dmy, label = T), sep = "_"))
         })
     #output datatable of the combined data
     output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
@@ -469,7 +475,8 @@ server <- function(input, output, session) {
                     param.table = data.frame(climate, location, rcp, crop, irrigation, soil)
                 })) %>%
                 unnest(parameter) %>%
-                select(-size, -type, -datapath)
+                select(-size, -type, -datapath) %>%
+              mutate(irrigation = ifelse(is.na(irrigation), "rainfed", irrigation))
         })
     #output datatable of the combined parameters
     output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
@@ -530,6 +537,9 @@ server <- function(input, output, session) {
     observeEvent(input$plot_next2, {
       shinyjs::show(id = "hiddenbox2")
     })
+    observeEvent(input$plot_next3, {
+      shinyjs::show(id = "hiddenbox3")
+    })
     
     #set color palette
     custom_palette <- reactive({
@@ -549,9 +559,9 @@ server <- function(input, output, session) {
     })
     
     ggplot_plugin <- reactive({
-      p <- ggplot(data = data_prm_combined(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
+      p <- ggplot(data = data_prm_combined(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
         theme_light()+
-        theme(axis.title = element_text(size = 12), axis.text = element_text(size = 10))+
+        theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))+
         scale_color_manual(values=custom_palette())
         
       
@@ -590,6 +600,10 @@ server <- function(input, output, session) {
       }
       print(p)
     })
+    
+    #set legend position
+    #font size for axis label, axis title, legend
+    #gridline
     
     #render ggplot display in app
     output$ggplot_plugin_display <- renderPlot({
