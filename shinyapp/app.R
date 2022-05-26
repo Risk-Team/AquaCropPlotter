@@ -10,7 +10,7 @@ library(shinyBS)
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
 input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WPet")
-input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date")
+input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date","None")
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error")
@@ -210,11 +210,11 @@ ui <- dashboardPage(
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("col_var", 
-                                            label = tags$span("Variable to color by",  bsButton("plot_info3", label = "", icon = icon("info"), size = "extra-small")), 
-                                            input_group_variable, selected = "climate"),
+                                            label = tags$span("Variable to split into colors by",  bsButton("plot_info3", label = "", icon = icon("info"), size = "extra-small")), 
+                                            input_group_variable, selected = "None"),
                                 bsPopover(id = "plot_info3", title = "", placement = "right", trigger = "hover"),
                                 selectizeInput("facet_var", 
-                                               label = tags$span("Variable to split subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
+                                               label = tags$span("Variable to split into subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
                                                choices = input_group_variable,
                                                multiple = TRUE, options = list(maxItems = 2)),
                                 bsPopover(id = "plot_info4", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
@@ -567,7 +567,7 @@ server <- function(input, output, session) {
       data_prm_combined_plot <- reactive({
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
           data_prm_combined() %>%
-            group_by(across(all_of(c(input$group_var, "Year1", input$col_var)))) %>%
+            group_by(across(all_of(c(input$group_var, "Year1", input$col_var[input$col_var != "None"])))) %>%
             summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
                              mean))
         }else{
@@ -598,11 +598,19 @@ server <- function(input, output, session) {
     })
     
     ggplot_plugin <- reactive({
-      p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
-        theme_light()+
-        theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))+
-        scale_color_manual(values=custom_palette())
+
         
+      #select coloring variable
+      if(input$col_var == "None"){
+        p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]]))+
+          theme_light()+
+          theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))
+      }else{
+        p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
+          theme_light()+
+          theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))+
+          scale_color_manual(values=custom_palette()) 
+      }
       
       #select facet variable
       if(length(input$facet_var) == 1){
