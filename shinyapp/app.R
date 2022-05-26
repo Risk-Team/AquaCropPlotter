@@ -10,7 +10,7 @@ library(shinyBS)
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
 input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WPet")
-input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date","None")
+input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date")
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error")
@@ -209,9 +209,10 @@ ui <- dashboardPage(
                                 height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectInput("col_var", 
+                                selectizeInput("col_var", 
                                             label = tags$span("Variable to split into colors by",  bsButton("plot_info3", label = "", icon = icon("info"), size = "extra-small")), 
-                                            input_group_variable, selected = "None"),
+                                            input_group_variable,
+                                            multiple = TRUE, options = list(maxItems = 1)),
                                 bsPopover(id = "plot_info3", title = "", placement = "right", trigger = "hover"),
                                 selectizeInput("facet_var", 
                                                label = tags$span("Variable to split into subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
@@ -567,7 +568,7 @@ server <- function(input, output, session) {
       data_prm_combined_plot <- reactive({
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
           data_prm_combined() %>%
-            group_by(across(all_of(c(input$group_var, "Year1", input$col_var[input$col_var != "None"])))) %>%
+            group_by(across(all_of(c(input$group_var, "Year1", input$col_var)))) %>%
             summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
                              mean))
         }else{
@@ -601,15 +602,15 @@ server <- function(input, output, session) {
 
         
       #select coloring variable
-      if(input$col_var == "None"){
-        p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]]))+
-          theme_light()+
-          theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))
-      }else{
+      if(length(input$col_var) > 0){
         p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
           theme_light()+
           theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))+
           scale_color_manual(values=custom_palette()) 
+      }else{
+        p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]]))+
+          theme_light()+
+          theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))
       }
       
       #select facet variable
