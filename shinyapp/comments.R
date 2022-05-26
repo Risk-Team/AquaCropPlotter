@@ -44,3 +44,14 @@ variable determinant effects
 - standard upload
 give options to add multiple rounds of simulations eg season,crop,
 add append more dataset and associate custom parameter
+
+actionButton('switchtab', 'Switch tab')
+
+observeEvent(input$switchtab, {
+  newtab <- switch(input$tabs,
+                   "dashboard" = "widgets",
+                   "widgets" = "dashboard"
+  )
+  updateTabItems(session, "tabs", newtab)
+})
+}

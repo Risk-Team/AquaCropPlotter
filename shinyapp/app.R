@@ -168,7 +168,8 @@ ui <- dashboardPage(
                         #button for downloading all combined data
                         downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
-                        div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
+                        div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
+                        div(dataTableOutput("data_prm_plot_display"), style = "font-size: 75%; width: 100%")
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -181,35 +182,60 @@ ui <- dashboardPage(
                                 solidHeader = TRUE,
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
                                 #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
-                                div(style = "position:absolute;right:1em; bottom:1em;date",actionButton("plot_next1", "Next"))
+                                div(style = "position:absolute;right:1em; bottom:1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
                                 ),
                             shinyjs::hidden(div(id = "hiddenbox1",
-                            box(title = "Select grouping variables",
+                              box(title = "Calculate mean",
+                                  width = 3,
+                                  height = "350px",
+                                  status = "primary",
+                                  solidHeader = TRUE,
+                                  selectInput("use_mean", 
+                                              label = tags$span("Plot mean values",   bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
+                                              c("Yes", "No"), selected = "No"),
+                                  bsPopover(id = "plot_info1", title = "", placement = "right", trigger = "hover"),
+                                  conditionalPanel(condition = "input.use_mean == 'Yes'",
+                                                  selectizeInput("group_var", 
+                                                   label = tags$span("Select variable to group for calculating mean",  bsButton("plot_info2", label = "", icon = icon("info"), size = "extra-small")), 
+                                                   input_group_variable,
+                                                    multiple = TRUE),
+                                    bsPopover(id = "plot_info2", title = "", placement = "right", trigger = "hover")),
+                                  div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next2", "Next", icon = icon("chevron-right")))
+                              )
+                            )),
+                            shinyjs::hidden(div(id = "hiddenbox2",
+                              box(title = "Select grouping variables",
                                 width = 3,
                                 height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectInput("col_var", "Variable to color by", input_group_variable, selected = "climate"),
+                                selectInput("col_var", 
+                                            label = tags$span("Variable to color by",  bsButton("plot_info3", label = "", icon = icon("info"), size = "extra-small")), 
+                                            input_group_variable, selected = "climate"),
+                                bsPopover(id = "plot_info3", title = "", placement = "right", trigger = "hover"),
                                 selectizeInput("facet_var", 
-                                               label = tags$span("Variable to split subpanels by", bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
+                                               label = tags$span("Variable to split subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
                                                choices = input_group_variable,
                                                multiple = TRUE, options = list(maxItems = 2)),
-                                bsPopover(id = "plot_info1", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
-                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next2", "Next"))
+                                bsPopover(id = "plot_info4", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
+                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next3", "Next", icon = icon("chevron-right")))
                                 )
                             )),
-                            shinyjs::hidden(div(id = "hiddenbox2",
+                             shinyjs::hidden(div(id = "hiddenbox3",
                             box(title = "Select plot elements",
                                 width = 3,
                                 height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectizeInput("plot_element", "Elements to plot", input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend")),
-                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next3", "Next"))
+                                selectizeInput("plot_element", 
+                                               label = tags$span("Elements to plot", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
+                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend")),
+                                bsPopover(id = "plot_info5", title = "", placement = "right", trigger = "hover"),
+                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right")))
                                 )
                             ))
                         ),
-                        shinyjs::hidden(div(id = "hiddenbox3",
+                        shinyjs::hidden(div(id = "hiddenbox4",
                           fluidRow(
                             tabBox(width = 12,
                                    height = "900px",
@@ -238,15 +264,7 @@ ui <- dashboardPage(
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
-                        )),
-                        fluidRow(
-                            # selectizeInput("group_var", "Select variable to group for calculating mean", input_group_variable, selected = c("crop","location"),
-                            #                multiple = TRUE)
-                        ),
-                        fluidRow(
-                            # dataTableOutput("data_prm_combined_mean_display"),
-                            # plotOutput("ggplot_mean_display")
-                        )
+                        ))
                     )
             ),
             tabItem(tabName = "aquacrop_legend",
@@ -540,6 +558,27 @@ server <- function(input, output, session) {
     observeEvent(input$plot_next3, {
       shinyjs::show(id = "hiddenbox3")
     })
+    observeEvent(input$plot_next4, {
+      shinyjs::show(id = "hiddenbox4")
+    })
+    
+    #data for plotting
+      ## f plotting mean is selected, calculate mean based on grouping variable selected
+      data_prm_combined_plot <- reactive({
+        if(input$use_mean == "Yes" & length(input$group_var) > 0){
+          data_prm_combined() %>%
+            group_by(across(all_of(c(input$group_var, "Year1", input$col_var)))) %>%
+            summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
+                             mean))
+        }else{
+          data_prm_combined() 
+        }
+      })
+      
+      #output datatable of the combined data and parameters
+      output$data_prm_plot_display <- renderDataTable(datatable(data_prm_combined_plot(), 
+                                                                    options = list(scrollX = TRUE)))
+
     
     #set color palette
     custom_palette <- reactive({
@@ -559,7 +598,7 @@ server <- function(input, output, session) {
     })
     
     ggplot_plugin <- reactive({
-      p <- ggplot(data = data_prm_combined(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
+      p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
         theme_light()+
         theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))+
         scale_color_manual(values=custom_palette())
@@ -621,27 +660,7 @@ server <- function(input, output, session) {
     output$ggplotly_plugin_display <- renderPlotly({
         ggplotly(ggplot_plugin())
     })
-    
-    ### calculate mean based on grouping variable
-    data_prm_combined_mean <- reactive({
-        data_prm_combined() %>%
-            group_by(across(all_of(c(input$group_var, input$x_var, input$col_var)))) %>%
-            summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
-                             mean))
-    })
-    #output display data mean aggregated
-    output$data_prm_combined_mean_display <- renderDataTable(datatable(data_prm_combined_mean(), 
-                                                                  options = list(scrollX = TRUE)))
-    #ggplot
-    output$ggplot_mean_display <- renderPlot({
-        ggplot(data = data_prm_combined_mean(), aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
-            geom_point()+
-            #geom_line()+
-            geom_smooth(method = "lm", se = F)+
-            facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))+
-            theme_light()+
-            scale_color_manual(values=cbPalette)
-    })
+
 }
 
 # Run the application 
