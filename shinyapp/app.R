@@ -13,7 +13,8 @@ input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WP
 input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date")
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
-input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error")
+input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error","grid_line")
+input_legend_pos = c("none","left","right","top","bottom")
 
 #define UI dashboard
 ui <- dashboardPage(
@@ -169,7 +170,10 @@ ui <- dashboardPage(
                         downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
                         div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                        div(dataTableOutput("data_prm_plot_display"), style = "font-size: 75%; width: 100%")
+                        #if mean calculated data was used for plotting
+                        conditionalPanel(condition = "input.use_mean == 'Yes'", downloadButton("download_combined_plot_dataset", "Download combined dataset with mean")),
+                        div(conditionalPanel(condition = "input.use_mean == 'Yes'",dataTableOutput("data_prm_combined_plot_display"), style = "font-size: 75%; width: 100%"))
+                                         
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -239,7 +243,7 @@ ui <- dashboardPage(
                         shinyjs::hidden(div(id = "hiddenbox4",
                           fluidRow(
                             tabBox(width = 12,
-                                   height = "900px",
+                                   #height = "900px",
                                    id = "plugin_plot_tabbox",
                                    tabPanel("Standard plot",
                                             plotOutput("ggplot_plugin_display")
@@ -250,18 +254,30 @@ ui <- dashboardPage(
                                    ),
                             box(title = "Customise plot",
                                 width = 3,
-                                height = "400px",
+                                height = "450px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("y_var_label", "Y axis label"),
                                 textInput("x_var_label", "X axis label"),
-                                selectizeInput("col_palette", "Color palette", input_color_choice, multiple = TRUE)),
-                            box(title = "Export plot",
-                                width=3,
+                                selectizeInput("col_palette", "Color palette", input_color_choice, multiple = TRUE),
+                                selectInput("legend_position", "Legend position", input_legend_pos, selected = "right")
+                                ),
+                            box(title = "Customise font size",
+                                width = 3,
+                                height = "450px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                textInput("export_plot_width", "Width (cm)"),
-                                textInput("export_plot_height", "Height (cm)"),
+                                textInput("font_size_axis_text", "axis text", value = "16"),
+                                textInput("font_size_axis_title", "axis title", value = "16"),
+                                textInput("font_size_legend", "legend", value = "16"),
+                            ),
+                            box(title = "Export plot",
+                                width = 3,
+                                height = "450px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                textInput("export_plot_width", "Width (cm)", value = "15"),
+                                textInput("export_plot_height", "Height (cm)", value = "10"),
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
@@ -576,9 +592,16 @@ server <- function(input, output, session) {
         }
       })
       
-      #output datatable of the combined data and parameters
-      output$data_prm_plot_display <- renderDataTable(datatable(data_prm_combined_plot(), 
+      #output datatable of the combined data and parameters with mean calculated
+      output$data_prm_combined_plot_display <- renderDataTable(datatable(data_prm_combined_plot(), 
                                                                     options = list(scrollX = TRUE)))
+      #for download
+      output$download_combined_plot_dataset <- downloadHandler(
+        filename = "Aquacrop_combined_mean_data.tsv",
+        content = function(file) {
+          write_tsv(data_prm_combined_plot(), file)
+        }
+      )
 
     
     #set color palette
@@ -599,18 +622,25 @@ server <- function(input, output, session) {
     })
     
     ggplot_plugin <- reactive({
-
         
-      #select coloring variable
+      #initial plot according to selected coloring and group variable
       if(length(input$col_var) > 0){
         p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
           theme_light()+
-          theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))+
-          scale_color_manual(values=custom_palette()) 
+          theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
+                axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
+                legend.title = element_text(size = as.numeric(input$font_size_legend)),
+                legend.text = element_text(size = as.numeric(input$font_size_legend)))+
+          scale_color_manual(values=custom_palette()) +
+          theme(legend.position = paste(input$legend_position))
       }else{
         p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]]))+
           theme_light()+
-          theme(axis.title = element_text(size = 14), axis.text = element_text(size = 14))
+          theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
+                axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
+                legend.title = element_text(size = as.numeric(input$font_size_legend)),
+                legend.text = element_text(size = as.numeric(input$font_size_legend)))+
+          theme(legend.position = paste(input$legend_position))
       }
       
       #select facet variable
@@ -635,6 +665,9 @@ server <- function(input, output, session) {
       if("linear_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="lm", se = T)
       }
+      if(!("grid_line" %in% input$plot_element)){
+        p <- p + theme(panel.grid = element_blank())
+      }
       if(length(input$plot_element) == 0){
         p <- p
       }
@@ -649,9 +682,8 @@ server <- function(input, output, session) {
       print(p)
     })
     
-    #set legend position
     #font size for axis label, axis title, legend
-    #gridline
+
     
     #render ggplot display in app
     output$ggplot_plugin_display <- renderPlot({
