@@ -172,8 +172,10 @@ ui <- dashboardPage(
                         div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
                         #if mean calculated data was used for plotting
                         conditionalPanel(condition = "input.use_mean == 'Yes'", downloadButton("download_combined_plot_dataset", "Download combined dataset with mean")),
-                        div(conditionalPanel(condition = "input.use_mean == 'Yes'",dataTableOutput("data_prm_combined_plot_display"), style = "font-size: 75%; width: 100%"))
-                                         
+                        div(conditionalPanel(condition = "input.use_mean == 'Yes'",dataTableOutput("data_prm_combined_plot_display"), style = "font-size: 75%; width: 100%")),
+                        #show renamed data
+                        div(dataTableOutput("data_prm_combined_rename_display"), style = "font-size: 75%; width: 100%"),
+
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -243,7 +245,7 @@ ui <- dashboardPage(
                         shinyjs::hidden(div(id = "hiddenbox4",
                           fluidRow(
                             tabBox(width = 12,
-                                   #height = "900px",
+                                   height = "1400px",
                                    id = "plugin_plot_tabbox",
                                    tabPanel("Standard plot",
                                             plotOutput("ggplot_plugin_display")
@@ -271,13 +273,22 @@ ui <- dashboardPage(
                                 textInput("font_size_axis_title", "axis title", value = "16"),
                                 textInput("font_size_legend", "legend", value = "16"),
                             ),
+                            box(title = "Rename variables",
+                                width = 3,
+                                height = "450px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                selectizeInput("rename_variable", "Select variable to rename", input_group_variable, multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                textInput("rename_to", "Rename to"),
+                            ),
                             box(title = "Export plot",
                                 width = 3,
                                 height = "450px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                textInput("export_plot_width", "Width (cm)", value = "15"),
-                                textInput("export_plot_height", "Height (cm)", value = "10"),
+                                textInput("export_plot_width", "Width (cm)", value = "42"),
+                                textInput("export_plot_height", "Height (cm)", value = "26"),
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
@@ -563,7 +574,22 @@ server <- function(input, output, session) {
         }
     )
     
-
+    ###option for renaming variable
+    renaming_variable <- reactive({
+      input$rename_variable
+    })
+    observeEvent(renaming_variable(), {
+      choices <- unique(data_prm_combined()[[input$rename_variable]])
+      updateSelectInput(inputId = "rename_from", choices = choices) 
+    })
+    data_prm_combined_rename <- reactive({
+      data_prm_combined() %>%
+        mutate({{input$rename_variable}} := ifelse(.data[[input$rename_variable]] == input$rename_from, input$rename_to, .data[[input$rename_variable]]))
+    })
+    
+    output$data_prm_combined_rename_display <- renderDataTable(datatable(data_prm_combined_rename(), 
+                                                                       options = list(scrollX = TRUE)))
+    
     ###ggplot
     #reactive for showing next boxes to input plotting instructions
     observeEvent(input$plot_next1, {
@@ -590,6 +616,7 @@ server <- function(input, output, session) {
         }else{
           data_prm_combined() 
         }
+
       })
       
       #output datatable of the combined data and parameters with mean calculated
@@ -622,7 +649,6 @@ server <- function(input, output, session) {
     })
     
     ggplot_plugin <- reactive({
-        
       #initial plot according to selected coloring and group variable
       if(length(input$col_var) > 0){
         p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
@@ -682,16 +708,15 @@ server <- function(input, output, session) {
       print(p)
     })
     
-    #font size for axis label, axis title, legend
-
-    
     #render ggplot display in app
     output$ggplot_plugin_display <- renderPlot({
       ggplot_plugin()
-    })
+    },width=exprToFunction(as.numeric(input$export_plot_width)*36), height=exprToFunction(as.numeric(input$export_plot_height)*36))
+    
+    
     #for downloading ggplot
     output$ggplot_plugin_download <- downloadHandler(
-      filename = function() {"plot_plugin.pdf"},
+      filename = function() {"plot_plugin"},
       content = function(file) {
         ggsave(file, plot = ggplot_plugin(), device = {{input$export_plot_format}} , width = as.numeric({{input$export_plot_width}}), height = as.numeric({{input$export_plot_height}}), units = "cm")
       }
@@ -702,6 +727,7 @@ server <- function(input, output, session) {
         ggplotly(ggplot_plugin())
     })
 
+    
 }
 
 # Run the application 

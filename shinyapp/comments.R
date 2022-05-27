@@ -55,3 +55,25 @@ observeEvent(input$switchtab, {
   updateTabItems(session, "tabs", newtab)
 })
 }
+
+
+
+-show interive plot first
+-increase font size of facet_grid
+-(rotate year axis text)
+-ggplot size customise display
+
+- legend dot size increase
+-theme bw
+-change default theme()
+-defaut with grid
+-facet grid background remove, only outline and text black
+
+-try plot and save different data()
+-add info
+-standard upload
+-home page diagram
+-analysis example
+
+
+-home page and display theme design
