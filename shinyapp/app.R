@@ -174,8 +174,8 @@ ui <- dashboardPage(
                         conditionalPanel(condition = "input.use_mean == 'Yes'", downloadButton("download_combined_plot_dataset", "Download combined dataset with mean")),
                         div(conditionalPanel(condition = "input.use_mean == 'Yes'",dataTableOutput("data_prm_combined_plot_display"), style = "font-size: 75%; width: 100%")),
                         #show renamed data
-                        div(dataTableOutput("data_prm_combined_rename_display"), style = "font-size: 75%; width: 100%"),
-
+                        conditionalPanel(condition = "input.rename_to != ''", downloadButton("download_combined_plot_dataset_rename", "Download combined dataset with renamed variable")),
+                        div(conditionalPanel(condition = "input.rename_to != ''",dataTableOutput("data_prm_combined_rename_display"), style = "font-size: 75%; width: 100%"))
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -575,6 +575,8 @@ server <- function(input, output, session) {
     )
     
     ###option for renaming variable
+    #create observe event module to monitor if user input select variable to rename
+    #if variable selected, update the select input list for value choices of the selected variable
     renaming_variable <- reactive({
       input$rename_variable
     })
@@ -582,11 +584,13 @@ server <- function(input, output, session) {
       choices <- unique(data_prm_combined()[[input$rename_variable]])
       updateSelectInput(inputId = "rename_from", choices = choices) 
     })
+    #change value of selected variable to the value from user
     data_prm_combined_rename <- reactive({
-      data_prm_combined() %>%
-        mutate({{input$rename_variable}} := ifelse(.data[[input$rename_variable]] == input$rename_from, input$rename_to, .data[[input$rename_variable]]))
+    rename_df <- data_prm_combined()
+    rename_df[input$rename_variable][rename_df[input$rename_variable] == input$rename_from] <- input$rename_to
+    rename_df
     })
-    
+    #render output table
     output$data_prm_combined_rename_display <- renderDataTable(datatable(data_prm_combined_rename(), 
                                                                        options = list(scrollX = TRUE)))
     
