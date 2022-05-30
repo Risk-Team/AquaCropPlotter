@@ -170,12 +170,8 @@ ui <- dashboardPage(
                         downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
                         div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                        #if mean calculated data was used for plotting
-                        conditionalPanel(condition = "input.use_mean == 'Yes'", downloadButton("download_combined_plot_dataset", "Download combined dataset with mean")),
-                        div(conditionalPanel(condition = "input.use_mean == 'Yes'",dataTableOutput("data_prm_combined_plot_display"), style = "font-size: 75%; width: 100%")),
-                        #show renamed data
-                        conditionalPanel(condition = "input.rename_to != ''", downloadButton("download_combined_plot_dataset_rename", "Download combined dataset with renamed variable")),
-                        div(conditionalPanel(condition = "input.rename_to != ''",dataTableOutput("data_prm_combined_rename_display"), style = "font-size: 75%; width: 100%"))
+                        div(dataTableOutput("data_prm_combined_plot_rename_display"), style = "font-size: 75%; width: 100%"),
+                        
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -272,6 +268,7 @@ ui <- dashboardPage(
                                 textInput("font_size_axis_text", "axis text", value = "16"),
                                 textInput("font_size_axis_title", "axis title", value = "16"),
                                 textInput("font_size_legend", "legend", value = "16"),
+                                textInput("font_size_facet", "subpanel label", value = "16")
                             ),
                             box(title = "Rename variables",
                                 width = 3,
@@ -574,26 +571,6 @@ server <- function(input, output, session) {
         }
     )
     
-    ###option for renaming variable
-    #create observe event module to monitor if user input select variable to rename
-    #if variable selected, update the select input list for value choices of the selected variable
-    renaming_variable <- reactive({
-      input$rename_variable
-    })
-    observeEvent(renaming_variable(), {
-      choices <- unique(data_prm_combined()[[input$rename_variable]])
-      updateSelectInput(inputId = "rename_from", choices = choices) 
-    })
-    #change value of selected variable to the value from user
-    data_prm_combined_rename <- reactive({
-    rename_df <- data_prm_combined()
-    rename_df[input$rename_variable][rename_df[input$rename_variable] == input$rename_from] <- input$rename_to
-    rename_df
-    })
-    #render output table
-    output$data_prm_combined_rename_display <- renderDataTable(datatable(data_prm_combined_rename(), 
-                                                                       options = list(scrollX = TRUE)))
-    
     ###ggplot
     #reactive for showing next boxes to input plotting instructions
     observeEvent(input$plot_next1, {
@@ -610,7 +587,7 @@ server <- function(input, output, session) {
     })
     
     #data for plotting
-      ## f plotting mean is selected, calculate mean based on grouping variable selected
+      ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
           data_prm_combined() %>%
@@ -620,21 +597,30 @@ server <- function(input, output, session) {
         }else{
           data_prm_combined() 
         }
-
       })
       
-      #output datatable of the combined data and parameters with mean calculated
-      output$data_prm_combined_plot_display <- renderDataTable(datatable(data_prm_combined_plot(), 
-                                                                    options = list(scrollX = TRUE)))
-      #for download
-      output$download_combined_plot_dataset <- downloadHandler(
-        filename = "Aquacrop_combined_mean_data.tsv",
-        content = function(file) {
-          write_tsv(data_prm_combined_plot(), file)
+      ###option for renaming variable
+      #create observe event module to monitor if user input select variable to rename
+      #if variable selected, update the select input list for value choices of the selected variable
+      observeEvent(input$rename_variable, {
+        choices <- unique(data_prm_combined()[[input$rename_variable]])
+        updateSelectInput(inputId = "rename_from", choices = choices) 
+      })
+      #change value of selected variable to the value from user
+       data_prm_combined_plot_rename <- reactiveValues()
+       observe({data_prm_combined_plot_rename$data <- data_prm_combined_plot()})
+      observeEvent(input$rename_to, {
+        if(input$rename_to != ""){
+          rename_df <- data_prm_combined_plot_rename$data
+          rename_df[input$rename_variable][rename_df[input$rename_variable] == input$rename_from] <- input$rename_to
+          data_prm_combined_plot_rename$data <- rename_df
         }
-      )
-
-    
+      })
+      #output datatable of the combined data and parameters
+      output$data_prm_combined_plot_rename_display <- renderDataTable(datatable(data_prm_combined_plot_rename$data, 
+                                                                    options = list(scrollX = TRUE)))
+      
+      
     #set color palette
     custom_palette <- reactive({
       default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
@@ -655,23 +641,21 @@ server <- function(input, output, session) {
     ggplot_plugin <- reactive({
       #initial plot according to selected coloring and group variable
       if(length(input$col_var) > 0){
-        p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))+
-          theme_light()+
-          theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
-                axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
-                legend.title = element_text(size = as.numeric(input$font_size_legend)),
-                legend.text = element_text(size = as.numeric(input$font_size_legend)))+
-          scale_color_manual(values=custom_palette()) +
-          theme(legend.position = paste(input$legend_position))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))
       }else{
-        p <- ggplot(data = data_prm_combined_plot(), aes(x = Year1, y = .data[[input$y_var]]))+
-          theme_light()+
-          theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
-                axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
-                legend.title = element_text(size = as.numeric(input$font_size_legend)),
-                legend.text = element_text(size = as.numeric(input$font_size_legend)))+
-          theme(legend.position = paste(input$legend_position))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]]))
       }
+      #add plot
+      p <- p +
+        theme_light()+
+        theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
+              axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
+              legend.title = element_text(size = as.numeric(input$font_size_legend)),
+              legend.text = element_text(size = as.numeric(input$font_size_legend)),
+              strip.text = element_text(size = as.numeric(input$font_size_facet))
+              )+
+        scale_color_manual(values=custom_palette()) +
+        theme(legend.position = paste(input$legend_position))
       
       #select facet variable
       if(length(input$facet_var) == 1){

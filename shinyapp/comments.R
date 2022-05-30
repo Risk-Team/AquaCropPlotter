@@ -59,7 +59,7 @@ observeEvent(input$switchtab, {
 
 
 -show interive plot first
--increase font size of facet_grid
+-increase font size of facet_grid strip.text 
 -(rotate year axis text)
 -ggplot size customise display
 
