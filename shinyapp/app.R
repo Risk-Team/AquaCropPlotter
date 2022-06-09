@@ -14,7 +14,7 @@ input_group_variable <- c("climate","location","rcp","irrigation","crop","soil",
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error","grid_line")
-input_legend_pos = c("none","left","right","top","bottom")
+input_legend_pos = c("none","right","bottom","left","top")
 
 #define UI dashboard
 ui <- dashboardPage(
@@ -35,7 +35,7 @@ ui <- dashboardPage(
                      menuSubItem("Plot", tabName = "tab_plot_plugin", icon = icon("caret-right")),
                      menuSubItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("caret-right"))
                      ),
-            menuItem("Legend", tabName = "aquacrop_legend", icon = icon("book"))
+            menuItem("Glossary", tabName = "aquacrop_glossary", icon = icon("book"))
         )
     ),
     
@@ -75,13 +75,13 @@ ui <- dashboardPage(
                                   "))),
         
         #customise style text size of different elements
-        tags$style(type='text/css', ".selectize-input { font-size: 22px; line-height: 22px; width:80%; } 
-                                      .selectize-dropdown { font-size: 22px; line-height: 22px; width:80%; }
-                                      .control-label { font-size: 22px; line-height: 22px; }
+        tags$style(type='text/css', ".selectize-input { font-size: 20px; line-height: 20px; width:80%; } 
+                                      .selectize-dropdown { font-size: 20px; line-height: 20px; width:80%; }
+                                      .control-label { font-size: 20px; line-height: 20px; }
                                       .btn { font-size: 20px; }
-                                      .form-control { font-size: 20px; line-height: 20px; height:42px; width:80%; }
-                                      .box-title { font-size: 24px!important; line-height: 32px; font-weight:bold; }
-                                      .nav-tabs { font-size: 22px; line-height: 22px; font-weight:bold; }
+                                      .form-control { font-size: 18px; line-height: 18px; height:42px; width:80%; }
+                                      .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
+                                      .nav-tabs { font-size: 20px; line-height: 20px; font-weight:bold; }
                    "),
         
         tabItems(
@@ -108,7 +108,11 @@ ui <- dashboardPage(
                             box(title = "Data files", status = "primary",
                                 #upload data file
                                 fileInput("upload_data_files_standard", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
-                                div(dataTableOutput("upload_data_standard_combined_display"), style = "font-size: 75%; width: 100%")
+                                textInput("upload_text_standard","Simulation set name"),
+                                actionButton("upload_button_standard","Upload"),
+                                div(dataTableOutput("upload_data_standard_combined_display"), style = "font-size: 75%; width: 100%"),
+                                div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
+                                
                             )
                         )
                     )
@@ -142,6 +146,11 @@ ui <- dashboardPage(
                       )
                     )
             ),
+            tabItem(tabName = "tab_analysis_standard",
+                    h2(
+                      
+                    )
+            ),
             tabItem(tabName = "tab_upload_data_plugin",
                     h2(
                         #to display error when insufficient prm files are uploaded
@@ -170,7 +179,7 @@ ui <- dashboardPage(
                         downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
                         div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                        div(dataTableOutput("data_prm_combined_plot_rename_display"), style = "font-size: 75%; width: 100%"),
+                        #div(dataTableOutput("data_prm_combined_plot_rename_display"), style = "font-size: 75%; width: 100%"),
                         
                     )
             ),
@@ -179,7 +188,7 @@ ui <- dashboardPage(
                         fluidRow(
                             box(title = "Select plotting variables",
                                 width = 3,
-                                height = "350px",
+                                height = "300px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
@@ -189,7 +198,7 @@ ui <- dashboardPage(
                             shinyjs::hidden(div(id = "hiddenbox1",
                               box(title = "Calculate mean",
                                   width = 3,
-                                  height = "350px",
+                                  height = "300px",
                                   status = "primary",
                                   solidHeader = TRUE,
                                   selectInput("use_mean", 
@@ -208,7 +217,7 @@ ui <- dashboardPage(
                             shinyjs::hidden(div(id = "hiddenbox2",
                               box(title = "Select grouping variables",
                                 width = 3,
-                                height = "350px",
+                                height = "300px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("col_var", 
@@ -227,12 +236,12 @@ ui <- dashboardPage(
                              shinyjs::hidden(div(id = "hiddenbox3",
                             box(title = "Select plot elements",
                                 width = 3,
-                                height = "350px",
+                                height = "300px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_element", 
                                                label = tags$span("Elements to plot", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
-                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend")),
+                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","grid_line")),
                                 bsPopover(id = "plot_info5", title = "", placement = "right", trigger = "hover"),
                                 div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right")))
                                 )
@@ -241,7 +250,7 @@ ui <- dashboardPage(
                         shinyjs::hidden(div(id = "hiddenbox4",
                           fluidRow(
                             tabBox(width = 12,
-                                   height = "1400px",
+                                   height = "750px",
                                    id = "plugin_plot_tabbox",
                                    tabPanel("Standard plot",
                                             plotOutput("ggplot_plugin_display")
@@ -284,18 +293,23 @@ ui <- dashboardPage(
                                 height = "450px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                textInput("export_plot_width", "Width (cm)", value = "42"),
-                                textInput("export_plot_height", "Height (cm)", value = "26"),
+                                textInput("export_plot_width", "Width (cm)", value = "24"),
+                                textInput("export_plot_height", "Height (cm)", value = "16"),
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
                         ))
                     )
             ),
-            tabItem(tabName = "aquacrop_legend",
+            tabItem(tabName = "tab_analysis_plugin",
+                    h2(
+                      
+                    )
+            ),
+            tabItem(tabName = "aquacrop_glossary",
                     h2(fluidRow(
                       box(width = 12 ,
-                          div(dataTableOutput("legend_display"), style = "font-size: 75%; width: 100%")
+                          div(dataTableOutput("glossary_display"), style = "font-size: 75%; width: 100%")
                           )
                     ))
             )
@@ -315,25 +329,57 @@ server <- function(input, output, session) {
         )
     }, deleteFile = FALSE)
     
-    ##legend for varaible names
-    legend <- reactive({
-      read.csv("legend.csv")
+    ##glossary for varaible names
+    glossary <- reactive({
+      read.csv("glossary.csv")
     })
-    output$legend_display <- renderDataTable(legend())
+    output$glossary_display <- renderDataTable(glossary())
     
-    ###select button to enter aquacrop standard or plugin
-    observeEvent(input$select_aquacrop_standard, {
-        updateTabItems(session, "menu_tabs", "tab_upload_data_standard")
-    })
-    observeEvent(input$select_aquacrop_plugin, {
-        updateTabItems(session, "menu_tabs", "tab_upload_data_plugin")
-    })
+    # ###select button to enter aquacrop standard or plugin
+    # observeEvent(input$select_aquacrop_standard, {
+    #     updateTabItems(session, "menu_tabs", "tab_upload_data_standard")
+    # })
+    # observeEvent(input$select_aquacrop_plugin, {
+    #     updateTabItems(session, "menu_tabs", "tab_upload_data_plugin")
+    # })
     
     ##########standard
     ###upload data
+    
+    #upload multiple times and append file list
+    # upload_standard <- reactiveValues()
+    # observe({upload_standard$list <- NULL})
+    # observeEvent(input$upload_data_files_standard, {
+    #   old_list <- upload_standard$list
+    #   new_list <- bind_rows(old_list, input$upload_data_files_standard) %>% distinct(name)
+    #   upload_standard$list <- new_list
+    # })
+    # 
+    
+    #upload data  file and label text for the set
+    #upload and append multiple sets
+    upload_standard <- reactiveValues()
+    observe({upload_standard$list <- NULL})
+    observe({upload_standard$temp_list <- NULL})
+    observeEvent(input$upload_button_standard, {
+      upload_standard$temp_list <- input$upload_data_files_standard %>% 
+        mutate(simulation_set_name = input$upload_text_standard)
+    })
+    observeEvent(input$upload_button_standard, {
+      old_list <- upload_standard$list
+      new_list <- bind_rows(old_list, upload_standard$temp_list) %>% 
+        distinct(name, simulation_set_name, .keep_all = TRUE)
+      upload_standard$list <- new_list
+    })
+    
+    #show list all uploaded file 
+    output$upload_standard_list <- renderDataTable(upload_standard$list,options = list(scrollX = TRUE))
+    
+    #
     upload_data_standard_combined <- reactive({
             #require uploaded data files before evaluating
             req(input$upload_data_files_standard)
+            req(upload_standard$list)
             #check to make sure uploaded files has the correct extension .OUT, return error if not 
             upload_data_files_standard_ext <- tools::file_ext(input$upload_data_files_standard$name)
             if(any(upload_data_files_standard_ext != "OUT")){
@@ -344,7 +390,8 @@ server <- function(input, output, session) {
             file.extension = c("Clim.OUT","CompEC.OUT","CompWC.OUT","Crop.OUT","Inet.OUT","Prof.OUT","Run.OUT","Salt.OUT","Wabal.OUT")
             
             #read data
-            input$upload_data_files_standard %>%            
+            #input$upload_data_files_standard %>% #for one upload  
+            upload_standard$list %>% #for multiple upload
                 #detect file extensions
                 mutate(extension = str_extract(name, paste(file.extension, sep="|"))) %>%
                 mutate(dataset = map2(datapath, extension, function(datapath, extension){
@@ -375,15 +422,24 @@ server <- function(input, output, session) {
 
     #output datatable of the data file name being read
     output$upload_data_standard_combined_display <- renderDataTable(upload_data_standard_combined() %>%
-                                                                        select(name) %>%
+                                                                        select(name, simulation_set_name) %>%
                                                                         distinct(),
                                                                     options = list(scrollX = TRUE))
    
     ##combined all daily data  
-    upload_data_standard_combined_daily <- reactive({reduce(upload_data_standard_combined()$dataset[upload_data_standard_combined()$extension != "Run.OUT"], #filter out Run.OUT file as data format (seasonal)  different from others (daily)
-                                                                    left_join, by = c("Day", "Month", "Year", "DAP", "Stage")) %>%
-                                                      mutate(Date = dmy(paste(Day, Month, Year, sep="-")))
-                                                                 })
+    upload_data_standard_combined_daily <- reactive({
+      #filter out Run.OUT file as data format (seasonal)  different from others (daily)
+      upload_data_standard_combined() %>%
+        filter(extension != "Run.OUT") %>%
+        group_by(simulation_set_name) %>%
+        nest(data = dataset) %>%
+        mutate(all_data = map(data, function(data){
+          data %>%
+          reduce(left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
+        })) %>%
+        unnest(all_data)
+        #mutate(Date = dmy(paste(Day, Month, Year, sep="-")))
+    })
       
     #render output display
     output$upload_data_standard_combined_daily_display <- renderDataTable(upload_data_standard_combined_daily(),
@@ -603,7 +659,7 @@ server <- function(input, output, session) {
       #create observe event module to monitor if user input select variable to rename
       #if variable selected, update the select input list for value choices of the selected variable
       observeEvent(input$rename_variable, {
-        choices <- unique(data_prm_combined()[[input$rename_variable]])
+        choices <- unique(data_prm_combined_plot_rename$data[[input$rename_variable]])
         updateSelectInput(inputId = "rename_from", choices = choices) 
       })
       #change value of selected variable to the value from user
@@ -615,6 +671,8 @@ server <- function(input, output, session) {
           rename_df[input$rename_variable][rename_df[input$rename_variable] == input$rename_from] <- input$rename_to
           data_prm_combined_plot_rename$data <- rename_df
         }
+        choices <- unique(data_prm_combined_plot_rename$data[[input$rename_variable]])
+        updateSelectInput(inputId = "rename_from", choices = choices) 
       })
       #output datatable of the combined data and parameters
       output$data_prm_combined_plot_rename_display <- renderDataTable(datatable(data_prm_combined_plot_rename$data, 
@@ -638,6 +696,15 @@ server <- function(input, output, session) {
       unname(palette)
     })
     
+    #set legend direction
+    legend_direction <- reactive({
+      if(input$legend_position %in% c("top","bottom")){
+        "horizontal"
+      } else{
+        "vertical"
+      }
+    })
+    
     ggplot_plugin <- reactive({
       #initial plot according to selected coloring and group variable
       if(length(input$col_var) > 0){
@@ -647,15 +714,27 @@ server <- function(input, output, session) {
       }
       #add plot
       p <- p +
-        theme_light()+
         theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
               axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
               legend.title = element_text(size = as.numeric(input$font_size_legend)),
               legend.text = element_text(size = as.numeric(input$font_size_legend)),
-              strip.text = element_text(size = as.numeric(input$font_size_facet))
-              )+
+              strip.text = element_text(size = as.numeric(input$font_size_facet)),
+              legend.position = paste(input$legend_position),
+              legend.direction = paste(legend_direction()),
+              axis.text.x = element_text(angle = 45, hjust = 1, vjust = 0.5),
+              panel.background = element_rect(colour = "black", fill = "white"),
+              plot.background = element_rect(colour = NA, fill = "white"),
+              axis.line = element_line(colour="black",size=0.1),
+              axis.ticks = element_line(),
+              axis.title.x = element_text(vjust = -1),
+              axis.title.y = element_text(vjust = +2),
+              legend.key = element_rect(colour = NA, fill = NA),
+              legend.key.size= unit(1, "cm"),
+              strip.background=element_rect(colour="#000000",fill=NA)
+              ) +
         scale_color_manual(values=custom_palette()) +
-        theme(legend.position = paste(input$legend_position))
+        guides(color = guide_legend(override.aes = list(size=3)))
+      
       
       #select facet variable
       if(length(input$facet_var) == 1){
@@ -679,8 +758,11 @@ server <- function(input, output, session) {
       if("linear_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="lm", se = T)
       }
-      if(!("grid_line" %in% input$plot_element)){
-        p <- p + theme(panel.grid = element_blank())
+      if("grid_line" %in% input$plot_element){
+        p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
+                       panel.grid.minor = element_blank())
+      }else{
+        p <- p + theme(panel.grid.major = element_blank())
       }
       if(length(input$plot_element) == 0){
         p <- p
@@ -712,7 +794,8 @@ server <- function(input, output, session) {
     
     ###ggplotly
     output$ggplotly_plugin_display <- renderPlotly({
-        ggplotly(ggplot_plugin())
+        ggplotly(ggplot_plugin(), 
+                 width=as.numeric(input$export_plot_width)*36, height=as.numeric(input$export_plot_height)*36)
     })
 
     

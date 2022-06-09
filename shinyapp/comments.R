@@ -77,3 +77,20 @@ observeEvent(input$switchtab, {
 
 
 -home page and display theme design
+
+
+
+
+
+
+-standard- upload different parameters with the file. eg. crop,climate etc
+
+-dimension
+-customise point size, alpha
+-customised plot button direct to customise box
+
+- update rename button
+-legend change name/remove
+- shape different group
+
+
