@@ -139,19 +139,151 @@ ui <- dashboardPage(
                         div(dataTableOutput("upload_data_standard_combined_seasonal_display"), style = "font-size: 75%; width: 100%")
                     )
             ),
-            tabItem(tabName = "tab_plot_standard",
+            tabItem(tabName = "tab_plot_standard", 
                     h2(
                       fluidRow(
                         box(title = "Select plotting variables",
-                            width = 4,
-                            selectInput("y_var_standard", "Select variable to plot on y axis", input_plot_variable_standard, selected = "Biomass"),
-                            selectInput("x_var_standard", "Select variable to plot on x axis", input_plot_variable_standard, selected = "Date"))
+                            width = 3,
+                            height = "350px",
+                            status = "primary",
+                            solidHeader = TRUE,
+                            selectInput("plot_mode_std", "Data type to plot", c("daily","seasonal")),
+                            selectInput("y_var_std", "Variable to plot on Y axis", choices=NULL),
+                            #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
+                            div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1_std", "Next", icon = icon("chevron-right")))
+                        ),
+                        shinyjs::hidden(div(id = "hiddenbox1_std",
+                                            box(title = "Calculate mean",
+                                                width = 3,
+                                                height = "350px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                selectInput("use_mean_std", 
+                                                            label = tags$span("Plot mean values",   bsButton("plot_info1_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                            c("Yes", "No"), selected = "No"),
+                                                bsPopover(id = "plot_info1_std", title = "", placement = "right", trigger = "hover"),
+                                                conditionalPanel(condition = "input.use_mean_std == 'Yes'",
+                                                                 selectizeInput("group_var_std", 
+                                                                                label = tags$span("Select variable to group for calculating mean",  bsButton("plot_info2_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                                input_group_variable,
+                                                                                multiple = TRUE),
+                                                                 bsPopover(id = "plot_info2_std", title = "", placement = "right", trigger = "hover")),
+                                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next2_std", "Next", icon = icon("chevron-right")))
+                                            )
+                        )),
+                        shinyjs::hidden(div(id = "hiddenbox2_std",
+                                            box(title = "Select grouping variables",
+                                                width = 3,
+                                                height = "350px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                selectizeInput("col_var_std", 
+                                                               label = tags$span("Variable to split into colors by",  bsButton("plot_info3_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               input_group_variable,
+                                                               multiple = TRUE, options = list(maxItems = 1)),
+                                                bsPopover(id = "plot_info3_std", title = "", placement = "right", trigger = "hover"),
+                                                selectizeInput("shape_var_std", 
+                                                               label = tags$span("Variable to split into shapes by",  bsButton("plot_info7_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               input_group_variable,
+                                                               multiple = TRUE, options = list(maxItems = 1)),
+                                                bsPopover(id = "plot_info7_std", title = "", placement = "right", trigger = "hover"),
+                                                selectizeInput("facet_var_std", 
+                                                               label = tags$span("Variable to split into subpanels by", bsButton("plot_info4_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               choices = input_group_variable,
+                                                               multiple = TRUE, options = list(maxItems = 2)),
+                                                bsPopover(id = "plot_info4_std", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
+                                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next3_std", "Next", icon = icon("chevron-right")))
+                                            )
+                        )),
+                        shinyjs::hidden(div(id = "hiddenbox3_std",
+                                            box(title = "Select plot elements",
+                                                width = 3,
+                                                height = "350px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                selectizeInput("plot_element_std", 
+                                                               label = tags$span("Elements to plot", bsButton("plot_info5_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","grid_line")),
+                                                bsPopover(id = "plot_info5_std", title = "", placement = "right", trigger = "hover"),
+                                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next4_std", "Plot", icon = icon("chevron-right")))
+                                            )
+                        ))
                       ),
-                      fluidRow(
-                        downloadButton("ggplot_standard_download", "Download plot"),
-                        plotOutput("ggplot_standard_display"),
-                        plotlyOutput("ggplotly_standard_display") 
-                      )
+                      shinyjs::hidden(div(id = "hiddenbox4_std",
+                                          fluidRow(
+                                            tabBox(width = 12,
+                                                   height = "900px",
+                                                   id = "std_plot_tabbox",
+                                                   tabPanel("Standard plot",
+                                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_std", "Customise & export plot")),
+                                                            plotOutput("ggplot_std_display")
+                                                   ),
+                                                   tabPanel("Interactive plot",
+                                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_std", "Customise & export plot")),
+                                                            plotlyOutput("ggplotly_std_display")
+                                                   )
+                                            ),
+                                          ))),
+                      shinyjs::hidden(div(id = "hiddenbox5_std",
+                                          fluidRow(
+                                            box(title = "Customise plot",
+                                                width = 2,
+                                                height = "550px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                selectizeInput("col_palette_std", 
+                                                               label = tags$span("color palette", bsButton("plot_info6_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               input_color_choice, multiple = TRUE),
+                                                bsPopover(id = "plot_info6_std", title = "Select the same number of colors as values of grouping variable, in order", placement = "right", trigger = "hover"),
+                                                selectizeInput("shape_palette_std", 
+                                                               label = tags$span("shape palette", bsButton("plot_info8_std", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               input_shape_choice, multiple = TRUE),
+                                                bsPopover(id = "plot_info8_std", title = "Select the same number of shapes as values of grouping variable, in order", placement = "right", trigger = "hover"),
+                                                selectInput("legend_position_std", "Legend position", input_legend_pos, selected = "bottom"),
+                                                textInput("point_size_std", "point size", value = "2"),
+                                            ),
+                                            box(title = "Customise labels",
+                                                width = 2,
+                                                height = "550px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                textInput("title_label_std", "plot title"),
+                                                textInput("y_var_label_std", "Y axis label"),
+                                                textInput("x_var_label_std", "X axis label"),
+                                                textInput("legend_label_std", "legend label"),
+                                            ),
+                                            box(title = "Customise font size",
+                                                width = 2,
+                                                height = "550px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                textInput("font_size_plot_title_std", "plot title", value = "16"),
+                                                textInput("font_size_axis_text_std", "axis text", value = "16"),
+                                                textInput("font_size_axis_title_std", "axis title", value = "16"),
+                                                textInput("font_size_legend_std", "legend", value = "16"),
+                                                textInput("font_size_facet_std", "subpanel label", value = "16")
+                                            ),
+                                            box(title = "Rename variables",
+                                                width = 2,
+                                                height = "550px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                selectizeInput("rename_variable_std", "Select variable to rename", input_group_variable, multiple = TRUE, options = list(maxItems = 1)),
+                                                selectizeInput("rename_from_std", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                                textInput("rename_to_std", "Rename to"),
+                                                actionButton("rename_button_std", "Rename")
+                                            ),
+                                            box(title = "Export plot",
+                                                width = 2,
+                                                height = "550px",
+                                                status = "primary",
+                                                solidHeader = TRUE,
+                                                textInput("export_plot_width_std", "Width (cm)", value = "19"),
+                                                textInput("export_plot_height_std", "Height (cm)", value = "12"),
+                                                selectInput("export_plot_format_std", "Format", c("pdf","png"), selected = "pdf"),
+                                                downloadButton("ggplot_std_download", "Download"))
+                                          )
+                      ))
                     )
             ),
             tabItem(tabName = "tab_analysis_standard",
@@ -505,7 +637,276 @@ server <- function(input, output, session) {
         }
     )
 
+    ###ggplot _std
+    #reactive for showing next boxes to input plotting instructions
+    observeEvent(input$plot_next1_std, {
+      shinyjs::show(id = "hiddenbox1_std")
+    })
+    observeEvent(input$plot_next2_std, {
+      shinyjs::show(id = "hiddenbox2_std")
+    })
+    observeEvent(input$plot_next3_std, {
+      shinyjs::show(id = "hiddenbox3_std")
+    })
+    observeEvent(input$plot_next4_std, {
+      shinyjs::show(id = "hiddenbox4_std")
+    })
+    observeEvent(input$plot_next5_std, {
+      shinyjs::show(id = "hiddenbox5_std")
+    })
+    
+    #data for plotting
+    ##if daily or seasonal data selected
+    data_std_use <- reactive({
+      if(input$plot_mode_std == "daily"){
+        updateSelectInput(inputId = "y_var_std", choices = unique(colnames(upload_data_standard_combined_daily())))
+        upload_data_standard_combined_daily()
+      }else{
+        updateSelectInput(inputId = "y_var_std", choices = unique(colnames(upload_data_standard_combined_seasonal())))
+        upload_data_standard_combined_seasonal()        
+      }
+    })
 
+    
+    ## if plotting mean is selected, calculate mean based on grouping variable selected
+    data_std_combined_plot <- reactive({
+      if(input$use_mean_std == "Yes" & length(input$group_var_std) > 0){
+        data_std_use() %>%
+          group_by(across(all_of(c(input$group_var_std, "Year1", input$col_var_std, input$shape_var_std)))) %>%
+          summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
+                           mean))
+      }else{
+        data_std_use() 
+      }
+    })
+    
+    ###option for renaming variable
+    #create observe event module to monitor if user input select variable to rename
+    #if variable selected, update the select input list for value choices of the selected variable
+    observeEvent(input$rename_variable_std, {
+      choices <- unique(data_std_combined_plot_rename$data[[input$rename_variable_std]])
+      updateSelectInput(inputId = "rename_from_std", choices = choices) 
+    })
+    #change value of selected variable to the value from user
+    data_std_combined_plot_rename <- reactiveValues()
+    observe({data_std_combined_plot_rename$data <- data_std_combined_plot()})
+    observeEvent(input$rename_button_std, {
+      if(input$rename_to_std != ""){
+        rename_df <- data_std_combined_plot_rename$data
+        rename_df[input$rename_variable_std][rename_df[input$rename_variable_std] == input$rename_from_std] <- input$rename_to_std
+        data_std_combined_plot_rename$data <- rename_df
+      }
+      choices <- unique(data_std_combined_plot_rename$data[[input$rename_variable_std]])
+      updateSelectInput(inputId = "rename_from_std", choices = choices) 
+    })
+    #output datatable of the combined data and parameters
+    output$data_std_combined_plot_rename_display <- renderDataTable(datatable(data_std_combined_plot_rename$data, 
+                                                                              options = list(scrollX = TRUE)))
+    
+    
+    #set color palette
+    custom_palette_std <- reactive({
+      default_palette_std <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+      
+      #vector of available color choices to form custom palette
+      color_choice_hex_std <- c("#000000","#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#E41A1C","#A6D854")
+      names(color_choice_hex_std) <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
+      
+      #make palette from custom colors selected from user
+      if(length(input$col_palette_std) > 0){
+        palette <- color_choice_hex_std[input$col_palette_std]
+      }else{
+        palette <- default_palette_std
+      }
+      unname(palette)
+    })
+    
+    #set shape palette
+    custom_shape_std <- reactive({
+      default_shape_std <- c(16,17,15,18,4,1,2,0,5)
+      
+      #vector of available shape choices to form custom palette
+      shape_choice_std <- c(16,17,15,18,4,1,2,0,5)
+      names(shape_choice_std) <- c("circle", "triangle", "rectangle", "diamond", "cross", "hollow_circle", "hollow_triangle", "hollow_rectangle", "hollow_diamond")
+      
+      
+      #make palette from custom shapes selected from user
+      if(length(input$shape_palette_std) > 0){
+        shape.palette <- shape_choice_std[input$shape_palette_std]
+      }else{
+        shape.palette <- default_shape_std
+      }
+      unname(as.numeric(shape.palette)) 
+    })
+    
+    #set legend direction
+    legend_direction_std <- reactive({
+      if(input$legend_position_std %in% c("top","bottom")){
+        "horizontal"
+      } else{
+        "vertical"
+      }
+    })
+    
+    ggplot_std <- reactive({
+      
+      #select x axis according to data mode
+        if(input$plot_mode_std == "daily"){
+          x_var_plot = "date"
+        }else{
+          x_var_plot = "Year1"
+        }
+        
+      #initial plot according to selected coloring and group variable
+      if(length(input$shape_var_std) > 0 & length(input$col_var_std) > 0){
+        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]], group = interaction(.data[[input$shape_var_std]], .data[[input$col_var_std]]), col = .data[[input$col_var_std]], shape = .data[[input$shape_var_std]]))
+      }
+      else if(length(input$col_var_std) > 0){
+        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]], group = .data[[input$col_var_std]], col = .data[[input$col_var_std]]))
+      }
+      else if(length(input$shape_var_std) > 0){
+        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]], group = .data[[input$shape_var_std]], shape = .data[[input$shape_var_std]]))
+      }
+      else{
+        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]]))
+      }
+      #add plot
+      p <- p +
+        theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title_std)), 
+              axis.text = element_text(size = as.numeric(input$font_size_axis_text_std)),
+              legend.title = element_text(size = as.numeric(input$font_size_legend_std)),
+              legend.text = element_text(size = as.numeric(input$font_size_legend_std)),
+              strip.text = element_text(size = as.numeric(input$font_size_facet_std)),
+              plot.title = element_text(size = as.numeric(input$font_size_plot_title_std)),
+              legend.position = paste(input$legend_position_std),
+              legend.direction = paste(legend_direction_std()),
+              axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+              panel.background = element_rect(colour = "black", fill = "white"),
+              plot.background = element_rect(colour = NA, fill = "white"),
+              axis.line = element_line(colour="black",size=0.1),
+              axis.ticks = element_line(),
+              axis.title.x = element_text(vjust = -2.5),
+              axis.title.y = element_text(vjust = +2.5),
+              legend.key = element_rect(colour = NA, fill = NA),
+              legend.key.size= unit(0.75, "cm"),
+              strip.background=element_rect(colour="#000000",fill=NA),
+              plot.margin=unit(c(10,5,5,5),"mm")
+        ) +
+        scale_color_manual(values=custom_palette_std()) +
+        scale_shape_manual(values=custom_shape_std()) +
+        guides(color = guide_legend(override.aes = list(size=3)))
+      
+      
+      #select facet variable
+      if(length(input$facet_var_std) == 1){
+        p <- p + facet_wrap(~get(input$facet_var_std[1]))
+      } else if(length(input$facet_var_std) == 2){
+        p <- p + facet_grid(get(input$facet_var_std[2])~get(input$facet_var_std[1]))
+      } else {
+        p <- p
+      }
+      
+      #select plotting elements (geom)
+      if("point" %in% input$plot_element_std){
+        p <- p + geom_point(size = as.numeric(input$point_size_std))
+      }     
+      if("line" %in% input$plot_element_std){
+        p <- p + geom_line()
+      }
+      if("linear_trend" %in% input$plot_element_std){
+        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE)
+      }
+      if("linear_trend_error" %in% input$plot_element_std){
+        p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE)
+      }
+      if("grid_line" %in% input$plot_element_std){
+        p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
+                       panel.grid.minor = element_blank())
+      }else{
+        p <- p + theme(panel.grid.major = element_blank())
+      }
+      if(length(input$plot_element_std) == 0){
+        p <- p
+      }
+      
+      #add custom text for axis label
+      if(nchar(input$y_var_label_std) > 0){
+        p <- p + labs(y = paste(input$y_var_label_std))
+      }
+      if(nchar(input$x_var_label_std) > 0){
+        p <- p + labs(x = paste(input$x_var_label_std))
+      }
+      if(nchar(input$title_label_std) > 0){
+        p <- p + labs(title = paste(input$title_label_std))
+      }
+      if(nchar(input$legend_label_std) > 0){
+        p <- p + labs(title = paste(input$legend_label_std))
+      }
+      print(p)
+    })
+    
+    #adjust default plot size according to facets
+    #select facet variable
+    observeEvent(input$facet_var_std, {
+      if(length(input$facet_var_std) == 1){
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 1){
+          updateTextInput(session, "export_plot_width_std", value = "19")
+          updateTextInput(session,"export_plot_height_std", value = "12")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 2){
+          updateTextInput(session, "export_plot_width_std", value = "29")
+          updateTextInput(session,"export_plot_height_std", value = "12")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) > 2){
+          updateTextInput(session, "export_plot_width_std", value = "39")
+          updateTextInput(session,"export_plot_height_std", value = "12")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) > 3){
+          updateTextInput(session, "export_plot_width_std", value = "39")
+          updateTextInput(session,"export_plot_height_std", value = "23")
+        }
+      } 
+      if(length(input$facet_var_std) == 2){
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 1){
+          updateTextInput(session,"export_plot_width_std", value = "19")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 2){
+          updateTextInput(session,"export_plot_width_std", value = "29")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) > 2){
+          updateTextInput(session,"export_plot_width_std", value = "39")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[2]]])) == 1){
+          updateTextInput(session,"export_plot_height_std", value = "12")
+        }
+        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[2]]])) > 1){
+          updateTextInput(session,"export_plot_height_std", value = "23")
+        }
+      }
+    })
+    
+    
+    #render ggplot display in app
+    output$ggplot_std_display <- renderPlot({
+      ggplot_std()
+    },width=exprToFunction(as.numeric(input$export_plot_width_std)*36), height=exprToFunction(as.numeric(input$export_plot_height_std)*36))
+    
+    
+    #for downloading ggplot
+    output$ggplot_std_download <- downloadHandler(
+      filename = function() {"plot_std"},
+      content = function(file) {
+        ggsave(file, plot = ggplot_std(), device = {{input$export_plot_format_std}} , width = as.numeric({{input$export_plot_width_std}}), height = as.numeric({{input$export_plot_height_std}}), units = "cm")
+      }
+    )
+    
+    ###ggplotly
+    output$ggplotly_std_display <- renderPlotly({
+      ggplotly(ggplot_std(), 
+               width=as.numeric(input$export_plot_width_std)*36, height=as.numeric(input$export_plot_height_std)*36)
+    })
+    
+###################################################################################
     ##########plugin
     ###read upload data files and combine all data into dataframe
     upload_data_combined <-
@@ -665,7 +1066,7 @@ server <- function(input, output, session) {
       data_prm_combined_plot <- reactive({
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
           data_prm_combined() %>%
-            group_by(across(all_of(c(input$group_var, "Year1", input$col_var)))) %>%
+            group_by(across(all_of(c(input$group_var, "Year1", input$col_var, input$shape_var)))) %>%
             summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
                              mean))
         }else{
@@ -847,25 +1248,25 @@ server <- function(input, output, session) {
           updateTextInput(session, "export_plot_width", value = "39")
           updateTextInput(session,"export_plot_height", value = "12")
         }
-        if(length(data_prm_combined_plot_rename$data[[input$facet_var[1]]]) > 3){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) > 3){
           updateTextInput(session, "export_plot_width", value = "39")
           updateTextInput(session,"export_plot_height", value = "23")
         }
       } 
       if(length(input$facet_var) == 2){
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) == 1){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 1){
           updateTextInput(session,"export_plot_width", value = "19")
         }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) == 2){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 2){
           updateTextInput(session,"export_plot_width", value = "29")
         }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) > 2){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) > 2){
           updateTextInput(session,"export_plot_width", value = "39")
         }
-        if(length(data_prm_combined_plot_rename$data[[input$facet_var[1]]]) == 1){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) == 1){
           updateTextInput(session,"export_plot_height", value = "12")
         }
-        if(length(data_prm_combined_plot_rename$data[[input$facet_var[1]]]) > 1){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) > 1){
           updateTextInput(session,"export_plot_height", value = "23")
         }
       }
