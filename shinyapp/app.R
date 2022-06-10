@@ -106,14 +106,21 @@ ui <- dashboardPage(
                     h2(
                         #display boxes for data and prm files upload
                         fluidRow(
-                            box(title = "Data files", status = "primary",
+                            box(title = "Data files and metadata", status = "primary", solidHeader = TRUE, width = 6,
                                 #upload data file
                                 fileInput("upload_data_files_standard", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
-                                textInput("upload_text_standard","Simulation set name"),
-                                actionButton("upload_button_standard","Upload"),
-                                div(dataTableOutput("upload_data_standard_combined_display"), style = "font-size: 75%; width: 100%"),
-                                div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
-                                
+                                textInput("upload_climate_std","climate"),
+                                textInput("upload_location_std","location"),
+                                textInput("upload_rcp_std","rcp"),
+                                textInput("upload_irrigation_std","irrigation"),
+                                textInput("upload_crop_std","crop"),
+                                textInput("upload_soil_std","soil"),
+                                textInput("upload_sowing_std","sowing date"),
+                                textInput("upload_note_std","note"),
+                                actionButton("upload_button_standard","Upload", icon = icon("upload"))
+                            ),
+                            box(title = "Uploaded data", status = "primary", solidHeader = TRUE, width = 6,
+                              div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
                             )
                         )
                     )
@@ -391,18 +398,29 @@ server <- function(input, output, session) {
     observe({upload_standard$list <- NULL})
     observe({upload_standard$temp_list <- NULL})
     observeEvent(input$upload_button_standard, {
+      req(input$upload_data_files_standard)
       upload_standard$temp_list <- input$upload_data_files_standard %>% 
-        mutate(simulation_set_name = input$upload_text_standard)
+        mutate(climate = input$upload_climate_std,
+               location = input$upload_location_std,
+               rcp = input$upload_rcp_std,
+               irrigation = input$upload_irrigation_std,
+               crop = input$upload_crop_std,
+               soil = input$upload_soil_std,
+               sowing_date = input$upload_sowing_std,
+               note = input$upload_note_std)
     })
+
     observeEvent(input$upload_button_standard, {
+      req(upload_standard$temp_list)
       old_list <- upload_standard$list
-      new_list <- bind_rows(old_list, upload_standard$temp_list) %>% 
-        distinct(name, simulation_set_name, .keep_all = TRUE)
+      new_list <- bind_rows(old_list, upload_standard$temp_list)
+        #%>%distinct(name, .keep_all = TRUE)
       upload_standard$list <- new_list
     })
     
     #show list all uploaded file 
-    output$upload_standard_list <- renderDataTable(upload_standard$list,options = list(scrollX = TRUE))
+    observeEvent(input$upload_button_standard, {output$upload_standard_list <- renderDataTable(upload_standard$list %>% select(-c(size, type, datapath))
+                                                   ,options = list(scrollX = TRUE)) })
     
     #
     upload_data_standard_combined <- reactive({
@@ -451,7 +469,6 @@ server <- function(input, output, session) {
 
     #output datatable of the data file name being read
     output$upload_data_standard_combined_display <- renderDataTable(upload_data_standard_combined() %>%
-                                                                        select(name, simulation_set_name) %>%
                                                                         distinct(),
                                                                     options = list(scrollX = TRUE))
    
