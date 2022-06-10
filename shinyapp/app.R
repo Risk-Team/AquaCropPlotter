@@ -14,7 +14,8 @@ input_group_variable <- c("climate","location","rcp","irrigation","crop","soil",
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error","grid_line")
-input_legend_pos = c("none","right","bottom","left","top")
+input_legend_pos <- c("none","right","bottom","left","top")
+input_shape_choice <- c("circle", "triangle", "rectangle", "diamond", "cross", "hollow_circle", "hollow_triangle", "hollow_rectangle", "hollow_diamond")
 
 #define UI dashboard
 ui <- dashboardPage(
@@ -225,6 +226,11 @@ ui <- dashboardPage(
                                             input_group_variable,
                                             multiple = TRUE, options = list(maxItems = 1)),
                                 bsPopover(id = "plot_info3", title = "", placement = "right", trigger = "hover"),
+                                selectizeInput("shape_var", 
+                                               label = tags$span("Variable to split into shapes by",  bsButton("plot_info7", label = "", icon = icon("info"), size = "extra-small")), 
+                                               input_group_variable,
+                                               multiple = TRUE, options = list(maxItems = 1)),
+                                bsPopover(id = "plot_info7", title = "", placement = "right", trigger = "hover"),
                                 selectizeInput("facet_var", 
                                                label = tags$span("Variable to split into subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
                                                choices = input_group_variable,
@@ -250,51 +256,74 @@ ui <- dashboardPage(
                         shinyjs::hidden(div(id = "hiddenbox4",
                           fluidRow(
                             tabBox(width = 12,
-                                   height = "750px",
+                                   height = "900px",
                                    id = "plugin_plot_tabbox",
                                    tabPanel("Standard plot",
+                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5", "Customise & export plot")),
                                             plotOutput("ggplot_plugin_display")
                                             ),
                                    tabPanel("Interactive plot",
+                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5", "Customise & export plot")),
                                             plotlyOutput("ggplotly_plugin_display")
                                             )
                                    ),
+                            ))),
+                        shinyjs::hidden(div(id = "hiddenbox5",
+                           fluidRow(
                             box(title = "Customise plot",
-                                width = 3,
-                                height = "450px",
+                                width = 2,
+                                height = "550px",
                                 status = "primary",
                                 solidHeader = TRUE,
+                                selectizeInput("col_palette", 
+                                               label = tags$span("color palette", bsButton("plot_info6", label = "", icon = icon("info"), size = "extra-small")), 
+                                               input_color_choice, multiple = TRUE),
+                                bsPopover(id = "plot_info6", title = "Select the same number of colors as values of grouping variable, in order", placement = "right", trigger = "hover"),
+                                selectizeInput("shape_palette", 
+                                               label = tags$span("shape palette", bsButton("plot_info8", label = "", icon = icon("info"), size = "extra-small")), 
+                                               input_shape_choice, multiple = TRUE),
+                                bsPopover(id = "plot_info8", title = "Select the same number of shapes as values of grouping variable, in order", placement = "right", trigger = "hover"),
+                                selectInput("legend_position", "Legend position", input_legend_pos, selected = "bottom"),
+                                textInput("point_size", "point size", value = "2"),
+                                ),
+                            box(title = "Customise labels",
+                                width = 2,
+                                height = "550px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                textInput("title_label", "plot title"),
                                 textInput("y_var_label", "Y axis label"),
                                 textInput("x_var_label", "X axis label"),
-                                selectizeInput("col_palette", "Color palette", input_color_choice, multiple = TRUE),
-                                selectInput("legend_position", "Legend position", input_legend_pos, selected = "right")
+                                textInput("legend_label", "legend label"),
                                 ),
                             box(title = "Customise font size",
-                                width = 3,
-                                height = "450px",
+                                width = 2,
+                                height = "550px",
                                 status = "primary",
                                 solidHeader = TRUE,
+                                textInput("font_size_plot_title", "plot title", value = "16"),
                                 textInput("font_size_axis_text", "axis text", value = "16"),
                                 textInput("font_size_axis_title", "axis title", value = "16"),
                                 textInput("font_size_legend", "legend", value = "16"),
                                 textInput("font_size_facet", "subpanel label", value = "16")
                             ),
                             box(title = "Rename variables",
-                                width = 3,
-                                height = "450px",
+                                width = 2,
+                                height = "550px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("rename_variable", "Select variable to rename", input_group_variable, multiple = TRUE, options = list(maxItems = 1)),
                                 selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                 textInput("rename_to", "Rename to"),
+                                actionButton("rename_button", "Rename")
                             ),
                             box(title = "Export plot",
-                                width = 3,
-                                height = "450px",
+                                width = 2,
+                                height = "550px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                textInput("export_plot_width", "Width (cm)", value = "24"),
-                                textInput("export_plot_height", "Height (cm)", value = "16"),
+                                textInput("export_plot_width", "Width (cm)", value = "19"),
+                                textInput("export_plot_height", "Height (cm)", value = "12"),
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
@@ -641,6 +670,9 @@ server <- function(input, output, session) {
     observeEvent(input$plot_next4, {
       shinyjs::show(id = "hiddenbox4")
     })
+    observeEvent(input$plot_next5, {
+      shinyjs::show(id = "hiddenbox5")
+    })
     
     #data for plotting
       ## if plotting mean is selected, calculate mean based on grouping variable selected
@@ -665,7 +697,7 @@ server <- function(input, output, session) {
       #change value of selected variable to the value from user
        data_prm_combined_plot_rename <- reactiveValues()
        observe({data_prm_combined_plot_rename$data <- data_prm_combined_plot()})
-      observeEvent(input$rename_to, {
+      observeEvent(input$rename_button, {
         if(input$rename_to != ""){
           rename_df <- data_prm_combined_plot_rename$data
           rename_df[input$rename_variable][rename_df[input$rename_variable] == input$rename_from] <- input$rename_to
@@ -696,6 +728,24 @@ server <- function(input, output, session) {
       unname(palette)
     })
     
+    #set shape palette
+    custom_shape <- reactive({
+      default_shape <- c(16,17,15,18,4,1,2,0,5)
+      
+      #vector of available shape choices to form custom palette
+      shape_choice <- c(16,17,15,18,4,1,2,0,5)
+      names(shape_choice) <- c("circle", "triangle", "rectangle", "diamond", "cross", "hollow_circle", "hollow_triangle", "hollow_rectangle", "hollow_diamond")
+
+      
+      #make palette from custom shapes selected from user
+      if(length(input$shape_palette) > 0){
+        shape.palette <- shape_choice[input$shape_palette]
+      }else{
+        shape.palette <- default_shape
+      }
+      unname(as.numeric(shape.palette)) 
+    })
+    
     #set legend direction
     legend_direction <- reactive({
       if(input$legend_position %in% c("top","bottom")){
@@ -707,9 +757,16 @@ server <- function(input, output, session) {
     
     ggplot_plugin <- reactive({
       #initial plot according to selected coloring and group variable
-      if(length(input$col_var) > 0){
+      if(length(input$shape_var) > 0 & length(input$col_var) > 0){
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = interaction(.data[[input$shape_var]], .data[[input$col_var]]), col = .data[[input$col_var]], shape = .data[[input$shape_var]]))
+      }
+      else if(length(input$col_var) > 0){
         p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))
-      }else{
+      }
+      else if(length(input$shape_var) > 0){
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$shape_var]], shape = .data[[input$shape_var]]))
+      }
+      else{
         p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]]))
       }
       #add plot
@@ -719,21 +776,25 @@ server <- function(input, output, session) {
               legend.title = element_text(size = as.numeric(input$font_size_legend)),
               legend.text = element_text(size = as.numeric(input$font_size_legend)),
               strip.text = element_text(size = as.numeric(input$font_size_facet)),
+              plot.title = element_text(size = as.numeric(input$font_size_plot_title)),
               legend.position = paste(input$legend_position),
               legend.direction = paste(legend_direction()),
-              axis.text.x = element_text(angle = 45, hjust = 1, vjust = 0.5),
+              axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
               panel.background = element_rect(colour = "black", fill = "white"),
               plot.background = element_rect(colour = NA, fill = "white"),
               axis.line = element_line(colour="black",size=0.1),
               axis.ticks = element_line(),
-              axis.title.x = element_text(vjust = -1),
-              axis.title.y = element_text(vjust = +2),
+              axis.title.x = element_text(vjust = -2.5),
+              axis.title.y = element_text(vjust = +2.5),
               legend.key = element_rect(colour = NA, fill = NA),
-              legend.key.size= unit(1, "cm"),
-              strip.background=element_rect(colour="#000000",fill=NA)
+              legend.key.size= unit(0.75, "cm"),
+              strip.background=element_rect(colour="#000000",fill=NA),
+              plot.margin=unit(c(10,5,5,5),"mm")
               ) +
         scale_color_manual(values=custom_palette()) +
-        guides(color = guide_legend(override.aes = list(size=3)))
+        scale_shape_manual(values=custom_shape()) +
+        guides(color = guide_legend(override.aes = list(size=3)))+
+        xlab("Year")
       
       
       #select facet variable
@@ -747,16 +808,16 @@ server <- function(input, output, session) {
       
       #select plotting elements (geom)
       if("point" %in% input$plot_element){
-        p <- p + geom_point()
+        p <- p + geom_point(size = as.numeric(input$point_size))
       }     
       if("line" %in% input$plot_element){
         p <- p + geom_line()
       }
       if("linear_trend" %in% input$plot_element){
-        p <- p + geom_smooth(method="lm", se = F)
+        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE)
       }
       if("linear_trend_error" %in% input$plot_element){
-        p <- p + geom_smooth(method="lm", se = T)
+        p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE)
       }
       if("grid_line" %in% input$plot_element){
         p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
@@ -775,8 +836,55 @@ server <- function(input, output, session) {
       if(nchar(input$x_var_label) > 0){
         p <- p + labs(x = paste(input$x_var_label))
       }
+      if(nchar(input$title_label) > 0){
+        p <- p + labs(title = paste(input$title_label))
+      }
+      if(nchar(input$legend_label) > 0){
+        p <- p + labs(title = paste(input$legend_label))
+      }
       print(p)
     })
+    
+    #adjust default plot size according to facets
+    #select facet variable
+    observeEvent(input$facet_var, {
+      if(length(input$facet_var) == 1){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 1){
+          updateTextInput(session, "export_plot_width", value = "19")
+          updateTextInput(session,"export_plot_height", value = "12")
+        }
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 2){
+          updateTextInput(session, "export_plot_width", value = "29")
+          updateTextInput(session,"export_plot_height", value = "12")
+        }
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) > 2){
+          updateTextInput(session, "export_plot_width", value = "39")
+          updateTextInput(session,"export_plot_height", value = "12")
+        }
+        if(length(data_prm_combined_plot_rename$data[[input$facet_var[1]]]) > 3){
+          updateTextInput(session, "export_plot_width", value = "39")
+          updateTextInput(session,"export_plot_height", value = "23")
+        }
+      } 
+      if(length(input$facet_var) == 2){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) == 1){
+          updateTextInput(session,"export_plot_width", value = "19")
+        }
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) == 2){
+          updateTextInput(session,"export_plot_width", value = "29")
+        }
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) > 2){
+          updateTextInput(session,"export_plot_width", value = "39")
+        }
+        if(length(data_prm_combined_plot_rename$data[[input$facet_var[1]]]) == 1){
+          updateTextInput(session,"export_plot_height", value = "12")
+        }
+        if(length(data_prm_combined_plot_rename$data[[input$facet_var[1]]]) > 1){
+          updateTextInput(session,"export_plot_height", value = "23")
+        }
+      }
+    })
+
     
     #render ggplot display in app
     output$ggplot_plugin_display <- renderPlot({

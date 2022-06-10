@@ -86,11 +86,12 @@ observeEvent(input$switchtab, {
 -standard- upload different parameters with the file. eg. crop,climate etc
 
 -dimension
--customise point size, alpha
 -customised plot button direct to customise box
-
 - update rename button
 -legend change name/remove
+
 - shape different group
+-customise point size, alpha
+
 
 
