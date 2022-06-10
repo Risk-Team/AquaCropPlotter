@@ -381,17 +381,7 @@ server <- function(input, output, session) {
     
     ##########standard
     ###upload data
-    
-    #upload multiple times and append file list
-    # upload_standard <- reactiveValues()
-    # observe({upload_standard$list <- NULL})
-    # observeEvent(input$upload_data_files_standard, {
-    #   old_list <- upload_standard$list
-    #   new_list <- bind_rows(old_list, input$upload_data_files_standard) %>% distinct(name)
-    #   upload_standard$list <- new_list
-    # })
-    # 
-    
+
     #upload data  file and label text for the set
     #upload and append multiple sets
     upload_standard <- reactiveValues()
@@ -422,7 +412,7 @@ server <- function(input, output, session) {
     observeEvent(input$upload_button_standard, {output$upload_standard_list <- renderDataTable(upload_standard$list %>% select(-c(size, type, datapath))
                                                    ,options = list(scrollX = TRUE)) })
     
-    #
+    #read and clean data
     upload_data_standard_combined <- reactive({
             #require uploaded data files before evaluating
             req(input$upload_data_files_standard)
@@ -477,14 +467,15 @@ server <- function(input, output, session) {
       #filter out Run.OUT file as data format (seasonal)  different from others (daily)
       upload_data_standard_combined() %>%
         filter(extension != "Run.OUT") %>%
-        group_by(simulation_set_name) %>%
-        nest(data = dataset) %>%
+        group_by(climate,location,rcp,irrigation,crop,soil,sowing_date,note) %>%
+        nest() %>%
         mutate(all_data = map(data, function(data){
-          data %>%
-          reduce(left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
+          data$dataset %>%
+            reduce(left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
         })) %>%
-        unnest(all_data)
-        #mutate(Date = dmy(paste(Day, Month, Year, sep="-")))
+        select(-data) %>%
+        unnest(all_data) %>%
+        mutate(date = dmy(paste(Day, Month, Year, sep="-")))
     })
       
     #render output display
@@ -499,8 +490,11 @@ server <- function(input, output, session) {
     )
     
     ##seasonal data
-    upload_data_standard_combined_seasonal <- reactive({as.data.frame(upload_data_standard_combined()$dataset[upload_data_standard_combined()$extension == "Run.OUT"])
-                                                                })
+    upload_data_standard_combined_seasonal <- reactive({
+      upload_data_standard_combined() %>%
+        filter(extension == "Run.OUT") %>%
+        unnest(dataset) 
+    })
     output$upload_data_standard_combined_seasonal_display <- renderDataTable(upload_data_standard_combined_seasonal(),
                                                                              options = list(scrollX = TRUE))
     #for downloading seasonal dataset
@@ -511,32 +505,7 @@ server <- function(input, output, session) {
         }
     )
 
-    ###ggplot standard daily data
-    cbPalette <- c("#808080", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-    
-    ggplot_standard <- reactive({
-      ggplot(data = upload_data_standard_combined_daily(), aes(x = .data[[input$x_var_standard]], y = .data[[input$y_var_standard]]))+
-        geom_point()+
-        theme_light()+
-        scale_color_manual(values=cbPalette)
-    })
-    #render ggplot display in app
-    output$ggplot_standard_display <- renderPlot({
-      ggplot_standard()
-    })
-    #for downloading ggplot
-    output$ggplot_standard_download <- downloadHandler(
-      filename = function() {"plot_standard.pdf"},
-      content = function(file) {
-        ggsave(file, plot = ggplot_standard(), device = "pdf")
-      }
-    )
-    
-    ###ggplotly
-    output$ggplotly_standard_display <- renderPlotly({
-      ggplotly(ggplot_standard())
-    })
-    
+
     ##########plugin
     ###read upload data files and combine all data into dataframe
     upload_data_combined <-
