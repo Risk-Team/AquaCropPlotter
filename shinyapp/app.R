@@ -196,17 +196,17 @@ ui <- dashboardPage(
                         fluidRow(
                             box(title = "Select plotting variables",
                                 width = 3,
-                                height = "300px",
+                                height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
                                 #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
-                                div(style = "position:absolute;right:1em; bottom:1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
+                                div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
                                 ),
                             shinyjs::hidden(div(id = "hiddenbox1",
                               box(title = "Calculate mean",
                                   width = 3,
-                                  height = "300px",
+                                  height = "350px",
                                   status = "primary",
                                   solidHeader = TRUE,
                                   selectInput("use_mean", 
@@ -219,13 +219,13 @@ ui <- dashboardPage(
                                                    input_group_variable,
                                                     multiple = TRUE),
                                     bsPopover(id = "plot_info2", title = "", placement = "right", trigger = "hover")),
-                                  div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next2", "Next", icon = icon("chevron-right")))
+                                  div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next2", "Next", icon = icon("chevron-right")))
                               )
                             )),
                             shinyjs::hidden(div(id = "hiddenbox2",
                               box(title = "Select grouping variables",
                                 width = 3,
-                                height = "300px",
+                                height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("col_var", 
@@ -243,20 +243,20 @@ ui <- dashboardPage(
                                                choices = input_group_variable,
                                                multiple = TRUE, options = list(maxItems = 2)),
                                 bsPopover(id = "plot_info4", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
-                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next3", "Next", icon = icon("chevron-right")))
+                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next3", "Next", icon = icon("chevron-right")))
                                 )
                             )),
                              shinyjs::hidden(div(id = "hiddenbox3",
                             box(title = "Select plot elements",
                                 width = 3,
-                                height = "300px",
+                                height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_element", 
                                                label = tags$span("Elements to plot", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
                                                input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","grid_line")),
                                 bsPopover(id = "plot_info5", title = "", placement = "right", trigger = "hover"),
-                                div(style = "position:absolute;right:1em; bottom:1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right")))
+                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right")))
                                 )
                             ))
                         ),
