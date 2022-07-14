@@ -19,9 +19,21 @@ input_shape_choice <- c("circle", "triangle", "rectangle", "diamond", "cross", "
 
 #define UI dashboard
 ui <- dashboardPage(
-    dashboardHeader(title = "ShinyAquaCrop"),
+    #dashboardHeader(title = "ShinyAquaCrop"),
+    dashboardHeader(
+      # Set height of dashboardHeader
+      tags$li(class = "dropdown",
+              tags$style(".main-header {max-height: 130px}"),
+              tags$style(".main-header .logo {height: 130px}")
+      ),
+      #use image logo
+      title = tags$img(src="shinyaquacrop_logo.png",height="121",width="181")),
+    
     
     dashboardSidebar(collapsed = FALSE,
+        # Adjust the sidebar padding to allow large logo in the heading
+        tags$style(".left-side, .main-sidebar {padding-top: 130px}"),
+        
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
             menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = FALSE,
@@ -48,13 +60,14 @@ ui <- dashboardPage(
                                     .main-sidebar {font-weight: bold; font-size: 22px;}
                                     .treeview-menu>li>a {font-weight: bold; font-size: 22px!important;}
                                     
-                                    .skin-blue .main-header .logo {background-color: #416D96;}
+                                    .skin-blue .main-header .logo {background-color: #ffffff;}
+                                    .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
                                     .skin-blue .main-header .navbar {background-color: #f2f2f2;}
-                                    .skin-blue .main-sidebar {background-color: #9AB7D2; color: #9AB7D2;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #9AB7D2; color: #414042;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #5792c9!important; color: #000000!important;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #5792c9; color: #ffffff;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #9AB7D2!important; color: #414042!important;}
+                                    .skin-blue .main-sidebar {background-color: #D4EAFF; color: #D4EAFF;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #D4EAFF; color: #414042;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #446380; color: #ffffff;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #D4EAFF!important; color: #414042!important;}
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
                                     
