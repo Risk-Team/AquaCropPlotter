@@ -19,7 +19,6 @@ input_shape_choice <- c("circle", "triangle", "rectangle", "diamond", "cross", "
 
 #define UI dashboard
 ui <- dashboardPage(
-    #dashboardHeader(title = "ShinyAquaCrop"),
     dashboardHeader(
       # Set height of dashboardHeader
       tags$li(class = "dropdown",
@@ -27,7 +26,9 @@ ui <- dashboardPage(
               tags$style(".main-header .logo {height: 130px}")
       ),
       #use image logo
-      title = tags$img(src="shinyaquacrop_logo.png",height="121",width="181")),
+      title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
+              tags$img(src="shinyaquacrop_logo.png",height="121",width="181"))
+      ),
     
     
     dashboardSidebar(collapsed = FALSE,
