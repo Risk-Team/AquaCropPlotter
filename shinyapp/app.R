@@ -209,21 +209,6 @@ ui <- dashboardPage(
                                             )
                         ))
                       ),
-                      shinyjs::hidden(div(id = "hiddenbox4_std",
-                                          fluidRow(
-                                            tabBox(width = 12,
-                                                   height = "900px",
-                                                   id = "std_plot_tabbox",
-                                                   tabPanel("Standard plot",
-                                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_std", "Customise & export plot")),
-                                                            plotOutput("ggplot_std_display")
-                                                   ),
-                                                   tabPanel("Interactive plot",
-                                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_std", "Customise & export plot")),
-                                                            plotlyOutput("ggplotly_std_display")
-                                                   )
-                                            ),
-                                          ))),
                       shinyjs::hidden(div(id = "hiddenbox5_std",
                                           fluidRow(
                                             box(title = "Customise plot",
@@ -283,7 +268,18 @@ ui <- dashboardPage(
                                                 selectInput("export_plot_format_std", "Format", c("pdf","png"), selected = "pdf"),
                                                 downloadButton("ggplot_std_download", "Download"))
                                           )
-                      ))
+                      )),
+                      shinyjs::hidden(div(id = "hiddenbox4_std",
+                                          fluidRow(
+                                            tabBox(width = 12,
+                                                   height = "900px",
+                                                   id = "std_plot_tabbox",
+                                                   tabPanel("Plot",
+                                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_std", "Customise & export plot")),
+                                                            plotOutput("ggplot_std_display")
+                                                   )
+                                            ),
+                                          )))
                     )
             ),
             tabItem(tabName = "tab_analysis_standard",
@@ -392,21 +388,6 @@ ui <- dashboardPage(
                                 )
                             ))
                         ),
-                        shinyjs::hidden(div(id = "hiddenbox4",
-                          fluidRow(
-                            tabBox(width = 12,
-                                   height = "900px",
-                                   id = "plugin_plot_tabbox",
-                                   tabPanel("Standard plot",
-                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5", "Customise & export plot")),
-                                            plotOutput("ggplot_plugin_display")
-                                            ),
-                                   tabPanel("Interactive plot",
-                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5", "Customise & export plot")),
-                                            plotlyOutput("ggplotly_plugin_display")
-                                            )
-                                   ),
-                            ))),
                         shinyjs::hidden(div(id = "hiddenbox5",
                            fluidRow(
                             box(title = "Customise plot",
@@ -466,7 +447,18 @@ ui <- dashboardPage(
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
-                        ))
+                        )),
+                        shinyjs::hidden(div(id = "hiddenbox4",
+                                            fluidRow(
+                                              tabBox(width = 12,
+                                                     height = "900px",
+                                                     id = "plugin_plot_tabbox",
+                                                     tabPanel("Plot",
+                                                              div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5", "Customise & export plot")),
+                                                              plotOutput("ggplot_plugin_display")
+                                                     )
+                                              ),
+                                            )))
                     )
             ),
             tabItem(tabName = "tab_analysis_plugin",
@@ -899,12 +891,7 @@ server <- function(input, output, session) {
         ggsave(file, plot = ggplot_std(), device = {{input$export_plot_format_std}} , width = as.numeric({{input$export_plot_width_std}}), height = as.numeric({{input$export_plot_height_std}}), units = "cm")
       }
     )
-    
-    ###ggplotly
-    output$ggplotly_std_display <- renderPlotly({
-      ggplotly(ggplot_std(), 
-               width=as.numeric(input$export_plot_width_std)*36, height=as.numeric(input$export_plot_height_std)*36)
-    })
+
     
 ###################################################################################
     ##########plugin
@@ -1287,12 +1274,6 @@ server <- function(input, output, session) {
       }
     )
     
-    ###ggplotly
-    output$ggplotly_plugin_display <- renderPlotly({
-        ggplotly(ggplot_plugin(), 
-                 width=as.numeric(input$export_plot_width)*36, height=as.numeric(input$export_plot_height)*36)
-    })
-
     
 }
 
