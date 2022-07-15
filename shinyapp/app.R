@@ -22,7 +22,7 @@ ui <- dashboardPage(
     dashboardHeader(
       # Set height of dashboardHeader
       tags$li(class = "dropdown",
-              tags$style(".main-header .logo {height: 130px}"),
+              tags$style(".main-header .logo {height: 130px}")
               ),
       #use image logo, link to github
       title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
