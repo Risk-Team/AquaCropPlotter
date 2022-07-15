@@ -22,10 +22,9 @@ ui <- dashboardPage(
     dashboardHeader(
       # Set height of dashboardHeader
       tags$li(class = "dropdown",
-              tags$style(".main-header {max-height: 130px}"),
-              tags$style(".main-header .logo {height: 130px}")
-      ),
-      #use image logo
+              tags$style(".main-header .logo {height: 130px}"),
+              ),
+      #use image logo, link to github
       title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
               tags$img(src="shinyaquacrop_logo.png",height="121",width="181"))
       ),
@@ -66,8 +65,8 @@ ui <- dashboardPage(
                                     .skin-blue .main-header .navbar {background-color: #f2f2f2;}
                                     .skin-blue .main-sidebar {background-color: #D4EAFF; color: #D4EAFF;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #D4EAFF; color: #414042;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #446380; color: #ffffff;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;border-left-color: #446380;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #446380; color: #ffffff;border-left-color: #446380;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #D4EAFF!important; color: #414042!important;}
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
@@ -101,10 +100,12 @@ ui <- dashboardPage(
         
         tabItems(
             tabItem(tabName = "tab_home",
-                    #h2(
-                        #fluidRow(
-                            imageOutput("aquacrop_logo")
-                        #)
+                    h2(
+                        fluidRow(
+                            tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none}"),
+                            box(width = 12,height=0,
+                              imageOutput("aquacrop_logo"))
+                        )
                         ,
                         # fluidRow(
                         #     box(title = "Aquacrop standard (single season)", status = "primary", solidHeader = TRUE,
@@ -114,7 +115,7 @@ ui <- dashboardPage(
                         #         actionButton("select_aquacrop_plugin", "Select Aquacrop plugin")
                         #     )
                         # )
-                    #)
+                    )
             ),
             tabItem(tabName = "tab_upload_data_standard",
                     h2(
@@ -496,10 +497,9 @@ server <- function(input, output, session) {
     ##image logo display in home tab, Photo by @glenncarstenspeters on Unsplash
     output$aquacrop_logo <- renderImage({
         list(
-            src = file.path("www/homepage_photo.jpg"),
+            src = file.path("www/workflow.png"),
             contentType = "image/jpg",
-            width = "100%",
-            height = "900px"
+            width = "100%"
         )
     }, deleteFile = FALSE)
     
