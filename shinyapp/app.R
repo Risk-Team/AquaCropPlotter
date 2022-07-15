@@ -48,7 +48,8 @@ ui <- dashboardPage(
                      menuSubItem("Plot", tabName = "tab_plot_plugin", icon = icon("caret-right")),
                      menuSubItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("caret-right"))
                      ),
-            menuItem("Glossary", tabName = "aquacrop_glossary", icon = icon("book"))
+            menuItem("Glossary", tabName = "aquacrop_glossary", icon = icon("book")),
+            menuItem("Help", tabName = "aquacrop_help", icon = icon("question-circle"))
         )
     ),
     
