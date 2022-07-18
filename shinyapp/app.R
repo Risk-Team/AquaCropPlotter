@@ -1,11 +1,6 @@
-library(shiny)
-library(shinydashboard)
-library(tidyverse)
-library(plotly)
-library(DT)
-library(lubridate)
-library(shinyjs)
-library(shinyBS)
+# p_load install the packages if not present
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(shiny,shinydashboard, tidyverse, plotly, DT, lubridate, shinyjs, shinyBS )
 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
