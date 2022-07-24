@@ -2,7 +2,7 @@ library(tidyverse)
 
 ###read in one output file for daily data 
 #read in data as lines, clean up spaces to allow reading as tsv
-file.clean = read_lines("./output_plugin_daily/1206_RCP45_net_15April_loamPRMday.OUT") %>%
+file.clean = read_lines("../data/andrea/NO_0°-0%PRMday.OUT") %>%
   str_replace_all(" +?(?=\\S)","\t") 
 
 #read heading, line 4

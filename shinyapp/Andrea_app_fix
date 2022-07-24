@@ -1,0 +1,19 @@
+Andrea
+
+change-temperature-precipitation
+
+read special character
+
+plugin - 
+separate daily and plugin upload data tab
+
+parameter
+read in cli file and separate climate variables in multiple columns: climate1,2,3... separate by under score
+-option to change variable name climate 1,2,3 to known name
+
+clean data name if not formatted with underscore - prepare file tab?
+
+daily only data read, summarise t seasonal
+
+
+

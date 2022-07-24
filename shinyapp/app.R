@@ -1,6 +1,6 @@
 # p_load install the packages if not present
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(shiny,shinydashboard, tidyverse, plotly, DT, lubridate, shinyjs, shinyBS )
+pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS )
 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
@@ -58,7 +58,7 @@ ui <- dashboardPage(
                                     
                                     .skin-blue .main-header .logo {background-color: #ffffff;}
                                     .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
-                                    .skin-blue .main-header .navbar {background-color: #f2f2f2;}
+                                    .skin-blue .main-header .navbar {background-color: #ffffff;}
                                     .skin-blue .main-sidebar {background-color: #D4EAFF; color: #D4EAFF;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #D4EAFF; color: #414042;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;border-left-color: #446380;}
@@ -66,6 +66,7 @@ ui <- dashboardPage(
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #D4EAFF!important; color: #414042!important;}
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
+                                    .content-wrapper, .right-side {background-color: #ffffff;}
                                     
                                     #add customise color to palette choices 
                                     .option[data-value=black], .item[data-value=black] {background: #000000 !important; color: white !important;}
@@ -327,7 +328,16 @@ ui <- dashboardPage(
                         #display combined data table
                         div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
                         #div(dataTableOutput("data_prm_combined_plot_rename_display"), style = "font-size: 75%; width: 100%"),
-                        
+                        box(title = "Rename column",
+                            width = 2,
+                            height = "550px",
+                            status = "primary",
+                            solidHeader = TRUE,
+                            selectizeInput("rename_col", "Select column to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                            selectizeInput("rename_col_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                            textInput("rename_col_to", "Rename to"),
+                            actionButton("rename_col_button", "Rename")
+                        ),
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -910,13 +920,11 @@ server <- function(input, output, session) {
         reactive({
             #require uploaded data files before evaluating
             req(input$upload_data_files)
-            #check to make sure uploaded files has the correct extension .OUT, return error if not 
-            upload_data_files_ext <- tools::file_ext(input$upload_data_files$name)
-            if(any(upload_data_files_ext != "OUT")){
-                validate("Invalid data file: Please upload only .OUT files")
-            }
+
             #get a list of file paths from uploaded files
             input$upload_data_files %>%
+                #filter to read only seasonal.out files
+                filter(str_detect(name, "season\\.OUT$")) %>% 
                 #import dataset and clean up, format into dataframe
                 mutate(dataset = map(datapath, function(datapath){
                     #read in and clean up each data file from the list
@@ -951,13 +959,11 @@ server <- function(input, output, session) {
         reactive({
             #require uploaded prm files before evaluating
             req(input$upload_prm_files)
-            #check to make sure uploaded files has the correct extension .prm, return error if not 
-            upload_prm_files_ext <- tools::file_ext(input$upload_prm_files$name)
-            if(any(upload_prm_files_ext != "PRM")){
-                validate("Invalid parameter file: Please upload only .PRM files")
-            }
+
             #get a list of prm file path from uploaded
-            input$upload_prm_files %>%
+            prm.df = input$upload_prm_files %>%
+                #filter to read only .prm files
+                filter(str_detect(name, "\\.PRM$")) %>% 
                 #read in each prm file from the list and extract parameter of interest
                 mutate(parameter = map(datapath, function(datapath){
                     #read in each prm file from the list
@@ -965,30 +971,68 @@ server <- function(input, output, session) {
                     #extract parameter from each param file 
                     #in this case we use str_extract to get parameters of the first time point (should be the same for all time points)
                     #get climate file
-                    climate = str_extract(prm.file, "(?<=\\s).+?(?=\\.CLI\\r\\n)") %>%
-                        unlist() %>%
-                        str_replace_all("\\s","")
-                    #from climate file, get location, rcp
-                    location = str_extract(climate, regex(".+(?=\\(rcp)", ignore_case = TRUE))
-                    rcp = str_extract(climate, regex("rcp[0-9]{2}", ignore_case = TRUE))
+                    climate.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.CLI\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
+                    #get temperature file
+                    temperature.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.((Tnx)|(TMP))\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")    
+                    #get reference eto file
+                    reference.ET.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.ETo\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")  
+                    #get rain  file
+                    rain.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.PLU\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")  
+                    #get co2  file
+                    co2.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.CO2\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")  
                     #get crop
-                    crop = str_extract(prm.file, "(?<=\\s).+?(?=\\.CRO\\r\\n)") %>%
-                        unlist() %>%
-                        str_replace_all("\\s","")
+                    crop.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.CRO\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
                     #get irrigation
-                    irrigation = str_extract(prm.file, "(?<=\\s).+?(?=\\.IRR\\r\\n)") %>%
-                        unlist() %>%
-                        str_replace_all("\\s","")
+                    irrigation.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.IRR\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
+                    #get field management
+                    field.management.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.MAN\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")    
                     #get soil
-                    soil = str_extract(prm.file, "(?<=\\s).+?(?=\\.SOL\\r\\n)") %>%
-                        unlist() %>%
-                        str_replace_all("\\s","")
+                    soil.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.SOL\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
+                    #get groundwater table
+                    groundwater.table.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.GWT\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
+                    #get initial condition 
+                    initial.condition.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.SW0\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
+                    #get offseason condition 
+                    offseason.condition.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.OFF\\r\\n)") %>%
+                      unlist() %>%
+                      str_replace_all("\\s","")
                     #put parameters together in a table
-                    param.table = data.frame(climate, location, rcp, crop, irrigation, soil)
+                    param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file)
                 })) %>%
                 unnest(parameter) %>%
                 select(-size, -type, -datapath) %>%
-              mutate(irrigation = ifelse(is.na(irrigation), "rainfed", irrigation))
+                mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file))
+            
+            #check climate file for _ delimiter to extract different variables out of climate file name and give number
+            n.climate.file.var = str_split(prm.df$climate.file,"_") %>%
+              map(length) %>%
+              unlist() %>%
+              max()
+            
+            prm.df %>%
+              separate(climate.file, into = paste0("climate.file.var",c(1:n.climate.file.var)), sep = "_", remove = FALSE)
         })
     #output datatable of the combined parameters
     output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
@@ -1039,6 +1083,7 @@ server <- function(input, output, session) {
             write_tsv(data_prm_combined(), file)
         }
     )
+
     
     ###ggplot
     #reactive for showing next boxes to input plotting instructions
