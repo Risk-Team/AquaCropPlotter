@@ -323,21 +323,22 @@ ui <- dashboardPage(
             ),
             tabItem(tabName = "tab_combined_data_plugin",
                     h2(
+                        fluidRow(
                         #button for downloading all combined data
                         downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
                         div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
                         #div(dataTableOutput("data_prm_combined_plot_rename_display"), style = "font-size: 75%; width: 100%"),
                         box(title = "Rename column",
-                            width = 2,
-                            height = "550px",
+                            width = 12,
+                            #height = "550px",
                             status = "primary",
-                            solidHeader = TRUE,
-                            selectizeInput("rename_col", "Select column to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                            selectizeInput("rename_col_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                            solidHeader = FALSE,
+                            selectizeInput("rename_col_from", "Select column to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                             textInput("rename_col_to", "Rename to"),
                             actionButton("rename_col_button", "Rename")
-                        ),
+                            )
+                      )
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
@@ -1073,17 +1074,36 @@ server <- function(input, output, session) {
             upload_data_combined() %>%
                 left_join(upload_prm_combined(), by = c("prm.file" = "name"))
         })
+    #option for renaming column name
+    #create observe event module to monitor if user input select variable to rename
+    #if variable selected, update the select input list for value choices of the selected variable
+    observe({
+      choices <- colnames(data_prm_combined_renamecol$data)
+      updateSelectInput(inputId = "rename_col_from", choices = choices) 
+    })
+    #change value of selected variable to the value from user
+    data_prm_combined_renamecol <- reactiveValues()
+    observe({data_prm_combined_renamecol$data <- data_prm_combined()})
+    observeEvent(input$rename_col_button, {
+      if(input$rename_col_to != ""){
+        rename_df <- data_prm_combined_renamecol$data
+        #change colname
+        colnames(rename_df)[which(colnames(rename_df) == input$rename_col_from)] = input$rename_col_to
+        data_prm_combined_renamecol$data <- rename_df
+      }
+      choices <- colnames(data_prm_combined_renamecol$data)
+      updateSelectInput(inputId = "rename_col_from", choices = choices) 
+    })
     #output datatable of the combined data and parameters
-    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined(), 
+    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined_renamecol$data, 
                                                                   options = list(scrollX = TRUE)))
     #for downloading combined dataset
     output$download_combined_dataset <- downloadHandler(
-        filename = "Aquacrop_combined_data.tsv",
-        content = function(file) {
-            write_tsv(data_prm_combined(), file)
-        }
+      filename = "Aquacrop_combined_data.tsv",
+      content = function(file) {
+        write_tsv(data_prm_combined_renamecol$data, file)
+      }
     )
-
     
     ###ggplot
     #reactive for showing next boxes to input plotting instructions
@@ -1107,12 +1127,12 @@ server <- function(input, output, session) {
       ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
-          data_prm_combined() %>%
+          data_prm_combined_renamecol$data %>%
             group_by(across(all_of(c(input$group_var, "Year1", input$col_var, input$shape_var)))) %>%
             summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
                              mean))
         }else{
-          data_prm_combined() 
+          data_prm_combined_renamecol$data
         }
       })
       
