@@ -324,11 +324,16 @@ ui <- dashboardPage(
             tabItem(tabName = "tab_combined_data_plugin",
                     h2(
                         fluidRow(
-                        #button for downloading all combined data
-                        downloadButton("download_combined_dataset", "Download combined dataset"),
                         #display combined data table
-                        div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                        #div(dataTableOutput("data_prm_combined_plot_rename_display"), style = "font-size: 75%; width: 100%"),
+                        box(title = "Combined dataset",
+                            width = 12,
+                            status = "primary",
+                            solidHeader = FALSE,
+                            #button for downloading all combined data
+                            downloadButton("download_combined_dataset", "Download"),
+                            #data table
+                            div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
+                        ),
                         box(title = "Rename column",
                             width = 12,
                             #height = "550px",
@@ -1104,6 +1109,15 @@ server <- function(input, output, session) {
         write_tsv(data_prm_combined_renamecol$data, file)
       }
     )
+    
+    #update list of variables for grouping
+    observeEvent(data_prm_combined_renamecol$data,{
+      choices <- setdiff(colnames(data_prm_combined_renamecol$data), colnames(upload_data_combined()))
+      updateSelectizeInput(inputId = "group_var", choices = choices) 
+      updateSelectizeInput(inputId = "col_var", choices = choices) 
+      updateSelectizeInput(inputId = "shape_var", choices = choices) 
+      updateSelectizeInput(inputId = "facet_var", choices = choices) 
+    })
     
     ###ggplot
     #reactive for showing next boxes to input plotting instructions
