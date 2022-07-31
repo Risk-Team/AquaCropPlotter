@@ -927,7 +927,12 @@ server <- function(input, output, session) {
         reactive({
             #require uploaded data files before evaluating
             req(input$upload_data_files)
-
+            #check to make sure uploaded files has the correct extension .OUT, return error if not 
+            upload_data_files_ext <- tools::file_ext(input$upload_data_files$name)
+            if(all(upload_data_files_ext != "OUT")){
+              validate("Invalid data file: Please upload .OUT files")
+            }
+            
             #get a list of file paths from uploaded files
             input$upload_data_files %>%
                 #filter to read only seasonal.out files
@@ -966,6 +971,11 @@ server <- function(input, output, session) {
         reactive({
             #require uploaded prm files before evaluating
             req(input$upload_prm_files)
+            #check to make sure at least some uploaded files has the correct extension .prm, return error if not 
+            upload_prm_files_ext <- tools::file_ext(input$upload_prm_files$name)
+            if(all(upload_prm_files_ext != "PRM")){
+              validate("Invalid parameter file: Please upload .PRM files")
+            }
 
             #get a list of prm file path from uploaded
             prm.df = input$upload_prm_files %>%
@@ -978,53 +988,53 @@ server <- function(input, output, session) {
                     #extract parameter from each param file 
                     #in this case we use str_extract to get parameters of the first time point (should be the same for all time points)
                     #get climate file
-                    climate.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.CLI\\r\\n)") %>%
+                    climate.file = str_extract(prm.file, ".+?\\.CLI") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.CLI)","")
                     #get temperature file
-                    temperature.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.((Tnx)|(TMP))\\r\\n)") %>%
+                    temperature.file = str_extract(prm.file, ".+?\\.((Tnx)|(TMP))") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")    
+                      str_replace_all("(\\s)|((\\.Tnx)|(\\.TMP))","")    
                     #get reference eto file
-                    reference.ET.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.ETo\\r\\n)") %>%
+                    reference.ET.file = str_extract(prm.file, ".+?\\.ETo") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")  
+                      str_replace_all("(\\s)|(\\.ETo)","")  
                     #get rain  file
-                    rain.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.PLU\\r\\n)") %>%
+                    rain.file = str_extract(prm.file, ".+?\\.PLU") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")  
+                      str_replace_all("(\\s)|(\\.PLU)","")  
                     #get co2  file
-                    co2.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.CO2\\r\\n)") %>%
+                    co2.file = str_extract(prm.file, ".+?\\.CO2") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")  
+                      str_replace_all("(\\s)|(\\.CO2)","")  
                     #get crop
-                    crop.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.CRO\\r\\n)") %>%
+                    crop.file = str_extract(prm.file, ".+?\\.CRO") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.CRO)","")  
                     #get irrigation
-                    irrigation.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.IRR\\r\\n)") %>%
+                    irrigation.file = str_extract(prm.file, ".+?\\.IRR") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.IRR)","")  
                     #get field management
-                    field.management.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.MAN\\r\\n)") %>%
+                    field.management.file = str_extract(prm.file, ".+?\\.MAN") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")    
+                      str_replace_all("(\\s)|(\\.MAN)","")  
                     #get soil
-                    soil.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.SOL\\r\\n)") %>%
+                    soil.file = str_extract(prm.file, ".+?\\.SOL") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.SOL)","")  
                     #get groundwater table
-                    groundwater.table.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.GWT\\r\\n)") %>%
+                    groundwater.table.file = str_extract(prm.file, ".+?\\.GWT") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.GWT)","")  
                     #get initial condition 
-                    initial.condition.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.SW0\\r\\n)") %>%
+                    initial.condition.file = str_extract(prm.file, ".+?\\.SW0") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.SW0)","")  
                     #get offseason condition 
-                    offseason.condition.file = str_extract(prm.file, "(?<=\\s).+?(?=\\.OFF\\r\\n)") %>%
+                    offseason.condition.file = str_extract(prm.file, ".+?\\.OFF") %>%
                       unlist() %>%
-                      str_replace_all("\\s","")
+                      str_replace_all("(\\s)|(\\.OFF)","")
                     #put parameters together in a table
                     param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file)
                 })) %>%
