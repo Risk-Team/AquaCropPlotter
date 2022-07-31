@@ -934,7 +934,7 @@ server <- function(input, output, session) {
             }
             
             #get a list of file paths from uploaded files
-            input$upload_data_files %>%
+            data.df = input$upload_data_files %>%
                 #filter to read only seasonal.out files
                 filter(str_detect(name, "season\\.OUT$")) %>% 
                 #import dataset and clean up, format into dataframe
@@ -959,6 +959,17 @@ server <- function(input, output, session) {
                 select(-size, -type, -datapath) %>%
                 mutate(sowing_dmy = dmy(paste(Day1, Month1, Year1))) %>%
                 mutate(sowing_date = paste(day(sowing_dmy), month(sowing_dmy, label = T), sep = "_"))
+            
+            
+            #check climate file for _ delimiter to extract different variables out of climate file name and give number
+            n.name.var = str_split(data.df$name,"_") %>%
+              map(length) %>%
+              unlist() %>%
+              max()
+            
+            data.df %>%
+              mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
+              separate(name.var, into = paste0("name.var",c(1:n.name.var)), sep = "_")
         })
     #output datatable of the combined data
     output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
@@ -1041,15 +1052,6 @@ server <- function(input, output, session) {
                 unnest(parameter) %>%
                 select(-size, -type, -datapath) %>%
                 mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file))
-            
-            #check climate file for _ delimiter to extract different variables out of climate file name and give number
-            n.climate.file.var = str_split(prm.df$climate.file,"_") %>%
-              map(length) %>%
-              unlist() %>%
-              max()
-            
-            prm.df %>%
-              separate(climate.file, into = paste0("climate.file.var",c(1:n.climate.file.var)), sep = "_", remove = FALSE)
         })
     #output datatable of the combined parameters
     output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
@@ -1090,6 +1092,7 @@ server <- function(input, output, session) {
             upload_data_combined() %>%
                 left_join(upload_prm_combined(), by = c("prm.file" = "name"))
         })
+    
     #option for renaming column name
     #create observe event module to monitor if user input select variable to rename
     #if variable selected, update the select input list for value choices of the selected variable
