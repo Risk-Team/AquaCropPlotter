@@ -303,15 +303,14 @@ ui <- dashboardPage(
                     h2(
                         #to display error when insufficient prm files are uploaded
                         fluidRow(
-                        dataTableOutput("missing_prm_file_error"),
-                        tableOutput("missing_prm_file_display")
                         ),
                         #display boxes for data and prm files upload
                         fluidRow(
                             box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
                                 #upload data file
                                 fileInput("upload_data_files", "Upload files (season.OUT)", multiple = TRUE, accept = ".OUT"),
-                                div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%")
+                                div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%"),
+                                dataTableOutput("missing_seasonal_file_error")
                             ),
                             box(title = "Daily data files", status = "primary", solidHeader = TRUE, width = 4,
                                 #upload data file
@@ -321,7 +320,8 @@ ui <- dashboardPage(
                             box(title = "Parameter files", status = "primary", solidHeader = TRUE, width = 4,
                                 #upload parameter file
                                 fileInput("upload_prm_files", "Upload files (.PRM)", multiple = TRUE, accept = ".PRM"),
-                                div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%")
+                                div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
+                                dataTableOutput("missing_prm_file_error")
                             )
                         )
                     )
@@ -521,7 +521,6 @@ ui <- dashboardPage(
 
 # Define server logic 
 server <- function(input, output, session) {
-    ##image logo display in home tab, Photo by @glenncarstenspeters on Unsplash
     output$aquacrop_logo <- renderImage({
         list(
             src = file.path("www/workflow.png"),
@@ -943,9 +942,9 @@ server <- function(input, output, session) {
             #require uploaded data files before evaluating
             req(input$upload_data_files)
             #check to make sure uploaded files has the correct extension .OUT, return error if not 
-            upload_data_files_ext <- tools::file_ext(input$upload_data_files$name)
-            if(all(upload_data_files_ext != "OUT")){
-              validate("Invalid data file: Please upload .OUT files")
+            upload_data_files_ext <- str_detect(input$upload_data_files$name, "season\\.OUT$")
+            if(!any(upload_data_files_ext)){
+              validate("Invalid input for seasonal data: season.OUT files needed")
             }
             
             #get a list of file paths from uploaded files
@@ -971,20 +970,7 @@ server <- function(input, output, session) {
                         select(-1) #remove blank column in the first position
                 })) %>%
                 unnest(dataset) %>%
-                select(-size, -type, -datapath) %>%
-                mutate(sowing_dmy = dmy(paste(Day1, Month1, Year1))) %>%
-                mutate(sowing_date = paste(day(sowing_dmy), month(sowing_dmy, label = T), sep = "_"))
-            
-            
-            #check climate file for _ delimiter to extract different variables out of climate file name and give number
-            n.name.var = str_split(data.df$name,"_") %>%
-              map(length) %>%
-              unlist() %>%
-              max()
-            
-            data.df %>%
-              mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
-              separate(name.var, into = paste0("name.var",c(1:n.name.var)), sep = "_", remove = F)
+                select(-size, -type, -datapath)
         })
     #output datatable of the combined data
     output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
@@ -998,9 +984,9 @@ server <- function(input, output, session) {
             #require uploaded prm files before evaluating
             req(input$upload_prm_files)
             #check to make sure at least some uploaded files has the correct extension .prm, return error if not 
-            upload_prm_files_ext <- tools::file_ext(input$upload_prm_files$name)
-            if(all(upload_prm_files_ext != "PRM")){
-              validate("Invalid parameter file: Please upload .PRM files")
+            upload_prm_files_ext <- str_detect(input$upload_prm_files$name, "\\.PRM$")
+            if(!any(upload_prm_files_ext)){
+              validate("Invalid input for parameter data: .PRM files needed")
             }
 
             #get a list of prm file path from uploaded
@@ -1066,7 +1052,17 @@ server <- function(input, output, session) {
                 })) %>%
                 unnest(parameter) %>%
                 select(-size, -type, -datapath) %>%
-                mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file))
+                mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file)) %>%
+                mutate(name.var = str_replace(name, "\\.PRM$","")) 
+
+            #check name for _ delimiter to extract different variables out of file name and give number
+            n.name.var = str_split(prm.df$name.var,"_") %>%
+              map(length) %>%
+              unlist() %>%
+              max()
+            
+            prm.df %>%
+              separate(name.var, into = paste0("name.var",c(1:n.name.var)), sep = "_", remove = F)
         })
     #output datatable of the combined parameters
     output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
@@ -1081,31 +1077,29 @@ server <- function(input, output, session) {
         req(input$upload_prm_files)
         
         upload_data_combined() %>%
-            select(prm.file) %>%
+            mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
+            select(name.var) %>%
             distinct() %>%
-            anti_join(upload_prm_combined(), by = c("prm.file" = "name")) %>%
-            rename(missing.prm.file = prm.file)
+            anti_join(upload_prm_combined(), by = "name.var") %>% 
+            as.vector()
     })
     #return error if there is any missing prm files
     output$missing_prm_file_error <- reactive({
         req(input$upload_data_files)
         req(input$upload_prm_files)
         
-        if(nrow(missing_prm_file()) > 0){
-            validate("Missing .PRM files: Please upload the following .PRM files")
+        if(length(missing_prm_file()) > 0){
+            validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.var"]], collapse=", ")))
             }
     })
-    #display missing prm files
-      output$missing_prm_file_display <- renderTable(
-        if(nrow(missing_prm_file()) > 0){
-          missing_prm_file()
-        }
-      )
-
+    
     ####add parameters to the output dataset
     data_prm_combined <- reactive({
-            upload_data_combined() %>%
-                left_join(upload_prm_combined(), by = c("prm.file" = "name"))
+        upload_data_combined() %>%
+        mutate(sowing_dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+        mutate(sowing_date = paste(day(sowing_dmy), month(sowing_dmy, label = T), sep = "_")) %>%
+        mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
+        left_join(upload_prm_combined(), by = "name.var")
         })
     
     #option for renaming column name
@@ -1145,9 +1139,9 @@ server <- function(input, output, session) {
         #require uploaded data files before evaluating
         req(input$upload_daily_data_files)
         #check to make sure uploaded files has the correct extension .OUT, return error if not 
-        upload_daily_data_files_ext <- tools::file_ext(input$upload_daily_data_files$name)
-        if(all(upload_daily_data_files_ext != "OUT")){
-          validate("Invalid data file: Please upload .OUT files")
+        upload_daily_data_files_ext <- str_detect(input$upload_daily_data_files$name, "day\\.OUT$")
+        if(!any(upload_daily_data_files_ext)){
+          validate("Invalid input for daily data: day.OUT files needed")
         }
         
         #get a list of file paths from uploaded files
@@ -1188,11 +1182,39 @@ server <- function(input, output, session) {
                                                              select(name) %>%
                                                              distinct(),
                                                            options = list(scrollX = TRUE))
-    ####add parameters to the daily dataset
-    daily_data_prm_combined <- reactive({
+    
+    
+    ###check if all seasonal files are uploaded as needed for all daily datasets
+    #find a list of any missing seasonal file required in the daily data files
+    missing_seasonal_file <- reactive({
+      req(input$upload_data_files)
+      req(input$upload_daily_data_files)
+      
       upload_daily_data_combined() %>%
         mutate(name.var = str_replace(name, "PRMday.OUT$","")) %>%
-        left_join(data_prm_combined_renamecol$data, by = "name.var")
+        select(name.var) %>%
+        distinct() %>%
+        anti_join(upload_data_combined() %>%
+                    mutate(name.var = str_replace(name, "PRMseason.OUT$",""))
+                  , by = "name.var") %>% 
+        as.vector()
+    })
+    #return error if there is any missing seasonal files
+    output$missing_seasonal_file_error <- reactive({
+      req(input$upload_data_files)
+      req(input$upload_daily_data_files)
+      
+      if(length(missing_seasonal_file()) > 0){
+        validate(paste0("The following seasonal.OUT files are missing:\n", paste(missing_seasonal_file()[["name.var"]], collapse=", ")))
+      }
+    })
+    
+    ####add parameters to the daily dataset
+    daily_data_prm_combined <- reactive({
+      upload_daily_data_combined() %>%    
+      mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+      mutate(name.var = str_replace(name, "PRMday.OUT$","")) %>%
+      left_join(data_prm_combined_renamecol$data, by = "name.var")
     })
     #output datatable of the combined daily data and parameters
     output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined(), 
@@ -1232,7 +1254,7 @@ server <- function(input, output, session) {
       shinyjs::show(id = "hiddenbox4")
     })
     observeEvent(input$plot_next5, {
-      shinyjs::show(id = "hiddenbox5")
+      shinyjs::toggle(id = "hiddenbox5")
     })
     
     #data for plotting
