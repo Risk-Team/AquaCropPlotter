@@ -308,12 +308,17 @@ ui <- dashboardPage(
                         ),
                         #display boxes for data and prm files upload
                         fluidRow(
-                            box(title = "Data files", status = "primary", solidHeader = TRUE,
+                            box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
                                 #upload data file
-                                fileInput("upload_data_files", "Upload files (.OUT)", multiple = TRUE, accept = ".OUT"),
+                                fileInput("upload_data_files", "Upload files (season.OUT)", multiple = TRUE, accept = ".OUT"),
                                 div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%")
                             ),
-                            box(title = "Parameter files", status = "primary", solidHeader = TRUE,
+                            box(title = "Daily data files", status = "primary", solidHeader = TRUE, width = 4,
+                                #upload data file
+                                fileInput("upload_daily_data_files", "Upload files (day.OUT)", multiple = TRUE, accept = ".OUT"),
+                                div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 75%; width: 100%")
+                            ),
+                            box(title = "Parameter files", status = "primary", solidHeader = TRUE, width = 4,
                                 #upload parameter file
                                 fileInput("upload_prm_files", "Upload files (.PRM)", multiple = TRUE, accept = ".PRM"),
                                 div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%")
@@ -325,7 +330,7 @@ ui <- dashboardPage(
                     h2(
                         fluidRow(
                         #display combined data table
-                        box(title = "Combined dataset",
+                        box(title = "Combined seasonal dataset",
                             width = 12,
                             status = "primary",
                             solidHeader = FALSE,
@@ -334,11 +339,20 @@ ui <- dashboardPage(
                             #data table
                             div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         ),
-                        box(title = "Rename column",
+                        box(title = "Combined daily dataset",
                             width = 12,
-                            #height = "550px",
                             status = "primary",
                             solidHeader = FALSE,
+                            #button for downloading all combined data
+                            downloadButton("download_combined_daily_dataset", "Download"),
+                            #data table
+                            div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
+                        ),
+                        box(title = "Rename column",
+                            width = 4,
+                            #height = "550px",
+                            status = "primary",
+                            solidHeader = TRUE,
                             selectizeInput("rename_col_from", "Select column to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                             textInput("rename_col_to", "Rename to"),
                             actionButton("rename_col_button", "Rename")
@@ -922,6 +936,7 @@ server <- function(input, output, session) {
     
 ###################################################################################
     ##########plugin
+    ###seasonal data
     ###read upload data files and combine all data into dataframe
     upload_data_combined <-
         reactive({
@@ -969,7 +984,7 @@ server <- function(input, output, session) {
             
             data.df %>%
               mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
-              separate(name.var, into = paste0("name.var",c(1:n.name.var)), sep = "_")
+              separate(name.var, into = paste0("name.var",c(1:n.name.var)), sep = "_", remove = F)
         })
     #output datatable of the combined data
     output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
@@ -1081,11 +1096,11 @@ server <- function(input, output, session) {
             }
     })
     #display missing prm files
-    output$missing_prm_file_display <- renderTable(
+      output$missing_prm_file_display <- renderTable(
         if(nrow(missing_prm_file()) > 0){
-            missing_prm_file()
+          missing_prm_file()
         }
-    )
+      )
 
     ####add parameters to the output dataset
     data_prm_combined <- reactive({
@@ -1124,6 +1139,75 @@ server <- function(input, output, session) {
       }
     )
     
+    ###daily data
+    upload_daily_data_combined <-
+      reactive({
+        #require uploaded data files before evaluating
+        req(input$upload_daily_data_files)
+        #check to make sure uploaded files has the correct extension .OUT, return error if not 
+        upload_daily_data_files_ext <- tools::file_ext(input$upload_daily_data_files$name)
+        if(all(upload_daily_data_files_ext != "OUT")){
+          validate("Invalid data file: Please upload .OUT files")
+        }
+        
+        #get a list of file paths from uploaded files
+        data.df = input$upload_daily_data_files %>%
+          #filter to read only seasonal.out files
+          filter(str_detect(name, "day\\.OUT$")) %>% 
+          #import dataset and clean up, format into dataframe
+          mutate(dataset = map(datapath, function(datapath){
+            ###read in one output file for daily data 
+            #read in data as lines, clean up spaces to allow reading as tsv
+            file.clean = read_lines(datapath) %>%
+              str_replace_all(" +?(?=\\S)","\t") 
+            
+            #read heading, line 4
+            heading = file.clean[4] %>%
+              str_replace_all("(?<=WC|ECe)\\t(?=[2-9])", "0") %>%
+              str_split("\\t") %>%
+              unlist() 
+            
+            #find index of blank lines that separate sections, different Runs (seasons)
+            file.line.blank = which(file.clean == "") 
+            #find index of lines that are not data, starts from every blank line and 3 consecutive following lines, also remove first line
+            file.line.remove = c(1, file.line.blank, file.line.blank+1, file.line.blank+2, file.line.blank+3)
+            #recreate data file, remove unwanted lines 
+            file.clean = file.clean[-file.line.remove] %>%
+              paste0(collapse = "\n") 
+            
+            #read in data as tsv
+            data = read_tsv(file = file.clean, col_names = heading) %>%
+              select(-1) #remove blank column at the start
+          })) %>%
+          unnest(dataset) %>%
+          select(-size, -type, -datapath)
+          })
+    
+    #output datatable of the combined data
+    output$upload_daily_data_combined_display <- renderDataTable(upload_daily_data_combined() %>%
+                                                             select(name) %>%
+                                                             distinct(),
+                                                           options = list(scrollX = TRUE))
+    ####add parameters to the daily dataset
+    daily_data_prm_combined <- reactive({
+      upload_daily_data_combined() %>%
+        mutate(name.var = str_replace(name, "PRMday.OUT$","")) %>%
+        left_join(data_prm_combined_renamecol$data, by = "name.var")
+    })
+    #output datatable of the combined daily data and parameters
+    output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined(), 
+                                                                  options = list(scrollX = TRUE)))
+    #for downloading combined daily dataset
+    output$download_combined_daily_dataset <- downloadHandler(
+      filename = "Aquacrop_combined_daily_data.tsv",
+      content = function(file) {
+        write_tsv(daily_data_prm_combined(), file)
+      }
+    )
+    
+    
+    ###ggplot
+
     #update list of variables for grouping
     observeEvent(data_prm_combined_renamecol$data,{
       choices <- setdiff(colnames(data_prm_combined_renamecol$data), colnames(upload_data_combined()))
@@ -1133,7 +1217,7 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "facet_var", choices = choices) 
     })
     
-    ###ggplot
+    
     #reactive for showing next boxes to input plotting instructions
     observeEvent(input$plot_next1, {
       shinyjs::show(id = "hiddenbox1")
