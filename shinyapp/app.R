@@ -5,7 +5,7 @@ pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
 input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WPet")
-input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing_date")
+input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing.date")
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
 input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error","grid_line")
@@ -93,6 +93,7 @@ ui <- dashboardPage(
                                       .form-control { font-size: 18px; line-height: 18px; height:42px; width:80%; }
                                       .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
                                       .nav-tabs { font-size: 20px; line-height: 20px; font-weight:bold; }
+                                      .shiny-output-error-validation { font-size: 20px; line-height: 20px; padding-top: 15px; }
                    "),
         
         tabItems(
@@ -1053,22 +1054,46 @@ server <- function(input, output, session) {
                 unnest(parameter) %>%
                 select(-size, -type, -datapath) %>%
                 mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file)) %>%
-                mutate(name.var = str_replace(name, "\\.PRM$","")) 
+                mutate(name.variable = str_replace(name, "\\.PRM$","")) %>%
+                rename(prm.file.name = name)
 
             #check name for _ delimiter to extract different variables out of file name and give number
-            n.name.var = str_split(prm.df$name.var,"_") %>%
+            n.name.var = str_split(prm.df$name.variable,"_") %>%
               map(length) %>%
               unlist() %>%
               max()
             
             prm.df %>%
-              separate(name.var, into = paste0("name.var",c(1:n.name.var)), sep = "_", remove = F)
+              separate(name.variable, into = paste0("name.variable",c(1:n.name.var)), sep = "_", remove = F)
         })
     #output datatable of the combined parameters
     output$upload_prm_combined_display <- renderDataTable(upload_prm_combined() %>%
-                                                          select(name) %>%
+                                                          select(prm.file.name) %>%
                                                           distinct(),
                                                           options = list(scrollX = TRUE))
+    
+    #option for renaming column name
+    #create observe event module to monitor if user input select variable to rename
+    #if variable selected, update the select input list for value choices of the selected variable
+    upload_prm_combined_renamecol <- reactiveValues()
+    observe({upload_prm_combined_renamecol$data <- upload_prm_combined()})
+    observe({
+      choices <- colnames(upload_prm_combined_renamecol$data)
+      choices <- choices[! choices %in% c("name.variable")]
+      updateSelectInput(inputId = "rename_col_from", choices = choices) 
+    })
+    #change value of selected variable to the value from user
+    observeEvent(input$rename_col_button, {
+      if(input$rename_col_to != "" & !input$rename_col_to %in% colnames(upload_prm_combined_renamecol$data)){
+        rename_df <- upload_prm_combined_renamecol$data
+        #change colname
+        colnames(rename_df)[which(colnames(rename_df) == input$rename_col_from)] = input$rename_col_to
+        upload_prm_combined_renamecol$data <- rename_df
+      }
+      choices <- colnames(upload_prm_combined_renamecol$data)
+      choices <- choices[! choices %in% c("name.variable")]
+      updateSelectInput(inputId = "rename_col_from", choices = choices) 
+    })
     
     ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
     #find a list of any missing prm file required in the data files
@@ -1077,10 +1102,10 @@ server <- function(input, output, session) {
         req(input$upload_prm_files)
         
         upload_data_combined() %>%
-            mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
-            select(name.var) %>%
+            mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+            select(name.variable) %>%
             distinct() %>%
-            anti_join(upload_prm_combined(), by = "name.var") %>% 
+            anti_join(upload_prm_combined(), by = "name.variable") %>% 
             as.vector()
     })
     #return error if there is any missing prm files
@@ -1089,47 +1114,29 @@ server <- function(input, output, session) {
         req(input$upload_prm_files)
         
         if(length(missing_prm_file()) > 0){
-            validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.var"]], collapse=", ")))
+            validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
             }
     })
     
     ####add parameters to the output dataset
     data_prm_combined <- reactive({
+      req(input$upload_prm_files)
         upload_data_combined() %>%
-        mutate(sowing_dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
-        mutate(sowing_date = paste(day(sowing_dmy), month(sowing_dmy, label = T), sep = "_")) %>%
-        mutate(name.var = str_replace(name, "PRMseason.OUT$","")) %>%
-        left_join(upload_prm_combined(), by = "name.var")
+        mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+        mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+        mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+        left_join(upload_prm_combined_renamecol$data, by = "name.variable")
         })
     
-    #option for renaming column name
-    #create observe event module to monitor if user input select variable to rename
-    #if variable selected, update the select input list for value choices of the selected variable
-    observe({
-      choices <- colnames(data_prm_combined_renamecol$data)
-      updateSelectInput(inputId = "rename_col_from", choices = choices) 
-    })
-    #change value of selected variable to the value from user
-    data_prm_combined_renamecol <- reactiveValues()
-    observe({data_prm_combined_renamecol$data <- data_prm_combined()})
-    observeEvent(input$rename_col_button, {
-      if(input$rename_col_to != ""){
-        rename_df <- data_prm_combined_renamecol$data
-        #change colname
-        colnames(rename_df)[which(colnames(rename_df) == input$rename_col_from)] = input$rename_col_to
-        data_prm_combined_renamecol$data <- rename_df
-      }
-      choices <- colnames(data_prm_combined_renamecol$data)
-      updateSelectInput(inputId = "rename_col_from", choices = choices) 
-    })
+   
     #output datatable of the combined data and parameters
-    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined_renamecol$data, 
+    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined(), 
                                                                   options = list(scrollX = TRUE)))
     #for downloading combined dataset
     output$download_combined_dataset <- downloadHandler(
       filename = "Aquacrop_combined_data.tsv",
       content = function(file) {
-        write_tsv(data_prm_combined_renamecol$data, file)
+        write_tsv(data_prm_combined(), file)
       }
     )
     
@@ -1184,37 +1191,13 @@ server <- function(input, output, session) {
                                                            options = list(scrollX = TRUE))
     
     
-    ###check if all seasonal files are uploaded as needed for all daily datasets
-    #find a list of any missing seasonal file required in the daily data files
-    missing_seasonal_file <- reactive({
-      req(input$upload_data_files)
-      req(input$upload_daily_data_files)
-      
-      upload_daily_data_combined() %>%
-        mutate(name.var = str_replace(name, "PRMday.OUT$","")) %>%
-        select(name.var) %>%
-        distinct() %>%
-        anti_join(upload_data_combined() %>%
-                    mutate(name.var = str_replace(name, "PRMseason.OUT$",""))
-                  , by = "name.var") %>% 
-        as.vector()
-    })
-    #return error if there is any missing seasonal files
-    output$missing_seasonal_file_error <- reactive({
-      req(input$upload_data_files)
-      req(input$upload_daily_data_files)
-      
-      if(length(missing_seasonal_file()) > 0){
-        validate(paste0("The following seasonal.OUT files are missing:\n", paste(missing_seasonal_file()[["name.var"]], collapse=", ")))
-      }
-    })
     
     ####add parameters to the daily dataset
     daily_data_prm_combined <- reactive({
       upload_daily_data_combined() %>%    
       mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
-      mutate(name.var = str_replace(name, "PRMday.OUT$","")) %>%
-      left_join(data_prm_combined_renamecol$data, by = "name.var")
+      mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
+      left_join(upload_prm_combined_renamecol$data, by = "name.variable")
     })
     #output datatable of the combined daily data and parameters
     output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined(), 
@@ -1227,12 +1210,11 @@ server <- function(input, output, session) {
       }
     )
     
-    
     ###ggplot
 
     #update list of variables for grouping
-    observeEvent(data_prm_combined_renamecol$data,{
-      choices <- setdiff(colnames(data_prm_combined_renamecol$data), colnames(upload_data_combined()))
+    observeEvent(data_prm_combined(),{
+      choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
       updateSelectizeInput(inputId = "group_var", choices = choices) 
       updateSelectizeInput(inputId = "col_var", choices = choices) 
       updateSelectizeInput(inputId = "shape_var", choices = choices) 
@@ -1261,12 +1243,12 @@ server <- function(input, output, session) {
       ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
-          data_prm_combined_renamecol$data %>%
+          data_prm_combined() %>%
             group_by(across(all_of(c(input$group_var, "Year1", input$col_var, input$shape_var)))) %>%
             summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
                              mean))
         }else{
-          data_prm_combined_renamecol$data
+          data_prm_combined()
         }
       })
       
