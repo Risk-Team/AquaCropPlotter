@@ -349,7 +349,16 @@ ui <- dashboardPage(
                             #data table
                             div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         ),
-                        box(title = "Rename column",
+                        box(title = "Combined parameter",
+                            width = 12,
+                            status = "primary",
+                            solidHeader = FALSE,
+                            #button for downloading all combined data
+                            downloadButton("download_combined_prm", "Download"),
+                            #data table
+                            div(dataTableOutput("prm_combined_display"), style = "font-size: 75%; width: 100%")
+                        ),
+                        box(title = "Rename parameter column",
                             width = 4,
                             #height = "550px",
                             status = "primary",
@@ -1094,6 +1103,17 @@ server <- function(input, output, session) {
       choices <- choices[! choices %in% c("name.variable")]
       updateSelectInput(inputId = "rename_col_from", choices = choices) 
     })
+    
+    #output datatable of the combined data and parameters
+    output$prm_combined_display <- renderDataTable(datatable(upload_prm_combined_renamecol$data, 
+                                                                  options = list(scrollX = TRUE)))
+    #for downloading combined dataset
+    output$download_combined_prm <- downloadHandler(
+      filename = "Aquacrop_combined_parameter.tsv",
+      content = function(file) {
+        write_tsv(upload_prm_combined_renamecol$data, file)
+      }
+    )
     
     ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
     #find a list of any missing prm file required in the data files
