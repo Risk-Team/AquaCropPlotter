@@ -1178,6 +1178,11 @@ server <- function(input, output, session) {
             #read in data as tsv
             data = read_tsv(file = file.clean, col_names = heading) %>%
               select(-1) #remove blank column at the start
+            
+            #remove duplicated column
+            colnames(data) = str_replace(colnames(data),"\\.\\.\\..+$","")
+            data = data[!duplicated(colnames(data))]
+              
           })) %>%
           unnest(dataset) %>%
           select(-size, -type, -datapath)
