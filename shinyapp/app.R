@@ -93,7 +93,7 @@ ui <- dashboardPage(
                                       .form-control { font-size: 18px; line-height: 18px; height:42px; width:80%; }
                                       .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
                                       .nav-tabs { font-size: 22px; line-height: 20px; font-weight:bold; }
-                                      .shiny-output-error-validation { font-size: 20px; line-height: 20px; padding-top: 15px; }
+                                      .shiny-output-error-validation { font-size: 22px; line-height: 22px; padding-top: 15px; }
                    "),
         
         tabItems(
@@ -1106,39 +1106,16 @@ server <- function(input, output, session) {
       updateSelectInput(inputId = "rename_col_from", choices = choices) 
     })
     
-    #output datatable of the combined data and parameters
+    #output datatable of the combined parameters
     output$prm_combined_display <- renderDataTable(datatable(upload_prm_combined_renamecol$data, 
                                                                   options = list(scrollX = TRUE)))
-    #for downloading combined dataset
+    #for downloading combined prm
     output$download_combined_prm <- downloadHandler(
       filename = "Aquacrop_combined_parameter.tsv",
       content = function(file) {
         write_tsv(upload_prm_combined_renamecol$data, file)
       }
     )
-    
-    ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
-    #find a list of any missing prm file required in the data files
-    missing_prm_file <- reactive({
-        req(input$upload_data_files)
-        req(input$upload_prm_files)
-        
-        upload_data_combined() %>%
-            mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
-            select(name.variable) %>%
-            distinct() %>%
-            anti_join(upload_prm_combined(), by = "name.variable") %>% 
-            as.vector()
-    })
-    #return error if there is any missing prm files
-    output$missing_prm_file_error <- reactive({
-        req(input$upload_data_files)
-        req(input$upload_prm_files)
-        
-        if(length(missing_prm_file()) > 0){
-            validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
-            }
-    })
     
     ####add parameters to the output dataset
     data_prm_combined <- reactive({
@@ -1231,6 +1208,34 @@ server <- function(input, output, session) {
         write_tsv(daily_data_prm_combined(), file)
       }
     )
+    
+    ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
+    #find a list of any missing prm file required in the data files
+    missing_prm_file <- reactive({
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      bind_rows(upload_data_combined() %>%
+        mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+        select(name.variable), 
+      upload_daily_data_combined() %>%
+        mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
+        select(name.variable)) %>%
+        distinct() %>%
+        anti_join(upload_prm_combined(), by = "name.variable") %>% 
+        as.vector()
+    })
+    #return error if there is any missing prm files
+    output$missing_prm_file_error <- reactive({
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      if(length(missing_prm_file()) > 0){
+        validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
+      }
+    })
     
     ###ggplot
 
