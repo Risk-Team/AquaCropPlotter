@@ -92,7 +92,7 @@ ui <- dashboardPage(
                                       .btn { font-size: 20px; }
                                       .form-control { font-size: 18px; line-height: 18px; height:42px; width:80%; }
                                       .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
-                                      .nav-tabs { font-size: 20px; line-height: 20px; font-weight:bold; }
+                                      .nav-tabs { font-size: 22px; line-height: 20px; font-weight:bold; }
                                       .shiny-output-error-validation { font-size: 20px; line-height: 20px; padding-top: 15px; }
                    "),
         
@@ -331,7 +331,8 @@ ui <- dashboardPage(
                     h2(
                         fluidRow(
                         #display combined data table
-                        box(title = "Combined seasonal dataset",
+                        tabBox(width = 12,
+                               tabPanel(title = "Seasonal dataset",
                             width = 12,
                             status = "primary",
                             solidHeader = FALSE,
@@ -340,7 +341,7 @@ ui <- dashboardPage(
                             #data table
                             div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         ),
-                        box(title = "Combined daily dataset",
+                        tabPanel(title = "Daily dataset",
                             width = 12,
                             status = "primary",
                             solidHeader = FALSE,
@@ -349,7 +350,7 @@ ui <- dashboardPage(
                             #data table
                             div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         ),
-                        box(title = "Combined parameter",
+                        tabPanel(title = "Parameter",
                             width = 12,
                             status = "primary",
                             solidHeader = FALSE,
@@ -357,6 +358,7 @@ ui <- dashboardPage(
                             downloadButton("download_combined_prm", "Download"),
                             #data table
                             div(dataTableOutput("prm_combined_display"), style = "font-size: 75%; width: 100%")
+                        )
                         ),
                         box(title = "Rename parameter column",
                             width = 4,
