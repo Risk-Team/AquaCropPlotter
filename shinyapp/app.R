@@ -380,8 +380,9 @@ ui <- dashboardPage(
                                 height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
+                                selectInput("plot_mode", "Data type to plot", c("daily","seasonal")),
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
-                                #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
+                                selectInput("x_var", "Variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
                                 ),
                             shinyjs::hidden(div(id = "hiddenbox1",
@@ -1120,6 +1121,7 @@ server <- function(input, output, session) {
     ####add parameters to the output dataset
     data_prm_combined <- reactive({
       req(input$upload_prm_files)
+      
         upload_data_combined() %>%
         mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
         mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
@@ -1198,6 +1200,8 @@ server <- function(input, output, session) {
     
     ####add parameters to the daily dataset
     daily_data_prm_combined <- reactive({
+      req(input$upload_prm_files)
+
       upload_daily_data_combined() %>%    
       mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
       mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
@@ -1242,18 +1246,8 @@ server <- function(input, output, session) {
       }
     })
     
-    ###ggplot
+############### ggplot ###############
 
-    #update list of variables for grouping
-    observeEvent(data_prm_combined(),{
-      choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
-      updateSelectizeInput(inputId = "group_var", choices = choices) 
-      updateSelectizeInput(inputId = "col_var", choices = choices) 
-      updateSelectizeInput(inputId = "shape_var", choices = choices) 
-      updateSelectizeInput(inputId = "facet_var", choices = choices) 
-    })
-    
-    
     #reactive for showing next boxes to input plotting instructions
     observeEvent(input$plot_next1, {
       shinyjs::show(id = "hiddenbox1")
@@ -1271,16 +1265,81 @@ server <- function(input, output, session) {
       shinyjs::toggle(id = "hiddenbox5")
     })
     
-    #data for plotting
-      ## if plotting mean is selected, calculate mean based on grouping variable selected
+    ###data for plotting
+    ##select data mode daily or seasonal  
+    data_mode_selected <- reactive({
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      if(input$plot_mode == "daily"){
+        #update choices for plotting axis
+        axis.choices = unique(colnames(daily_data_prm_combined()))
+        updateSelectInput(inputId = "y_var", choices = axis.choices)
+        updateSelectInput(inputId = "x_var", choices = axis.choices)
+        #update choices for grouping variable
+        group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+        updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+        #return data to use
+        daily_data_prm_combined()
+      }else{
+        #update choices for plotting axis
+        axis.choices = unique(colnames(data_prm_combined()))
+        updateSelectInput(inputId = "y_var", choices = axis.choices)
+        updateSelectInput(inputId = "x_var", choices = axis.choices)
+        #update choices for grouping variable
+        group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+        updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+        #return data to use
+        data_prm_combined()     
+      }
+    })
+
+    #when changes made to dataframe, update list of variables for axis and grouping
+    observeEvent(daily_data_prm_combined(),{
+      #update choices for plotting axis
+      axis.choices = unique(colnames(daily_data_prm_combined()))
+      updateSelectInput(inputId = "y_var", choices = axis.choices)
+      updateSelectInput(inputId = "x_var", choices = axis.choices)
+      #update choices for grouping variable
+      group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+      updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+    })
+    observeEvent(data_prm_combined(),{
+      #update choices for plotting axis
+      axis.choices = unique(colnames(data_prm_combined()))
+      updateSelectInput(inputId = "y_var", choices = axis.choices)
+      updateSelectInput(inputId = "x_var", choices = axis.choices)
+      #update choices for grouping variable
+      group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+      updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+    })
+    
+    
+    ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
+        req(input$upload_data_files)
+        req(input$upload_prm_files)
+        req(input$upload_daily_data_files)
+        
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
-          data_prm_combined() %>%
-            group_by(across(all_of(c(input$group_var, "Year1", input$col_var, input$shape_var)))) %>%
-            summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
-                             mean))
+          data_mode_selected() %>%
+            group_by(across(all_of(c(input$group_var, input$x_var, input$col_var, input$shape_var)))) %>%
+            summarise(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE)))
         }else{
-          data_prm_combined()
+          data_mode_selected()
         }
       })
       
@@ -1355,16 +1414,16 @@ server <- function(input, output, session) {
     ggplot_plugin <- reactive({
       #initial plot according to selected coloring and group variable
       if(length(input$shape_var) > 0 & length(input$col_var) > 0){
-        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = interaction(.data[[input$shape_var]], .data[[input$col_var]]), col = .data[[input$col_var]], shape = .data[[input$shape_var]]))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = interaction(.data[[input$shape_var]], .data[[input$col_var]]), col = .data[[input$col_var]], shape = .data[[input$shape_var]]))
       }
       else if(length(input$col_var) > 0){
-        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))
       }
       else if(length(input$shape_var) > 0){
-        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]], group = .data[[input$shape_var]], shape = .data[[input$shape_var]]))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$shape_var]], shape = .data[[input$shape_var]]))
       }
       else{
-        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = Year1, y = .data[[input$y_var]]))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]]))
       }
       #add plot
       p <- p +
