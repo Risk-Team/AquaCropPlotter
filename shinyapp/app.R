@@ -518,7 +518,37 @@ ui <- dashboardPage(
             ),
             tabItem(tabName = "tab_analysis_plugin",
                     h2(
-                      
+                      fluidRow(
+                        tabBox(width = 12,
+                               tabPanel(title = "Analysis",
+                                        width = 12,
+                                        status = "primary",
+                                        solidHeader = FALSE,
+                                        
+                               ),
+                               tabPanel(title = "Time period window",
+                                        width = 12,
+                                        status = "primary",
+                                        solidHeader = FALSE,
+                                        selectInput("time_period_variable", label = "Select variable to calculate summary", choices = NULL, selected = "Yield"),
+                                        selectizeInput("time_period_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
+                                        sliderInput("time_period", label = "Select time period window (years)", min = 1, max = 1, value = 1, step = 1),
+                                        div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%")
+                               ),
+                               tabPanel(title = "Phenological stages",
+                                        width = 12,
+                                        status = "primary",
+                                        solidHeader = FALSE,
+                                        
+                               ),
+                               tabPanel(title = "Correlation",
+                                        width = 12,
+                                        status = "primary",
+                                        solidHeader = FALSE,
+                                        
+                               )
+                        )
+                      )
                     )
             ),
             tabItem(tabName = "aquacrop_glossary",
@@ -1556,6 +1586,49 @@ server <- function(input, output, session) {
         ggsave(file, plot = ggplot_plugin(), device = {{input$export_plot_format}} , width = as.numeric({{input$export_plot_width}}), height = as.numeric({{input$export_plot_height}}), units = "cm")
       }
     )
+    
+    
+###### Analysis ####    
+    
+###time period window analysis
+    
+    #update window slider input for year, set min max according to data
+    observeEvent(data_prm_combined(), {
+      year.range <- max(data_prm_combined()[["Year1"]]) - min(data_prm_combined()[["Year1"]])
+      updateSliderInput(inputId = "time_period", min = 1, max = year.range)
+    })
+    #update variable choice
+    observeEvent(data_prm_combined(), {
+      choices <- setdiff(colnames(upload_data_combined()), c("name","RunNr","Day1","Month1","Year1","DayN","MonthN","YearN","prm.file"))
+      updateSelectInput(inputId = "time_period_variable", choices = choices)
+    })
+    #update grouping choice
+    observeEvent(data_prm_combined(), {
+      group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+      updateSelectInput(inputId = "time_period_group", choices = group.choices)
+    })
+    
+    #calculate summary in time period selected
+    data_prm_combined_timeperiod <- reactive({
+      req(data_prm_combined())
+      
+      #cut time into windows
+      column.select <- c("time.window", input$time_period_variable, input$time_period_group)
+      column.group <- c(input$time_period_group, "time.window")
+      
+      
+      data_prm_combined() %>%
+        mutate(time.window = cut(Year1,
+                                 unique(c(seq(min(Year1), max(Year1), input$time_period), max(Year1))),
+                                 include.lowest = TRUE, right = FALSE)) %>%
+        select(all_of(column.select)) %>%
+        group_by(across(all_of(column.group))) %>%
+        summarise(mean = mean(.data[[input$time_period_variable]]) %>% round(3),
+                  sd = sd(.data[[input$time_period_variable]]) %>% round(3),
+                  n = n())
+    })
+    
+    output$data_prm_combined_timeperiod_display <- renderDataTable(data_prm_combined_timeperiod(), options = list(scrollX = TRUE))
     
     
 }
