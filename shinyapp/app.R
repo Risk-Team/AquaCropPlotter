@@ -1,6 +1,6 @@
 # p_load install the packages if not present
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS )
+pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS, furrr)
 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
@@ -571,6 +571,11 @@ ui <- dashboardPage(
 
 # Define server logic 
 server <- function(input, output, session) {
+  
+  #allow upload file size max limit of 30 MB
+  options(shiny.maxRequestSize=30*1024^2)
+  
+  #home image
     output$aquacrop_logo <- renderImage({
         list(
             src = file.path("www/workflow.png"),
@@ -997,12 +1002,15 @@ server <- function(input, output, session) {
               validate("Invalid input for seasonal data: season.OUT files needed")
             }
             
+            #set up parallel processing for future_map function
+            plan(multisession, workers = 2) 
+            
             #get a list of file paths from uploaded files
             data.df = input$upload_data_files %>%
                 #filter to read only seasonal.out files
                 filter(str_detect(name, "season\\.OUT$")) %>% 
                 #import dataset and clean up, format into dataframe
-                mutate(dataset = map(datapath, function(datapath){
+                mutate(dataset = future_map(datapath, function(datapath){
                     #read in and clean up each data file from the list
                     #modify file to convert variable number of spaces that separate values into tab so data can be loaded as tsv
                     file.clean = read_file(paste0(datapath)) %>%
@@ -1038,13 +1046,16 @@ server <- function(input, output, session) {
             if(!any(upload_prm_files_ext)){
               validate("Invalid input for parameter data: .PRM files needed")
             }
-
+            
+            #set up parallel processing for future_map function
+            plan(multisession, workers = 2) 
+            
             #get a list of prm file path from uploaded
             prm.df = input$upload_prm_files %>%
                 #filter to read only .prm files
                 filter(str_detect(name, "\\.PRM$")) %>% 
                 #read in each prm file from the list and extract parameter of interest
-                mutate(parameter = map(datapath, function(datapath){
+                mutate(parameter = future_map(datapath, function(datapath){
                     #read in each prm file from the list
                     prm.file = read_file(paste0(datapath))
                     #extract parameter from each param file 
@@ -1189,12 +1200,15 @@ server <- function(input, output, session) {
           validate("Invalid input for daily data: day.OUT files needed")
         }
         
+        #set up parallel processing for future_map function
+        plan(multisession, workers = 2) 
+        
         #get a list of file paths from uploaded files
         data.df = input$upload_daily_data_files %>%
           #filter to read only seasonal.out files
           filter(str_detect(name, "day\\.OUT$")) %>% 
           #import dataset and clean up, format into dataframe
-          mutate(dataset = map(datapath, function(datapath){
+          mutate(dataset = future_map(datapath, function(datapath){
             ###read in one output file for daily data 
             #read in data as lines, clean up spaces to allow reading as tsv
             file.clean = read_lines(datapath) %>%
@@ -1652,7 +1666,8 @@ server <- function(input, output, session) {
         write_tsv(data_prm_combined_timeperiod(), file)
       }
     )
-    
+
+ 
 }
 
 # Run the application 
