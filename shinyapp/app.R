@@ -82,7 +82,7 @@ ui <- dashboardPage(
                                     .option[data-value=lightgreen], .item[data-value=lightgreen] {background: #A6D854 !important; color: black !important;}
                                     
                                     .btn-xs { width: 20px!important; height: 20px!important; font-size: 12px!important } #customise info popup icon
-                                    
+
                                   "))),
         
         #customise style text size of different elements
@@ -94,6 +94,12 @@ ui <- dashboardPage(
                                       .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
                                       .nav-tabs { font-size: 22px; line-height: 20px; font-weight:bold; }
                                       .shiny-output-error-validation { font-size: 22px; line-height: 22px; padding-top: 15px; }
+                                                                          
+                                    #font size of slider input
+                                    .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {font-size: 14px!important}
+
+                                    .irs-min {font-size: 14px!important;}
+                                    .irs-max {font-size: 14px!important;}
                    "),
         
         tabItems(
@@ -530,10 +536,11 @@ ui <- dashboardPage(
                                         width = 12,
                                         status = "primary",
                                         solidHeader = FALSE,
+                                        sliderInput("time_period", label = "Select time period window (years)", min = 1, max = 1, value = 1, step = 1),
                                         selectInput("time_period_variable", label = "Select variable to calculate summary", choices = NULL, selected = "Yield"),
                                         selectizeInput("time_period_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
-                                        sliderInput("time_period", label = "Select time period window (years)", min = 1, max = 1, value = 1, step = 1),
-                                        div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%")
+                                        div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%"),
+                                        downloadButton("download_data_prm_combined_timeperiod", "Download")
                                ),
                                tabPanel(title = "Phenological stages",
                                         width = 12,
@@ -1610,26 +1617,41 @@ server <- function(input, output, session) {
     
     #calculate summary in time period selected
     data_prm_combined_timeperiod <- reactive({
-      req(data_prm_combined())
-      
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+
       #cut time into windows
       column.select <- c("time.window", input$time_period_variable, input$time_period_group)
       column.group <- c(input$time_period_group, "time.window")
       
-      
+      #calculate summary
       data_prm_combined() %>%
         mutate(time.window = cut(Year1,
-                                 unique(c(seq(min(Year1), max(Year1), input$time_period), max(Year1))),
-                                 include.lowest = TRUE, right = FALSE)) %>%
+                                 unique(c(seq(min(Year1), max(Year1), input$time_period),min(Year1), max(Year1))),
+                                 include.lowest = TRUE, right = FALSE, dig.lab = 4)) %>%
+        mutate(time.window = str_replace_all(time.window,"\\[|\\)","")) %>%
+        separate(time.window, c("start", "end"), sep = ",") %>%
+        mutate(end = ifelse(str_detect(end, "\\]"), as.numeric(str_replace(end, "\\]",""))+1, end))%>%
+        mutate(time.window = paste0(start, "-", as.numeric(end)-1)) %>%
         select(all_of(column.select)) %>%
         group_by(across(all_of(column.group))) %>%
         summarise(mean = mean(.data[[input$time_period_variable]]) %>% round(3),
-                  sd = sd(.data[[input$time_period_variable]]) %>% round(3),
-                  n = n())
+                  SD = sd(.data[[input$time_period_variable]]) %>% round(3),
+                  n = n()) %>%
+        rename_with(~paste0(input$time_period_variable, ".", .x), c(mean, SD))
     })
     
+    #display table
     output$data_prm_combined_timeperiod_display <- renderDataTable(data_prm_combined_timeperiod(), options = list(scrollX = TRUE))
     
+    #for downloading calculated dataset
+    output$download_data_prm_combined_timeperiod <- downloadHandler(
+      filename = "Aquacrop_time_window_analysis.tsv",
+      content = function(file) {
+        write_tsv(data_prm_combined_timeperiod(), file)
+      }
+    )
     
 }
 
