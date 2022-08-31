@@ -404,8 +404,8 @@ ui <- dashboardPage(
                                   conditionalPanel(condition = "input.use_mean == 'Yes'",
                                                   selectizeInput("group_var", 
                                                    label = tags$span("Select variable to group for calculating mean",  bsButton("plot_info2", label = "", icon = icon("info"), size = "extra-small")), 
-                                                   input_group_variable,
-                                                    multiple = TRUE),
+                                                   choices = NULL,
+                                                   multiple = TRUE),
                                     bsPopover(id = "plot_info2", title = "", placement = "right", trigger = "hover")),
                                   div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next2", "Next", icon = icon("chevron-right")))
                               )
@@ -418,17 +418,17 @@ ui <- dashboardPage(
                                 solidHeader = TRUE,
                                 selectizeInput("col_var", 
                                             label = tags$span("Variable to split into colors by",  bsButton("plot_info3", label = "", icon = icon("info"), size = "extra-small")), 
-                                            input_group_variable,
+                                            choices = NULL,
                                             multiple = TRUE, options = list(maxItems = 1)),
                                 bsPopover(id = "plot_info3", title = "", placement = "right", trigger = "hover"),
                                 selectizeInput("shape_var", 
                                                label = tags$span("Variable to split into shapes by",  bsButton("plot_info7", label = "", icon = icon("info"), size = "extra-small")), 
-                                               input_group_variable,
+                                               choices = NULL,
                                                multiple = TRUE, options = list(maxItems = 1)),
                                 bsPopover(id = "plot_info7", title = "", placement = "right", trigger = "hover"),
                                 selectizeInput("facet_var", 
                                                label = tags$span("Variable to split into subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
-                                               choices = input_group_variable,
+                                               choices = NULL,
                                                multiple = TRUE, options = list(maxItems = 2)),
                                 bsPopover(id = "plot_info4", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next3", "Next", icon = icon("chevron-right")))
@@ -493,7 +493,7 @@ ui <- dashboardPage(
                                 height = "550px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectizeInput("rename_variable", "Select variable to rename", input_group_variable, multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("rename_variable", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                 selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                 textInput("rename_to", "Rename to"),
                                 actionButton("rename_button", "Rename")
@@ -1334,6 +1334,7 @@ server <- function(input, output, session) {
         updateSelectizeInput(inputId = "col_var", choices = group.choices) 
         updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
         updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
         #return data to use
         daily_data_prm_combined()
       }else{
@@ -1347,6 +1348,7 @@ server <- function(input, output, session) {
         updateSelectizeInput(inputId = "col_var", choices = group.choices) 
         updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
         updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+        updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
         #return data to use
         data_prm_combined()     
       }
@@ -1364,6 +1366,7 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "col_var", choices = group.choices) 
       updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
       updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
     })
     observeEvent(data_prm_combined(),{
       #update choices for plotting axis
@@ -1376,6 +1379,7 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "col_var", choices = group.choices) 
       updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
       updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
     })
     
     
@@ -1667,7 +1671,16 @@ server <- function(input, output, session) {
       }
     )
 
- 
+####phenological stages and stress duration
+# 
+# stress.factor
+# stress.threshold range up/low bound slider bar
+# number of days above thershold
+    
+# phenological.stage.group or year only group
+
+
+    
 }
 
 # Run the application 
