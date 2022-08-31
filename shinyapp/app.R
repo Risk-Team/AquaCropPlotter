@@ -1238,8 +1238,9 @@ server <- function(input, output, session) {
               
           })) %>%
           unnest(dataset) %>%
-          select(-size, -type, -datapath)
-          })
+          select(-size, -type, -datapath) %>%
+          mutate(Stage = as.factor(Stage))
+        })
     
     #output datatable of the combined data
     output$upload_daily_data_combined_display <- renderDataTable(upload_daily_data_combined() %>%
@@ -1330,6 +1331,7 @@ server <- function(input, output, session) {
         updateSelectInput(inputId = "x_var", choices = axis.choices)
         #update choices for grouping variable
         group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+        group.choices <- c(group.choices, "Stage")
         updateSelectizeInput(inputId = "group_var", choices = group.choices) 
         updateSelectizeInput(inputId = "col_var", choices = group.choices) 
         updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
@@ -1362,6 +1364,7 @@ server <- function(input, output, session) {
       updateSelectInput(inputId = "x_var", choices = axis.choices)
       #update choices for grouping variable
       group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+      group.choices <- c(group.choices, "Stage")
       updateSelectizeInput(inputId = "group_var", choices = group.choices) 
       updateSelectizeInput(inputId = "col_var", choices = group.choices) 
       updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
