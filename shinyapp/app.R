@@ -1395,7 +1395,19 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
       updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
     })
-    
+    observeEvent(data_prm_combined_plot_rename$data,{
+      #update choices for plotting axis
+      axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
+      updateSelectInput(inputId = "y_var", choices = axis.choices)
+      updateSelectInput(inputId = "x_var", choices = axis.choices)
+      #update choices for grouping variable
+      group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+      updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+    })
     
     ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
@@ -1636,18 +1648,19 @@ server <- function(input, output, session) {
 ###time period window analysis
     
     #update window slider input for year, set min max according to data
-    observeEvent(data_prm_combined(), {
-      year.range <- max(data_prm_combined()[["Year1"]]) - min(data_prm_combined()[["Year1"]])
+    observeEvent(data_prm_combined_analysis$data, {
+      year.range <- max(data_prm_combined_analysis$data[["Year1"]]) - min(data_prm_combined_analysis$data[["Year1"]])
       updateSliderInput(inputId = "time_period", min = 1, max = year.range)
     })
     #update variable choice
-    observeEvent(data_prm_combined(), {
-      choices <- setdiff(colnames(upload_data_combined()), c("name","RunNr","Day1","Month1","Year1","DayN","MonthN","YearN","prm.file"))
+    observeEvent(data_prm_combined_analysis$data, {
+      choices <- setdiff(colnames(data_prm_combined_analysis$data), c("name","RunNr","Day1","Month1","Year1","DayN","MonthN","YearN","prm.file"))
+      choices <- setdiff(choices, colnames(upload_prm_combined_renamecol$data))
       updateSelectInput(inputId = "time_period_variable", choices = choices)
     })
     #update grouping choice
-    observeEvent(data_prm_combined(), {
-      group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+    observeEvent(data_prm_combined_analysis$data, {
+      group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
       updateSelectInput(inputId = "time_period_group", choices = group.choices)
     })
     
@@ -1662,7 +1675,7 @@ server <- function(input, output, session) {
       column.group <- c(input$time_period_group, "time.window")
       
       #calculate summary
-      data_prm_combined() %>%
+      data_prm_combined_analysis$data %>%
         mutate(time.window = cut(Year1,
                                  unique(c(seq(min(Year1), max(Year1), input$time_period),min(Year1), max(Year1))),
                                  include.lowest = TRUE, right = FALSE, dig.lab = 4)) %>%
