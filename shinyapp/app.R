@@ -386,7 +386,7 @@ ui <- dashboardPage(
                                 height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectInput("plot_mode", "Data type to plot", c("daily","seasonal")),
+                                selectInput("plot_mode", "Data type to plot", c("daily","seasonal"), selected = "seasonal"),
                                 selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
                                 selectInput("x_var", "Variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
@@ -542,13 +542,25 @@ ui <- dashboardPage(
                                         div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%"),
                                         downloadButton("download_data_prm_combined_timeperiod", "Download")
                                ),
-                               tabPanel(title = "Phenological stages",
+                               tabPanel(title = "Stress duration",
                                         width = 12,
                                         status = "primary",
                                         solidHeader = FALSE,
+                                        fluidRow(
+                                          column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE))
+                                        ),
+                                        selectizeInput("stress_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
+                                        selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
+                                        div(dataTableOutput("daily_data_prm_combined_stress_display"), style = "font-size: 75%; width: 100%"),
+                                        downloadButton("download_daily_data_prm_combined_stress", "Download"),
+                                        actionButton("append_stress_data_button", "Append data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
+                                        div(dataTableOutput("data_analysis_display"), style = "font-size: 75%; width: 100%"),
                                         
                                ),
-                               tabPanel(title = "Correlation",
+                               tabPanel(title = "Regression",
                                         width = 12,
                                         status = "primary",
                                         solidHeader = FALSE,
@@ -1284,8 +1296,7 @@ server <- function(input, output, session) {
         mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
         select(name.variable)) %>%
         distinct() %>%
-        anti_join(upload_prm_combined(), by = "name.variable") %>% 
-        as.vector()
+        anti_join(upload_prm_combined(), by = "name.variable")
     })
     #return error if there is any missing prm files
     output$missing_prm_file_error <- reactive({
@@ -1293,7 +1304,7 @@ server <- function(input, output, session) {
       req(input$upload_prm_files)
       req(input$upload_daily_data_files)
       
-      if(length(missing_prm_file()) > 0){
+      if(nrow(missing_prm_file()) > 0){
         validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
       }
     })
@@ -1618,6 +1629,10 @@ server <- function(input, output, session) {
     
 ###### Analysis ####    
     
+###create reactive dataset for analyses (take from seasonal data)
+    data_prm_combined_analysis <- reactiveValues()
+    observe({data_prm_combined_analysis$data <- data_prm_combined()})
+    
 ###time period window analysis
     
     #update window slider input for year, set min max according to data
@@ -1674,15 +1689,68 @@ server <- function(input, output, session) {
       }
     )
 
-####phenological stages and stress duration
-# 
-# stress.factor
-# stress.threshold range up/low bound slider bar
-# number of days above thershold
+###stress, phenological stage analysis
     
-# phenological.stage.group or year only group
+    #update grouping choice
+    observeEvent(daily_data_prm_combined(), {
+      group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+      updateSelectInput(inputId = "stress_group", choices = group.choices)
+    })
 
+    #calculate summary 
+    daily_data_prm_combined_stress <- reactive({
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      #selecting variables
+      
+      if(input$by_phenological == "yes"){
+        column.group <- c("Year", "Stage", "prm.file.name", input$stress_group)
+        column.select <- c("Year","Stage", "StExp", "StSto", "StSen", "StTr","prm.file.name", input$stress_group)
+        
+      }else{
+        column.group <- c("Year", "prm.file.name", input$stress_group)
+        column.select <- c("Year", "StExp", "StSto", "StSen", "StTr","prm.file.name", input$stress_group)
+        
+      }
 
+      #calculate summary
+      daily_data_prm_combined() %>%
+        select(all_of(column.select)) %>%
+        group_by(across(all_of(column.group))) %>%
+        summarise(StExp.duration = length(StExp[which(StExp >= as.numeric(input$StExp_threshold))]),
+                  StSto.duration = length(StSto[which(StSto >= as.numeric(input$StSto_threshold))]),
+                  StSen.duration = length(StSen[which(StSen >= as.numeric(input$StSen_threshold))]),
+                  StTr.duration = length(StTr[which(StTr >= as.numeric(input$StTr_threshold))])
+                  ) 
+    })
+    
+    #display table
+    output$daily_data_prm_combined_stress_display <- renderDataTable(daily_data_prm_combined_stress(), options = list(scrollX = TRUE))
+    
+    #for downloading calculated dataset
+    output$download_daily_data_prm_combined_stress <- downloadHandler(
+      filename = "Aquacrop_stress_analysis.tsv",
+      content = function(file) {
+        write_tsv(daily_data_prm_combined_stress(), file)
+      }
+    )
+    
+    ##append stress duration data to seasonal dataset for plotting and other analyses
+    observeEvent(input$append_stress_data_button, {
+      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
+                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
+                                          by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
+      
+      if(input$plot_mode == "seasonal"){
+        data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
+                                                       daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
+                                                       by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
+      }
+    })
+    output$data_analysis_display <- renderDataTable(data_prm_combined_analysis$data, options = list(scrollX = TRUE))
+    
     
 }
 
