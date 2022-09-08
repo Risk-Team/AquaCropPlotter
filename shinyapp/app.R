@@ -386,9 +386,9 @@ ui <- dashboardPage(
                                 height = "350px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectInput("plot_mode", "Data type to plot", c("daily","seasonal"), selected = "seasonal"),
-                                selectInput("y_var", "Variable to plot on Y axis", input_plot_y_variable, selected = "Yield"),
-                                selectInput("x_var", "Variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
+                                selectizeInput("plot_mode", "Data type to plot", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("y_var", "Variable to plot on Y axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("x_var", "Variable to plot on X axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
                                 ),
                             shinyjs::hidden(div(id = "hiddenbox1",
@@ -537,7 +537,7 @@ ui <- dashboardPage(
                                         status = "primary",
                                         solidHeader = FALSE,
                                         sliderInput("time_period", label = "Select time period window (years)", min = 1, max = 1, value = 1, step = 1),
-                                        selectInput("time_period_variable", label = "Select variable to calculate summary", choices = NULL, selected = "Yield"),
+                                        selectizeInput("time_period_variable", label = "Select variable to calculate summary", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                         selectizeInput("time_period_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%"),
                                         downloadButton("download_data_prm_combined_timeperiod", "Download")
@@ -784,7 +784,7 @@ server <- function(input, output, session) {
     #if variable selected, update the select input list for value choices of the selected variable
     observeEvent(input$rename_variable_std, {
       choices <- unique(data_std_combined_plot_rename$data[[input$rename_variable_std]])
-      updateSelectInput(inputId = "rename_from_std", choices = choices) 
+      updateSelectizeInput(inputId = "rename_from_std", choices = choices) 
     })
     #change value of selected variable to the value from user
     data_std_combined_plot_rename <- reactiveValues()
@@ -796,7 +796,7 @@ server <- function(input, output, session) {
         data_std_combined_plot_rename$data <- rename_df
       }
       choices <- unique(data_std_combined_plot_rename$data[[input$rename_variable_std]])
-      updateSelectInput(inputId = "rename_from_std", choices = choices) 
+      updateSelectizeInput(inputId = "rename_from_std", choices = choices) 
     })
     #output datatable of the combined data and parameters
     output$data_std_combined_plot_rename_display <- renderDataTable(datatable(data_std_combined_plot_rename$data, 
@@ -1152,7 +1152,7 @@ server <- function(input, output, session) {
     observe({
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
-      updateSelectInput(inputId = "rename_col_from", choices = choices) 
+      updateSelectizeInput(inputId = "rename_col_from", choices = choices) 
     })
     #change value of selected variable to the value from user
     observeEvent(input$rename_col_button, {
@@ -1164,7 +1164,7 @@ server <- function(input, output, session) {
       }
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
-      updateSelectInput(inputId = "rename_col_from", choices = choices) 
+      updateSelectizeInput(inputId = "rename_col_from", choices = choices) 
     })
     
     #output datatable of the combined parameters
@@ -1265,6 +1265,7 @@ server <- function(input, output, session) {
     ####add parameters to the daily dataset
     daily_data_prm_combined <- reactive({
       req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
 
       upload_daily_data_combined() %>%    
       mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
@@ -1331,6 +1332,7 @@ server <- function(input, output, session) {
     ###data for plotting
     ##select data mode daily or seasonal  
     data_mode_selected <- reactive({
+      req(input$plot_mode)
       req(input$upload_data_files)
       req(input$upload_prm_files)
       req(input$upload_daily_data_files)
@@ -1368,40 +1370,49 @@ server <- function(input, output, session) {
     })
 
     #when changes made to dataframe, update list of variables for axis and grouping
-    observeEvent(daily_data_prm_combined(),{
-      #update choices for plotting axis
-      axis.choices = unique(colnames(daily_data_prm_combined()))
-      updateSelectInput(inputId = "y_var", choices = axis.choices)
-      updateSelectInput(inputId = "x_var", choices = axis.choices)
-      #update choices for grouping variable
-      group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
-      group.choices <- c(group.choices, "Stage")
-      updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
-    })
-    observeEvent(data_prm_combined(),{
-      #update choices for plotting axis
-      axis.choices = unique(colnames(data_prm_combined()))
-      updateSelectInput(inputId = "y_var", choices = axis.choices)
-      updateSelectInput(inputId = "x_var", choices = axis.choices)
-      #update choices for grouping variable
-      group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
-      updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
-    })
-    observeEvent(data_prm_combined_plot_rename$data,{
+    # observeEvent(daily_data_prm_combined(),{
+    #   #update choices for plotting axis
+    #   axis.choices = unique(colnames(daily_data_prm_combined()))
+    #   updateSelectInput(inputId = "y_var", choices = axis.choices)
+    #   updateSelectInput(inputId = "x_var", choices = axis.choices)
+    #   #update choices for grouping variable
+    #   group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+    #   group.choices <- c(group.choices, "Stage")
+    #   updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+    # })
+    # observeEvent(data_prm_combined(),{
+    #   #update choices for plotting axis
+    #   axis.choices = unique(colnames(data_prm_combined()))
+    #   updateSelectInput(inputId = "y_var", choices = axis.choices)
+    #   updateSelectInput(inputId = "x_var", choices = axis.choices)
+    #   #update choices for grouping variable
+    #   group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+    #   updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+    #   updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+    # })
+    observe({
+      req(input$plot_mode)
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
       updateSelectInput(inputId = "y_var", choices = axis.choices)
       updateSelectInput(inputId = "x_var", choices = axis.choices)
       #update choices for grouping variable
-      group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+      if(input$plot_mode == "daily"){
+        group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
+      }else{
+        group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+      }
       updateSelectizeInput(inputId = "group_var", choices = group.choices) 
       updateSelectizeInput(inputId = "col_var", choices = group.choices) 
       updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
@@ -1411,6 +1422,7 @@ server <- function(input, output, session) {
     
     ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
+        req(input$plot_mode)
         req(input$upload_data_files)
         req(input$upload_prm_files)
         req(input$upload_daily_data_files)
@@ -1531,8 +1543,7 @@ server <- function(input, output, session) {
               ) +
         scale_color_manual(values=custom_palette()) +
         scale_shape_manual(values=custom_shape()) +
-        guides(color = guide_legend(override.aes = list(size=3)))+
-        xlab("Year")
+        guides(color = guide_legend(override.aes = list(size=3)))
       
       
       #select facet variable
@@ -1648,20 +1659,23 @@ server <- function(input, output, session) {
 ###time period window analysis
     
     #update window slider input for year, set min max according to data
-    observeEvent(data_prm_combined_analysis$data, {
+    observe({
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      
       year.range <- max(data_prm_combined_analysis$data[["Year1"]]) - min(data_prm_combined_analysis$data[["Year1"]])
       updateSliderInput(inputId = "time_period", min = 1, max = year.range)
     })
     #update variable choice
-    observeEvent(data_prm_combined_analysis$data, {
+    observe({
       choices <- setdiff(colnames(data_prm_combined_analysis$data), c("name","RunNr","Day1","Month1","Year1","DayN","MonthN","YearN","prm.file"))
       choices <- setdiff(choices, colnames(upload_prm_combined_renamecol$data))
-      updateSelectInput(inputId = "time_period_variable", choices = choices)
+      updateSelectizeInput(inputId = "time_period_variable", choices = choices)
     })
     #update grouping choice
-    observeEvent(data_prm_combined_analysis$data, {
+    observe({
       group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
-      updateSelectInput(inputId = "time_period_group", choices = group.choices)
+      updateSelectizeInput(inputId = "time_period_group", choices = group.choices)
     })
     
     #calculate summary in time period selected
@@ -1669,6 +1683,7 @@ server <- function(input, output, session) {
       req(input$upload_data_files)
       req(input$upload_prm_files)
       req(input$upload_daily_data_files)
+      req(input$time_period_variable)
 
       #cut time into windows
       column.select <- c("time.window", input$time_period_variable, input$time_period_group)
@@ -1705,9 +1720,10 @@ server <- function(input, output, session) {
 ###stress, phenological stage analysis
     
     #update grouping choice
-    observeEvent(daily_data_prm_combined(), {
-      group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
-      updateSelectInput(inputId = "stress_group", choices = group.choices)
+    observe({
+      group.choices <- paste(setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined())), collapse="_")
+      #group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+      updateSelectizeInput(inputId = "stress_group", choices = group.choices)
     })
 
     #calculate summary 
