@@ -1,6 +1,6 @@
 # p_load install the packages if not present
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS, furrr)
+pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS, furrr, broom)
 
 #sets of input variables to select for plotting
 input_plot_x_variable <- c("Year1")
@@ -564,7 +564,13 @@ ui <- dashboardPage(
                                         width = 12,
                                         status = "primary",
                                         solidHeader = FALSE,
+                                        selectizeInput("regression_mode", "Select data type", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
+                                        selectizeInput("regression_x_variable", label = "Select independent (X) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                        selectizeInput("regression_y_variable", label = "Select dependent (Y) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                        selectizeInput("regression_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         
+                                        div(dataTableOutput("regression_display"), style = "font-size: 75%; width: 100%"),
+                                        downloadButton("download_regression", "Download"),
                                )
                         )
                       )
@@ -1780,6 +1786,97 @@ server <- function(input, output, session) {
     })
     output$data_analysis_display <- renderDataTable(data_prm_combined_analysis$data, options = list(scrollX = TRUE))
     
+######regression
+    
+    ##select data mode daily or seasonal  
+    data_mode_selected_regression <- reactive({
+      req(input$regression_mode)
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      if(input$regression_mode == "daily"){
+        #return data to use
+        daily_data_prm_combined()
+      }else{
+        #return data to use
+        data_prm_combined()     
+      }
+    })
+    
+    observe({
+      req(input$regression_mode)
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      if(input$regression_mode == "daily"){
+        #update choices for variables
+        axis.choices = unique(colnames(daily_data_prm_combined()))
+        updateSelectInput(inputId = "regression_y_variable", choices = axis.choices)
+        updateSelectInput(inputId = "regression_x_variable", choices = axis.choices)
+        #update choices for grouping variable
+        group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+        group.choices <- c(group.choices, "Stage")
+        updateSelectizeInput(inputId = "regression_group", choices = group.choices) 
+      }else{
+        #update choices for variables
+        axis.choices = unique(colnames(data_prm_combined()))
+        updateSelectInput(inputId = "regression_y_variable", choices = axis.choices)
+        updateSelectInput(inputId = "regression_x_variable", choices = axis.choices)
+        #update choices for grouping variable
+        group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+        updateSelectizeInput(inputId = "regression_group", choices = group.choices) 
+      }
+    })
+    
+    #regression calculation
+    data_regression <- reactive({
+      req(input$regression_mode)
+      req(input$regression_y_variable)
+      req(input$regression_x_variable)
+      req(input$upload_data_files)
+      req(input$upload_prm_files)
+      req(input$upload_daily_data_files)
+      
+      if(length(input$regression_group) > 0){
+        column.group <- input$regression_group
+        column.select <- c(input$regression_y_variable, input$regression_x_variable, input$regression_group)
+      }else{
+        column.group <- NULL
+        column.select <- c(input$regression_y_variable, input$regression_x_variable)
+      }
+
+      data_mode_selected_regression() %>%
+        select(all_of(column.select)) %>%
+        group_by(across(all_of(column.group))) %>%
+        nest() %>%
+        mutate(model = map(data, function(data){
+          mod <- lm(data = data, as.formula(paste0(input$regression_y_variable,"~",input$regression_x_variable)))
+          
+          model.adj.r.squared <- glance(mod)[["adj.r.squared"]]
+          model.p.value <- glance(mod)[["p.value"]]
+          intercept <- tidy(mod)[["estimate"]][[1]]  
+          intercept.p.value <-  tidy(mod)[["p.value"]][[1]] 
+          slope <- tidy(mod)[["estimate"]][[2]] 
+          slope.p.value <- tidy(mod)[["p.value"]][[2]]  
+          
+          summary <- data.frame(model.p.value, model.adj.r.squared,intercept,intercept.p.value,slope,slope.p.value)
+        })) %>%
+        select(-data) %>%
+        unnest(model)
+    })
+    
+    #output datatable of the regression
+    output$regression_display <- renderDataTable(datatable(data_regression(), 
+                                                                        options = list(scrollX = TRUE)))
+    #for downloading regresion data
+    output$download_regression <- downloadHandler(
+      filename = "Aquacrop_regression.tsv",
+      content = function(file) {
+        write_tsv(data_regression(), file)
+      }
+    )
     
 }
 
