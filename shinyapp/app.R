@@ -1777,7 +1777,7 @@ server <- function(input, output, session) {
       data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
                                           daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-      
+      req(input$plot_mode)
       if(input$plot_mode == "seasonal"){
         data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
                                                        daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
@@ -1854,12 +1854,12 @@ server <- function(input, output, session) {
         mutate(model = map(data, function(data){
           mod <- lm(data = data, as.formula(paste0(input$regression_y_variable,"~",input$regression_x_variable)))
           
-          model.adj.r.squared <- glance(mod)[["adj.r.squared"]]
-          model.p.value <- glance(mod)[["p.value"]]
-          intercept <- tidy(mod)[["estimate"]][[1]]  
-          intercept.p.value <-  tidy(mod)[["p.value"]][[1]] 
-          slope <- tidy(mod)[["estimate"]][[2]] 
-          slope.p.value <- tidy(mod)[["p.value"]][[2]]  
+          model.adj.r.squared <- glance(mod)[["adj.r.squared"]] %>% signif(digits = 4) %>% format()
+          model.p.value <- glance(mod)[["p.value"]] %>% signif(digits = 4) %>% format()
+          intercept <- tidy(mod)[["estimate"]][[1]] %>% signif(digits = 4) %>% format()
+          intercept.p.value <-  tidy(mod)[["p.value"]][[1]] %>% signif(digits = 4) %>% format()
+          slope <- tidy(mod)[["estimate"]][[2]] %>% signif(digits = 4) %>% format()
+          slope.p.value <- tidy(mod)[["p.value"]][[2]] %>% signif(digits = 4) %>% format() 
           
           summary <- data.frame(model.p.value, model.adj.r.squared,intercept,intercept.p.value,slope,slope.p.value)
         })) %>%
