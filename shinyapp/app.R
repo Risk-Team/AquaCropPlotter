@@ -31,14 +31,9 @@ ui <- dashboardPage(
         
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
-            menuItem("Standard", tabName = "aquacrop_standard", icon = icon("list-alt"), startExpanded = FALSE,
-                     menuSubItem("Upload_data", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
-                     menuSubItem("Combined_data", tabName = "tab_combined_data_standard", icon = icon("caret-right")),
-                     menuSubItem("Plot", tabName = "tab_plot_standard", icon = icon("caret-right")),
-                     menuSubItem("Analysis", tabName = "tab_analysis_standard", icon = icon("caret-right"))
-                     ),
-            menuItem("Plug-in", tabName = "aquacrop_plugin", icon = icon("puzzle-piece"), startExpanded = FALSE,
-                     menuSubItem("Upload_data", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
+            menuItem("Workflow", tabName = "aquacrop_plugin", icon = icon("list-alt"), startExpanded = TRUE,
+                     menuSubItem("Upload_standard", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
+                     menuSubItem("Upload_plug-in", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
                      menuSubItem("Combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
                      menuSubItem("Plot", tabName = "tab_plot_plugin", icon = icon("caret-right")),
                      menuSubItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("caret-right"))
@@ -110,15 +105,6 @@ ui <- dashboardPage(
                             box(width = 12,height=0,
                               imageOutput("aquacrop_logo"))
                         )
-                        ,
-                        # fluidRow(
-                        #     box(title = "Aquacrop standard (single season)", status = "primary", solidHeader = TRUE,
-                        #         actionButton("select_aquacrop_standard", "Select Aquacrop standard")
-                        #     ),
-                        #     box(title = "Aquacrop plug-in (multiple seasons)", status = "primary", solidHeader = TRUE,
-                        #         actionButton("select_aquacrop_plugin", "Select Aquacrop plugin")
-                        #     )
-                        # )
                     )
             ),
             tabItem(tabName = "tab_upload_data_standard",
@@ -170,7 +156,7 @@ ui <- dashboardPage(
             tabItem(tabName = "tab_combined_data_plugin",
                     h2(
                         fluidRow(
-                          selectizeInput("standard_vs_plugin_select", "Select AquaCrop mode", choices = c("standard","plugin"), multiple = TRUE, options = list(maxItems = 1)),
+                          selectizeInput("standard_vs_plugin_select", "AquaCrop mode", choices = c("standard","plugin"), multiple = TRUE, options = list(maxItems = 1)),
                         #display combined data table
                         tabBox(width = 12,
                                tabPanel(title = "Seasonal dataset",
@@ -1034,34 +1020,6 @@ server <- function(input, output, session) {
       }
     })
 
-    #when changes made to dataframe, update list of variables for axis and grouping
-    # observeEvent(daily_data_prm_combined(),{
-    #   #update choices for plotting axis
-    #   axis.choices = unique(colnames(daily_data_prm_combined()))
-    #   updateSelectInput(inputId = "y_var", choices = axis.choices)
-    #   updateSelectInput(inputId = "x_var", choices = axis.choices)
-    #   #update choices for grouping variable
-    #   group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
-    #   group.choices <- c(group.choices, "Stage")
-    #   updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
-    # })
-    # observeEvent(data_prm_combined(),{
-    #   #update choices for plotting axis
-    #   axis.choices = unique(colnames(data_prm_combined()))
-    #   updateSelectInput(inputId = "y_var", choices = axis.choices)
-    #   updateSelectInput(inputId = "x_var", choices = axis.choices)
-    #   #update choices for grouping variable
-    #   group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
-    #   updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-    #   updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
-    # })
     observe({
       req(input$plot_mode)
       req(input$upload_data_files)
