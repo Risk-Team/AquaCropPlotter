@@ -125,185 +125,19 @@ ui <- dashboardPage(
                     h2(
                         #display boxes for data and prm files upload
                         fluidRow(
-                            box(title = "Data files and metadata", status = "primary", solidHeader = TRUE, width = 6,
+                            box(title = "Data and PRM files", status = "primary", solidHeader = TRUE, width = 6,
                                 #upload data file
-                                fileInput("upload_data_files_standard", "Upload data files (.OUT)", multiple = TRUE, accept = ".OUT"),
-                                textInput("upload_climate_std","climate"),
-                                textInput("upload_location_std","location"),
-                                textInput("upload_rcp_std","rcp"),
-                                textInput("upload_irrigation_std","irrigation"),
-                                textInput("upload_crop_std","crop"),
-                                textInput("upload_soil_std","soil"),
-                                textInput("upload_sowing_std","sowing date"),
-                                textInput("upload_note_std","note"),
-                                actionButton("upload_button_standard","Upload", icon = icon("upload"))
+                                fileInput("upload_data_files_standard", "Upload data files (.OUT and .PRM)", multiple = TRUE)
                             ),
-                            box(title = "Uploaded data", status = "primary", solidHeader = TRUE, width = 6,
+                            box(title = "Uploaded files", status = "primary", solidHeader = TRUE, width = 6,
                               div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
+                            ),
+                            box(title = "d files", status = "primary", solidHeader = TRUE, width = 12,
+                                #div(dataTableOutput("seasonal_std"), style = "font-size: 75%; width: 100%"),
+                                #div(dataTableOutput("daily_std"), style = "font-size: 75%; width: 100%"),
+                                #div(dataTableOutput("prm_std"), style = "font-size: 75%; width: 100%")
                             )
                         )
-                    )
-            ),
-            tabItem(tabName = "tab_combined_data_standard",
-                    h2(
-                        ##daily data
-                        #button for downloading data
-                        downloadButton("download_data_standard_combined_daily", "Download combined daily dataset"),
-                        #display combined daily data table
-                        div(dataTableOutput("upload_data_standard_combined_daily_display"), style = "font-size: 75%; width: 100%"),
-                        ##seasonal data
-                        #button for downloading data
-                        downloadButton("download_data_standard_combined_seasonal", "Download combined seasonal dataset"),
-                        #display combined seasonal data table
-                        div(dataTableOutput("upload_data_standard_combined_seasonal_display"), style = "font-size: 75%; width: 100%")
-                    )
-            ),
-            tabItem(tabName = "tab_plot_standard", 
-                    h2(
-                      fluidRow(
-                        box(title = "Select plotting variables",
-                            width = 3,
-                            height = "350px",
-                            status = "primary",
-                            solidHeader = TRUE,
-                            selectInput("plot_mode_std", "Data type to plot", c("daily","seasonal")),
-                            selectInput("y_var_std", "Variable to plot on Y axis", choices=NULL),
-                            #selectInput("x_var", "Select variable to plot on X axis", input_plot_x_variable, selected = "Year1"),
-                            div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1_std", "Next", icon = icon("chevron-right")))
-                        ),
-                        shinyjs::hidden(div(id = "hiddenbox1_std",
-                                            box(title = "Calculate mean",
-                                                width = 3,
-                                                height = "350px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                selectInput("use_mean_std", 
-                                                            label = tags$span("Plot mean values",   bsButton("plot_info1_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                            c("Yes", "No"), selected = "No"),
-                                                bsPopover(id = "plot_info1_std", title = "", placement = "right", trigger = "hover"),
-                                                conditionalPanel(condition = "input.use_mean_std == 'Yes'",
-                                                                 selectizeInput("group_var_std", 
-                                                                                label = tags$span("Select variable to group for calculating mean",  bsButton("plot_info2_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                                                input_group_variable,
-                                                                                multiple = TRUE),
-                                                                 bsPopover(id = "plot_info2_std", title = "", placement = "right", trigger = "hover")),
-                                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next2_std", "Next", icon = icon("chevron-right")))
-                                            )
-                        )),
-                        shinyjs::hidden(div(id = "hiddenbox2_std",
-                                            box(title = "Select grouping variables",
-                                                width = 3,
-                                                height = "350px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                selectizeInput("col_var_std", 
-                                                               label = tags$span("Variable to split into colors by",  bsButton("plot_info3_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                               input_group_variable,
-                                                               multiple = TRUE, options = list(maxItems = 1)),
-                                                bsPopover(id = "plot_info3_std", title = "", placement = "right", trigger = "hover"),
-                                                selectizeInput("shape_var_std", 
-                                                               label = tags$span("Variable to split into shapes by",  bsButton("plot_info7_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                               input_group_variable,
-                                                               multiple = TRUE, options = list(maxItems = 1)),
-                                                bsPopover(id = "plot_info7_std", title = "", placement = "right", trigger = "hover"),
-                                                selectizeInput("facet_var_std", 
-                                                               label = tags$span("Variable to split into subpanels by", bsButton("plot_info4_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                               choices = input_group_variable,
-                                                               multiple = TRUE, options = list(maxItems = 2)),
-                                                bsPopover(id = "plot_info4_std", title = "selected variable will be used to split plot into subplots. maximum 2 variables can be selected", placement = "right", trigger = "hover"),
-                                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next3_std", "Next", icon = icon("chevron-right")))
-                                            )
-                        )),
-                        shinyjs::hidden(div(id = "hiddenbox3_std",
-                                            box(title = "Select plot elements",
-                                                width = 3,
-                                                height = "350px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                selectizeInput("plot_element_std", 
-                                                               label = tags$span("Elements to plot", bsButton("plot_info5_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","grid_line")),
-                                                bsPopover(id = "plot_info5_std", title = "", placement = "right", trigger = "hover"),
-                                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next4_std", "Plot", icon = icon("chevron-right")))
-                                            )
-                        ))
-                      ),
-                      shinyjs::hidden(div(id = "hiddenbox5_std",
-                                          fluidRow(
-                                            box(title = "Customise plot",
-                                                width = 2,
-                                                height = "550px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                selectizeInput("col_palette_std", 
-                                                               label = tags$span("color palette", bsButton("plot_info6_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                               input_color_choice, multiple = TRUE),
-                                                bsPopover(id = "plot_info6_std", title = "Select the same number of colors as values of grouping variable, in order", placement = "right", trigger = "hover"),
-                                                selectizeInput("shape_palette_std", 
-                                                               label = tags$span("shape palette", bsButton("plot_info8_std", label = "", icon = icon("info"), size = "extra-small")), 
-                                                               input_shape_choice, multiple = TRUE),
-                                                bsPopover(id = "plot_info8_std", title = "Select the same number of shapes as values of grouping variable, in order", placement = "right", trigger = "hover"),
-                                                selectInput("legend_position_std", "Legend position", input_legend_pos, selected = "bottom"),
-                                                textInput("point_size_std", "point size", value = "2"),
-                                            ),
-                                            box(title = "Customise labels",
-                                                width = 2,
-                                                height = "550px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                textInput("title_label_std", "plot title"),
-                                                textInput("y_var_label_std", "Y axis label"),
-                                                textInput("x_var_label_std", "X axis label"),
-                                                textInput("legend_label_std", "legend label"),
-                                            ),
-                                            box(title = "Customise font size",
-                                                width = 2,
-                                                height = "550px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                textInput("font_size_plot_title_std", "plot title", value = "16"),
-                                                textInput("font_size_axis_text_std", "axis text", value = "16"),
-                                                textInput("font_size_axis_title_std", "axis title", value = "16"),
-                                                textInput("font_size_legend_std", "legend", value = "16"),
-                                                textInput("font_size_facet_std", "subpanel label", value = "16")
-                                            ),
-                                            box(title = "Rename variables",
-                                                width = 2,
-                                                height = "550px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                selectizeInput("rename_variable_std", "Select variable to rename", input_group_variable, multiple = TRUE, options = list(maxItems = 1)),
-                                                selectizeInput("rename_from_std", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                                textInput("rename_to_std", "Rename to"),
-                                                actionButton("rename_button_std", "Rename")
-                                            ),
-                                            box(title = "Export plot",
-                                                width = 2,
-                                                height = "550px",
-                                                status = "primary",
-                                                solidHeader = TRUE,
-                                                textInput("export_plot_width_std", "Width (cm)", value = "19"),
-                                                textInput("export_plot_height_std", "Height (cm)", value = "12"),
-                                                selectInput("export_plot_format_std", "Format", c("pdf","png"), selected = "pdf"),
-                                                downloadButton("ggplot_std_download", "Download"))
-                                          )
-                      )),
-                      shinyjs::hidden(div(id = "hiddenbox4_std",
-                                          fluidRow(
-                                            tabBox(width = 12,
-                                                   height = "900px",
-                                                   id = "std_plot_tabbox",
-                                                   tabPanel("Plot",
-                                                            div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_std", "Customise & export plot")),
-                                                            plotOutput("ggplot_std_display")
-                                                   )
-                                            ),
-                                          )))
-                    )
-            ),
-            tabItem(tabName = "tab_analysis_standard",
-                    h2(
-                      
                     )
             ),
             tabItem(tabName = "tab_upload_data_plugin",
@@ -336,6 +170,7 @@ ui <- dashboardPage(
             tabItem(tabName = "tab_combined_data_plugin",
                     h2(
                         fluidRow(
+                          selectizeInput("standard_vs_plugin_select", "Select AquaCrop mode", choices = c("standard","plugin"), multiple = TRUE, options = list(maxItems = 1)),
                         #display combined data table
                         tabBox(width = 12,
                                tabPanel(title = "Seasonal dataset",
@@ -618,95 +453,69 @@ server <- function(input, output, session) {
     
     ##########standard
     ###upload data
-
-    #upload data  file and label text for the set
-    #upload and append multiple sets
-    upload_standard <- reactiveValues()
-    observe({upload_standard$list <- NULL})
-    observe({upload_standard$temp_list <- NULL})
-    observeEvent(input$upload_button_standard, {
-      req(input$upload_data_files_standard)
-      upload_standard$temp_list <- input$upload_data_files_standard %>% 
-        mutate(climate = input$upload_climate_std,
-               location = input$upload_location_std,
-               rcp = input$upload_rcp_std,
-               irrigation = input$upload_irrigation_std,
-               crop = input$upload_crop_std,
-               soil = input$upload_soil_std,
-               sowing_date = input$upload_sowing_std,
-               note = input$upload_note_std)
-    })
-
-    observeEvent(input$upload_button_standard, {
-      req(upload_standard$temp_list)
-      old_list <- upload_standard$list
-      new_list <- bind_rows(old_list, upload_standard$temp_list)
-        #%>%distinct(name, .keep_all = TRUE)
-      upload_standard$list <- new_list
-    })
-    
-    #show list all uploaded file 
-    observeEvent(input$upload_button_standard, {output$upload_standard_list <- renderDataTable(upload_standard$list %>% select(-c(size, type, datapath))
-                                                   ,options = list(scrollX = TRUE)) })
-    
-    #read and clean data
-    upload_data_standard_combined <- reactive({
-            #require uploaded data files before evaluating
-            req(input$upload_data_files_standard)
-            req(upload_standard$list)
-            #check to make sure uploaded files has the correct extension .OUT, return error if not 
-            upload_data_files_standard_ext <- tools::file_ext(input$upload_data_files_standard$name)
-            if(any(upload_data_files_standard_ext != "OUT")){
-                validate("Invalid data file: Please upload only .OUT files")
-            }
-
-            #list of file extensions of all output files (9 files)
-            file.extension = c("Clim.OUT","CompEC.OUT","CompWC.OUT","Crop.OUT","Inet.OUT","Prof.OUT","Run.OUT","Salt.OUT","Wabal.OUT")
+    ###read upload data files and combine all data into dataframe
+    upload_data_standard_combined <-
+      reactive({
+        #require uploaded data files before evaluating
+        req(input$upload_data_files_standard)
+        
+        #set up parallel processing for future_map function
+        plan(multisession, workers = 2) 
+        
+        #list of file extensions of all output files (9 files)
+        file.extension = c("Clim.OUT","CompEC.OUT","CompWC.OUT","Crop.OUT","Inet.OUT","Prof.OUT","Run.OUT","Salt.OUT","Wabal.OUT")
+        
+        #read data
+        input$upload_data_files_standard %>%
+          filter(str_detect(name, "\\.OUT$")) %>%
+          filter(!str_detect(name, "Inet\\.OUT$")) %>% #some Inet file if dataset are empty can cause error
+          #detect file extensions
+          mutate(extension = str_extract(name, paste(paste0("(",file.extension,")"), collapse="|"))) %>%
+          mutate(name.variable = str_replace(name, extension,"")) %>%
+          mutate(dataset = future_map2(datapath, extension, function(datapath, extension){
+            #read in data as lines, to identify blank lines that separate sections
+            file.line = read_lines(paste0(datapath))
+            line.before.data = which(file.line == "")[1] #first blank line comes before dataset
+            line.after.data = which(file.line == "")[2] #second blank line comes after dataset
             
-            #read data
-            #input$upload_data_files_standard %>% #for one upload  
-            upload_standard$list %>% #for multiple upload
-                #detect file extensions
-                mutate(extension = str_extract(name, paste(file.extension, sep="|"))) %>%
-                mutate(dataset = map2(datapath, extension, function(datapath, extension){
-                    #read in data as lines, to identify blank lines that separate sections
-                    file.line = read_lines(paste0(datapath))
-                    line.before.data = which(file.line == "")[1] #first blank line comes before dataset
-                    line.after.data = which(file.line == "")[2] #second blank line comes after dataset
-                    
-                    #read in data as whole and clean spaces to tabs to allow read_tsv later
-                    file.clean = read_file(paste0(datapath)) %>%
-                        str_replace_all(" +?(?=\\S)","\t") 
-                    
-                    #read heading
-                    heading.skip = ifelse(extension == "Run.OUT", line.before.data, 
-                                          ifelse(extension %in% c("CompEC.OUT","CompWC.OUT"),line.before.data+2, line.before.data+1))
-                    heading = read_lines(file = file.clean, skip = heading.skip, n_max = 1) %>%
-                        str_split("\\t") %>%
-                        unlist() 
-                    
-                    #read in data as tsv, specify lines from blank lines sectioning identified before, add heading
-                    line.skip = ifelse(extension == "Run.OUT", line.before.data + 2, line.before.data + 3)
-                    line.n = ifelse(extension == "Run.OUT", 1, line.after.data - line.before.data - 4)
-                    data = read_tsv(file = file.clean, skip = line.skip, n_max = line.n, col_names = heading) %>%
-                        select(-1) #remove blank column at the start
-                })) %>%
-                select(-size, -type, -datapath)
-        })
-
-    #output datatable of the data file name being read
-    output$upload_data_standard_combined_display <- renderDataTable(upload_data_standard_combined() %>%
-                                                                        distinct(),
-                                                                    options = list(scrollX = TRUE))
-   
+            #read in data as whole and clean spaces to tabs to allow read_tsv later
+            file.clean = read_file(paste0(datapath)) %>%
+              str_replace_all(" +?(?=\\S)","\t") 
+            
+            #read heading
+            heading.skip = ifelse(extension == "Run.OUT", line.before.data, 
+                                  ifelse(extension %in% c("CompEC.OUT","CompWC.OUT"),line.before.data+2, line.before.data+1))
+            heading = read_lines(file = file.clean, skip = heading.skip, n_max = 1) %>%
+              str_split("\\t") %>%
+              unlist() 
+            
+            #read in data as tsv, specify lines from blank lines sectioning identified before, add heading
+            line.skip = ifelse(extension == "Run.OUT", line.before.data + 2, line.before.data + 3)
+            line.n = ifelse(extension == "Run.OUT", 1, line.after.data - line.before.data - 4)
+            data = read_tsv(file = file.clean, skip = line.skip, n_max = line.n, col_names = heading) %>%
+              select(-1) #remove blank column at the start
+          })) %>%
+          select(-size, -type, -datapath) 
+        
+      })
+    
+    #output uploaded files list
+    output$upload_standard_list <- renderDataTable(datatable(upload_data_standard_combined() %>% select(name), options = list(scrollX = TRUE)))
+    
     ##combined all daily data  
     upload_data_standard_combined_daily <- reactive({
+      #require uploaded data files before evaluating
+      req(input$upload_data_files_standard)
+      
+      #set up parallel processing for future_map function
+      plan(multisession, workers = 2) 
+      
       #filter out Run.OUT file as data format (seasonal)  different from others (daily)
       upload_data_standard_combined() %>%
         filter(extension != "Run.OUT") %>%
-        group_by(climate,location,rcp,irrigation,crop,soil,sowing_date,note) %>%
+        group_by(name.variable) %>%
         nest() %>%
-        mutate(all_data = map(data, function(data){
+        mutate(all_data = future_map(data, function(data){
           data$dataset %>%
             reduce(left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
         })) %>%
@@ -714,17 +523,6 @@ server <- function(input, output, session) {
         unnest(all_data) %>%
         mutate(date = dmy(paste(Day, Month, Year, sep="-")))
     })
-      
-    #render output display
-    output$upload_data_standard_combined_daily_display <- renderDataTable(upload_data_standard_combined_daily(),
-                                                                          options = list(scrollX = TRUE))
-    #for downloading combined daily dataset
-    output$download_data_standard_combined_daily <- downloadHandler(
-        filename = "Aquacrop_standard_daily_combined_data.tsv",
-        content = function(file) {
-            write_tsv(upload_data_standard_combined_daily(), file)
-        }
-    )
     
     ##seasonal data
     upload_data_standard_combined_seasonal <- reactive({
@@ -732,280 +530,119 @@ server <- function(input, output, session) {
         filter(extension == "Run.OUT") %>%
         unnest(dataset) 
     })
-    output$upload_data_standard_combined_seasonal_display <- renderDataTable(upload_data_standard_combined_seasonal(),
-                                                                             options = list(scrollX = TRUE))
-    #for downloading seasonal dataset
-    output$download_data_standard_combined_seasonal <- downloadHandler(
-        filename = "Aquacrop_standard_seasonal_combined_data.tsv",
-        content = function(file) {
-            write_tsv(upload_data_standard_combined_seasonal(), file)
-        }
-    )
-
-    ###ggplot _std
-    #reactive for showing next boxes to input plotting instructions
-    observeEvent(input$plot_next1_std, {
-      shinyjs::show(id = "hiddenbox1_std")
-    })
-    observeEvent(input$plot_next2_std, {
-      shinyjs::show(id = "hiddenbox2_std")
-    })
-    observeEvent(input$plot_next3_std, {
-      shinyjs::show(id = "hiddenbox3_std")
-    })
-    observeEvent(input$plot_next4_std, {
-      shinyjs::show(id = "hiddenbox4_std")
-    })
-    observeEvent(input$plot_next5_std, {
-      shinyjs::show(id = "hiddenbox5_std")
-    })
     
-    #data for plotting
-    ##if daily or seasonal data selected
-    data_std_use <- reactive({
-      if(input$plot_mode_std == "daily"){
-        updateSelectInput(inputId = "y_var_std", choices = unique(colnames(upload_data_standard_combined_daily())))
-        upload_data_standard_combined_daily()
-      }else{
-        updateSelectInput(inputId = "y_var_std", choices = unique(colnames(upload_data_standard_combined_seasonal())))
-        upload_data_standard_combined_seasonal()        
-      }
-    })
-
-    
-    ## if plotting mean is selected, calculate mean based on grouping variable selected
-    data_std_combined_plot <- reactive({
-      if(input$use_mean_std == "Yes" & length(input$group_var_std) > 0){
-        data_std_use() %>%
-          group_by(across(all_of(c(input$group_var_std, "Year1", input$col_var_std, input$shape_var_std)))) %>%
-          summarise(across(c("Rain","ETo","GD","CO2","Irri","Infilt","Runoff","Drain","Upflow","E","E/Ex","Tr","TrW","Tr/Trx","SaltIn","SaltOut","SaltUp","SaltProf","Cycle","SaltStr","FertStr","WeedStr","TempStr","ExpStr","StoStr","BioMass","Brelative","HI","Yield","WPet"),
-                           mean))
-      }else{
-        data_std_use() 
-      }
-    })
-    
-    ###option for renaming variable
-    #create observe event module to monitor if user input select variable to rename
-    #if variable selected, update the select input list for value choices of the selected variable
-    observeEvent(input$rename_variable_std, {
-      choices <- unique(data_std_combined_plot_rename$data[[input$rename_variable_std]])
-      updateSelectizeInput(inputId = "rename_from_std", choices = choices) 
-    })
-    #change value of selected variable to the value from user
-    data_std_combined_plot_rename <- reactiveValues()
-    observe({data_std_combined_plot_rename$data <- data_std_combined_plot()})
-    observeEvent(input$rename_button_std, {
-      if(input$rename_to_std != ""){
-        rename_df <- data_std_combined_plot_rename$data
-        rename_df[input$rename_variable_std][rename_df[input$rename_variable_std] == input$rename_from_std] <- input$rename_to_std
-        data_std_combined_plot_rename$data <- rename_df
-      }
-      choices <- unique(data_std_combined_plot_rename$data[[input$rename_variable_std]])
-      updateSelectizeInput(inputId = "rename_from_std", choices = choices) 
-    })
-    #output datatable of the combined data and parameters
-    output$data_std_combined_plot_rename_display <- renderDataTable(datatable(data_std_combined_plot_rename$data, 
-                                                                              options = list(scrollX = TRUE)))
-    
-    
-    #set color palette
-    custom_palette_std <- reactive({
-      default_palette_std <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
-      
-      #vector of available color choices to form custom palette
-      color_choice_hex_std <- c("#000000","#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#E41A1C","#A6D854")
-      names(color_choice_hex_std) <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
-      
-      #make palette from custom colors selected from user
-      if(length(input$col_palette_std) > 0){
-        palette <- color_choice_hex_std[input$col_palette_std]
-      }else{
-        palette <- default_palette_std
-      }
-      unname(palette)
-    })
-    
-    #set shape palette
-    custom_shape_std <- reactive({
-      default_shape_std <- c(16,17,15,18,4,1,2,0,5)
-      
-      #vector of available shape choices to form custom palette
-      shape_choice_std <- c(16,17,15,18,4,1,2,0,5)
-      names(shape_choice_std) <- c("circle", "triangle", "rectangle", "diamond", "cross", "hollow_circle", "hollow_triangle", "hollow_rectangle", "hollow_diamond")
-      
-      
-      #make palette from custom shapes selected from user
-      if(length(input$shape_palette_std) > 0){
-        shape.palette <- shape_choice_std[input$shape_palette_std]
-      }else{
-        shape.palette <- default_shape_std
-      }
-      unname(as.numeric(shape.palette)) 
-    })
-    
-    #set legend direction
-    legend_direction_std <- reactive({
-      if(input$legend_position_std %in% c("top","bottom")){
-        "horizontal"
-      } else{
-        "vertical"
-      }
-    })
-    
-    ggplot_std <- reactive({
-      
-      #select x axis according to data mode
-        if(input$plot_mode_std == "daily"){
-          x_var_plot = "date"
-        }else{
-          x_var_plot = "Year1"
-        }
+    ###read uploaded parameter files and combine
+    upload_prm_standard_combined <-
+      reactive({
+        #require uploaded prm files before evaluating
+        req(input$upload_data_files_standard)
         
-      #initial plot according to selected coloring and group variable
-      if(length(input$shape_var_std) > 0 & length(input$col_var_std) > 0){
-        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]], group = interaction(.data[[input$shape_var_std]], .data[[input$col_var_std]]), col = .data[[input$col_var_std]], shape = .data[[input$shape_var_std]]))
-      }
-      else if(length(input$col_var_std) > 0){
-        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]], group = .data[[input$col_var_std]], col = .data[[input$col_var_std]]))
-      }
-      else if(length(input$shape_var_std) > 0){
-        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]], group = .data[[input$shape_var_std]], shape = .data[[input$shape_var_std]]))
-      }
-      else{
-        p <- ggplot(data = data_std_combined_plot_rename$data, aes(x = .data[[x_var_plot]], y = .data[[input$y_var_std]]))
-      }
-      #add plot
-      p <- p +
-        theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title_std)), 
-              axis.text = element_text(size = as.numeric(input$font_size_axis_text_std)),
-              legend.title = element_text(size = as.numeric(input$font_size_legend_std)),
-              legend.text = element_text(size = as.numeric(input$font_size_legend_std)),
-              strip.text = element_text(size = as.numeric(input$font_size_facet_std)),
-              plot.title = element_text(size = as.numeric(input$font_size_plot_title_std)),
-              legend.position = paste(input$legend_position_std),
-              legend.direction = paste(legend_direction_std()),
-              axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
-              panel.background = element_rect(colour = "black", fill = "white"),
-              plot.background = element_rect(colour = NA, fill = "white"),
-              axis.line = element_line(colour="black",size=0.1),
-              axis.ticks = element_line(),
-              axis.title.x = element_text(vjust = -2.5),
-              axis.title.y = element_text(vjust = +2.5),
-              legend.key = element_rect(colour = NA, fill = NA),
-              legend.key.size= unit(0.75, "cm"),
-              strip.background=element_rect(colour="#000000",fill=NA),
-              plot.margin=unit(c(10,5,5,5),"mm")
-        ) +
-        scale_color_manual(values=custom_palette_std()) +
-        scale_shape_manual(values=custom_shape_std()) +
-        guides(color = guide_legend(override.aes = list(size=3)))
-      
-      
-      #select facet variable
-      if(length(input$facet_var_std) == 1){
-        p <- p + facet_wrap(~get(input$facet_var_std[1]))
-      } else if(length(input$facet_var_std) == 2){
-        p <- p + facet_grid(get(input$facet_var_std[2])~get(input$facet_var_std[1]))
-      } else {
-        p <- p
-      }
-      
-      #select plotting elements (geom)
-      if("point" %in% input$plot_element_std){
-        p <- p + geom_point(size = as.numeric(input$point_size_std))
-      }     
-      if("line" %in% input$plot_element_std){
-        p <- p + geom_line()
-      }
-      if("linear_trend" %in% input$plot_element_std){
-        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE)
-      }
-      if("linear_trend_error" %in% input$plot_element_std){
-        p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE)
-      }
-      if("grid_line" %in% input$plot_element_std){
-        p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
-                       panel.grid.minor = element_blank())
-      }else{
-        p <- p + theme(panel.grid.major = element_blank())
-      }
-      if(length(input$plot_element_std) == 0){
-        p <- p
-      }
-      
-      #add custom text for axis label
-      if(nchar(input$y_var_label_std) > 0){
-        p <- p + labs(y = paste(input$y_var_label_std))
-      }
-      if(nchar(input$x_var_label_std) > 0){
-        p <- p + labs(x = paste(input$x_var_label_std))
-      }
-      if(nchar(input$title_label_std) > 0){
-        p <- p + labs(title = paste(input$title_label_std))
-      }
-      if(nchar(input$legend_label_std) > 0){
-        p <- p + labs(title = paste(input$legend_label_std))
-      }
-      print(p)
-    })
+        #set up parallel processing for future_map function
+        plan(multisession, workers = 2) 
+        
+        #get a list of prm file path from uploaded
+        prm.df = input$upload_data_files_standard %>%
+          #filter to read only .prm files
+          filter(str_detect(name, "\\.PRM$")) %>% 
+          #read in each prm file from the list and extract parameter of interest
+          mutate(parameter = future_map(datapath, function(datapath){
+            #read in each prm file from the list
+            prm.file = read_file(paste0(datapath))
+            #extract parameter from each param file 
+            #in this case we use str_extract to get parameters of the first time point (should be the same for all time points)
+            #get climate file
+            climate.file = str_extract(prm.file, ".+?\\.CLI") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.CLI)","")
+            #get temperature file
+            temperature.file = str_extract(prm.file, ".+?\\.((Tnx)|(TMP))") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|((\\.Tnx)|(\\.TMP))","")    
+            #get reference eto file
+            reference.ET.file = str_extract(prm.file, ".+?\\.ETo") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.ETo)","")  
+            #get rain  file
+            rain.file = str_extract(prm.file, ".+?\\.PLU") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.PLU)","")  
+            #get co2  file
+            co2.file = str_extract(prm.file, ".+?\\.CO2") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.CO2)","")  
+            #get crop
+            crop.file = str_extract(prm.file, ".+?\\.CRO") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.CRO)","")  
+            #get irrigation
+            irrigation.file = str_extract(prm.file, ".+?\\.IRR") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.IRR)","")  
+            #get field management
+            field.management.file = str_extract(prm.file, ".+?\\.MAN") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.MAN)","")  
+            #get soil
+            soil.file = str_extract(prm.file, ".+?\\.SOL") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.SOL)","")  
+            #get groundwater table
+            groundwater.table.file = str_extract(prm.file, ".+?\\.GWT") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.GWT)","")  
+            #get initial condition 
+            initial.condition.file = str_extract(prm.file, ".+?\\.SW0") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.SW0)","")  
+            #get offseason condition 
+            offseason.condition.file = str_extract(prm.file, ".+?\\.OFF") %>%
+              unlist() %>%
+              str_replace_all("(\\s)|(\\.OFF)","")
+            #put parameters together in a table
+            param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file)
+          })) %>%
+          unnest(parameter) %>%
+          select(-size, -type, -datapath) %>%
+          mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file)) %>%
+          mutate(name.variable = str_replace(name, "\\.PRM$","")) %>%
+          rename(prm.file.name = name)
+        
+        #check name for _ delimiter to extract different variables out of file name and give number
+        n.name.var = str_split(prm.df$name.variable,"_") %>%
+          map(length) %>%
+          unlist() %>%
+          max()
+        
+        prm.df %>%
+          separate(name.variable, into = paste0("name.variable",c(1:n.name.var)), sep = "_", remove = F)
+      })
     
-    #adjust default plot size according to facets
-    #select facet variable
-    observeEvent(input$facet_var_std, {
-      if(length(input$facet_var_std) == 1){
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 1){
-          updateTextInput(session, "export_plot_width_std", value = "19")
-          updateTextInput(session,"export_plot_height_std", value = "12")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 2){
-          updateTextInput(session, "export_plot_width_std", value = "29")
-          updateTextInput(session,"export_plot_height_std", value = "12")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) > 2){
-          updateTextInput(session, "export_plot_width_std", value = "39")
-          updateTextInput(session,"export_plot_height_std", value = "12")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) > 3){
-          updateTextInput(session, "export_plot_width_std", value = "39")
-          updateTextInput(session,"export_plot_height_std", value = "23")
-        }
-      } 
-      if(length(input$facet_var_std) == 2){
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 1){
-          updateTextInput(session,"export_plot_width_std", value = "19")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) == 2){
-          updateTextInput(session,"export_plot_width_std", value = "29")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[1]]])) > 2){
-          updateTextInput(session,"export_plot_width_std", value = "39")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[2]]])) == 1){
-          updateTextInput(session,"export_plot_height_std", value = "12")
-        }
-        if(length(unique(data_std_combined_plot_rename$data[[input$facet_var_std[2]]])) > 1){
-          updateTextInput(session,"export_plot_height_std", value = "23")
-        }
-      }
+    
+    ####add parameters to the seasonal dataset
+    data_prm_standard_combined_seasonal <- reactive({
+      req(input$upload_data_files_standard)
+      
+      upload_data_standard_combined_seasonal() %>%
+        mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+        mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+        left_join(upload_prm_combined_renamecol$data, by = "name.variable")
     })
     
     
-    #render ggplot display in app
-    output$ggplot_std_display <- renderPlot({
-      ggplot_std()
-    },width=exprToFunction(as.numeric(input$export_plot_width_std)*36), height=exprToFunction(as.numeric(input$export_plot_height_std)*36))
+    ####add parameters to the daily dataset
+    data_prm_standard_combined_daily <- reactive({
+      req(input$upload_data_files_standard)
+      
+      upload_data_standard_combined_daily() %>%    
+        mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+        left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+    })
     
+    output$prm_std <- renderDataTable(datatable(upload_prm_standard_combined(), options = list(scrollX = TRUE)))
+    output$seasonal_std <- renderDataTable(datatable(data_prm_standard_combined_seasonal(), options = list(scrollX = TRUE)))
+    output$daily_std <- renderDataTable(datatable(data_prm_standard_combined_daily(), options = list(scrollX = TRUE)))
     
-    #for downloading ggplot
-    output$ggplot_std_download <- downloadHandler(
-      filename = function() {"plot_std"},
-      content = function(file) {
-        ggsave(file, plot = ggplot_std(), device = {{input$export_plot_format_std}} , width = as.numeric({{input$export_plot_width_std}}), height = as.numeric({{input$export_plot_height_std}}), units = "cm")
-      }
-    )
 
-    
 ###################################################################################
     ##########plugin
     ###seasonal data
@@ -1154,7 +791,17 @@ server <- function(input, output, session) {
     #create observe event module to monitor if user input select variable to rename
     #if variable selected, update the select input list for value choices of the selected variable
     upload_prm_combined_renamecol <- reactiveValues()
-    observe({upload_prm_combined_renamecol$data <- upload_prm_combined()})
+    
+    observe({
+      req(input$standard_vs_plugin_select)
+      #select if standard or plugin mode used
+      if(input$standard_vs_plugin_select == "standard"){
+        upload_prm_combined_renamecol$data <- upload_prm_standard_combined()
+      }else{
+        upload_prm_combined_renamecol$data <- upload_prm_combined()
+      }
+    })
+    
     observe({
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
@@ -1186,14 +833,19 @@ server <- function(input, output, session) {
     
     ####add parameters to the output dataset
     data_prm_combined <- reactive({
+      req(input$standard_vs_plugin_select)
+      #select if standard or plugin mode used
+      if(input$standard_vs_plugin_select == "standard"){
+        data_prm_standard_combined_seasonal()
+      }else{
       req(input$upload_prm_files)
-      
         upload_data_combined() %>%
         mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
         mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
         mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
-        })
+      }
+    })
     
    
     #output datatable of the combined data and parameters
@@ -1270,14 +922,21 @@ server <- function(input, output, session) {
     
     ####add parameters to the daily dataset
     daily_data_prm_combined <- reactive({
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
-
-      upload_daily_data_combined() %>%    
-      mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
-      mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
-      left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+      req(input$standard_vs_plugin_select)
+      #select if standard or plugin mode used
+      if(input$standard_vs_plugin_select == "standard"){
+        data_prm_standard_combined_daily()
+      }else{
+        req(input$upload_prm_files)
+        req(input$upload_daily_data_files)
+        
+        upload_daily_data_combined() %>%    
+          mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+          mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
+          left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+      }
     })
+    
     #output datatable of the combined daily data and parameters
     output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined(), 
                                                                   options = list(scrollX = TRUE)))
