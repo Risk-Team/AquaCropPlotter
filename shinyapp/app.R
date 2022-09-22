@@ -8,7 +8,7 @@ input_plot_y_variable <- c("Rain","ExpStr","E","ETo","Irri","StoStr","Yield","WP
 input_group_variable <- c("climate","location","rcp","irrigation","crop","soil","sowing.date")
 input_plot_variable_standard <- c("Biomass", "Date")
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
-input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error","grid_line")
+input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error","background_grid")
 input_legend_pos <- c("none","right","bottom","left","top")
 input_shape_choice <- c("circle", "triangle", "rectangle", "diamond", "cross", "hollow_circle", "hollow_triangle", "hollow_rectangle", "hollow_diamond")
 
@@ -62,7 +62,8 @@ ui <- dashboardPage(
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
                                     .content-wrapper, .right-side {background-color: #ffffff;}
-                                    
+                                    .btn {background-color: #D4EAFF;}
+
                                     #add customise color to palette choices 
                                     .option[data-value=black], .item[data-value=black] {background: #000000 !important; color: white !important;}
                                     .option[data-value=grey], .item[data-value=grey] {background: #999999 !important; color: black !important;}
@@ -164,7 +165,7 @@ ui <- dashboardPage(
                             status = "primary",
                             solidHeader = FALSE,
                             #button for downloading all combined data
-                            downloadButton("download_combined_dataset", "Download"),
+                            downloadButton("download_combined_dataset", "Download", style = "margin-bottom: 15px; "),
                             #data table
                             div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         ),
@@ -173,7 +174,7 @@ ui <- dashboardPage(
                             status = "primary",
                             solidHeader = FALSE,
                             #button for downloading all combined data
-                            downloadButton("download_combined_daily_dataset", "Download"),
+                            downloadButton("download_combined_daily_dataset", "Download", style = "margin-bottom: 15px; "),
                             #data table
                             div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         ),
@@ -182,7 +183,7 @@ ui <- dashboardPage(
                             status = "primary",
                             solidHeader = FALSE,
                             #button for downloading all combined data
-                            downloadButton("download_combined_prm", "Download"),
+                            downloadButton("download_combined_prm", "Download", style = "margin-bottom: 15px; "),
                             #data table
                             div(dataTableOutput("prm_combined_display"), style = "font-size: 75%; width: 100%")
                         )
@@ -263,7 +264,7 @@ ui <- dashboardPage(
                                 solidHeader = TRUE,
                                 selectizeInput("plot_element", 
                                                label = tags$span("Elements to plot", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
-                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","grid_line")),
+                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","background_grid")),
                                 bsPopover(id = "plot_info5", title = "", placement = "right", trigger = "hover"),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right")))
                                 )
@@ -295,9 +296,18 @@ ui <- dashboardPage(
                                 textInput("title_label", "plot title"),
                                 textInput("y_var_label", "Y axis label"),
                                 textInput("x_var_label", "X axis label"),
-                                textInput("x_axis_label_angle", "X axis label angle", value = "0"),
-                                textInput("legend_label", "legend label"),
+                                textInput("x_axis_label_angle", "X axis label angle", value = "0")
                                 ),
+                            box(title = "Rename variables",
+                                width = 2,
+                                height = "550px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                selectizeInput("rename_variable", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                textInput("rename_to", "Rename to"),
+                                actionButton("rename_button", "Rename")
+                            ),
                             box(title = "Customise font size",
                                 width = 2,
                                 height = "550px",
@@ -308,16 +318,6 @@ ui <- dashboardPage(
                                 textInput("font_size_axis_title", "axis title", value = "16"),
                                 textInput("font_size_legend", "legend", value = "16"),
                                 textInput("font_size_facet", "subpanel label", value = "16")
-                            ),
-                            box(title = "Rename variables",
-                                width = 2,
-                                height = "550px",
-                                status = "primary",
-                                solidHeader = TRUE,
-                                selectizeInput("rename_variable", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                textInput("rename_to", "Rename to"),
-                                actionButton("rename_button", "Rename")
                             ),
                             box(title = "Export plot",
                                 width = 2,
@@ -378,8 +378,7 @@ ui <- dashboardPage(
                                         div(dataTableOutput("daily_data_prm_combined_stress_display"), style = "font-size: 75%; width: 100%"),
                                         downloadButton("download_daily_data_prm_combined_stress", "Download"),
                                         actionButton("append_stress_data_button", "Append data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
-                                        div(dataTableOutput("data_analysis_display"), style = "font-size: 75%; width: 100%"),
-                                        
+
                                ),
                                tabPanel(title = "Regression",
                                         width = 12,
@@ -1130,10 +1129,10 @@ server <- function(input, output, session) {
     ggplot_plugin <- reactive({
       #initial plot according to selected coloring and group variable
       if(length(input$shape_var) > 0 & length(input$col_var) > 0){
-        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = interaction(.data[[input$shape_var]], .data[[input$col_var]]), col = .data[[input$col_var]], shape = .data[[input$shape_var]]))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = interaction(.data[[input$shape_var]], .data[[input$col_var]]), col = .data[[input$col_var]], fill = .data[[input$col_var]], shape = .data[[input$shape_var]]))
       }
       else if(length(input$col_var) > 0){
-        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]]))
+        p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$col_var]], col = .data[[input$col_var]], fill = .data[[input$col_var]]))
       }
       else if(length(input$shape_var) > 0){
         p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = .data[[input$shape_var]], shape = .data[[input$shape_var]]))
@@ -1152,13 +1151,12 @@ server <- function(input, output, session) {
               plot.title = element_text(size = as.numeric(input$font_size_plot_title)),
               legend.position = paste(input$legend_position),
               legend.direction = paste(legend_direction()),
-              axis.text.x = element_text(angle = as.numeric(input$x_axis_label_angle), hjust = 1, vjust = 1),
               panel.background = element_rect(colour = "black", fill = "white"),
               plot.background = element_rect(colour = NA, fill = "white"),
               axis.line = element_line(colour="black",size=0.1),
               axis.ticks = element_line(),
-              axis.title.x = element_text(vjust = -2.5),
-              axis.title.y = element_text(vjust = +2.5),
+              axis.title.x = element_text(vjust = -2.5, face = "bold"),
+              axis.title.y = element_text(vjust = +2.5, face="bold"),
               legend.key = element_rect(colour = NA, fill = NA),
               legend.key.size= unit(0.75, "cm"),
               strip.background=element_rect(colour="#000000",fill=NA),
@@ -1168,6 +1166,10 @@ server <- function(input, output, session) {
         scale_shape_manual(values=custom_shape()) +
         guides(color = guide_legend(override.aes = list(size=3)))
       
+      #x axis text angle
+      if(as.numeric(input$x_axis_label_angle) > 0){
+        p <- p + theme(axis.text.x = element_text(angle = as.numeric(input$x_axis_label_angle), hjust = 1, vjust = 1))
+      }
       
       #select facet variable
       if(length(input$facet_var) == 1){
@@ -1191,7 +1193,7 @@ server <- function(input, output, session) {
       if("linear_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE)
       }
-      if("grid_line" %in% input$plot_element){
+      if("background_grid" %in% input$plot_element){
         p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
                        panel.grid.minor = element_blank())
       }else{
@@ -1210,9 +1212,6 @@ server <- function(input, output, session) {
       }
       if(nchar(input$title_label) > 0){
         p <- p + labs(title = paste(input$title_label))
-      }
-      if(nchar(input$legend_label) > 0){
-        p <- p + labs(title = paste(input$legend_label))
       }
       print(p)
     })
@@ -1344,8 +1343,7 @@ server <- function(input, output, session) {
     
     #update grouping choice
     observe({
-      group.choices <- paste(setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined())), collapse="_")
-      #group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+      group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
       updateSelectizeInput(inputId = "stress_group", choices = group.choices)
     })
 
@@ -1369,12 +1367,22 @@ server <- function(input, output, session) {
 
       #calculate summary
       daily_data_prm_combined() %>%
+        mutate(Stage = as.character(Stage)) %>%
+        mutate(Stage = case_when(
+          Stage == "0" ~ "0_before_after_cropping",
+          Stage == "1" ~ "1_sowing_transplant",
+          Stage == "2" ~ "2_vegetative",
+          Stage == "3" ~ "3_flowering",
+          Stage == "4" ~ "4_yield_ripening",
+          Stage == "-9" ~ "-9_senescence",
+          TRUE ~ Stage
+        )) %>%
         select(all_of(column.select)) %>%
         group_by(across(all_of(column.group))) %>%
-        summarise(StExp.duration = length(StExp[which(StExp >= as.numeric(input$StExp_threshold))]),
-                  StSto.duration = length(StSto[which(StSto >= as.numeric(input$StSto_threshold))]),
-                  StSen.duration = length(StSen[which(StSen >= as.numeric(input$StSen_threshold))]),
-                  StTr.duration = length(StTr[which(StTr >= as.numeric(input$StTr_threshold))])
+        summarise(StExp.duration.days = length(StExp[which(StExp >= as.numeric(input$StExp_threshold))]),
+                  StSto.duration.days = length(StSto[which(StSto >= as.numeric(input$StSto_threshold))]),
+                  StSen.duration.days = length(StSen[which(StSen >= as.numeric(input$StSen_threshold))]),
+                  StTr.duration.days = length(StTr[which(StTr >= as.numeric(input$StTr_threshold))])
                   ) 
     })
     
@@ -1394,15 +1402,13 @@ server <- function(input, output, session) {
       data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
                                           daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-      req(input$plot_mode)
-      if(input$plot_mode == "seasonal"){
-        data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
+      
+      updateSelectizeInput(inputId = "plot_mode", selected = "seasonal")
+      data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
                                                        daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
                                                        by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-      }
     })
-    output$data_analysis_display <- renderDataTable(data_prm_combined_analysis$data, options = list(scrollX = TRUE))
-    
+
 ######regression
     
     ##select data mode daily or seasonal  
@@ -1471,14 +1477,12 @@ server <- function(input, output, session) {
         mutate(model = map(data, function(data){
           mod <- lm(data = data, as.formula(paste0(input$regression_y_variable,"~",input$regression_x_variable)))
           
-          model.adj.r.squared <- glance(mod)[["adj.r.squared"]] %>% signif(digits = 4) %>% format()
+          model.r.squared <- glance(mod)[["r.squared"]] %>% signif(digits = 4) %>% format()
           model.p.value <- glance(mod)[["p.value"]] %>% signif(digits = 4) %>% format()
-          intercept <- tidy(mod)[["estimate"]][[1]] %>% signif(digits = 4) %>% format()
-          intercept.p.value <-  tidy(mod)[["p.value"]][[1]] %>% signif(digits = 4) %>% format()
           slope <- tidy(mod)[["estimate"]][[2]] %>% signif(digits = 4) %>% format()
           slope.p.value <- tidy(mod)[["p.value"]][[2]] %>% signif(digits = 4) %>% format() 
           
-          summary <- data.frame(model.p.value, model.adj.r.squared,intercept,intercept.p.value,slope,slope.p.value)
+          summary <- data.frame(model.p.value, model.r.squared,slope,slope.p.value)
         })) %>%
         select(-data) %>%
         unnest(model)
