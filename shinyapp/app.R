@@ -32,8 +32,7 @@ ui <- dashboardPage(
         sidebarMenu(id = "menu_tabs",
             menuItem("Home", tabName = "tab_home", icon = icon("home")),
             menuItem("Workflow", tabName = "aquacrop_plugin", icon = icon("list-alt"), startExpanded = TRUE,
-                     menuSubItem("Upload_standard", tabName = "tab_upload_data_standard", icon = icon("caret-right")),
-                     menuSubItem("Upload_plug-in", tabName = "tab_upload_data_plugin", icon = icon("caret-right")),
+                     menuSubItem("Upload_data", tabName = "tab_upload_data", icon = icon("caret-right")),
                      menuSubItem("Combined_data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
                      menuSubItem("Plot", tabName = "tab_plot_plugin", icon = icon("caret-right")),
                      menuSubItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("caret-right"))
@@ -108,56 +107,55 @@ ui <- dashboardPage(
                         )
                     )
             ),
-            tabItem(tabName = "tab_upload_data_standard",
+            tabItem(tabName = "tab_upload_data",
                     h2(
-                        #display boxes for data and prm files upload
+                        #to select data mode
+                        selectizeInput("standard_vs_plugin_select", "AquaCrop programme used", choices = c("standard","plugin"), multiple = TRUE, options = list(maxItems = 1)),
+                        
+                        #show upload data according to mode selected
+                        #plugin
                         fluidRow(
-                            box(title = "Data and PRM files", status = "primary", solidHeader = TRUE, width = 6,
-                                #upload data file
-                                fileInput("upload_data_files_standard", "Upload data files (.OUT and .PRM)", multiple = TRUE)
-                            ),
-                            box(title = "Uploaded files", status = "primary", solidHeader = TRUE, width = 6,
-                              div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
-                            ),
-                            box(title = "d files", status = "primary", solidHeader = TRUE, width = 12,
-                                #div(dataTableOutput("seasonal_std"), style = "font-size: 75%; width: 100%"),
-                                #div(dataTableOutput("daily_std"), style = "font-size: 75%; width: 100%"),
-                                #div(dataTableOutput("prm_std"), style = "font-size: 75%; width: 100%")
-                            )
-                        )
-                    )
-            ),
-            tabItem(tabName = "tab_upload_data_plugin",
-                    h2(
-                        #to display error when insufficient prm files are uploaded
-                        fluidRow(
+                          conditionalPanel(condition = "input.standard_vs_plugin_select == 'plugin'",
+                                           #display boxes for data and prm files upload
+                                             box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
+                                                 fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, .PRM)", multiple = TRUE),
+                                             ),
+                                             box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
+                                                 #upload data file
+                                                 #fileInput("upload_data_files", "Add more files (season.OUT)", multiple = TRUE, accept = ".OUT"),
+                                                 div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%"),
+                                                 dataTableOutput("missing_seasonal_file_error")
+                                             ),
+                                             box(title = "Daily data files", status = "primary", solidHeader = TRUE, width = 4,
+                                                 #upload data file
+                                                 #fileInput("upload_daily_data_files", "Add more files (day.OUT)", multiple = TRUE, accept = ".OUT"),
+                                                 div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 75%; width: 100%")
+                                             ),
+                                             box(title = "Parameter files", status = "primary", solidHeader = TRUE, width = 4,
+                                                 #upload parameter file
+                                                 #fileInput("upload_prm_files", "Add more files (.PRM)", multiple = TRUE, accept = ".PRM"),
+                                                 div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
+                                                 dataTableOutput("missing_prm_file_error")
+                                             )
+                                           )
                         ),
-                        #display boxes for data and prm files upload
+                        #standard
                         fluidRow(
-                            box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
-                                #upload data file
-                                fileInput("upload_data_files", "Upload files (season.OUT)", multiple = TRUE, accept = ".OUT"),
-                                div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%"),
-                                dataTableOutput("missing_seasonal_file_error")
-                            ),
-                            box(title = "Daily data files", status = "primary", solidHeader = TRUE, width = 4,
-                                #upload data file
-                                fileInput("upload_daily_data_files", "Upload files (day.OUT)", multiple = TRUE, accept = ".OUT"),
-                                div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 75%; width: 100%")
-                            ),
-                            box(title = "Parameter files", status = "primary", solidHeader = TRUE, width = 4,
-                                #upload parameter file
-                                fileInput("upload_prm_files", "Upload files (.PRM)", multiple = TRUE, accept = ".PRM"),
-                                div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                                dataTableOutput("missing_prm_file_error")
-                            )
+                          conditionalPanel(condition = "input.standard_vs_plugin_select == 'standard'",
+                                           box(title = "Data and PRM files", status = "primary", solidHeader = TRUE, width = 6,
+                                               #upload data file
+                                               fileInput("upload_data_files_standard", "Upload data files (.OUT and .PRM)", multiple = TRUE)
+                                           ),
+                                           box(title = "Uploaded files", status = "primary", solidHeader = TRUE, width = 6,
+                                               div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
+                                           )
+                                           )
                         )
                     )
             ),
             tabItem(tabName = "tab_combined_data_plugin",
                     h2(
                         fluidRow(
-                          selectizeInput("standard_vs_plugin_select", "AquaCrop mode", choices = c("standard","plugin"), multiple = TRUE, options = list(maxItems = 1)),
                         #display combined data table
                         tabBox(width = 12,
                                tabPanel(title = "Seasonal dataset",
@@ -263,9 +261,9 @@ ui <- dashboardPage(
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_element", 
-                                               label = tags$span("Components of plot to show", bsButton("plot_info5", label = "Select or delete any number of components to show in the plot", icon = icon("info"), size = "extra-small")), 
+                                               label = tags$span("Components of plot to show", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
                                                input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","background_grid")),
-                                bsPopover(id = "plot_info5", title = "", placement = "right", trigger = "hover"),
+                                bsPopover(id = "plot_info5", title = "Select or delete any number of components to show in the plot", placement = "right", trigger = "hover"),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right")))
                                 )
                             ))
@@ -427,14 +425,6 @@ server <- function(input, output, session) {
       read.csv("glossary.csv")
     })
     output$glossary_display <- renderDataTable(glossary())
-    
-    # ###select button to enter aquacrop standard or plugin
-    # observeEvent(input$select_aquacrop_standard, {
-    #     updateTabItems(session, "menu_tabs", "tab_upload_data_standard")
-    # })
-    # observeEvent(input$select_aquacrop_plugin, {
-    #     updateTabItems(session, "menu_tabs", "tab_upload_data_plugin")
-    # })
     
     ##########standard
     ###upload data
@@ -634,19 +624,20 @@ server <- function(input, output, session) {
     ###read upload data files and combine all data into dataframe
     upload_data_combined <-
         reactive({
-            #require uploaded data files before evaluating
-            req(input$upload_data_files)
-            #check to make sure uploaded files has the correct extension .OUT, return error if not 
-            upload_data_files_ext <- str_detect(input$upload_data_files$name, "season\\.OUT$")
-            if(!any(upload_data_files_ext)){
-              validate("Invalid input for seasonal data: season.OUT files needed")
-            }
+            # #require uploaded data files before evaluating
+            # req(input$upload_data_files)
+            # #check to make sure uploaded files has the correct extension .OUT, return error if not 
+            # upload_data_files_ext <- str_detect(input$upload_data_files$name, "season\\.OUT$")
+            # if(!any(upload_data_files_ext)){
+            #   validate("Invalid input for seasonal data: season.OUT files needed")
+            # }
             
             #set up parallel processing for future_map function
             plan(multisession, workers = 2) 
-            
+          
             #get a list of file paths from uploaded files
-            data.df = input$upload_data_files %>%
+            req(input$upload_all_files)
+            data.df = input$upload_all_files %>%
                 #filter to read only seasonal.out files
                 filter(str_detect(name, "season\\.OUT$")) %>% 
                 #import dataset and clean up, format into dataframe
@@ -679,19 +670,20 @@ server <- function(input, output, session) {
     ###read uploaded parameter files and combine
     upload_prm_combined <-
         reactive({
-            #require uploaded prm files before evaluating
-            req(input$upload_prm_files)
-            #check to make sure at least some uploaded files has the correct extension .prm, return error if not 
-            upload_prm_files_ext <- str_detect(input$upload_prm_files$name, "\\.PRM$")
-            if(!any(upload_prm_files_ext)){
-              validate("Invalid input for parameter data: .PRM files needed")
-            }
+            # #require uploaded prm files before evaluating
+            # req(input$upload_prm_files)
+            # #check to make sure at least some uploaded files has the correct extension .prm, return error if not 
+            # upload_prm_files_ext <- str_detect(input$upload_prm_files$name, "\\.PRM$")
+            # if(!any(upload_prm_files_ext)){
+            #   validate("Invalid input for parameter data: .PRM files needed")
+            # }
             
             #set up parallel processing for future_map function
             plan(multisession, workers = 2) 
             
             #get a list of prm file path from uploaded
-            prm.df = input$upload_prm_files %>%
+            req(input$upload_all_files)
+            prm.df = input$upload_all_files %>%
                 #filter to read only .prm files
                 filter(str_detect(name, "\\.PRM$")) %>% 
                 #read in each prm file from the list and extract parameter of interest
@@ -823,7 +815,7 @@ server <- function(input, output, session) {
       if(input$standard_vs_plugin_select == "standard"){
         data_prm_standard_combined_seasonal()
       }else{
-      req(input$upload_prm_files)
+      req(input$upload_all_files)
         upload_data_combined() %>%
         mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
         mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
@@ -847,20 +839,21 @@ server <- function(input, output, session) {
     ###daily data
     upload_daily_data_combined <-
       reactive({
-        #require uploaded data files before evaluating
-        req(input$upload_daily_data_files)
-        #check to make sure uploaded files has the correct extension .OUT, return error if not 
-        upload_daily_data_files_ext <- str_detect(input$upload_daily_data_files$name, "day\\.OUT$")
-        if(!any(upload_daily_data_files_ext)){
-          validate("Invalid input for daily data: day.OUT files needed")
-        }
+        # #require uploaded data files before evaluating
+        # req(input$upload_daily_data_files)
+        # #check to make sure uploaded files has the correct extension .OUT, return error if not 
+        # upload_daily_data_files_ext <- str_detect(input$upload_daily_data_files$name, "day\\.OUT$")
+        # if(!any(upload_daily_data_files_ext)){
+        #   validate("Invalid input for daily data: day.OUT files needed")
+        # }
         
         #set up parallel processing for future_map function
         plan(multisession, workers = 2) 
         
         #get a list of file paths from uploaded files
-        data.df = input$upload_daily_data_files %>%
-          #filter to read only seasonal.out files
+        req(input$upload_all_files)
+        data.df = input$upload_all_files %>%
+          #filter to read only day.out files
           filter(str_detect(name, "day\\.OUT$")) %>% 
           #import dataset and clean up, format into dataframe
           mutate(dataset = future_map(datapath, function(datapath){
@@ -912,8 +905,7 @@ server <- function(input, output, session) {
       if(input$standard_vs_plugin_select == "standard"){
         data_prm_standard_combined_daily()
       }else{
-        req(input$upload_prm_files)
-        req(input$upload_daily_data_files)
+        req(input$upload_all_files)
         
         upload_daily_data_combined() %>%    
           mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
@@ -936,9 +928,7 @@ server <- function(input, output, session) {
     ###check if all parameter .PRM files are uploaded as needed for all .OUT datasets
     #find a list of any missing prm file required in the data files
     missing_prm_file <- reactive({
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       bind_rows(upload_data_combined() %>%
         mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
@@ -951,9 +941,8 @@ server <- function(input, output, session) {
     })
     #return error if there is any missing prm files
     output$missing_prm_file_error <- reactive({
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
+
       
       if(nrow(missing_prm_file()) > 0){
         validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
@@ -983,9 +972,7 @@ server <- function(input, output, session) {
     ##select data mode daily or seasonal  
     data_mode_selected <- reactive({
       req(input$plot_mode)
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       if(input$plot_mode == "daily"){
         #update choices for plotting axis
@@ -1021,9 +1008,7 @@ server <- function(input, output, session) {
 
     observe({
       req(input$plot_mode)
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
@@ -1045,9 +1030,7 @@ server <- function(input, output, session) {
     ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
         req(input$plot_mode)
-        req(input$upload_data_files)
-        req(input$upload_prm_files)
-        req(input$upload_daily_data_files)
+        req(input$upload_all_files)
         
         if(input$use_mean == "Yes" & length(input$group_var) > 0){
           data_mode_selected() %>%
@@ -1282,8 +1265,7 @@ server <- function(input, output, session) {
     
     #update window slider input for year, set min max according to data
     observe({
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
+      req(input$upload_all_files)
       
       year.range <- max(data_prm_combined_analysis$data[["Year1"]]) - min(data_prm_combined_analysis$data[["Year1"]])
       updateSliderInput(inputId = "time_period", min = 1, max = year.range)
@@ -1302,9 +1284,7 @@ server <- function(input, output, session) {
     
     #calculate summary in time period selected
     data_prm_combined_timeperiod <- reactive({
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       req(input$time_period_variable)
 
       #cut time into windows
@@ -1349,9 +1329,7 @@ server <- function(input, output, session) {
 
     #calculate summary 
     daily_data_prm_combined_stress <- reactive({
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       #selecting variables
       
@@ -1414,9 +1392,7 @@ server <- function(input, output, session) {
     ##select data mode daily or seasonal  
     data_mode_selected_regression <- reactive({
       req(input$regression_mode)
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       if(input$regression_mode == "daily"){
         #return data to use
@@ -1429,9 +1405,7 @@ server <- function(input, output, session) {
     
     observe({
       req(input$regression_mode)
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       if(input$regression_mode == "daily"){
         #update choices for variables
@@ -1458,9 +1432,7 @@ server <- function(input, output, session) {
       req(input$regression_mode)
       req(input$regression_y_variable)
       req(input$regression_x_variable)
-      req(input$upload_data_files)
-      req(input$upload_prm_files)
-      req(input$upload_daily_data_files)
+      req(input$upload_all_files)
       
       if(length(input$regression_group) > 0){
         column.group <- input$regression_group
