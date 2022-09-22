@@ -345,12 +345,6 @@ ui <- dashboardPage(
                     h2(
                       fluidRow(
                         tabBox(width = 12,
-                               tabPanel(title = "Analysis",
-                                        width = 12,
-                                        status = "primary",
-                                        solidHeader = FALSE,
-                                        
-                               ),
                                tabPanel(title = "Time period window",
                                         width = 12,
                                         status = "primary",
