@@ -1,0 +1,53 @@
+upload data plugin use a new box to upload whole batch
+
+speed up data upload and processing?
+
+prm file list not show up in upload
+
+info box in plots not showing up
+
+total number of plots that can be in a plot 
+show example of ggplot, what you can do eg. colors, subpanel, shape; label with the variable name that can be change
+link from plot to help page
+
+grided back ground as an option
+
+option to filter out data in combined data
+
+option to filter variable to use in plot tab
+
+check online free account limitation of usage, cost for upgrade options
+
+linear trend error geom ribbon take the same color and the plot points and line
+
+download button spacing from data table, make button standout more
+
+plots, add trnsparency options
+bold text in axis label
+
+plot remove legend label in customise plot
+
+move customise font size box to right just before export
+
+
+bug after rename variable, variable selection reset and return error
+
+export size proportion
+
+time period window info box
+
+time period significance test tukey see difference between mean groups
+maybe filtering options later to see which variable to use
+
+
+stress duration specify days unit
+fix grouping variable 
+append data, dont show table underneath
+
+phenological stage name in the variable
+
+regression 
+remove intercept not intercept p value
+use r squared value instead
+
+
