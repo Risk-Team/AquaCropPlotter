@@ -1006,18 +1006,18 @@ server <- function(input, output, session) {
       
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
-      updateSelectInput(inputId = "y_var", choices = axis.choices)
-      updateSelectInput(inputId = "x_var", choices = axis.choices)
+      updateSelectInput(inputId = "y_var", choices = axis.choices, selected = tail(plot_var_select_cache$y_var, 1))
+      updateSelectInput(inputId = "x_var", choices = axis.choices, selected = tail(plot_var_select_cache$x_var, 1))
       #update choices for grouping variable
       if(input$plot_mode == "daily"){
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
       }else{
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
       }
-      updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-      updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+      updateSelectizeInput(inputId = "group_var", choices = group.choices, selected = tail(plot_var_select_cache$group_var, 1)) 
+      updateSelectizeInput(inputId = "col_var", choices = group.choices, selected = tail(plot_var_select_cache$col_var, 1)) 
+      updateSelectizeInput(inputId = "shape_var", choices = group.choices, selected = tail(plot_var_select_cache$shape_var, 1)) 
+      updateSelectizeInput(inputId = "facet_var", choices = group.choices, selected = tail(plot_var_select_cache$facet_var, 1)) 
       updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
     })
     
@@ -1054,11 +1054,28 @@ server <- function(input, output, session) {
         choices <- unique(data_prm_combined_plot_rename$data[[input$rename_variable]])
         updateSelectInput(inputId = "rename_from", choices = choices) 
       })
-      #output datatable of the combined data and parameters
-      output$data_prm_combined_plot_rename_display <- renderDataTable(datatable(data_prm_combined_plot_rename$data, 
-                                                                    options = list(scrollX = TRUE)))
       
-      
+     #remember variable set for plotting, so can be recovered after making change to dataframe and plotting engine reactively update, reinitialise
+      plot_var_select_cache <- reactiveValues() 
+      observe({
+        req(input$y_var,input$x_var,input$group_var,input$col_var,input$shape_var,input$facet_var)
+        
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+      })
+      #record everytime that the value change, keep only the most recent previous value and current value
+      observeEvent(input$y_var,{plot_var_select_cache$y_var <- c(tail(plot_var_select_cache$y_var, 1), input$y_var)})
+      observeEvent(input$x_var,{plot_var_select_cache$x_var <- c(tail(plot_var_select_cache$x_var, 1), input$x_var)})
+      observeEvent(input$group_var,{plot_var_select_cache$group_var <- c(tail(plot_var_select_cache$group_var, 1), input$group_var)})
+      observeEvent(input$col_var,{plot_var_select_cache$col_var <- c(tail(plot_var_select_cache$col_var, 1), input$col_var)})
+      observeEvent(input$shape_var,{plot_var_select_cache$shape_var <- c(tail(plot_var_select_cache$shape_var, 1), input$shape_var)})
+      observeEvent(input$facet_var,{plot_var_select_cache$facet_var <- c(tail(plot_var_select_cache$facet_var, 1), input$facet_var)})
+
+
     #set color palette
     custom_palette <- reactive({
       default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
