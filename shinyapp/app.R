@@ -1447,6 +1447,7 @@ server <- function(input, output, session) {
                                                      daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days"),
                                                      by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
 
+    })
     
 ######regression
     
