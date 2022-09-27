@@ -1437,16 +1437,16 @@ server <- function(input, output, session) {
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
       
       updateSelectizeInput(inputId = "plot_mode", selected = "seasonal")
-      output$dataplotrenamedisplay <- renderDataTable(datatable(data_prm_combined_plot_rename$data, 
-                                                                options = list(scrollX = TRUE)))
+
       })
     
     observeEvent(input$append_stress_data_button, {
     req(data_prm_combined_plot_rename$data)
-    data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days")))),
+    if(input$plot_mode == "seasonal"){
+      data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days")))),
                                                      daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days"),
                                                      by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-
+      }
     })
     
 ######regression
