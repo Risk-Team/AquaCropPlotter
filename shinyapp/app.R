@@ -964,41 +964,42 @@ server <- function(input, output, session) {
     
     ###data for plotting
     ##select data mode daily or seasonal  
-    data_mode_selected <- reactive({
-      req(input$plot_mode)
-      req(input$upload_all_files)
-      
-      if(input$plot_mode == "daily"){
-        #update choices for plotting axis
-        axis.choices = unique(colnames(daily_data_prm_combined()))
-        updateSelectInput(inputId = "y_var", choices = axis.choices)
-        updateSelectInput(inputId = "x_var", choices = axis.choices)
-        #update choices for grouping variable
-        group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
-        group.choices <- c(group.choices, "Stage")
-        updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
-        #return data to use
-        daily_data_prm_combined()
-      }else{
-        #update choices for plotting axis
-        axis.choices = unique(colnames(data_prm_combined()))
-        updateSelectInput(inputId = "y_var", choices = axis.choices)
-        updateSelectInput(inputId = "x_var", choices = axis.choices)
-        #update choices for grouping variable
-        group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
-        updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-        updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
-        #return data to use
-        data_prm_combined()     
-      }
-    })
+      data_mode_selected <- reactive({
+        req(input$plot_mode)
+        req(input$upload_all_files)
+        
+        if(input$plot_mode == "daily"){
+          #update choices for plotting axis
+          axis.choices = unique(colnames(daily_data_prm_combined()))
+          updateSelectInput(inputId = "y_var", choices = axis.choices)
+          updateSelectInput(inputId = "x_var", choices = axis.choices)
+          #update choices for grouping variable
+          group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+          group.choices <- c(group.choices, "Stage")
+          updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+          #return data to use
+          daily_data_prm_combined()
+        }else{
+          #update choices for plotting axis
+          axis.choices = unique(colnames(data_prm_combined()))
+          updateSelectInput(inputId = "y_var", choices = axis.choices)
+          updateSelectInput(inputId = "x_var", choices = axis.choices)
+          #update choices for grouping variable
+          group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+          updateSelectizeInput(inputId = "group_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "col_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
+          updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+          #return data to use
+          data_prm_combined()     
+        }
+      })
+    
 
     observe({
       req(input$plot_mode)
@@ -1431,16 +1432,22 @@ server <- function(input, output, session) {
     
     ##append stress duration data to seasonal dataset for plotting and other analyses
     observeEvent(input$append_stress_data_button, {
-      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
-                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
+      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days")))),
+                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days"),
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
       
       updateSelectizeInput(inputId = "plot_mode", selected = "seasonal")
-      data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration")))),
-                                                       daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration", "StSto.duration", "StSen.duration", "StTr.duration"),
-                                                       by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-    })
+      output$dataplotrenamedisplay <- renderDataTable(datatable(data_prm_combined_plot_rename$data, 
+                                                                options = list(scrollX = TRUE)))
+      })
+    
+    observeEvent(input$append_stress_data_button, {
+    req(data_prm_combined_plot_rename$data)
+    data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days")))),
+                                                     daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days"),
+                                                     by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
 
+    
 ######regression
     
     ##select data mode daily or seasonal  
@@ -1453,7 +1460,7 @@ server <- function(input, output, session) {
         daily_data_prm_combined()
       }else{
         #return data to use
-        data_prm_combined()     
+        data_prm_combined_analysis$data 
       }
     })
     
@@ -1472,11 +1479,11 @@ server <- function(input, output, session) {
         updateSelectizeInput(inputId = "regression_group", choices = group.choices) 
       }else{
         #update choices for variables
-        axis.choices = unique(colnames(data_prm_combined()))
+        axis.choices = unique(colnames(data_prm_combined_analysis$data))
         updateSelectInput(inputId = "regression_y_variable", choices = axis.choices)
         updateSelectInput(inputId = "regression_x_variable", choices = axis.choices)
         #update choices for grouping variable
-        group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+        group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
         updateSelectizeInput(inputId = "regression_group", choices = group.choices) 
       }
     })
