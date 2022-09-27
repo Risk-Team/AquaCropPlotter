@@ -1006,18 +1006,18 @@ server <- function(input, output, session) {
       
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
-      updateSelectInput(inputId = "y_var", choices = axis.choices, selected = tail(plot_var_select_cache$y_var, 1))
-      updateSelectInput(inputId = "x_var", choices = axis.choices, selected = tail(plot_var_select_cache$x_var, 1))
+      updateSelectInput(inputId = "y_var", choices = axis.choices, selected = plot_var_select_cache$y_var)
+      updateSelectInput(inputId = "x_var", choices = axis.choices, selected = plot_var_select_cache$x_var)
       #update choices for grouping variable
       if(input$plot_mode == "daily"){
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
       }else{
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
       }
-      updateSelectizeInput(inputId = "group_var", choices = group.choices, selected = tail(plot_var_select_cache$group_var, 1)) 
-      updateSelectizeInput(inputId = "col_var", choices = group.choices, selected = tail(plot_var_select_cache$col_var, 1)) 
-      updateSelectizeInput(inputId = "shape_var", choices = group.choices, selected = tail(plot_var_select_cache$shape_var, 1)) 
-      updateSelectizeInput(inputId = "facet_var", choices = group.choices, selected = tail(plot_var_select_cache$facet_var, 1)) 
+      updateSelectizeInput(inputId = "group_var", choices = group.choices, selected = plot_var_select_cache$group_var) 
+      updateSelectizeInput(inputId = "col_var", choices = group.choices, selected = plot_var_select_cache$col_var) 
+      updateSelectizeInput(inputId = "shape_var", choices = group.choices, selected = plot_var_select_cache$shape_var) 
+      updateSelectizeInput(inputId = "facet_var", choices = group.choices, selected = plot_var_select_cache$facet_var) 
       updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
     })
     
@@ -1068,12 +1068,55 @@ server <- function(input, output, session) {
         plot_var_select_cache$facet_var <- input$facet_var
       })
       #record everytime that the value change, keep only the most recent previous value and current value
-      observeEvent(input$y_var,{plot_var_select_cache$y_var <- c(tail(plot_var_select_cache$y_var, 1), input$y_var)})
-      observeEvent(input$x_var,{plot_var_select_cache$x_var <- c(tail(plot_var_select_cache$x_var, 1), input$x_var)})
-      observeEvent(input$group_var,{plot_var_select_cache$group_var <- c(tail(plot_var_select_cache$group_var, 1), input$group_var)})
-      observeEvent(input$col_var,{plot_var_select_cache$col_var <- c(tail(plot_var_select_cache$col_var, 1), input$col_var)})
-      observeEvent(input$shape_var,{plot_var_select_cache$shape_var <- c(tail(plot_var_select_cache$shape_var, 1), input$shape_var)})
-      observeEvent(input$facet_var,{plot_var_select_cache$facet_var <- c(tail(plot_var_select_cache$facet_var, 1), input$facet_var)})
+      observeEvent(input$y_var,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        })
+      observeEvent(input$x_var,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        })
+      observeEvent(input$group_var,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        })
+      observeEvent(input$col_var,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        })
+      observeEvent(input$shape_var,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        })
+      observeEvent(input$facet_var,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$group_var <- input$group_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        })
+
 
 
     #set color palette
