@@ -1354,10 +1354,14 @@ server <- function(input, output, session) {
         mutate(time.window = paste0(start, "-", as.numeric(end)-1)) %>%
         select(all_of(column.select)) %>%
         group_by(across(all_of(column.group))) %>%
-        summarise(mean = mean(.data[[input$time_period_variable]]) %>% signif(digits = 3) %>% format() ,
-                  SD = sd(.data[[input$time_period_variable]]) %>% signif(digits = 3) %>% format() ,
-                  coef.of.variation = SD/mean %>% signif(digits = 3) %>% format() ,
+        summarise(mean = mean(.data[[input$time_period_variable]]),
+                  SD = sd(.data[[input$time_period_variable]]),
+                  coef.of.variation = SD/mean,
                   n = n()) %>%
+        mutate(mean = format(signif(mean, digits = 3)),
+               SD = format(signif(SD, digits = 3)),
+               coef.of.variation = format(signif(coef.of.variation, digits = 3))
+               ) %>%
         rename_with(~paste0(input$time_period_variable, ".", .x), c(mean, SD, coef.of.variation))
     })
     
