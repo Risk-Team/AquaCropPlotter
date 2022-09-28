@@ -349,7 +349,8 @@ ui <- dashboardPage(
                                         width = 12,
                                         status = "primary",
                                         solidHeader = FALSE,
-                                        sliderInput("time_period", label = "Select time period window (years)", min = 1, max = 1, value = 1, step = 1),
+                                        sliderInput("time_range", label = "Select year range to analyse", sep = "", min = 1, max = 1, value = c(1,1), step = 1),
+                                        sliderInput("time_period", label = "Select time period window size (years)", min = 1, max = 1, value = 1, step = 1),
                                         selectizeInput("time_period_variable", label = "Select variable to calculate summary", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                         selectizeInput("time_period_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%"),
@@ -1315,6 +1316,16 @@ server <- function(input, output, session) {
     
 ###time period window analysis
     
+    #update window slider input for selecting year range to include in analysis, set min max according to data
+    observe({
+      req(input$upload_all_files)
+  
+      year.start <- min(data_prm_combined_analysis$data[["Year1"]])
+      year.end <- max(data_prm_combined_analysis$data[["Year1"]]) 
+      
+      updateSliderInput(inputId = "time_range", min = year.start, max = year.end, value = c(year.start, year.end))
+    })
+    
     #update window slider input for year, set min max according to data
     observe({
       req(input$upload_all_files)
@@ -1345,6 +1356,7 @@ server <- function(input, output, session) {
       
       #calculate summary
       data_prm_combined_analysis$data %>%
+        filter(Year1 >= input$time_range[1] & Year1 <= input$time_range[2]) %>%
         mutate(time.window = cut(Year1,
                                  unique(c(seq(min(Year1), max(Year1), input$time_period),min(Year1), max(Year1))),
                                  include.lowest = TRUE, right = FALSE, dig.lab = 4)) %>%
