@@ -1417,8 +1417,17 @@ server <- function(input, output, session) {
         summarise(StExp.duration.days = length(StExp[which(StExp >= as.numeric(input$StExp_threshold))]),
                   StSto.duration.days = length(StSto[which(StSto >= as.numeric(input$StSto_threshold))]),
                   StSen.duration.days = length(StSen[which(StSen >= as.numeric(input$StSen_threshold))]),
-                  StTr.duration.days = length(StTr[which(StTr >= as.numeric(input$StTr_threshold))])
-                  ) 
+                  StTr.duration.days = length(StTr[which(StTr >= as.numeric(input$StTr_threshold))]),
+                  StExp.duration.percent = length(StExp[which(StExp >= as.numeric(input$StExp_threshold))])/length(StExp[which(StExp >= 0)]),
+                  StSto.duration.percent = length(StSto[which(StSto >= as.numeric(input$StSto_threshold))])/length(StSto[which(StSto >= 0)]),
+                  StSen.duration.percent = length(StSen[which(StSen >= as.numeric(input$StSen_threshold))])/length(StSen[which(StSen >= 0)]),
+                  StTr.duration.percent = length(StTr[which(StTr >= as.numeric(input$StTr_threshold))])/length(StTr[which(StTr >= 0)])
+                  ) %>%
+        mutate(StExp.duration.percent = format(signif(StExp.duration.percent*100, digits = 2)) %>% as.numeric(),
+               StSto.duration.percent = format(signif(StSto.duration.percent*100, digits = 2)) %>% as.numeric(),
+               StSen.duration.percent = format(signif(StSen.duration.percent*100, digits = 2)) %>% as.numeric(),
+               StTr.duration.percent = format(signif(StTr.duration.percent*100, digits = 2)) %>% as.numeric()
+               )
     })
     
     #display table
@@ -1434,8 +1443,8 @@ server <- function(input, output, session) {
     
     ##append stress duration data to seasonal dataset for plotting and other analyses
     observeEvent(input$append_stress_data_button, {
-      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days")))),
-                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days"),
+      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
+                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
       
       updateSelectizeInput(inputId = "plot_mode", selected = "seasonal")
@@ -1445,8 +1454,8 @@ server <- function(input, output, session) {
     observeEvent(input$append_stress_data_button, {
     req(data_prm_combined_plot_rename$data)
     if(input$plot_mode == "seasonal"){
-      data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days")))),
-                                                     daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days"),
+      data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
+                                                     daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
                                                      by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
       }
     })
