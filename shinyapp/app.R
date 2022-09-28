@@ -402,8 +402,8 @@ ui <- dashboardPage(
 # Define server logic 
 server <- function(input, output, session) {
   
-  #allow upload file size max limit of 30 MB
-  options(shiny.maxRequestSize=30*1024^2)
+  #allow upload file size max limit of 50 MB
+  options(shiny.maxRequestSize=50*1024^2)
   
   #home image
     output$aquacrop_logo <- renderImage({
