@@ -369,7 +369,7 @@ ui <- dashboardPage(
                                         selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
                                         div(dataTableOutput("daily_data_prm_combined_stress_display"), style = "font-size: 75%; width: 100%"),
                                         downloadButton("download_daily_data_prm_combined_stress", "Download"),
-                                        actionButton("append_stress_data_button", "Append data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
+                                        actionButton("append_stress_data_button", "Double click to append stress data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
 
                                ),
                                tabPanel(title = "Regression",
@@ -1086,12 +1086,9 @@ server <- function(input, output, session) {
         plot_var_select_cache$facet_var <- input$facet_var
         })
       observeEvent(input$group_var,{
-        plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
+
         plot_var_select_cache$group_var <- input$group_var
-        plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$facet_var <- input$facet_var
+
         })
       observeEvent(input$col_var,{
         plot_var_select_cache$y_var <- input$y_var
@@ -1357,10 +1354,11 @@ server <- function(input, output, session) {
         mutate(time.window = paste0(start, "-", as.numeric(end)-1)) %>%
         select(all_of(column.select)) %>%
         group_by(across(all_of(column.group))) %>%
-        summarise(mean = mean(.data[[input$time_period_variable]]) %>% round(3),
-                  SD = sd(.data[[input$time_period_variable]]) %>% round(3),
+        summarise(mean = mean(.data[[input$time_period_variable]]) %>% signif(digits = 3) %>% format() ,
+                  SD = sd(.data[[input$time_period_variable]]) %>% signif(digits = 3) %>% format() ,
+                  coef.of.variation = SD/mean %>% signif(digits = 3) %>% format() ,
                   n = n()) %>%
-        rename_with(~paste0(input$time_period_variable, ".", .x), c(mean, SD))
+        rename_with(~paste0(input$time_period_variable, ".", .x), c(mean, SD, coef.of.variation))
     })
     
     #display table
@@ -1511,12 +1509,11 @@ server <- function(input, output, session) {
         mutate(model = map(data, function(data){
           mod <- lm(data = data, as.formula(paste0(input$regression_y_variable,"~",input$regression_x_variable)))
           
-          model.r.squared <- glance(mod)[["r.squared"]] %>% signif(digits = 4) %>% format()
-          model.p.value <- glance(mod)[["p.value"]] %>% signif(digits = 4) %>% format()
-          slope <- tidy(mod)[["estimate"]][[2]] %>% signif(digits = 4) %>% format()
-          slope.p.value <- tidy(mod)[["p.value"]][[2]] %>% signif(digits = 4) %>% format() 
+          r.squared <- glance(mod)[["r.squared"]] %>% signif(digits = 3) %>% format()
+          slope <- tidy(mod)[["estimate"]][[2]] %>% signif(digits = 3) %>% format()
+          p.value <- tidy(mod)[["p.value"]][[2]] %>% signif(digits = 3) %>% format() 
           
-          summary <- data.frame(model.p.value, model.r.squared,slope,slope.p.value)
+          summary <- data.frame(r.squared,slope,p.value)
         })) %>%
         select(-data) %>%
         unnest(model)
