@@ -118,7 +118,7 @@ ui <- dashboardPage(
                           conditionalPanel(condition = "input.standard_vs_plugin_select == 'plugin'",
                                            #display boxes for data and prm files upload
                                              box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
-                                                 fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, .PRM)", multiple = TRUE),
+                                                 fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, and .PRM or .PRO)", multiple = TRUE),
                                              ),
                                              box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
                                                  #upload data file
@@ -680,7 +680,7 @@ server <- function(input, output, session) {
             req(input$upload_all_files)
             prm.df = input$upload_all_files %>%
                 #filter to read only .prm files
-                filter(str_detect(name, "\\.PRM$")) %>% 
+                filter(str_detect(name, "\\.PR[MO]$")) %>% 
                 #read in each prm file from the list and extract parameter of interest
                 mutate(parameter = future_map(datapath, function(datapath){
                     #read in each prm file from the list
@@ -741,7 +741,7 @@ server <- function(input, output, session) {
                 unnest(parameter) %>%
                 select(-size, -type, -datapath) %>%
                 mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file)) %>%
-                mutate(name.variable = str_replace(name, "\\.PRM$","")) %>%
+                mutate(name.variable = str_replace(name, "\\.PR[MO]$","")) %>%
                 rename(prm.file.name = name)
 
             #check name for _ delimiter to extract different variables out of file name and give number
@@ -851,34 +851,52 @@ server <- function(input, output, session) {
           #filter to read only day.out files
           filter(str_detect(name, "day\\.OUT$")) %>% 
           #import dataset and clean up, format into dataframe
-          mutate(dataset = future_map(datapath, function(datapath){
+          mutate(dataset = future_map2(datapath, name, function(datapath, name){
             ###read in one output file for daily data 
             #read in data as lines, clean up spaces to allow reading as tsv
             file.clean = read_lines(datapath) %>%
               str_replace_all(" +?(?=\\S)","\t") 
             
-            #read heading, line 4
-            heading = file.clean[4] %>%
-              str_replace_all("(?<=WC|ECe)\\t(?=[2-9])", "0") %>%
-              str_split("\\t") %>%
-              unlist() 
-            
-            #find index of blank lines that separate sections, different Runs (seasons)
-            file.line.blank = which(file.clean == "") 
-            #find index of lines that are not data, starts from every blank line and 3 consecutive following lines, also remove first line
-            file.line.remove = c(1, file.line.blank, file.line.blank+1, file.line.blank+2, file.line.blank+3)
-            #recreate data file, remove unwanted lines 
-            file.clean = file.clean[-file.line.remove] %>%
-              paste0(collapse = "\n") 
-            
+            if(str_detect(name, "PRMday\\.OUT")){
+              ###for .PRM files
+              #read heading, line 4
+              heading = file.clean[4] %>%
+                str_replace_all("(?<=WC|ECe)\\t(?=[2-9])", "0") %>%
+                str_split("\\t") %>%
+                unlist() 
+              
+              #find index of blank lines that separate sections, different Runs (seasons)
+              file.line.blank = which(file.clean == "") 
+              #find index of lines that are not data, starts from every blank line and 3 consecutive following lines, also remove first line
+              file.line.remove = c(1, file.line.blank, file.line.blank+1, file.line.blank+2, file.line.blank+3)
+              #recreate data file, remove unwanted lines 
+              file.clean = file.clean[-file.line.remove] %>%
+                paste0(collapse = "\n") 
+            } else{
+              ###for .PRO files
+              #read heading, line 4
+              heading = file.clean[3] %>%
+                str_replace_all("(?<=WC|ECe)\\t(?=[2-9])", "0") %>%
+                str_split("\\t") %>%
+                unlist() 
+              
+              #find index of blank lines that separate sections, different Runs (seasons)
+              file.line.blank = which(file.clean == "") 
+              #find index of lines that are not data, starts from every blank line and 2 consecutive following lines, also remove first line
+              file.line.remove = c(1, file.line.blank, file.line.blank+1, file.line.blank+2)
+              #recreate data file, remove unwanted lines 
+              file.clean = file.clean[-file.line.remove] %>%
+                paste0(collapse = "\n") 
+            }
+
             #read in data as tsv
             data = read_tsv(file = file.clean, col_names = heading) %>%
               select(-1) #remove blank column at the start
-            
+              
             #remove duplicated column
             colnames(data) = str_replace(colnames(data),"\\.\\.\\..+$","")
             data = data[!duplicated(colnames(data))]
-              
+
           })) %>%
           unnest(dataset) %>%
           select(-size, -type, -datapath) %>%
@@ -926,10 +944,10 @@ server <- function(input, output, session) {
       req(input$upload_all_files)
       
       bind_rows(upload_data_combined() %>%
-        mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+        mutate(name.variable = str_replace(name, "PR[MO]season.OUT$","")) %>%
         select(name.variable), 
       upload_daily_data_combined() %>%
-        mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
+        mutate(name.variable = str_replace(name, "PR[MO]day.OUT$","")) %>%
         select(name.variable)) %>%
         distinct() %>%
         anti_join(upload_prm_combined(), by = "name.variable")
@@ -940,7 +958,7 @@ server <- function(input, output, session) {
 
       
       if(nrow(missing_prm_file()) > 0){
-        validate(paste0("The following .PRM files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
+        validate(paste0("The following .PRM or .PRO files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
       }
     })
     
