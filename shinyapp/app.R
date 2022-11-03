@@ -462,7 +462,7 @@ server <- function(input, output, session) {
             #read in data as tsv, specify lines from blank lines sectioning identified before, add heading
             line.skip = ifelse(extension == "Run.OUT", line.before.data + 2, line.before.data + 3)
             line.n = ifelse(extension == "Run.OUT", 1, line.after.data - line.before.data - 4)
-            data = read_tsv(file = file.clean, skip = line.skip, n_max = line.n, col_names = heading) %>%
+            data = read_tsv(file = file.clean, skip = line.skip, n_max = line.n, col_names = heading, show_col_types = FALSE) %>%
               select(-1) #remove blank column at the start
           })) %>%
           select(-size, -type, -datapath) 
@@ -650,7 +650,7 @@ server <- function(input, output, session) {
                         #add last heading (parameter file (prm)) to the end of the list
                         c(., "prm.file") 
                     #read in data in tsv format, skipping heading lines, add headings from before
-                    data = read_tsv(file = file.clean, skip = 4, col_names = heading) %>%
+                    data = read_tsv(file = file.clean, skip = 4, col_names = heading, show_col_types = FALSE) %>%
                         select(-1) #remove blank column in the first position
                 })) %>%
                 unnest(dataset) %>%
@@ -766,6 +766,8 @@ server <- function(input, output, session) {
     
     observe({
       req(input$standard_vs_plugin_select)
+      req(input$upload_all_files)
+      
       #select if standard or plugin mode used
       if(input$standard_vs_plugin_select == "standard"){
         upload_prm_combined_renamecol$data <- upload_prm_standard_combined()
@@ -775,6 +777,9 @@ server <- function(input, output, session) {
     })
     
     observe({
+      req(input$standard_vs_plugin_select)
+      req(input$upload_all_files)
+      
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
       updateSelectizeInput(inputId = "rename_col_from", choices = choices) 
@@ -890,7 +895,7 @@ server <- function(input, output, session) {
             }
 
             #read in data as tsv
-            data = read_tsv(file = file.clean, col_names = heading) %>%
+            data = read_tsv(file = file.clean, col_names = heading, show_col_types = FALSE) %>%
               select(-1) #remove blank column at the start
               
             #remove duplicated column
