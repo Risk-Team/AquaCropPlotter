@@ -135,7 +135,7 @@ ui <- dashboardPage(
                                                  #upload parameter file
                                                  #fileInput("upload_prm_files", "Add more files (.PRM)", multiple = TRUE, accept = ".PRM"),
                                                  div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                                                 dataTableOutput("missing_prm_file_error")
+                                                 div(dataTableOutput("missing_prm_file_error"), style = "font-size: 75%; width: 100%")
                                              )
                                            )
                         ),
@@ -955,17 +955,16 @@ server <- function(input, output, session) {
         mutate(name.variable = str_replace(name, "PR[MO]day.OUT$","")) %>%
         select(name.variable)) %>%
         distinct() %>%
-        anti_join(upload_prm_combined(), by = "name.variable")
+        anti_join(upload_prm_combined(), by = "name.variable") %>%
+        rename(`Missing files not uploaded`= name.variable)
     })
     #return error if there is any missing prm files
-    output$missing_prm_file_error <- reactive({
-      req(input$upload_all_files)
+      output$missing_prm_file_error <- renderDataTable(
+        if(nrow(missing_prm_file()) > 0){
+          datatable(missing_prm_file(), options = list(scrollX = TRUE))
+        })
 
-      
-      if(nrow(missing_prm_file()) > 0){
-        validate(paste0("The following .PRM or .PRO files are missing:\n", paste(missing_prm_file()[["name.variable"]], collapse=", ")))
-      }
-    })
+
     
 ############### ggplot ###############
 
