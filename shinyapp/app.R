@@ -119,6 +119,7 @@ ui <- dashboardPage(
                                            #display boxes for data and prm files upload
                                              box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
                                                  fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, and .PRM or .PRO)", multiple = TRUE),
+                                                 tableOutput("upload_progress")
                                              ),
                                              box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
                                                  #upload data file
@@ -632,6 +633,10 @@ server <- function(input, output, session) {
           
             #get a list of file paths from uploaded files
             req(input$upload_all_files)
+            
+            #wrap data processing within progress bar so when it runs the progress bar shows up
+            withProgress(message = "Processing seasonal data", value = 0.7,{
+              
             data.df = input$upload_all_files %>%
                 #filter to read only seasonal.out files
                 filter(str_detect(name, "season\\.OUT$")) %>% 
@@ -655,6 +660,9 @@ server <- function(input, output, session) {
                 })) %>%
                 unnest(dataset) %>%
                 select(-size, -type, -datapath)
+            })
+            #return data.df as output
+            data.df
         })
     #output datatable of the combined data
     output$upload_data_combined_display <- renderDataTable(upload_data_combined() %>%
@@ -678,6 +686,10 @@ server <- function(input, output, session) {
             
             #get a list of prm file path from uploaded
             req(input$upload_all_files)
+            
+            #wrap data processing within progress bar so when it runs the progress bar shows up
+            withProgress(message = "Processing parameter data", value = 0.7,{
+              
             prm.df = input$upload_all_files %>%
                 #filter to read only .prm files
                 filter(str_detect(name, "\\.PR[MO]$")) %>% 
@@ -744,6 +756,8 @@ server <- function(input, output, session) {
                 mutate(name.variable = str_replace(name, "\\.PR[MO]$","")) %>%
                 rename(prm.file.name = name)
 
+            })
+            
             #check name for _ delimiter to extract different variables out of file name and give number
             n.name.var = str_split(prm.df$name.variable,"_") %>%
               map(length) %>%
@@ -852,6 +866,10 @@ server <- function(input, output, session) {
         
         #get a list of file paths from uploaded files
         req(input$upload_all_files)
+        
+        #wrap data processing within progress bar so when it runs the progress bar shows up
+        withProgress(message = "Processing daily data", value = 0.7,{
+          
         data.df = input$upload_all_files %>%
           #filter to read only day.out files
           filter(str_detect(name, "day\\.OUT$")) %>% 
@@ -906,6 +924,9 @@ server <- function(input, output, session) {
           unnest(dataset) %>%
           select(-size, -type, -datapath) %>%
           mutate(Stage = as.factor(Stage))
+        })
+        #return data.df as output
+        data.df
         })
     
     #output datatable of the combined data
@@ -963,7 +984,6 @@ server <- function(input, output, session) {
         if(nrow(missing_prm_file()) > 0){
           datatable(missing_prm_file(), options = list(scrollX = TRUE))
         })
-
 
     
 ############### ggplot ###############
