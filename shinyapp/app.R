@@ -796,7 +796,7 @@ server <- function(input, output, session) {
       
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
-      updateSelectizeInput(inputId = "rename_col_from", choices = choices) 
+      updateSelectizeInput(inputId = "rename_col_from", choices = sort(choices)) 
     })
     #change value of selected variable to the value from user
     observeEvent(input$rename_col_button, {
@@ -808,7 +808,7 @@ server <- function(input, output, session) {
       }
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
-      updateSelectizeInput(inputId = "rename_col_from", choices = choices) 
+      updateSelectizeInput(inputId = "rename_col_from", choices = sort(choices)) 
     })
     
     #output datatable of the combined parameters
@@ -1014,30 +1014,30 @@ server <- function(input, output, session) {
         if(input$plot_mode == "daily"){
           #update choices for plotting axis
           axis.choices = unique(colnames(daily_data_prm_combined()))
-          updateSelectInput(inputId = "y_var", choices = axis.choices)
-          updateSelectInput(inputId = "x_var", choices = axis.choices)
+          updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
+          updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
           group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
           group.choices <- c(group.choices, "Stage")
-          updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+          updateSelectizeInput(inputId = "group_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           #return data to use
           daily_data_prm_combined()
         }else{
           #update choices for plotting axis
           axis.choices = unique(colnames(data_prm_combined()))
-          updateSelectInput(inputId = "y_var", choices = axis.choices)
-          updateSelectInput(inputId = "x_var", choices = axis.choices)
+          updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
+          updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
           group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
-          updateSelectizeInput(inputId = "group_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "col_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "shape_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "facet_var", choices = group.choices) 
-          updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+          updateSelectizeInput(inputId = "group_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           #return data to use
           data_prm_combined()     
         }
@@ -1050,19 +1050,19 @@ server <- function(input, output, session) {
       
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
-      updateSelectInput(inputId = "y_var", choices = axis.choices, selected = plot_var_select_cache$y_var)
-      updateSelectInput(inputId = "x_var", choices = axis.choices, selected = plot_var_select_cache$x_var)
+      updateSelectInput(inputId = "y_var", choices = sort(axis.choices), selected = plot_var_select_cache$y_var)
+      updateSelectInput(inputId = "x_var", choices = sort(axis.choices), selected = plot_var_select_cache$x_var)
       #update choices for grouping variable
       if(input$plot_mode == "daily"){
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
       }else{
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
       }
-      updateSelectizeInput(inputId = "group_var", choices = group.choices, selected = plot_var_select_cache$group_var) 
-      updateSelectizeInput(inputId = "col_var", choices = group.choices, selected = plot_var_select_cache$col_var) 
-      updateSelectizeInput(inputId = "shape_var", choices = group.choices, selected = plot_var_select_cache$shape_var) 
-      updateSelectizeInput(inputId = "facet_var", choices = group.choices, selected = plot_var_select_cache$facet_var) 
-      updateSelectizeInput(inputId = "rename_variable", choices = group.choices) 
+      updateSelectizeInput(inputId = "group_var", choices = sort(group.choices), selected = plot_var_select_cache$group_var) 
+      updateSelectizeInput(inputId = "col_var", choices = sort(group.choices), selected = plot_var_select_cache$col_var) 
+      updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
+      updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var) 
+      updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
     })
     
     ## if plotting mean is selected, calculate mean based on grouping variable selected
@@ -1084,7 +1084,7 @@ server <- function(input, output, session) {
       #if variable selected, update the select input list for value choices of the selected variable
       observeEvent(input$rename_variable, {
         choices <- unique(data_prm_combined_plot_rename$data[[input$rename_variable]])
-        updateSelectInput(inputId = "rename_from", choices = choices) 
+        updateSelectInput(inputId = "rename_from", choices = sort(choices)) 
       })
       #change value of selected variable to the value from user
        data_prm_combined_plot_rename <- reactiveValues()
@@ -1096,7 +1096,7 @@ server <- function(input, output, session) {
           data_prm_combined_plot_rename$data <- rename_df
         }
         choices <- unique(data_prm_combined_plot_rename$data[[input$rename_variable]])
-        updateSelectInput(inputId = "rename_from", choices = choices) 
+        updateSelectInput(inputId = "rename_from", choices = sort(choices)) 
       })
       
      #remember variable set for plotting, so can be recovered after making change to dataframe and plotting engine reactively update, reinitialise
@@ -1379,12 +1379,12 @@ server <- function(input, output, session) {
     observe({
       choices <- setdiff(colnames(data_prm_combined_analysis$data), c("name","RunNr","Day1","Month1","Year1","DayN","MonthN","YearN","prm.file"))
       choices <- setdiff(choices, colnames(upload_prm_combined_renamecol$data))
-      updateSelectizeInput(inputId = "time_period_variable", choices = choices)
+      updateSelectizeInput(inputId = "time_period_variable", choices = sort(choices))
     })
     #update grouping choice
     observe({
       group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
-      updateSelectizeInput(inputId = "time_period_group", choices = group.choices)
+      updateSelectizeInput(inputId = "time_period_group", choices = sort(group.choices))
     })
     
     #calculate summary in time period selected
@@ -1435,7 +1435,7 @@ server <- function(input, output, session) {
     #update grouping choice
     observe({
       group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
-      updateSelectizeInput(inputId = "stress_group", choices = group.choices)
+      updateSelectizeInput(inputId = "stress_group", choices = sort(group.choices))
     })
 
     #calculate summary 
@@ -1537,20 +1537,20 @@ server <- function(input, output, session) {
       if(input$regression_mode == "daily"){
         #update choices for variables
         axis.choices = unique(colnames(daily_data_prm_combined()))
-        updateSelectInput(inputId = "regression_y_variable", choices = axis.choices)
-        updateSelectInput(inputId = "regression_x_variable", choices = axis.choices)
+        updateSelectInput(inputId = "regression_y_variable", choices = sort(axis.choices))
+        updateSelectInput(inputId = "regression_x_variable", choices = sort(axis.choices))
         #update choices for grouping variable
         group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
         group.choices <- c(group.choices, "Stage")
-        updateSelectizeInput(inputId = "regression_group", choices = group.choices) 
+        updateSelectizeInput(inputId = "regression_group", choices = sort(group.choices)) 
       }else{
         #update choices for variables
         axis.choices = unique(colnames(data_prm_combined_analysis$data))
-        updateSelectInput(inputId = "regression_y_variable", choices = axis.choices)
-        updateSelectInput(inputId = "regression_x_variable", choices = axis.choices)
+        updateSelectInput(inputId = "regression_y_variable", choices = sort(axis.choices))
+        updateSelectInput(inputId = "regression_x_variable", choices = sort(axis.choices))
         #update choices for grouping variable
         group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
-        updateSelectizeInput(inputId = "regression_group", choices = group.choices) 
+        updateSelectizeInput(inputId = "regression_group", choices = sort(group.choices)) 
       }
     })
     
