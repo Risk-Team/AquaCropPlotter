@@ -1,0 +1,5595 @@
+
+      7.0       : AquaCrop Version (April 2021)
+      1         : Year number of cultivation (Seeding/planting year)
+  29347         : First day of simulation period - 7 May 1981       
+  29459         : Last day of simulation period - 27 August 1981   
+  29347         : First day of cropping period - 7 May 1981       
+  29459         : Last day of cropping period - 27 August 1981   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  29712         : First day of simulation period - 7 May 1982       
+  29824         : Last day of simulation period - 27 August 1982   
+  29712         : First day of cropping period - 7 May 1982       
+  29824         : Last day of cropping period - 27 August 1982   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  30077         : First day of simulation period - 7 May 1983       
+  30189         : Last day of simulation period - 27 August 1983   
+  30077         : First day of cropping period - 7 May 1983       
+  30189         : Last day of cropping period - 27 August 1983   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  30443         : First day of simulation period - 7 May 1984       
+  30555         : Last day of simulation period - 27 August 1984   
+  30443         : First day of cropping period - 7 May 1984       
+  30555         : Last day of cropping period - 27 August 1984   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  30808         : First day of simulation period - 7 May 1985       
+  30920         : Last day of simulation period - 27 August 1985   
+  30808         : First day of cropping period - 7 May 1985       
+  30920         : Last day of cropping period - 27 August 1985   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  31173         : First day of simulation period - 7 May 1986       
+  31285         : Last day of simulation period - 27 August 1986   
+  31173         : First day of cropping period - 7 May 1986       
+  31285         : Last day of cropping period - 27 August 1986   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  31538         : First day of simulation period - 7 May 1987       
+  31650         : Last day of simulation period - 27 August 1987   
+  31538         : First day of cropping period - 7 May 1987       
+  31650         : Last day of cropping period - 27 August 1987   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  31904         : First day of simulation period - 7 May 1988       
+  32016         : Last day of simulation period - 27 August 1988   
+  31904         : First day of cropping period - 7 May 1988       
+  32016         : Last day of cropping period - 27 August 1988   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  32269         : First day of simulation period - 7 May 1989       
+  32381         : Last day of simulation period - 27 August 1989   
+  32269         : First day of cropping period - 7 May 1989       
+  32381         : Last day of cropping period - 27 August 1989   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  32634         : First day of simulation period - 7 May 1990       
+  32746         : Last day of simulation period - 27 August 1990   
+  32634         : First day of cropping period - 7 May 1990       
+  32746         : Last day of cropping period - 27 August 1990   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  32999         : First day of simulation period - 7 May 1991       
+  33111         : Last day of simulation period - 27 August 1991   
+  32999         : First day of cropping period - 7 May 1991       
+  33111         : Last day of cropping period - 27 August 1991   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  33365         : First day of simulation period - 7 May 1992       
+  33477         : Last day of simulation period - 27 August 1992   
+  33365         : First day of cropping period - 7 May 1992       
+  33477         : Last day of cropping period - 27 August 1992   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  33730         : First day of simulation period - 7 May 1993       
+  33842         : Last day of simulation period - 27 August 1993   
+  33730         : First day of cropping period - 7 May 1993       
+  33842         : Last day of cropping period - 27 August 1993   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  34095         : First day of simulation period - 7 May 1994       
+  34207         : Last day of simulation period - 27 August 1994   
+  34095         : First day of cropping period - 7 May 1994       
+  34207         : Last day of cropping period - 27 August 1994   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  34460         : First day of simulation period - 7 May 1995       
+  34572         : Last day of simulation period - 27 August 1995   
+  34460         : First day of cropping period - 7 May 1995       
+  34572         : Last day of cropping period - 27 August 1995   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  34826         : First day of simulation period - 7 May 1996       
+  34938         : Last day of simulation period - 27 August 1996   
+  34826         : First day of cropping period - 7 May 1996       
+  34938         : Last day of cropping period - 27 August 1996   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  35191         : First day of simulation period - 7 May 1997       
+  35303         : Last day of simulation period - 27 August 1997   
+  35191         : First day of cropping period - 7 May 1997       
+  35303         : Last day of cropping period - 27 August 1997   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  35556         : First day of simulation period - 7 May 1998       
+  35668         : Last day of simulation period - 27 August 1998   
+  35556         : First day of cropping period - 7 May 1998       
+  35668         : Last day of cropping period - 27 August 1998   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  35921         : First day of simulation period - 7 May 1999       
+  36033         : Last day of simulation period - 27 August 1999   
+  35921         : First day of cropping period - 7 May 1999       
+  36033         : Last day of cropping period - 27 August 1999   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  36287         : First day of simulation period - 7 May 2000       
+  36399         : Last day of simulation period - 27 August 2000   
+  36287         : First day of cropping period - 7 May 2000       
+  36399         : Last day of cropping period - 27 August 2000   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  36652         : First day of simulation period - 7 May 2001       
+  36764         : Last day of simulation period - 27 August 2001   
+  36652         : First day of cropping period - 7 May 2001       
+  36764         : Last day of cropping period - 27 August 2001   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  37017         : First day of simulation period - 7 May 2002       
+  37129         : Last day of simulation period - 27 August 2002   
+  37017         : First day of cropping period - 7 May 2002       
+  37129         : Last day of cropping period - 27 August 2002   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  37382         : First day of simulation period - 7 May 2003       
+  37494         : Last day of simulation period - 27 August 2003   
+  37382         : First day of cropping period - 7 May 2003       
+  37494         : Last day of cropping period - 27 August 2003   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  37748         : First day of simulation period - 7 May 2004       
+  37860         : Last day of simulation period - 27 August 2004   
+  37748         : First day of cropping period - 7 May 2004       
+  37860         : Last day of cropping period - 27 August 2004   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  38113         : First day of simulation period - 7 May 2005       
+  38225         : Last day of simulation period - 27 August 2005   
+  38113         : First day of cropping period - 7 May 2005       
+  38225         : Last day of cropping period - 27 August 2005   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  38478         : First day of simulation period - 7 May 2006       
+  38590         : Last day of simulation period - 27 August 2006   
+  38478         : First day of cropping period - 7 May 2006       
+  38590         : Last day of cropping period - 27 August 2006   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  38843         : First day of simulation period - 7 May 2007       
+  38955         : Last day of simulation period - 27 August 2007   
+  38843         : First day of cropping period - 7 May 2007       
+  38955         : Last day of cropping period - 27 August 2007   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  39209         : First day of simulation period - 7 May 2008       
+  39321         : Last day of simulation period - 27 August 2008   
+  39209         : First day of cropping period - 7 May 2008       
+  39321         : Last day of cropping period - 27 August 2008   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  39574         : First day of simulation period - 7 May 2009       
+  39686         : Last day of simulation period - 27 August 2009   
+  39574         : First day of cropping period - 7 May 2009       
+  39686         : Last day of cropping period - 27 August 2009   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  39939         : First day of simulation period - 7 May 2010       
+  40051         : Last day of simulation period - 27 August 2010   
+  39939         : First day of cropping period - 7 May 2010       
+  40051         : Last day of cropping period - 27 August 2010   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  40304         : First day of simulation period - 7 May 2011       
+  40416         : Last day of simulation period - 27 August 2011   
+  40304         : First day of cropping period - 7 May 2011       
+  40416         : Last day of cropping period - 27 August 2011   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  40670         : First day of simulation period - 7 May 2012       
+  40782         : Last day of simulation period - 27 August 2012   
+  40670         : First day of cropping period - 7 May 2012       
+  40782         : Last day of cropping period - 27 August 2012   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  41035         : First day of simulation period - 7 May 2013       
+  41147         : Last day of simulation period - 27 August 2013   
+  41035         : First day of cropping period - 7 May 2013       
+  41147         : Last day of cropping period - 27 August 2013   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  41400         : First day of simulation period - 7 May 2014       
+  41512         : Last day of simulation period - 27 August 2014   
+  41400         : First day of cropping period - 7 May 2014       
+  41512         : Last day of cropping period - 27 August 2014   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  41765         : First day of simulation period - 7 May 2015       
+  41877         : Last day of simulation period - 27 August 2015   
+  41765         : First day of cropping period - 7 May 2015       
+  41877         : Last day of cropping period - 27 August 2015   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  42131         : First day of simulation period - 7 May 2016       
+  42243         : Last day of simulation period - 27 August 2016   
+  42131         : First day of cropping period - 7 May 2016       
+  42243         : Last day of cropping period - 27 August 2016   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  42496         : First day of simulation period - 7 May 2017       
+  42608         : Last day of simulation period - 27 August 2017   
+  42496         : First day of cropping period - 7 May 2017       
+  42608         : Last day of cropping period - 27 August 2017   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  42861         : First day of simulation period - 7 May 2018       
+  42973         : Last day of simulation period - 27 August 2018   
+  42861         : First day of cropping period - 7 May 2018       
+  42973         : Last day of cropping period - 27 August 2018   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  43226         : First day of simulation period - 7 May 2019       
+  43338         : Last day of simulation period - 27 August 2019   
+  43226         : First day of cropping period - 7 May 2019       
+  43338         : Last day of cropping period - 27 August 2019   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  43592         : First day of simulation period - 7 May 2020       
+  43704         : Last day of simulation period - 27 August 2020   
+  43592         : First day of cropping period - 7 May 2020       
+  43704         : Last day of cropping period - 27 August 2020   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  43957         : First day of simulation period - 7 May 2021       
+  44069         : Last day of simulation period - 27 August 2021   
+  43957         : First day of cropping period - 7 May 2021       
+  44069         : Last day of cropping period - 27 August 2021   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  44322         : First day of simulation period - 7 May 2022       
+  44434         : Last day of simulation period - 27 August 2022   
+  44322         : First day of cropping period - 7 May 2022       
+  44434         : Last day of cropping period - 27 August 2022   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  44687         : First day of simulation period - 7 May 2023       
+  44799         : Last day of simulation period - 27 August 2023   
+  44687         : First day of cropping period - 7 May 2023       
+  44799         : Last day of cropping period - 27 August 2023   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  45053         : First day of simulation period - 7 May 2024       
+  45165         : Last day of simulation period - 27 August 2024   
+  45053         : First day of cropping period - 7 May 2024       
+  45165         : Last day of cropping period - 27 August 2024   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  45418         : First day of simulation period - 7 May 2025       
+  45530         : Last day of simulation period - 27 August 2025   
+  45418         : First day of cropping period - 7 May 2025       
+  45530         : Last day of cropping period - 27 August 2025   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  45783         : First day of simulation period - 7 May 2026       
+  45895         : Last day of simulation period - 27 August 2026   
+  45783         : First day of cropping period - 7 May 2026       
+  45895         : Last day of cropping period - 27 August 2026   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  46148         : First day of simulation period - 7 May 2027       
+  46260         : Last day of simulation period - 27 August 2027   
+  46148         : First day of cropping period - 7 May 2027       
+  46260         : Last day of cropping period - 27 August 2027   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  46514         : First day of simulation period - 7 May 2028       
+  46626         : Last day of simulation period - 27 August 2028   
+  46514         : First day of cropping period - 7 May 2028       
+  46626         : Last day of cropping period - 27 August 2028   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  46879         : First day of simulation period - 7 May 2029       
+  46991         : Last day of simulation period - 27 August 2029   
+  46879         : First day of cropping period - 7 May 2029       
+  46991         : Last day of cropping period - 27 August 2029   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  47244         : First day of simulation period - 7 May 2030       
+  47356         : Last day of simulation period - 27 August 2030   
+  47244         : First day of cropping period - 7 May 2030       
+  47356         : Last day of cropping period - 27 August 2030   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  47609         : First day of simulation period - 7 May 2031       
+  47721         : Last day of simulation period - 27 August 2031   
+  47609         : First day of cropping period - 7 May 2031       
+  47721         : Last day of cropping period - 27 August 2031   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  47975         : First day of simulation period - 7 May 2032       
+  48087         : Last day of simulation period - 27 August 2032   
+  47975         : First day of cropping period - 7 May 2032       
+  48087         : Last day of cropping period - 27 August 2032   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  48340         : First day of simulation period - 7 May 2033       
+  48452         : Last day of simulation period - 27 August 2033   
+  48340         : First day of cropping period - 7 May 2033       
+  48452         : Last day of cropping period - 27 August 2033   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  48705         : First day of simulation period - 7 May 2034       
+  48817         : Last day of simulation period - 27 August 2034   
+  48705         : First day of cropping period - 7 May 2034       
+  48817         : Last day of cropping period - 27 August 2034   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  49070         : First day of simulation period - 7 May 2035       
+  49182         : Last day of simulation period - 27 August 2035   
+  49070         : First day of cropping period - 7 May 2035       
+  49182         : Last day of cropping period - 27 August 2035   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  49436         : First day of simulation period - 7 May 2036       
+  49548         : Last day of simulation period - 27 August 2036   
+  49436         : First day of cropping period - 7 May 2036       
+  49548         : Last day of cropping period - 27 August 2036   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  49801         : First day of simulation period - 7 May 2037       
+  49913         : Last day of simulation period - 27 August 2037   
+  49801         : First day of cropping period - 7 May 2037       
+  49913         : Last day of cropping period - 27 August 2037   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  50166         : First day of simulation period - 7 May 2038       
+  50278         : Last day of simulation period - 27 August 2038   
+  50166         : First day of cropping period - 7 May 2038       
+  50278         : Last day of cropping period - 27 August 2038   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  50531         : First day of simulation period - 7 May 2039       
+  50643         : Last day of simulation period - 27 August 2039   
+  50531         : First day of cropping period - 7 May 2039       
+  50643         : Last day of cropping period - 27 August 2039   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  50897         : First day of simulation period - 7 May 2040       
+  51009         : Last day of simulation period - 27 August 2040   
+  50897         : First day of cropping period - 7 May 2040       
+  51009         : Last day of cropping period - 27 August 2040   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  51262         : First day of simulation period - 7 May 2041       
+  51374         : Last day of simulation period - 27 August 2041   
+  51262         : First day of cropping period - 7 May 2041       
+  51374         : Last day of cropping period - 27 August 2041   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  51627         : First day of simulation period - 7 May 2042       
+  51739         : Last day of simulation period - 27 August 2042   
+  51627         : First day of cropping period - 7 May 2042       
+  51739         : Last day of cropping period - 27 August 2042   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  51992         : First day of simulation period - 7 May 2043       
+  52104         : Last day of simulation period - 27 August 2043   
+  51992         : First day of cropping period - 7 May 2043       
+  52104         : Last day of cropping period - 27 August 2043   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  52358         : First day of simulation period - 7 May 2044       
+  52470         : Last day of simulation period - 27 August 2044   
+  52358         : First day of cropping period - 7 May 2044       
+  52470         : Last day of cropping period - 27 August 2044   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  52723         : First day of simulation period - 7 May 2045       
+  52835         : Last day of simulation period - 27 August 2045   
+  52723         : First day of cropping period - 7 May 2045       
+  52835         : Last day of cropping period - 27 August 2045   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  53088         : First day of simulation period - 7 May 2046       
+  53200         : Last day of simulation period - 27 August 2046   
+  53088         : First day of cropping period - 7 May 2046       
+  53200         : Last day of cropping period - 27 August 2046   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  53453         : First day of simulation period - 7 May 2047       
+  53565         : Last day of simulation period - 27 August 2047   
+  53453         : First day of cropping period - 7 May 2047       
+  53565         : Last day of cropping period - 27 August 2047   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  53819         : First day of simulation period - 7 May 2048       
+  53931         : Last day of simulation period - 27 August 2048   
+  53819         : First day of cropping period - 7 May 2048       
+  53931         : Last day of cropping period - 27 August 2048   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  54184         : First day of simulation period - 7 May 2049       
+  54296         : Last day of simulation period - 27 August 2049   
+  54184         : First day of cropping period - 7 May 2049       
+  54296         : Last day of cropping period - 27 August 2049   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  54549         : First day of simulation period - 7 May 2050       
+  54661         : Last day of simulation period - 27 August 2050   
+  54549         : First day of cropping period - 7 May 2050       
+  54661         : Last day of cropping period - 27 August 2050   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  54914         : First day of simulation period - 7 May 2051       
+  55026         : Last day of simulation period - 27 August 2051   
+  54914         : First day of cropping period - 7 May 2051       
+  55026         : Last day of cropping period - 27 August 2051   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  55280         : First day of simulation period - 7 May 2052       
+  55392         : Last day of simulation period - 27 August 2052   
+  55280         : First day of cropping period - 7 May 2052       
+  55392         : Last day of cropping period - 27 August 2052   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  55645         : First day of simulation period - 7 May 2053       
+  55757         : Last day of simulation period - 27 August 2053   
+  55645         : First day of cropping period - 7 May 2053       
+  55757         : Last day of cropping period - 27 August 2053   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  56010         : First day of simulation period - 7 May 2054       
+  56122         : Last day of simulation period - 27 August 2054   
+  56010         : First day of cropping period - 7 May 2054       
+  56122         : Last day of cropping period - 27 August 2054   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  56375         : First day of simulation period - 7 May 2055       
+  56487         : Last day of simulation period - 27 August 2055   
+  56375         : First day of cropping period - 7 May 2055       
+  56487         : Last day of cropping period - 27 August 2055   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  56741         : First day of simulation period - 7 May 2056       
+  56853         : Last day of simulation period - 27 August 2056   
+  56741         : First day of cropping period - 7 May 2056       
+  56853         : Last day of cropping period - 27 August 2056   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  57106         : First day of simulation period - 7 May 2057       
+  57218         : Last day of simulation period - 27 August 2057   
+  57106         : First day of cropping period - 7 May 2057       
+  57218         : Last day of cropping period - 27 August 2057   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  57471         : First day of simulation period - 7 May 2058       
+  57583         : Last day of simulation period - 27 August 2058   
+  57471         : First day of cropping period - 7 May 2058       
+  57583         : Last day of cropping period - 27 August 2058   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  57836         : First day of simulation period - 7 May 2059       
+  57948         : Last day of simulation period - 27 August 2059   
+  57836         : First day of cropping period - 7 May 2059       
+  57948         : Last day of cropping period - 27 August 2059   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  58202         : First day of simulation period - 7 May 2060       
+  58314         : Last day of simulation period - 27 August 2060   
+  58202         : First day of cropping period - 7 May 2060       
+  58314         : Last day of cropping period - 27 August 2060   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  58567         : First day of simulation period - 7 May 2061       
+  58679         : Last day of simulation period - 27 August 2061   
+  58567         : First day of cropping period - 7 May 2061       
+  58679         : Last day of cropping period - 27 August 2061   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  58932         : First day of simulation period - 7 May 2062       
+  59044         : Last day of simulation period - 27 August 2062   
+  58932         : First day of cropping period - 7 May 2062       
+  59044         : Last day of cropping period - 27 August 2062   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  59297         : First day of simulation period - 7 May 2063       
+  59409         : Last day of simulation period - 27 August 2063   
+  59297         : First day of cropping period - 7 May 2063       
+  59409         : Last day of cropping period - 27 August 2063   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  59663         : First day of simulation period - 7 May 2064       
+  59775         : Last day of simulation period - 27 August 2064   
+  59663         : First day of cropping period - 7 May 2064       
+  59775         : Last day of cropping period - 27 August 2064   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  60028         : First day of simulation period - 7 May 2065       
+  60140         : Last day of simulation period - 27 August 2065   
+  60028         : First day of cropping period - 7 May 2065       
+  60140         : Last day of cropping period - 27 August 2065   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  60393         : First day of simulation period - 7 May 2066       
+  60505         : Last day of simulation period - 27 August 2066   
+  60393         : First day of cropping period - 7 May 2066       
+  60505         : Last day of cropping period - 27 August 2066   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  60758         : First day of simulation period - 7 May 2067       
+  60870         : Last day of simulation period - 27 August 2067   
+  60758         : First day of cropping period - 7 May 2067       
+  60870         : Last day of cropping period - 27 August 2067   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  61124         : First day of simulation period - 7 May 2068       
+  61236         : Last day of simulation period - 27 August 2068   
+  61124         : First day of cropping period - 7 May 2068       
+  61236         : Last day of cropping period - 27 August 2068   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  61489         : First day of simulation period - 7 May 2069       
+  61601         : Last day of simulation period - 27 August 2069   
+  61489         : First day of cropping period - 7 May 2069       
+  61601         : Last day of cropping period - 27 August 2069   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  61854         : First day of simulation period - 7 May 2070       
+  61966         : Last day of simulation period - 27 August 2070   
+  61854         : First day of cropping period - 7 May 2070       
+  61966         : Last day of cropping period - 27 August 2070   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  62219         : First day of simulation period - 7 May 2071       
+  62331         : Last day of simulation period - 27 August 2071   
+  62219         : First day of cropping period - 7 May 2071       
+  62331         : Last day of cropping period - 27 August 2071   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  62585         : First day of simulation period - 7 May 2072       
+  62697         : Last day of simulation period - 27 August 2072   
+  62585         : First day of cropping period - 7 May 2072       
+  62697         : Last day of cropping period - 27 August 2072   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  62950         : First day of simulation period - 7 May 2073       
+  63062         : Last day of simulation period - 27 August 2073   
+  62950         : First day of cropping period - 7 May 2073       
+  63062         : Last day of cropping period - 27 August 2073   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  63315         : First day of simulation period - 7 May 2074       
+  63427         : Last day of simulation period - 27 August 2074   
+  63315         : First day of cropping period - 7 May 2074       
+  63427         : Last day of cropping period - 27 August 2074   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  63680         : First day of simulation period - 7 May 2075       
+  63792         : Last day of simulation period - 27 August 2075   
+  63680         : First day of cropping period - 7 May 2075       
+  63792         : Last day of cropping period - 27 August 2075   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  64046         : First day of simulation period - 7 May 2076       
+  64158         : Last day of simulation period - 27 August 2076   
+  64046         : First day of cropping period - 7 May 2076       
+  64158         : Last day of cropping period - 27 August 2076   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  64411         : First day of simulation period - 7 May 2077       
+  64523         : Last day of simulation period - 27 August 2077   
+  64411         : First day of cropping period - 7 May 2077       
+  64523         : Last day of cropping period - 27 August 2077   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  64776         : First day of simulation period - 7 May 2078       
+  64888         : Last day of simulation period - 27 August 2078   
+  64776         : First day of cropping period - 7 May 2078       
+  64888         : Last day of cropping period - 27 August 2078   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  65141         : First day of simulation period - 7 May 2079       
+  65253         : Last day of simulation period - 27 August 2079   
+  65141         : First day of cropping period - 7 May 2079       
+  65253         : Last day of cropping period - 27 August 2079   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  65507         : First day of simulation period - 7 May 2080       
+  65619         : Last day of simulation period - 27 August 2080   
+  65507         : First day of cropping period - 7 May 2080       
+  65619         : Last day of cropping period - 27 August 2080   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  65872         : First day of simulation period - 7 May 2081       
+  65984         : Last day of simulation period - 27 August 2081   
+  65872         : First day of cropping period - 7 May 2081       
+  65984         : Last day of cropping period - 27 August 2081   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  66237         : First day of simulation period - 7 May 2082       
+  66349         : Last day of simulation period - 27 August 2082   
+  66237         : First day of cropping period - 7 May 2082       
+  66349         : Last day of cropping period - 27 August 2082   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  66602         : First day of simulation period - 7 May 2083       
+  66714         : Last day of simulation period - 27 August 2083   
+  66602         : First day of cropping period - 7 May 2083       
+  66714         : Last day of cropping period - 27 August 2083   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  66968         : First day of simulation period - 7 May 2084       
+  67080         : Last day of simulation period - 27 August 2084   
+  66968         : First day of cropping period - 7 May 2084       
+  67080         : Last day of cropping period - 27 August 2084   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  67333         : First day of simulation period - 7 May 2085       
+  67445         : Last day of simulation period - 27 August 2085   
+  67333         : First day of cropping period - 7 May 2085       
+  67445         : Last day of cropping period - 27 August 2085   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  67698         : First day of simulation period - 7 May 2086       
+  67810         : Last day of simulation period - 27 August 2086   
+  67698         : First day of cropping period - 7 May 2086       
+  67810         : Last day of cropping period - 27 August 2086   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  68063         : First day of simulation period - 7 May 2087       
+  68175         : Last day of simulation period - 27 August 2087   
+  68063         : First day of cropping period - 7 May 2087       
+  68175         : Last day of cropping period - 27 August 2087   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  68429         : First day of simulation period - 7 May 2088       
+  68541         : Last day of simulation period - 27 August 2088   
+  68429         : First day of cropping period - 7 May 2088       
+  68541         : Last day of cropping period - 27 August 2088   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  68794         : First day of simulation period - 7 May 2089       
+  68906         : Last day of simulation period - 27 August 2089   
+  68794         : First day of cropping period - 7 May 2089       
+  68906         : Last day of cropping period - 27 August 2089   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  69159         : First day of simulation period - 7 May 2090       
+  69271         : Last day of simulation period - 27 August 2090   
+  69159         : First day of cropping period - 7 May 2090       
+  69271         : Last day of cropping period - 27 August 2090   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  69524         : First day of simulation period - 7 May 2091       
+  69636         : Last day of simulation period - 27 August 2091   
+  69524         : First day of cropping period - 7 May 2091       
+  69636         : Last day of cropping period - 27 August 2091   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  69890         : First day of simulation period - 7 May 2092       
+  70002         : Last day of simulation period - 27 August 2092   
+  69890         : First day of cropping period - 7 May 2092       
+  70002         : Last day of cropping period - 27 August 2092   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  70255         : First day of simulation period - 7 May 2093       
+  70367         : Last day of simulation period - 27 August 2093   
+  70255         : First day of cropping period - 7 May 2093       
+  70367         : Last day of cropping period - 27 August 2093   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  70620         : First day of simulation period - 7 May 2094       
+  70732         : Last day of simulation period - 27 August 2094   
+  70620         : First day of cropping period - 7 May 2094       
+  70732         : Last day of cropping period - 27 August 2094   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  70985         : First day of simulation period - 7 May 2095       
+  71097         : Last day of simulation period - 27 August 2095   
+  70985         : First day of cropping period - 7 May 2095       
+  71097         : Last day of cropping period - 27 August 2095   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  71351         : First day of simulation period - 7 May 2096       
+  71463         : Last day of simulation period - 27 August 2096   
+  71351         : First day of cropping period - 7 May 2096       
+  71463         : Last day of cropping period - 27 August 2096   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  71716         : First day of simulation period - 7 May 2097       
+  71828         : Last day of simulation period - 27 August 2097   
+  71716         : First day of cropping period - 7 May 2097       
+  71828         : Last day of cropping period - 27 August 2097   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  72081         : First day of simulation period - 7 May 2098       
+  72193         : Last day of simulation period - 27 August 2098   
+  72081         : First day of cropping period - 7 May 2098       
+  72193         : Last day of cropping period - 27 August 2098   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
+      1         : Year number of cultivation (Seeding/planting year)
+  72446         : First day of simulation period - 7 May 2099       
+  72558         : Last day of simulation period - 27 August 2099   
+  72446         : First day of cropping period - 7 May 2099       
+  72558         : Last day of cropping period - 27 August 2099   
+-- 1. Climate (CLI) file
+   Cahul_NCC-NorESM1-M_rcp26.CLI
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.1 Temperature (Tnx or TMP) file
+   Cahul_NCC-NorESM1-M_rcp26.Tnx
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.2 Reference ET (ETo) file
+   Cahul_NCC-NorESM1-M_rcp26.ETo
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.3 Rain (PLU) file
+   Cahul_NCC-NorESM1-M_rcp26.PLU
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+   1.4 Atmospheric CO2 concentration (CO2) file
+   RCP2-6.CO2
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 2. Calendar (CAL) file
+   Maize_7May.CAL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 3. Crop (CRO) file
+   Maize-short.CRO
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 4. Irrigation management (IRR) file
+   (None)
+   (None)
+-- 5. Field management (MAN) file
+   Non-Optimal.MAN
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 6. Soil profile (SOL) file
+   North_South.SOL
+   C:\FAO\GUI_AC7\AquaCropV70No17082022\DATA\
+-- 7. Groundwater table (GWT) file
+   (None)
+   (None)
+-- 8. Initial conditions (SW0) file
+   (None)
+   (None)
+-- 9. Off-season conditions (OFF) file
+   (None)
+   (None)
+-- 10. Field data (OBS) file
+   (None)
+   (None)
