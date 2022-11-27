@@ -86,7 +86,8 @@ ui <- dashboardPage(
                                       .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
                                       .nav-tabs { font-size: 22px; line-height: 20px; font-weight:bold; }
                                       .shiny-output-error-validation { font-size: 22px; line-height: 22px; padding-top: 15px; }
-                                                                          
+                                      .shiny-notification { font-size: 20px;}
+                                    
                                     #font size of slider input
                                     .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {font-size: 14px!important}
 
