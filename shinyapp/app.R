@@ -193,6 +193,21 @@ ui <- dashboardPage(
                             selectizeInput("rename_col_from", "Select column to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                             textInput("rename_col_to", "Rename to"),
                             actionButton("rename_col_button", "Rename")
+                            ),
+                        box(title = "filter dataset",
+                            width = 4,
+                            #height = "550px",
+                            status = "primary",
+                            solidHeader = TRUE,
+                            selectizeInput("filter_data_column", "Select column to filter by", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                            conditionalPanel(condition = "input.filter_data_column == 'Year'",
+                                             sliderInput("filter_data_num", "Select year range", sep = "", min = 0, max = 0, value = c(0,0)),
+                                             ),
+                            conditionalPanel(condition = "input.filter_data_column != 'Year'",
+                                             selectizeInput("filter_data_chr", "Select values to keep", choices = NULL, multiple = TRUE),
+                                            ),
+                            actionButton("filter_data_button", "Filter"),
+                            actionButton("filter_reset_button", "Reset")
                             )
                       )
                     )
@@ -825,38 +840,40 @@ server <- function(input, output, session) {
                                                              ))
     #for downloading combined prm
     output$download_combined_prm <- downloadHandler(
-      filename = "Aquacrop_combined_parameter.tsv",
+      filename = "combined_parameter_data.tsv",
       content = function(file) {
         write_tsv(upload_prm_combined_renamecol$data, file)
       }
     )
     
     ####add parameters to the output dataset
-    data_prm_combined <- reactive({
+    data_prm_combined <- reactiveValues()
+    observe({
       req(input$standard_vs_plugin_select)
-      #select if standard or plugin mode used
-      if(input$standard_vs_plugin_select == "standard"){
-        data_prm_standard_combined_seasonal()
-      }else{
-      req(input$upload_all_files)
-        upload_data_combined() %>%
-        mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
-        mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
-        mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
-        left_join(upload_prm_combined_renamecol$data, by = "name.variable")
-      }
+
+        #select if standard or plugin mode used
+        if(input$standard_vs_plugin_select == "standard"){
+          data_prm_combined$data <- data_prm_standard_combined_seasonal()
+        }else{
+          req(input$upload_all_files)
+          data_prm_combined$data <- upload_data_combined() %>%
+            mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+            mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+            mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+            left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+        }
     })
-    
+
    
     #output datatable of the combined data and parameters
-    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined(), 
+    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined$data, 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                                   ))
     #for downloading combined dataset
     output$download_combined_dataset <- downloadHandler(
-      filename = "Aquacrop_combined_data.tsv",
+      filename = "combined_seasonal_data.tsv",
       content = function(file) {
-        write_tsv(data_prm_combined(), file)
+        write_tsv(data_prm_combined$data, file)
       }
     )
     
@@ -948,30 +965,32 @@ server <- function(input, output, session) {
     
     
     ####add parameters to the daily dataset
-    daily_data_prm_combined <- reactive({
+    daily_data_prm_combined <- reactiveValues()
+    observe({
       req(input$standard_vs_plugin_select)
-      #select if standard or plugin mode used
-      if(input$standard_vs_plugin_select == "standard"){
-        data_prm_standard_combined_daily()
-      }else{
-        req(input$upload_all_files)
-        
-        upload_daily_data_combined() %>%    
-          mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
-          mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
-          left_join(upload_prm_combined_renamecol$data, by = "name.variable")
-      }
+        #select if standard or plugin mode used
+        if(input$standard_vs_plugin_select == "standard"){
+          daily_data_prm_combined$data <- data_prm_standard_combined_daily()
+        }else{
+          req(input$upload_all_files)
+          
+          daily_data_prm_combined$data <- upload_daily_data_combined() %>%    
+            mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+            mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
+            left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+        }
     })
+
     
     #output datatable of the combined daily data and parameters
-    output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined(), 
+    output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined$data, 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                                   ))
     #for downloading combined daily dataset
     output$download_combined_daily_dataset <- downloadHandler(
-      filename = "Aquacrop_combined_daily_data.tsv",
+      filename = "combined_daily_data.tsv",
       content = function(file) {
-        write_tsv(daily_data_prm_combined(), file)
+        write_tsv(daily_data_prm_combined$data, file)
       }
     )
     
@@ -995,6 +1014,73 @@ server <- function(input, output, session) {
         if(nrow(missing_prm_file()) > 0){
           datatable(missing_prm_file(), options = list(scrollX = TRUE, pageLength = 5))
         })
+
+  ### filter data
+      #update choices of columns to filter
+      observe({
+        req(input$standard_vs_plugin_select)
+        req(input$upload_all_files)
+        
+        choices <- c(colnames(upload_prm_combined_renamecol$data),"Year")
+        updateSelectizeInput(inputId = "filter_data_column", choices = sort(choices)) 
+      })
+      #update variables to select to keep
+      observeEvent(input$filter_data_column, {
+        req(input$standard_vs_plugin_select)
+        req(input$upload_all_files)
+        
+        if(input$filter_data_column == "Year"){ 
+          min = min(data_prm_combined$data[["Year1"]])
+          max = max(data_prm_combined$data[["Year1"]])
+          updateSliderInput(inputId = "filter_data_num", min = min, max = max, value = c(min,max), step = 1) 
+        }else{
+          choices <- unique(upload_prm_combined_renamecol$data[[input$filter_data_column]])
+          updateSelectizeInput(inputId = "filter_data_chr", choices = sort(choices)) 
+        }
+      })
+      #filter data
+      observeEvent(input$filter_data_button,{
+        if(input$filter_data_column == "Year"){ 
+          daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
+            filter(Year >= as.numeric(input$filter_data_num[1]) & Year <= as.numeric(input$filter_data_num[2]))
+          data_prm_combined$data <- data_prm_combined$data %>%
+            filter(Year1 >= as.numeric(input$filter_data_num[1]) & Year1 <= as.numeric(input$filter_data_num[2]))
+        }else{
+          daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
+            filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
+          data_prm_combined$data <- data_prm_combined$data %>%
+            filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
+        }
+      })
+      #reset data to original before filter
+      observeEvent(input$filter_reset_button,{
+        #reset daily data to the original processing from uploads
+          req(input$standard_vs_plugin_select)
+          #select if standard or plugin mode used
+          if(input$standard_vs_plugin_select == "standard"){
+            daily_data_prm_combined$data <- data_prm_standard_combined_daily()
+          }else{
+            req(input$upload_all_files)
+            daily_data_prm_combined$data <- upload_daily_data_combined() %>%    
+              mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+              mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
+              left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+          }
+        #reset seasonal data to the original processing from uploads
+          req(input$standard_vs_plugin_select)
+          #select if standard or plugin mode used
+          if(input$standard_vs_plugin_select == "standard"){
+            data_prm_combined$data <- data_prm_standard_combined_seasonal()
+          }else{
+            req(input$upload_all_files)
+            data_prm_combined$data <- upload_data_combined() %>%
+              mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+              mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+              mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+              left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+          }
+      })
+      
 
     
 ############### ggplot ###############
@@ -1024,11 +1110,11 @@ server <- function(input, output, session) {
         
         if(input$plot_mode == "daily"){
           #update choices for plotting axis
-          axis.choices = unique(colnames(daily_data_prm_combined()))
+          axis.choices = unique(colnames(daily_data_prm_combined$data))
           updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
-          group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+          group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
           group.choices <- c(group.choices, "Stage")
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
@@ -1036,21 +1122,21 @@ server <- function(input, output, session) {
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           #return data to use
-          daily_data_prm_combined()
+          daily_data_prm_combined$data
         }else{
           #update choices for plotting axis
-          axis.choices = unique(colnames(data_prm_combined()))
+          axis.choices = unique(colnames(data_prm_combined$data))
           updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
-          group.choices <- setdiff(colnames(data_prm_combined()), colnames(upload_data_combined()))
+          group.choices <- setdiff(colnames(data_prm_combined$data), colnames(upload_data_combined()))
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           #return data to use
-          data_prm_combined()     
+          data_prm_combined$data   
         }
       })
     
@@ -1419,7 +1505,7 @@ server <- function(input, output, session) {
     
 ###create reactive dataset for analyses (take from seasonal data)
     data_prm_combined_analysis <- reactiveValues()
-    observe({data_prm_combined_analysis$data <- data_prm_combined()})
+    observe({data_prm_combined_analysis$data <- data_prm_combined$data})
     
 ###time period window analysis
     
@@ -1499,7 +1585,7 @@ server <- function(input, output, session) {
     
     #update grouping choice
     observe({
-      group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+      group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
       updateSelectizeInput(inputId = "stress_group", choices = sort(group.choices))
     })
 
@@ -1520,7 +1606,7 @@ server <- function(input, output, session) {
       }
 
       #calculate summary
-      daily_data_prm_combined() %>%
+      daily_data_prm_combined$data %>%
         mutate(Stage = as.character(Stage)) %>%
         mutate(Stage = case_when(
           Stage == "0" ~ "0_before_after_cropping",
@@ -1588,7 +1674,7 @@ server <- function(input, output, session) {
       
       if(input$regression_mode == "daily"){
         #return data to use
-        daily_data_prm_combined()
+        daily_data_prm_combined$data
       }else{
         #return data to use
         data_prm_combined_analysis$data 
@@ -1601,11 +1687,11 @@ server <- function(input, output, session) {
       
       if(input$regression_mode == "daily"){
         #update choices for variables
-        axis.choices = unique(colnames(daily_data_prm_combined()))
+        axis.choices = unique(colnames(daily_data_prm_combined$data))
         updateSelectInput(inputId = "regression_y_variable", choices = sort(axis.choices))
         updateSelectInput(inputId = "regression_x_variable", choices = sort(axis.choices))
         #update choices for grouping variable
-        group.choices <- setdiff(colnames(daily_data_prm_combined()), colnames(upload_daily_data_combined()))
+        group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
         group.choices <- c(group.choices, "Stage")
         updateSelectizeInput(inputId = "regression_group", choices = sort(group.choices)) 
       }else{
