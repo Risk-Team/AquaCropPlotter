@@ -299,6 +299,19 @@ ui <- dashboardPage(
                         ),
                         shinyjs::hidden(div(id = "hiddenbox5",
                            fluidRow(
+                             box(title = "Rename / Reorder",
+                                 width = 2,
+                                 height = "650px",
+                                 status = "primary",
+                                 solidHeader = TRUE,
+                                 selectizeInput("rename_variable", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                 selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                 textInput("rename_to", "Rename to"),
+                                 actionButton("rename_button", "Rename"),
+                                 selectizeInput("reorder_variable", "Select variable to reorder", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                 selectizeInput("reorder_order", "Select values in order", choices = NULL, multiple = TRUE),
+                                 actionButton("reorder_button", "Reorder")
+                             ),
                             box(title = "Customise plot",
                                 width = 2,
                                 height = "650px",
@@ -331,25 +344,6 @@ ui <- dashboardPage(
                                 textInput("x_axis_label_angle", "X axis label angle", value = "0"),
                                 selectInput("legend_position", "Legend position", input_legend_pos, selected = "bottom")
                                 ),
-                            box(title = "Rename variables",
-                                width = 2,
-                                height = "650px",
-                                status = "primary",
-                                solidHeader = TRUE,
-                                selectizeInput("rename_variable", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                textInput("rename_to", "Rename to"),
-                                actionButton("rename_button", "Rename")
-                            ),
-                            box(title = "Reorder variables",
-                                width = 2,
-                                height = "650px",
-                                status = "primary",
-                                solidHeader = TRUE,
-                                selectizeInput("reorder_variable", "Select variable to reorder", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                selectizeInput("reorder_order", "Select values in order", choices = NULL, multiple = TRUE),
-                                actionButton("reorder_button", "Reorder")
-                            ),
                             box(title = "Customise font size",
                                 width = 2,
                                 height = "650px",
@@ -360,6 +354,14 @@ ui <- dashboardPage(
                                 textInput("font_size_axis_title", "axis title", value = "16"),
                                 textInput("font_size_legend", "legend", value = "16"),
                                 textInput("font_size_facet", "subpanel label", value = "16")
+                            ),
+                            box(title = "Customise axis",
+                                width = 2,
+                                height = "650px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                sliderInput("y_var_range", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
+                                sliderInput("x_var_range", "X axis range to plot", sep = "", min = 0, max = 0, value = c(0,0))
                             ),
                             box(title = "Export plot",
                                 width = 2,
@@ -1312,6 +1314,17 @@ server <- function(input, output, session) {
         plot_var_select_cache$facet_var <- input$facet_var
         })
 
+    ###set y and x axis range in plot
+      observeEvent(input$y_var, {
+        min = min(data_prm_combined_plot_rename$data[[input$y_var]])
+        max = max(data_prm_combined_plot_rename$data[[input$y_var]])
+        updateSliderInput(inputId = "y_var_range", min = min, max = max, value = c(min,max)) 
+      })
+      observeEvent(input$x_var, {
+        min = min(data_prm_combined_plot_rename$data[[input$x_var]])
+        max = max(data_prm_combined_plot_rename$data[[input$x_var]])
+        updateSliderInput(inputId = "x_var_range", min = min, max = max, value = c(min,max)) 
+      })
 
     #set color palette
     custom_palette <- reactive({
@@ -1433,11 +1446,11 @@ server <- function(input, output, session) {
       #pretty scales for numeric variable
       if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]])){
         p <- p +
-          scale_x_continuous(breaks = breaks_pretty())
+          scale_x_continuous(breaks = breaks_pretty(), limits = c(as.numeric(input$x_var_range[1]),as.numeric(input$x_var_range[2])))
       }
       if(is.numeric(data_prm_combined_plot_rename$data[[input$y_var]])){
         p <- p +
-          scale_y_continuous(breaks = breaks_pretty())
+          scale_y_continuous(breaks = breaks_pretty(), limits = c(as.numeric(input$y_var_range[1]),as.numeric(input$y_var_range[2])))
       }
       if(is.Date(data_prm_combined_plot_rename$data[[input$x_var]])){
         p <- p +
