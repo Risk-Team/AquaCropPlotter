@@ -341,6 +341,15 @@ ui <- dashboardPage(
                                 textInput("rename_to", "Rename to"),
                                 actionButton("rename_button", "Rename")
                             ),
+                            box(title = "Reorder variables",
+                                width = 2,
+                                height = "650px",
+                                status = "primary",
+                                solidHeader = TRUE,
+                                selectizeInput("reorder_variable", "Select variable to reorder", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("reorder_order", "Select values in order", choices = NULL, multiple = TRUE),
+                                actionButton("reorder_button", "Reorder")
+                            ),
                             box(title = "Customise font size",
                                 width = 2,
                                 height = "650px",
@@ -1156,6 +1165,7 @@ server <- function(input, output, session) {
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
           #return data to use
           daily_data_prm_combined$data
         }else{
@@ -1170,6 +1180,7 @@ server <- function(input, output, session) {
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
           #return data to use
           data_prm_combined$data   
         }
@@ -1195,6 +1206,7 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
       updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var) 
       updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
+      updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
     })
     
     ## if plotting mean is selected, calculate mean based on grouping variable selected
@@ -1229,6 +1241,20 @@ server <- function(input, output, session) {
         }
         choices <- unique(data_prm_combined_plot_rename$data[[input$rename_variable]])
         updateSelectInput(inputId = "rename_from", choices = sort(choices)) 
+      })
+      
+      ###option for reordering variable
+      #create observe event module to monitor if user input select variable to reorder
+      #if variable selected, update the select input list for value choices of the selected variable
+      observeEvent(input$reorder_variable, {
+        choices <- unique(data_prm_combined_plot_rename$data[[input$reorder_variable]])
+        updateSelectInput(inputId = "reorder_order", choices = sort(choices)) 
+      })
+      #change value of selected variable to the value from user
+      observeEvent(input$reorder_button, {
+          reorder_df <- data_prm_combined_plot_rename$data
+          reorder_df[[input$reorder_variable]] <- factor(reorder_df[[input$reorder_variable]], levels = input$reorder_order)
+          data_prm_combined_plot_rename$data <- reorder_df
       })
       
      #remember variable set for plotting, so can be recovered after making change to dataframe and plotting engine reactively update, reinitialise
