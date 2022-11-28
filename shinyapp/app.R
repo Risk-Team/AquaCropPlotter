@@ -208,7 +208,18 @@ ui <- dashboardPage(
                                             ),
                             actionButton("filter_data_button", "Filter"),
                             actionButton("filter_reset_button", "Reset")
-                            )
+                            ),
+                        box(title = "Add labels to historical data by year",
+                            width = 4,
+                            #height = "550px",
+                            status = "primary",
+                            solidHeader = TRUE,
+                            selectizeInput("historical_column", "Select column to add label to", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                            sliderInput("historical_year", "Select year range to label", sep = "", min = 0, max = 0, value = c(0,0)),
+                            textInput("historical_text", "Label as", value = "historical"),
+                            actionButton("historical_button", "Label"),
+                            actionButton("historical_reset_button", "Reset")
+                        )
                       )
                     )
             ),
@@ -1052,8 +1063,8 @@ server <- function(input, output, session) {
             filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
         }
       })
-      #reset data to original before filter
-      observeEvent(input$filter_reset_button,{
+      ##reset data to original before filter
+      observeEvent(input$filter_reset_button | input$historical_reset_button,{
         #reset daily data to the original processing from uploads
           req(input$standard_vs_plugin_select)
           #select if standard or plugin mode used
@@ -1080,9 +1091,33 @@ server <- function(input, output, session) {
               left_join(upload_prm_combined_renamecol$data, by = "name.variable")
           }
       })
-      
 
-    
+###label historical data by year
+      #update choices of columns to add label to
+      observe({
+        req(input$standard_vs_plugin_select)
+        req(input$upload_all_files)
+        choices <- colnames(upload_prm_combined_renamecol$data)
+        updateSelectizeInput(inputId = "historical_column", choices = sort(choices)) 
+      })
+      #update year range to select for labeling
+      observeEvent(input$historical_column, {
+        req(input$standard_vs_plugin_select)
+        req(input$upload_all_files)
+          min = min(data_prm_combined$data[["Year1"]])
+          max = max(data_prm_combined$data[["Year1"]])
+          updateSliderInput(inputId = "historical_year", min = min, max = max, value = c(min,max), step = 1) 
+      })
+      #add label to historical data
+      observeEvent(input$historical_button, {
+        req(input$standard_vs_plugin_select)
+        req(input$upload_all_files)
+          daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
+            mutate(!!input$historical_column := ifelse(Year >= as.numeric(input$historical_year[1]) & Year <= as.numeric(input$historical_year[2]), input$historical_text, .data[[input$historical_column]]))
+          data_prm_combined$data <- data_prm_combined$data %>%
+            mutate(!!input$historical_column := ifelse(Year1 >= as.numeric(input$historical_year[1]) & Year1 <= as.numeric(input$historical_year[2]), input$historical_text, .data[[input$historical_column]]))
+      })
+      
 ############### ggplot ###############
 
     #reactive for showing next boxes to input plotting instructions
@@ -1725,7 +1760,7 @@ server <- function(input, output, session) {
         group_by(across(all_of(column.group))) %>%
         nest() %>%
         mutate(model = map(data, function(data){
-          mod <- lm(data = data, as.formula(paste0(input$regression_y_variable,"~",input$regression_x_variable)))
+          mod <- lm(data = data, as.formula(paste0("`",input$regression_y_variable,"`","~","`",input$regression_x_variable,"`")))
           
           r.squared <- glance(mod)[["r.squared"]] %>% signif(digits = 3) %>% format()
           slope <- tidy(mod)[["estimate"]][[2]] %>% signif(digits = 3) %>% format()
