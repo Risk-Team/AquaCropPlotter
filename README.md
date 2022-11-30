@@ -76,4 +76,10 @@ Finally, you are now able to visualize your results (Figure 5). This step is amo
 |:--:| 
 |*Fig 5*. AquaCropVis allows you to change the plot appearances and more!|
 
+### Step 4: Analysis
 
+In the last step of AquaCropVis you have the possibility of diving deeper into your AquaCrop results. For example, you can perform linear regression, identify stages at which stresses are affecting your crop and even summarise information on specific variables (e.g yield) (Figure 6). 
+
+![step_4](https://user-images.githubusercontent.com/40058235/204922458-cae2027b-49bd-4e32-b804-260db26433f4.png)
+|:--:| 
+|*Fig 6*. AquaCropVis allows you to change the plot appearances and more!|
