@@ -1,6 +1,6 @@
 # AquaCropVis
 
-## Motivation
+## Background
 AquaCrop is the crop-water productivity model developed by the NSL division at FAO. Currently, AquaCrop produces output txt files that can be difficult to process and visualize. We intend to fill that gap by developing a R Shiny app that would automatically read the output simulations of aquacrop and produce meaningfull plots and statistics that the user can automatically embed into reports. 
 AquaCropVis works with the outouts of both AquaCrop version 6 and 7. Previous version are not recognised by the app. 
 
