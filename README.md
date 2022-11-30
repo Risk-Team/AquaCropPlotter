@@ -31,7 +31,8 @@ Regardless of whether you use the app locally or remotely in the shiny server, t
 
 The first step when you launch the app is to upload the data containing AquaCrop output files (PRM and OUT files) (Fig 1). This data is also availbale from the AquaCropVis package (Fig 1) and it is stored in your computer once you install the app as described in the steps above.
 
-![image](https://user-images.githubusercontent.com/40058235/204908423-acc508cf-ba60-4695-86dc-12ae6b83c260.png)
+![image](https://user-images.githubusercontent.com/40058235/204909982-e593638b-bf36-4525-b93c-94eac98e727b.png)
+
 |:--:| 
 |Fig 1. Type of data required for visualization in AquaCropVis. This example data is also available locally when you install AquaCropVis. Run this line of code to localize the data system.file("data/", package="AquaCropVis")    |
 
