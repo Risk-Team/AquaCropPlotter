@@ -59,9 +59,21 @@ AquaCropVis would now have created a combined dataset for all your AquaCrop simu
 
 ![step_2](https://user-images.githubusercontent.com/40058235/204913512-895cad3a-7f66-43e4-827a-ae65db3d8231.png)
 |:--:| 
-|*Fig 3*. AquaCropVis combine all the AquaCrop simulations into one data frame that can be exported in excel and downloaded locally.|
+|*Fig 3*. AquaCropVis combines all the AquaCrop simulations into one data frame that can be exported in excel and downloaded locally.|
 
-Aqua
+AquaCropVis also allows you to change column name (variables that are detected automatically from the file names and also from the PRM files) and retain only certain variables (Figure 4). 
 
-![step_3](https://user-images.githubusercontent.com/40058235/204915423-a9100498-3d72-4db9-bfcb-787b8e6623ea.png)
+![step_2](https://user-images.githubusercontent.com/40058235/204915423-a9100498-3d72-4db9-bfcb-787b8e6623ea.png)
+|:--:| 
+|*Fig 4*. AquaCropVis allows great flexibility in terms of customizing variables and names.|
+
+
+### Step 3: Plot
+
+Finally, you are now able to visualize your results (Figure 5). This step is among the most flexible steps of AquaCropVis allowing you to customize your plots and analysis greatly. 
+
+![step_3](https://user-images.githubusercontent.com/40058235/204919442-42d4754f-5154-4622-bc72-36698396c42a.png)
+|:--:| 
+|*Fig 5*. AquaCropVis allows you to change the plot appearances and more!|
+
 
