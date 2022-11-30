@@ -19,6 +19,13 @@ Then to launch the app
 library(AquaCropVis)
 aquacropvis()
 ```
+
+The app comes with some example data. To find the data in your local computer after installing the app, run:
+
+```
+system.file("data/", package="AquaCropVis")
+
+```
 ## How to use the app
 
 Regardless of whether you use the app locally or remotely in the shiny server, the app would work in the same way. However, when you install the app from GitHub it comes with a small example dataset that you can use to get acquaninted with its functionalities. In general, the app is very easy to use and allow you to work with the outputs of AquaCrop version 6 and 7. 
