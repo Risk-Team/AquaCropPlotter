@@ -89,4 +89,6 @@ In the last step of AquaCropVis you have the possibility of diving deeper into y
 
 ![step_5](https://user-images.githubusercontent.com/40058235/204923651-c8601f2d-c6b5-4deb-a68f-365bfca73ae3.png)
 |:--:| 
-|*Fig 6*. AquaCropVis allows you to change the plot appearances and more!|
+|*Fig 6*. The analysis tab allows users to compute useful statistics|
+
+
