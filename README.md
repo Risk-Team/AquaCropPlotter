@@ -12,8 +12,9 @@ library(devtools)
 install_github("Risk-Team/aquacrop_shiny")
 ```
   
-  Then
+Then
   
-  `library(AquaCropVis)
-  aquacropvis()
-  `
+```
+library(AquaCropVis)
+aquacropvis()
+```
