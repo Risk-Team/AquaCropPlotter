@@ -228,7 +228,7 @@ ui <- dashboardPage(
                         fluidRow(
                             box(title = "Select plotting variables",
                                 width = 3,
-                                height = "450px",
+                                height = "500px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_mode", "Data type to plot", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
@@ -253,7 +253,7 @@ ui <- dashboardPage(
                             shinyjs::hidden(div(id = "hiddenbox2",
                               box(title = "Select grouping variables",
                                 width = 3,
-                                height = "450px",
+                                height = "500px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("col_var", 
@@ -282,7 +282,7 @@ ui <- dashboardPage(
                              shinyjs::hidden(div(id = "hiddenbox3",
                             box(title = "Select plot elements",
                                 width = 3,
-                                height = "450px",
+                                height = "500px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_element", 
@@ -298,23 +298,23 @@ ui <- dashboardPage(
                             ))
                         ),
                         shinyjs::hidden(div(id = "hiddenbox5",
-                           fluidRow(
+                          div(style= "overflow-x: scroll;" , fluidRow(
                              box(title = "Rename / Reorder",
                                  width = 2,
-                                 height = "650px",
+                                 height = "700px",
                                  status = "primary",
                                  solidHeader = TRUE,
                                  selectizeInput("rename_variable", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                  selectizeInput("rename_from", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                  textInput("rename_to", "Rename to"),
-                                 actionButton("rename_button", "Rename"),
+                                 actionButton("rename_button", "Rename", style = "margin-bottom: 15px; "),
                                  selectizeInput("reorder_variable", "Select variable to reorder", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                  selectizeInput("reorder_order", "Select values in order", choices = NULL, multiple = TRUE),
-                                 actionButton("reorder_button", "Reorder")
-                             ),
+                                 actionButton("reorder_button", "Reorder", style = "margin-bottom: 15px; ")
+                                ),
                             box(title = "Customise plot",
                                 width = 2,
-                                height = "650px",
+                                height = "700px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("col_palette", 
@@ -331,22 +331,24 @@ ui <- dashboardPage(
                                 bsPopover(id = "plot_info10", title = "Select the same number of line types as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
                                 textInput("point_size", "point size", value = "2"),
                                 textInput("line_size", "line size", value = "1"),
-                                sliderInput("point_transparency", "point transparency", min = 0, max = 1, value = 1)
+                                sliderInput("point_transparency", "point transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
+                                sliderInput("line_transparency", "line transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE)
                                 ),
                             box(title = "Customise labels",
                                 width = 2,
-                                height = "650px",
+                                height = "700px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("title_label", "plot title"),
                                 textInput("y_var_label", "Y axis label"),
                                 textInput("x_var_label", "X axis label"),
-                                textInput("x_axis_label_angle", "X axis label angle", value = "0"),
-                                selectInput("legend_position", "Legend position", input_legend_pos, selected = "bottom")
+                                textInput("x_axis_label_angle", "X axis label angle", value = "45"),
+                                selectInput("legend_position", "Legend position", input_legend_pos, selected = "bottom"),
+                                selectInput("show_legend_title", "Legend title", c("yes","no"), selected = "yes")
                                 ),
                             box(title = "Customise font size",
                                 width = 2,
-                                height = "650px",
+                                height = "700px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("font_size_plot_title", "plot title", value = "16"),
@@ -357,7 +359,7 @@ ui <- dashboardPage(
                             ),
                             box(title = "Customise axis",
                                 width = 2,
-                                height = "650px",
+                                height = "700px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 sliderInput("y_var_range", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
@@ -365,7 +367,7 @@ ui <- dashboardPage(
                             ),
                             box(title = "Export plot",
                                 width = 2,
-                                height = "650px",
+                                height = "700px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("export_plot_width", "Width (cm)", value = "19"),
@@ -373,7 +375,7 @@ ui <- dashboardPage(
                                 selectInput("export_plot_format", "Format", c("pdf","png"), selected = "pdf"),
                                 downloadButton("ggplot_plugin_download", "Download"))
                         )
-                        )),
+                        ))),
                         shinyjs::hidden(div(id = "hiddenbox4",
                                             fluidRow(
                                               tabBox(width = 12,
@@ -381,7 +383,8 @@ ui <- dashboardPage(
                                                      id = "plugin_plot_tabbox",
                                                      tabPanel("Plot",
                                                               div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5", "Customise & export plot")),
-                                                              plotOutput("ggplot_plugin_display")
+                                                              div(style = "overflow-x: scroll; height:850px; overflow-y: scroll;", plotOutput("ggplot_plugin_display")),
+                                                              
                                                      )
                                               ),
                                             )))
@@ -407,10 +410,10 @@ ui <- dashboardPage(
                                         status = "primary",
                                         solidHeader = FALSE,
                                         fluidRow(
-                                          column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
-                                          column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
-                                          column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
-                                          column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE))
+                                          column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE))
                                         ),
                                         selectizeInput("stress_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
@@ -424,8 +427,8 @@ ui <- dashboardPage(
                                         status = "primary",
                                         solidHeader = FALSE,
                                         selectizeInput("regression_mode", "Select data type", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
-                                        selectizeInput("regression_x_variable", label = "Select independent (X) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                         selectizeInput("regression_y_variable", label = "Select dependent (Y) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                        selectizeInput("regression_x_variable", label = "Select independent (X) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                         selectizeInput("regression_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         
                                         div(dataTableOutput("regression_display"), style = "font-size: 75%; width: 100%"),
@@ -1316,14 +1319,22 @@ server <- function(input, output, session) {
 
     ###set y and x axis range in plot
       observeEvent(input$y_var, {
-        min = min(data_prm_combined_plot_rename$data[[input$y_var]])
-        max = max(data_prm_combined_plot_rename$data[[input$y_var]])
-        updateSliderInput(inputId = "y_var_range", min = min, max = max, value = c(min,max)) 
+        if(is.numeric(data_prm_combined_plot_rename$data[[input$y_var]])){
+          min = min(data_prm_combined_plot_rename$data[[input$y_var]])
+          max = max(data_prm_combined_plot_rename$data[[input$y_var]])
+          updateSliderInput(inputId = "y_var_range", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+        }
       })
       observeEvent(input$x_var, {
-        min = min(data_prm_combined_plot_rename$data[[input$x_var]])
-        max = max(data_prm_combined_plot_rename$data[[input$x_var]])
-        updateSliderInput(inputId = "x_var_range", min = min, max = max, value = c(min,max)) 
+        if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]])){
+          min = min(data_prm_combined_plot_rename$data[[input$x_var]])
+          max = max(data_prm_combined_plot_rename$data[[input$x_var]])
+          if(str_detect(input$x_var, "[y,Y]ear")){
+            updateSliderInput(inputId = "x_var_range", min = min, max = max, value = c(min,max), step =1) 
+          } else{
+            updateSliderInput(inputId = "x_var_range", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+          }
+        }
       })
 
     #set color palette
@@ -1420,8 +1431,8 @@ server <- function(input, output, session) {
       p <- p +
         theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title)), 
               axis.text = element_text(size = as.numeric(input$font_size_axis_text)),
-              legend.title = element_blank(),
               #legend.title = element_text(size = as.numeric(input$font_size_legend)),
+              legend.title = element_text(size = as.numeric(input$font_size_legend), face = "bold"),
               legend.text = element_text(size = as.numeric(input$font_size_legend)),
               strip.text = element_text(size = as.numeric(input$font_size_facet)),
               plot.title = element_text(size = as.numeric(input$font_size_plot_title)),
@@ -1435,7 +1446,7 @@ server <- function(input, output, session) {
               axis.title.y = element_text(vjust = +2.5, face="bold"),
               legend.key = element_rect(colour = NA, fill = NA),
               legend.key.size= unit(0.75, "cm"),
-              strip.background=element_rect(colour="#000000",fill=NA),
+              strip.background=element_rect(colour="black",fill="grey80"),
               plot.margin=unit(c(10,5,5,5),"mm")
               ) +
         scale_color_manual(values=custom_palette()) +
@@ -1461,6 +1472,10 @@ server <- function(input, output, session) {
           scale_y_date(breaks = breaks_pretty())
       }
       
+      #show legend title
+      if(input$show_legend_title == "no"){
+        p <-  p + theme(legend.title = element_blank())
+      }
       
       #x axis text angle
       if(as.numeric(input$x_axis_label_angle) > 0){
@@ -1478,22 +1493,22 @@ server <- function(input, output, session) {
       
       #select plotting elements (geom)
       if("point" %in% input$plot_element){
-        p <- p + geom_point(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency))
+        p <- p + geom_jitter(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency), width = 0.1, height = 0.1)
       }     
       if("line" %in% input$plot_element){
-        p <- p + geom_line(size = as.numeric(input$line_size))
+        p <- p + geom_line(size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("linear_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE, size = as.numeric(input$line_size))
       }
       if("linear_trend" %in% input$plot_element & !("linear_trend_error" %in% input$plot_element)){
-        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE, size = as.numeric(input$line_size))
+        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("loess_smooth_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="loess", se = T, show.legend = FALSE, size = as.numeric(input$line_size))
       }
       if("loess_smooth_trend" %in% input$plot_element & !("loess_smooth_trend_error" %in% input$plot_element)){
-        p <- p + geom_smooth(method="loess", se = F, show.legend = FALSE, size = as.numeric(input$line_size))
+        p <- p + geom_smooth(method="loess", se = F, show.legend = FALSE, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("background_grid" %in% input$plot_element){
         p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
