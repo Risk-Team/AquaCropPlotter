@@ -10,7 +10,7 @@ AquaCropVis is currently hosted in shinyapps.io so that you do not need to insta
 
 ```
 library(devtools)
-install_github("Risk-Team/aquacrop_shiny")
+install_github("Risk-Team/aquacrop_shiny/AquaCropVis")
 ```
   
 Then to launch the app
