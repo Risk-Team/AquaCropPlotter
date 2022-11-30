@@ -1,8 +1,8 @@
 # AquaCropVis
 
 ## Background
-AquaCrop is the crop-water productivity model developed by the NSL division at FAO. Currently, AquaCrop produces output txt files that can be difficult to process and visualize. We intend to fill that gap by developing a R Shiny app that would automatically read the output simulations of aquacrop and produce meaningfull plots and statistics that the user can automatically embed into reports. 
-AquaCropVis works with the outouts of both AquaCrop version 6 and 7. Previous version are not recognised by the app. 
+AquaCrop is the crop-water productivity model developed by the NSL division at FAO. Currently, AquaCrop produces output txt files that can be difficult to process and visualize. We intend to fill that gap by developing an R Shiny app that would automatically read the output simulations of AquaCrop and produce meaningfull plots and statistics that the user can automatically embed into reports. 
+AquaCropVis works with the outputs of both AquaCrop version 6 and 7. Previous versions are not recognised by the app. 
 
 ## Where to find AquaCropVis
 
@@ -13,7 +13,7 @@ library(devtools)
 install_github("Risk-Team/aquacrop_shiny/AquaCropVis")
 ```
   
-Then to launch the app
+Then to launch the app:
   
 ```
 library(AquaCropVis)
@@ -28,7 +28,7 @@ system.file("data/", package="AquaCropVis")
 ```
 ## How to use the app
 
-Regardless of whether you use the app locally or remotely in the shiny server, the app would work in the same way. However, when you install the app from GitHub it comes with a small example dataset that you can use to get acquaninted with its functionalities. In general, the app is very easy to use and allow you to work with the outputs of AquaCrop version 6 and 7. 
+Regardless of whether you use the app locally or remotely in the shiny server, the app would work in the same way. However, when you install the app from GitHub it comes with a small example dataset that you can use to get acquainted with its functionalities. In general, the app is very easy to use and allow you to work with the outputs of AquaCrop version 6 and 7. 
 
 ![workflow](https://user-images.githubusercontent.com/40058235/204907854-4cb0e6b5-6d20-4c73-8f71-5ead3dce22fc.png)
 |:--:| 
@@ -36,21 +36,21 @@ Regardless of whether you use the app locally or remotely in the shiny server, t
 
 ### Step 1: Upload the data
 
-The first step when you launch the app is to upload the data containing AquaCrop output files (PRM and OUT files) (Fig 1). This data is also availbale from the AquaCropVis package (Fig 1) and it is stored in your computer once you install the app as described in the steps above.
+The first step when you launch the app is to upload the data containing AquaCrop output files (PRM and OUT files) (Fig 1). This data is also available from the AquaCropVis package (Fig 1) and it is stored in your computer once you install the app as described in the steps above.
 
 ![image](https://user-images.githubusercontent.com/40058235/204923476-b684600c-dc9e-4d72-941a-488666447333.png)
 |:--:| 
 |*Fig 1*. Type of data required for visualization in AquaCropVis. This example data is also available locally when you install AquaCropVis. Run this line of code to localize the data: system.file("data/", package="AquaCropVis")|
 
-Upload the data following the instruction in Figure 2. If you ran AquaCrop in plugin mode (like this case) select plugin and then upload the files by selecting them in their respective folder. 
+Upload the data following the instruction in Figure 2. If you ran AquaCrop in plugin mode (like in this case) select plugin and then upload the files by selecting them in their respective folder. 
 
 #### IMPORTANT
 
 AquaCropVis will automatically identify the parameters you used for running AquaCrop. **However** certain variables cannot be detected automatically. For example, if you ran AquaCrop in different locations or different crops, you need to specify that in your file name separated by underscore. For instance, if you want to analyse the AquaCrop results of several crops, you could name your files as follow:
-crop1_...
+crop1_... \n
 crop2_...
 
-If you have several crops in several locations, you could name the file as follow:
+If you have several crops in several locations, you could name the files as follow:
 crop1_location1_...
 crop2_location2_...
 
