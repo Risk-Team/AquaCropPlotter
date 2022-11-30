@@ -33,6 +33,7 @@ The first step when you launch the app is to upload the data containing AquaCrop
 
 ![image](https://user-images.githubusercontent.com/40058235/204909982-e593638b-bf36-4525-b93c-94eac98e727b.png)
 |:--:| 
-|Fig 1. Type of data required for visualization in AquaCropVis. This example data is also available locally when you install AquaCropVis. Run this line of code to localize the data system.file("data/", package="AquaCropVis")|
+|*Fig 1*. Type of data required for visualization in AquaCropVis. This example data is also available locally when you install AquaCropVis. Run this line of code to localize the data system.file("data/", package="AquaCropVis")|
 
+![step_1](https://user-images.githubusercontent.com/40058235/204911514-3eab9052-67eb-4121-99f3-698a9c477563.png)
 
