@@ -331,7 +331,8 @@ ui <- dashboardPage(
                                 bsPopover(id = "plot_info10", title = "Select the same number of line types as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
                                 textInput("point_size", "point size", value = "2"),
                                 textInput("line_size", "line size", value = "1"),
-                                sliderInput("point_transparency", "point transparency", min = 0, max = 1, value = 1, step = 0.1)
+                                sliderInput("point_transparency", "point transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
+                                sliderInput("line_transparency", "line transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE)
                                 ),
                             box(title = "Customise labels",
                                 width = 2,
@@ -409,10 +410,10 @@ ui <- dashboardPage(
                                         status = "primary",
                                         solidHeader = FALSE,
                                         fluidRow(
-                                          column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
-                                          column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
-                                          column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE)),
-                                          column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 1, max = 100, value = 1, step = 1, ticks = FALSE))
+                                          column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                                          column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE))
                                         ),
                                         selectizeInput("stress_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
@@ -426,8 +427,8 @@ ui <- dashboardPage(
                                         status = "primary",
                                         solidHeader = FALSE,
                                         selectizeInput("regression_mode", "Select data type", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
-                                        selectizeInput("regression_x_variable", label = "Select independent (X) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                         selectizeInput("regression_y_variable", label = "Select dependent (Y) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                        selectizeInput("regression_x_variable", label = "Select independent (X) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                         selectizeInput("regression_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                         
                                         div(dataTableOutput("regression_display"), style = "font-size: 75%; width: 100%"),
@@ -1495,19 +1496,19 @@ server <- function(input, output, session) {
         p <- p + geom_jitter(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency), width = 0.1, height = 0.1)
       }     
       if("line" %in% input$plot_element){
-        p <- p + geom_line(size = as.numeric(input$line_size))
+        p <- p + geom_line(size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("linear_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE, size = as.numeric(input$line_size))
       }
       if("linear_trend" %in% input$plot_element & !("linear_trend_error" %in% input$plot_element)){
-        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE, size = as.numeric(input$line_size))
+        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("loess_smooth_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="loess", se = T, show.legend = FALSE, size = as.numeric(input$line_size))
       }
       if("loess_smooth_trend" %in% input$plot_element & !("loess_smooth_trend_error" %in% input$plot_element)){
-        p <- p + geom_smooth(method="loess", se = F, show.legend = FALSE, size = as.numeric(input$line_size))
+        p <- p + geom_smooth(method="loess", se = F, show.legend = FALSE, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("background_grid" %in% input$plot_element){
         p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
