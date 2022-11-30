@@ -46,11 +46,11 @@ Upload the data following the instruction in Figure 2. If you ran AquaCrop in pl
 
 #### IMPORTANT
 
-AquaCropVis will automatically identify the parameters you used for running AquaCrop. **However** certain variables cannot be detected automatically. For example, if you ran AquaCrop in different locations or different crops, you need to specify that in your file name separated by underscore. For instance, if you want to analyse the AquaCrop results of several crops, you could name your files as follow:
+AquaCropVis will automatically identify the parameters you used for running AquaCrop. **However** certain variables cannot be detected automatically. For example, if you ran AquaCrop in different locations or different crops, you need to specify that in your file name separated by underscore. For instance, if you want to analyse the AquaCrop results of several crops, you could name your files as follow:  <br />
 crop1_...  <br />
 crop2_...  <br />
 
-If you have several crops in several locations, you could name the files as follow:
+If you have several crops in several locations, you could name the files as follow:  <br />
 crop1_location1_...  <br />
 crop2_location2_...  <br />
 
