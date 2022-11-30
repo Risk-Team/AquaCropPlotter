@@ -25,4 +25,8 @@ Regardless of whether you use the app locally or remotely in the shiny server, t
 
 ![workflow](https://user-images.githubusercontent.com/40058235/204907854-4cb0e6b5-6d20-4c73-8f71-5ead3dce22fc.png)
 |:--:| 
-| *Workflow of AquaCropVis* |
+| Workflow of AquaCropVis |
+
+### Step 1: load the data
+
+
