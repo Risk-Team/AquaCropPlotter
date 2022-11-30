@@ -5,4 +5,12 @@ AquaCrop is the crop-water productivity model developed by the NSL division at F
 
 ## How to use the app
 
-AquaCrop Vis is currently hosted in shinyapps.io so that you do not need to install anything in your local computer. Simply connect 
+AquaCrop Vis is currently hosted in shinyapps.io so that you do not need to install anything in your local computer. Simply connect to the server and enjoy using the app. However, if you want to run AquaCropVis locally, simply install it from GitHub:
+
+` library(devtools)
+  install_github("Risk-Team/aquacrop_shiny")`
+  
+  Then
+  
+  `library(AquaCropVis)
+  aquacropvis()`
