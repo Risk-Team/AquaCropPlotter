@@ -55,6 +55,10 @@ crop2_location2_...
 
 ### Step 2: Combine the data
 
-
+AquaCropVis would now have created a combined dataset for all your AquaCrop simulations! In Figure 3 you can see the resulting data frame with all the columns. You can already download this data frame in your computer
 
 ![step_2](https://user-images.githubusercontent.com/40058235/204913512-895cad3a-7f66-43e4-827a-ae65db3d8231.png)
+|:--:| 
+|*Fig 3*. AquaCropVis combine all the AquaCrop simulations into one data frame that can be exported in excel and downloaded locally.|
+
+Aqua
