@@ -62,3 +62,6 @@ AquaCropVis would now have created a combined dataset for all your AquaCrop simu
 |*Fig 3*. AquaCropVis combine all the AquaCrop simulations into one data frame that can be exported in excel and downloaded locally.|
 
 Aqua
+
+![step_3](https://user-images.githubusercontent.com/40058235/204915423-a9100498-3d72-4db9-bfcb-787b8e6623ea.png)
+
