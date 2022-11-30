@@ -31,7 +31,7 @@ Regardless of whether you use the app locally or remotely in the shiny server, t
 
 The first step when you launch the app is to upload the data containing AquaCrop output files (PRM and OUT files) (Fig 1). This data is also availbale from the AquaCropVis package (Fig 1) and it is stored in your computer once you install the app as described in the steps above.
 
-![image](https://user-images.githubusercontent.com/40058235/204909982-e593638b-bf36-4525-b93c-94eac98e727b.png)
+![image](https://user-images.githubusercontent.com/40058235/204923476-b684600c-dc9e-4d72-941a-488666447333.png)
 |:--:| 
 |*Fig 1*. Type of data required for visualization in AquaCropVis. This example data is also available locally when you install AquaCropVis. Run this line of code to localize the data: system.file("data/", package="AquaCropVis")|
 
@@ -49,7 +49,7 @@ crop2_location2_...
 
 **AquaCropVis allows you to load hundreds of files as long as you specify the file name correctly.**
 
-![step_1](https://user-images.githubusercontent.com/40058235/204911514-3eab9052-67eb-4121-99f3-698a9c477563.png)
+![step_1](https://user-images.githubusercontent.com/40058235/204923509-d43c87ad-fe62-4cb3-a7ae-1f412b6bf286.png)
 |:--:| 
 |*Fig 2*. The data is uploaded. AquaCropVis will automatically sort the PRM and OUT files. In this case, AquaCrop was run for the same crop but in different locations. The file name reflect this.|
 
@@ -57,13 +57,13 @@ crop2_location2_...
 
 AquaCropVis would now have created a combined dataset for all your AquaCrop simulations! In Figure 3 you can see the resulting data frame with all the columns. You can already download this data frame in your computer
 
-![step_2](https://user-images.githubusercontent.com/40058235/204913512-895cad3a-7f66-43e4-827a-ae65db3d8231.png)
+![step_2](https://user-images.githubusercontent.com/40058235/204923560-757a5ecf-f403-4680-879b-214ffdbb9515.png)
 |:--:| 
 |*Fig 3*. AquaCropVis combines all the AquaCrop simulations into one data frame that can be exported in excel and downloaded locally.|
 
 AquaCropVis also allows you to change column name (variables that are detected automatically from the file names and also from the PRM files) and retain only certain variables (Figure 4). 
 
-![step_2](https://user-images.githubusercontent.com/40058235/204915423-a9100498-3d72-4db9-bfcb-787b8e6623ea.png)
+![step_3](https://user-images.githubusercontent.com/40058235/204923596-a4d2c93b-b8ea-4884-83ac-5a564e6881e1.png)
 |:--:| 
 |*Fig 4*. AquaCropVis allows great flexibility in terms of customizing variables and names.|
 
@@ -72,7 +72,7 @@ AquaCropVis also allows you to change column name (variables that are detected a
 
 Finally, you are now able to visualize your results (Figure 5). This step is among the most flexible steps of AquaCropVis allowing you to customize your plots and analysis greatly. 
 
-![step_3](https://user-images.githubusercontent.com/40058235/204919442-42d4754f-5154-4622-bc72-36698396c42a.png)
+![step_4](https://user-images.githubusercontent.com/40058235/204923633-daefefe7-cd6f-4803-970c-0bad4b12f485.png)
 |:--:| 
 |*Fig 5*. AquaCropVis allows you to change the plot appearances and more!|
 
@@ -80,6 +80,6 @@ Finally, you are now able to visualize your results (Figure 5). This step is amo
 
 In the last step of AquaCropVis you have the possibility of diving deeper into your AquaCrop results. For example, you can perform linear regression, identify stages at which stresses are affecting your crop and even summarise information on specific variables (e.g yield) (Figure 6). 
 
-![step_4](https://user-images.githubusercontent.com/40058235/204922458-cae2027b-49bd-4e32-b804-260db26433f4.png)
+![step_5](https://user-images.githubusercontent.com/40058235/204923651-c8601f2d-c6b5-4deb-a68f-365bfca73ae3.png)
 |:--:| 
 |*Fig 6*. AquaCropVis allows you to change the plot appearances and more!|
