@@ -35,5 +35,20 @@ The first step when you launch the app is to upload the data containing AquaCrop
 |:--:| 
 |*Fig 1*. Type of data required for visualization in AquaCropVis. This example data is also available locally when you install AquaCropVis. Run this line of code to localize the data system.file("data/", package="AquaCropVis")|
 
-![step_1](https://user-images.githubusercontent.com/40058235/204911514-3eab9052-67eb-4121-99f3-698a9c477563.png)
+Upload the data following the instruction in Figure 2. If you ran AquaCrop in plugin mode (like this case) select plugin and then upload the files by selecting them in their respective folder. 
 
+**IMPORTANT**
+
+AquaCropVis will automatically identify the parameters you used for running AquaCrop. **However** certain variables cannot be detected automatically. For example, if you ran AquaCrop in different locations or different crops, you need to specify that in your file name separated by underscore. For instance, if you want to analyse the AquaCrop results of several crops, you could name your files as follow:
+crop1_...
+crop2_...
+
+If you have several crops in several locations, you could name the file as follow:
+crop1_location1_...
+crop2_location2_...
+
+**AquaCropVis allows you to load hundreds of files as long as you specify the file name correctly.**
+
+![step_1](https://user-images.githubusercontent.com/40058235/204911514-3eab9052-67eb-4121-99f3-698a9c477563.png)
+|:--:| 
+|*Fig 2*. The data is uploaded. AquaCropVis will automatically sort the PRM and OUT files. In this case, AquaCrop was run for the same crop but in different locations. The file name reflect this.|
