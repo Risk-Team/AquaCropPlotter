@@ -1506,13 +1506,13 @@ server <- function(input, output, session) {
         p <- p + geom_smooth(method="lm", se = T, show.legend = FALSE, size = as.numeric(input$line_size))
       }
       if("linear_trend" %in% input$plot_element & !("linear_trend_error" %in% input$plot_element)){
-        p <- p + geom_smooth(method="lm", se = F, show.legend = FALSE, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
+        p <- p + stat_smooth(geom="line", method="lm", se = F, show.legend = T, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("loess_smooth_trend_error" %in% input$plot_element){
         p <- p + geom_smooth(method="loess", se = T, show.legend = FALSE, size = as.numeric(input$line_size))
       }
       if("loess_smooth_trend" %in% input$plot_element & !("loess_smooth_trend_error" %in% input$plot_element)){
-        p <- p + geom_smooth(method="loess", se = F, show.legend = FALSE, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
+        p <- p + stat_smooth(geom="line", method="loess", se = F, show.legend = T, size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
       }
       if("background_grid" %in% input$plot_element){
         p <- p + theme(panel.grid.major = element_line(colour="#f0f0f0"),
