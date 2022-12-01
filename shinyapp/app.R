@@ -1497,7 +1497,7 @@ server <- function(input, output, session) {
       
       #select plotting elements (geom)
       if("point" %in% input$plot_element){
-        p <- p + geom_jitter(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency), width = 0.01)
+        p <- p + geom_point(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency))
       }     
       if("line" %in% input$plot_element){
         p <- p + geom_line(size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
