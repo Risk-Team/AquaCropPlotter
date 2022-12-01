@@ -9,7 +9,8 @@ AquaCropVis works with the outputs of both AquaCrop version 6 and 7. Previous ve
 AquaCropVis is currently hosted in shinyapps.io so that you do not need to install anything in your local computer. [Simply connect to the server](https://tntps.shinyapps.io/aquacropvis) and enjoy using the app. However, if you want to run AquaCropVis locally, simply install it from GitHub:
 
 ```
-install.packages("devtools") # if you are using windows you would likely need to resolve some dependencies issue when installing the library devtools
+# if you are using windows you would likely need to resolve some dependencies issue when installing the library devtools
+install.packages("devtools")
 library(devtools)
 install_github("Risk-Team/aquacrop_shiny/AquaCropVis")
 ```
