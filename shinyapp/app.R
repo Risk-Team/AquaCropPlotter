@@ -4,7 +4,7 @@ pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS,
 
 #sets of input variables to select for plotting
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
-input_plot_element_choice <- c("point", "line", "linear_trend", "linear_trend_error", "loess_smooth_trend", "loess_smooth_trend_error","background_grid")
+input_plot_element_choice <- c("point", "line", "linear_trend", "loess_smooth_trend","background_grid")
 input_legend_pos <- c("none","right","bottom","left","top")
 input_shape_choice <- c("circle", "triangle", "rectangle", "diamond", "cross", "hollow_circle", "hollow_triangle", "hollow_rectangle", "hollow_diamond")
 input_linetype_choice <- c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
@@ -314,7 +314,7 @@ ui <- dashboardPage(
                                 ),
                             box(title = "Customise plot",
                                 width = 2,
-                                height = "700px",
+                                height = "730px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("col_palette", 
@@ -336,7 +336,7 @@ ui <- dashboardPage(
                                 ),
                             box(title = "Customise labels",
                                 width = 2,
-                                height = "700px",
+                                height = "730px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("title_label", "plot title"),
@@ -348,7 +348,7 @@ ui <- dashboardPage(
                                 ),
                             box(title = "Customise font size",
                                 width = 2,
-                                height = "700px",
+                                height = "730px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("font_size_plot_title", "plot title", value = "16"),
@@ -359,7 +359,7 @@ ui <- dashboardPage(
                             ),
                             box(title = "Customise axis",
                                 width = 2,
-                                height = "700px",
+                                height = "730px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 sliderInput("y_var_range", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
@@ -367,7 +367,7 @@ ui <- dashboardPage(
                             ),
                             box(title = "Export plot",
                                 width = 2,
-                                height = "700px",
+                                height = "730px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 textInput("export_plot_width", "Width (cm)", value = "19"),
@@ -1208,7 +1208,7 @@ server <- function(input, output, session) {
       }
       updateSelectizeInput(inputId = "col_var", choices = sort(group.choices), selected = plot_var_select_cache$col_var) 
       updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
-      updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
+      updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$linetype_var) 
       updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var) 
       updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
       updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
@@ -1270,7 +1270,6 @@ server <- function(input, output, session) {
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
@@ -1445,14 +1444,19 @@ server <- function(input, output, session) {
               axis.title.x = element_text(vjust = -2.5, face = "bold"),
               axis.title.y = element_text(vjust = +2.5, face="bold"),
               legend.key = element_rect(colour = NA, fill = NA),
-              legend.key.size= unit(0.75, "cm"),
+              #legend.key.size= unit(0.75, "cm"),
               strip.background=element_rect(colour="black",fill="grey80"),
               plot.margin=unit(c(10,5,5,5),"mm")
               ) +
         scale_color_manual(values=custom_palette()) +
         scale_shape_manual(values=custom_shape()) +
         scale_linetype_manual(values = custom_linetype())+
-        guides(color = guide_legend(override.aes = list(size=3)))
+        #guides(color = guide_legend(override.aes = list(size=1)))
+        guides(color = guide_legend(keywidth = 5, keyheight = 3),
+               fill = guide_legend(keywidth = 5, keyheight = 3),
+               linetype = guide_legend(keywidth = 5, keyheight = 3),
+               shape = guide_legend(keywidth = 5, keyheight = 5)
+               )
       
       #pretty scales for numeric variable
       if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]])){
@@ -1493,7 +1497,7 @@ server <- function(input, output, session) {
       
       #select plotting elements (geom)
       if("point" %in% input$plot_element){
-        p <- p + geom_jitter(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency), width = 0.1, height = 0.1)
+        p <- p + geom_jitter(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency), width = 0.01)
       }     
       if("line" %in% input$plot_element){
         p <- p + geom_line(size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
