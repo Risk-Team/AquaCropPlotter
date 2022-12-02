@@ -157,7 +157,16 @@ ui <- dashboardPage(
                         fluidRow(
                         #display combined data table
                         tabBox(width = 12,
-                               tabPanel(title = "Seasonal dataset",
+                               tabPanel(title = "Parameter",
+                                        width = 12,
+                                        status = "primary",
+                                        solidHeader = FALSE,
+                                        #button for downloading all combined data
+                                        downloadButton("download_combined_prm", "Download", style = "margin-bottom: 15px; "),
+                                        #data table
+                                        div(dataTableOutput("prm_combined_display"), style = "font-size: 75%; width: 100%")
+                               ),
+                        tabPanel(title = "Seasonal dataset",
                             width = 12,
                             status = "primary",
                             solidHeader = FALSE,
@@ -174,17 +183,8 @@ ui <- dashboardPage(
                             downloadButton("download_combined_daily_dataset", "Download", style = "margin-bottom: 15px; "),
                             #data table
                             div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
-                        ),
-                        tabPanel(title = "Parameter",
-                            width = 12,
-                            status = "primary",
-                            solidHeader = FALSE,
-                            #button for downloading all combined data
-                            downloadButton("download_combined_prm", "Download", style = "margin-bottom: 15px; "),
-                            #data table
-                            div(dataTableOutput("prm_combined_display"), style = "font-size: 75%; width: 100%")
                         )
-                        ),
+                        ),  
                         box(title = "Rename parameter column",
                             width = 4,
                             #height = "550px",
@@ -860,7 +860,8 @@ server <- function(input, output, session) {
     })
     
     #output datatable of the combined parameters
-    output$prm_combined_display <- renderDataTable(datatable(upload_prm_combined_renamecol$data, 
+    output$prm_combined_display <- renderDataTable(datatable(upload_prm_combined_renamecol$data %>%
+                                                               select(prm.file.name, matches("name.variable[0-9]"), everything()), 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                              ))
     #for downloading combined prm
@@ -891,7 +892,8 @@ server <- function(input, output, session) {
 
    
     #output datatable of the combined data and parameters
-    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined$data, 
+    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined$data  %>%
+                                                                  select(prm.file.name, matches("name.variable[0-9]"), everything()), 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                                   ))
     #for downloading combined dataset
@@ -1008,7 +1010,8 @@ server <- function(input, output, session) {
 
     
     #output datatable of the combined daily data and parameters
-    output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined$data, 
+    output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined$data  %>%
+                                                                        select(prm.file.name, matches("name.variable[0-9]"), everything()), 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                                   ))
     #for downloading combined daily dataset
@@ -1834,7 +1837,7 @@ server <- function(input, output, session) {
         select(all_of(column.select)) %>%
         group_by(across(all_of(column.group))) %>%
         nest() %>%
-        mutate(model = map(data, function(data){
+        mutate(.model = map(data, function(data){
           mod <- lm(data = data, as.formula(paste0("`",input$regression_y_variable,"`","~","`",input$regression_x_variable,"`")))
           
           r.squared <- glance(mod)[["r.squared"]] %>% signif(digits = 3) %>% format()
@@ -1844,7 +1847,7 @@ server <- function(input, output, session) {
           summary <- data.frame(r.squared,slope,p.value)
         })) %>%
         select(-data) %>%
-        unnest(model)
+        unnest(.model)
     })
     
     #output datatable of the regression
