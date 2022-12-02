@@ -1047,6 +1047,9 @@ server <- function(input, output, session) {
         req(input$upload_all_files)
         
         choices <- c(colnames(upload_prm_combined_renamecol$data),"Year")
+        if("Stage" %in% colnames(data_prm_combined$data)){
+          choices <- c(choices, "Stage")
+        }
         updateSelectizeInput(inputId = "filter_data_column", choices = sort(choices)) 
       })
       #update variables to select to keep
@@ -1180,6 +1183,11 @@ server <- function(input, output, session) {
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
           group.choices <- setdiff(colnames(data_prm_combined$data), colnames(upload_data_combined()))
+          if("Stage" %in% colnames(data_prm_combined$data)){
+            group.choices <- c(group.choices, "Stage")
+          }
+          group.choices <- group.choices[which(!str_detect(group.choices, "\\.duration\\."))]
+          
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
@@ -1205,6 +1213,11 @@ server <- function(input, output, session) {
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
       }else{
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+        if("Stage" %in% colnames(data_prm_combined$data)){
+          group.choices <- c(group.choices, "Stage")
+        }
+        group.choices <- group.choices[which(!str_detect(group.choices, "\\.duration\\."))]
+        
       }
       updateSelectizeInput(inputId = "col_var", choices = sort(group.choices), selected = plot_var_select_cache$col_var) 
       updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
@@ -1629,6 +1642,11 @@ server <- function(input, output, session) {
     #update grouping choice
     observe({
       group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
+      if("Stage" %in% colnames(data_prm_combined_analysis$data)){
+        group.choices <- c(group.choices, "Stage")
+      }
+      group.choices <- group.choices[which(!str_detect(group.choices, "\\.duration\\."))]
+      
       updateSelectizeInput(inputId = "time_period_group", choices = sort(group.choices))
     })
     
@@ -1742,29 +1760,16 @@ server <- function(input, output, session) {
     
     ##append stress duration data to seasonal dataset for plotting and other analyses
     observeEvent(input$append_stress_data_button, {
-      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
+      req(data_prm_combined$data, data_prm_combined_analysis$data, daily_data_prm_combined_stress())
+      data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("Stage", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))) %>% distinct(),
                                           daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-      
-      updateSelectizeInput(inputId = "plot_mode", selected = "seasonal")
-      Sys.sleep(2)
-      req(data_prm_combined_plot_rename$data)
-      if(input$plot_mode == "seasonal"){
-        data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
+
+      data_prm_combined$data  <- left_join(data_prm_combined$data %>% select(all_of(setdiff(colnames(data_prm_combined$data),c("Stage", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))) %>% distinct(),
                                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
                                                          by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-      }
-
       })
-    
-    # observeEvent(input$append_stress_data_button, {
-    # req(data_prm_combined_plot_rename$data)
-    # if(input$plot_mode == "seasonal"){
-    #   data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
-    #                                                  daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
-    #                                                  by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-    #   }
-    # })
+
     
 ######regression
     
@@ -1802,6 +1807,10 @@ server <- function(input, output, session) {
         updateSelectInput(inputId = "regression_x_variable", choices = sort(axis.choices))
         #update choices for grouping variable
         group.choices <- setdiff(colnames(data_prm_combined_analysis$data), colnames(upload_data_combined()))
+        if("Stage" %in% colnames(data_prm_combined_analysis$data)){
+          group.choices <- c(group.choices, "Stage")
+        }
+        group.choices <- group.choices[which(!str_detect(group.choices, "\\.duration\\."))]
         updateSelectizeInput(inputId = "regression_group", choices = sort(group.choices)) 
       }
     })
