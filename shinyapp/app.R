@@ -419,7 +419,7 @@ ui <- dashboardPage(
                                         selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
                                         div(dataTableOutput("daily_data_prm_combined_stress_display"), style = "font-size: 75%; width: 100%"),
                                         downloadButton("download_daily_data_prm_combined_stress", "Download"),
-                                        actionButton("append_stress_data_button", "Double click to append stress data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
+                                        actionButton("append_stress_data_button", "Append stress data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
 
                                ),
                                tabPanel(title = "Regression",
@@ -1747,17 +1747,24 @@ server <- function(input, output, session) {
                                           by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
       
       updateSelectizeInput(inputId = "plot_mode", selected = "seasonal")
+      Sys.sleep(2)
+      req(data_prm_combined_plot_rename$data)
+      if(input$plot_mode == "seasonal"){
+        data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
+                                                         daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
+                                                         by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
+      }
 
       })
     
-    observeEvent(input$append_stress_data_button, {
-    req(data_prm_combined_plot_rename$data)
-    if(input$plot_mode == "seasonal"){
-      data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
-                                                     daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
-                                                     by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
-      }
-    })
+    # observeEvent(input$append_stress_data_button, {
+    # req(data_prm_combined_plot_rename$data)
+    # if(input$plot_mode == "seasonal"){
+    #   data_prm_combined_plot_rename$data  <- left_join(data_prm_combined_plot_rename$data %>% select(all_of(setdiff(colnames(data_prm_combined_plot_rename$data),c("StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))),
+    #                                                  daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
+    #                                                  by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
+    #   }
+    # })
     
 ######regression
     
