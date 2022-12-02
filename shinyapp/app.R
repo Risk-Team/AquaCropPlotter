@@ -1222,7 +1222,8 @@ server <- function(input, output, session) {
         if(input$use_mean == "Yes"){
           data_mode_selected() %>%
             group_by(across(all_of(c(input$x_var, input$col_var, input$shape_var, input$linetype_var)))) %>%
-            mutate(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE)))
+            mutate(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE))) %>%
+            ungroup()
         }else{
           data_mode_selected()
         }
@@ -1275,7 +1276,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$facet_var <- input$facet_var
       })
       #record everytime that the value change, keep only the most recent previous value and current value
-      observeEvent(input$y_var,{
+      observeEvent(input$y_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
@@ -1283,7 +1284,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
         })
-      observeEvent(input$x_var,{
+      observeEvent(input$x_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
@@ -1291,7 +1292,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
         })
-      observeEvent(input$col_var,{
+      observeEvent(input$col_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
@@ -1299,7 +1300,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
         })
-      observeEvent(input$shape_var,{
+      observeEvent(input$shape_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
@@ -1307,7 +1308,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
         })
-      observeEvent(input$facet_var,{
+      observeEvent(input$facet_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
