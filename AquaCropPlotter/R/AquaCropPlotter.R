@@ -5,7 +5,7 @@
 
 #' @return launching the app
 #' @examples
-#' aquacropvis()
+#' aquacropplotter()
 #'
 
 aquacropplotter <- function() {
