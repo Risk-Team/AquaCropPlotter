@@ -130,7 +130,7 @@ ui <- dashboardPage(
                                                  #fileInput("upload_daily_data_files", "Add more files (day.OUT)", multiple = TRUE, accept = ".OUT"),
                                                  div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 75%; width: 100%")
                                              ),
-                                             box(title = "Parameter files", status = "primary", solidHeader = TRUE, width = 4,
+                                             box(title = "Project files", status = "primary", solidHeader = TRUE, width = 4,
                                                  #upload parameter file
                                                  #fileInput("upload_prm_files", "Add more files (.PRM)", multiple = TRUE, accept = ".PRM"),
                                                  div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
@@ -208,51 +208,44 @@ ui <- dashboardPage(
                                             ),
                             actionButton("filter_data_button", "Filter"),
                             actionButton("filter_reset_button", "Reset")
-                            ),
-                        box(title = "Add labels to historical data by year",
-                            width = 4,
-                            #height = "550px",
-                            status = "primary",
-                            solidHeader = TRUE,
-                            selectizeInput("historical_column", "Select column to add label to", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                            sliderInput("historical_year", "Select year range to label", sep = "", min = 0, max = 0, value = c(0,0)),
-                            textInput("historical_text", "Label as", value = "historical"),
-                            actionButton("historical_button", "Label"),
-                            actionButton("historical_reset_button", "Reset")
-                        )
-                      )
+                            )
+                      ),
+                      actionButton("advanced_button", "Advanced data labeling", style = "margin-bottom: 15px; margin-left: 20px; "),
+                      shinyjs::hidden(div(id = "advanced_box", fluidRow(
+                          box(title = "Add labels to historical data by year",
+                          width = 4,
+                          #height = "550px",
+                          status = "primary",
+                          solidHeader = TRUE,
+                          selectizeInput("historical_column", tags$span("Select column to add label to", bsButton("advanced_info", label = "", icon = icon("info"), size = "extra-small")), choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                          bsPopover(id = "advanced_info", title = "label values of a selected column in selected year range as historical data", placement = "right", trigger = "hover"),
+                          sliderInput("historical_year", "Select year range to label", sep = "", min = 0, max = 0, value = c(0,0)),
+                          textInput("historical_text", "Label as", value = "historical"),
+                          actionButton("historical_button", "Label"),
+                          actionButton("historical_reset_button", "Reset")
+                      ))))
                     )
             ),
             tabItem(tabName = "tab_plot_plugin",
                     h2(
                         fluidRow(
                             box(title = "Select plotting variables",
-                                width = 3,
+                                width = 4,
                                 height = "500px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_mode", "Data type to plot", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
                                 selectizeInput("y_var", "Variable to plot on Y axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                 selectizeInput("x_var", "Variable to plot on X axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                                div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Next", icon = icon("chevron-right")))
+                                selectizeInput("plot_element", 
+                                               label = tags$span("Components of plot to show", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
+                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","background_grid")),
+                                bsPopover(id = "plot_info5", title = "Select or delete any number of components to show in the plot", placement = "right", trigger = "hover"),
+                                div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Plot", icon = icon("chevron-right")))
                                 ),
-                            # shinyjs::hidden(div(id = "hiddenbox1",
-                            #   box(title = "Calculate mean",
-                            #       width = 3,
-                            #       height = "450px",
-                            #       status = "primary",
-                            #       solidHeader = TRUE,
-                            #       selectInput("use_mean", 
-                            #                   label = tags$span("Plot mean values",   bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
-                            #                   c("Yes", "No"), selected = "No"),
-                            #       bsPopover(id = "plot_info1", title = "If Yes, Plot will use only mean values summarised from all data points within the grouping variable", placement = "right", trigger = "hover"),
-                            # 
-                            #       div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next2", "Next", icon = icon("chevron-right")))
-                            #   )
-                            # )),
                             shinyjs::hidden(div(id = "hiddenbox2",
-                              box(title = "Select grouping variables",
-                                width = 3,
+                              box(title = "Optional: Select grouping variables",
+                                width = 4,
                                 height = "500px",
                                 status = "primary",
                                 solidHeader = TRUE,
@@ -275,25 +268,24 @@ ui <- dashboardPage(
                                                label = tags$span("Variable to split into subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
                                                choices = NULL,
                                                multiple = TRUE, options = list(maxItems = 2)),
-                                bsPopover(id = "plot_info4", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover"),
-                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next3", "Next", icon = icon("chevron-right")))
+                                bsPopover(id = "plot_info4", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover")
                                 )
                             )),
-                             shinyjs::hidden(div(id = "hiddenbox3",
-                            box(title = "Select plot elements",
-                                width = 3,
+                            shinyjs::hidden(div(id = "hiddenbox3",
+                            box(title = "Optional: Summary statistics",
+                                width = 4,
                                 height = "500px",
                                 status = "primary",
                                 solidHeader = TRUE,
-                                selectizeInput("plot_element", 
-                                               label = tags$span("Components of plot to show", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
-                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","background_grid")),
-                                bsPopover(id = "plot_info5", title = "Select or delete any number of components to show in the plot", placement = "right", trigger = "hover"),
-                                div(style = "position:absolute;right:0.1em; bottom:0.1em;",actionButton("plot_next4", "Plot", icon = icon("chevron-right"))),
                                 selectInput("use_mean", 
-                                            label = tags$span("Plot mean values",   bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
-                                            c("Yes", "No"), selected = "No"),
-                                bsPopover(id = "plot_info1", title = "If Yes, Plot will use only mean values summarised from all data points within the grouping variable", placement = "right", trigger = "hover"),
+                                            label = tags$span("Plot summary statistics",   bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
+                                            c("none","mean","median", "sum", "min", "max"), selected = "none"),
+                                bsPopover(id = "plot_info1", title = "If Yes, Plot will use only mean values summarised from all data points within the grouping variables selected in the previous box", placement = "right", trigger = "hover"),
+                                selectizeInput("group_var", 
+                                               label = tags$span("Extra grouping variables for summary statistics", bsButton("plot_info15", label = "", icon = icon("info"), size = "extra-small")), 
+                                               choices = NULL,
+                                               multiple = TRUE),
+                                bsPopover(id = "plot_info15", title = "Selected variable will be used for calculating summary statistics together with previously selected grouping variables for plotting ", placement = "right", trigger = "hover"),
                                 )
                             ))
                         ),
@@ -1113,6 +1105,11 @@ server <- function(input, output, session) {
       })
 
 ###label historical data by year
+      #show box when action button pressed
+      observeEvent(input$advanced_button, {
+        shinyjs::toggle(id = "advanced_box")
+      })
+      
       #update choices of columns to add label to
       observe({
         req(input$standard_vs_plugin_select)
@@ -1142,16 +1139,13 @@ server <- function(input, output, session) {
 
     #reactive for showing next boxes to input plotting instructions
     observeEvent(input$plot_next1, {
+      shinyjs::show(id = "hiddenbox4")
+    })
+    observeEvent(input$plot_next1, {
       shinyjs::show(id = "hiddenbox2")
     })
-    # observeEvent(input$plot_next2, {
-    #   shinyjs::show(id = "hiddenbox2")
-    # })
-    observeEvent(input$plot_next3, {
-      shinyjs::show(id = "hiddenbox3")
-    })
-    observeEvent(input$plot_next4, {
-      shinyjs::show(id = "hiddenbox4")
+    observeEvent(input$plot_next1, {
+      shinyjs::toggle(id = "hiddenbox3")
     })
     observeEvent(input$plot_next5, {
       shinyjs::toggle(id = "hiddenbox5")
@@ -1170,11 +1164,12 @@ server <- function(input, output, session) {
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
           group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
-          group.choices <- c(group.choices, "Stage")
+          group.choices <- c(group.choices, "Stage", "Year","Month")
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "group_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
           #return data to use
@@ -1195,6 +1190,7 @@ server <- function(input, output, session) {
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "group_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
           #return data to use
@@ -1214,6 +1210,7 @@ server <- function(input, output, session) {
       #update choices for grouping variable
       if(input$plot_mode == "daily"){
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
+        group.choices <- c(group.choices, "Stage", "Year","Month")
       }else{
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
         if("Stage" %in% colnames(data_prm_combined$data)){
@@ -1226,6 +1223,7 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
       updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$linetype_var) 
       updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var) 
+      updateSelectizeInput(inputId = "group_var", choices = sort(group.choices), selected = plot_var_select_cache$group_var) 
       updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
       updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
     })
@@ -1235,10 +1233,30 @@ server <- function(input, output, session) {
         req(input$plot_mode)
         req(input$upload_all_files)
         
-        if(input$use_mean == "Yes"){
+        if(input$use_mean == "mean"){
           data_mode_selected() %>%
-            group_by(across(all_of(c(input$x_var, input$col_var, input$shape_var, input$linetype_var)))) %>%
+            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
             mutate(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE))) %>%
+            ungroup()
+        }else if(input$use_mean == "sum"){
+          data_mode_selected() %>%
+            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
+            mutate(across(where(is.numeric),  ~ sum(.x, na.rm = TRUE))) %>%
+            ungroup()
+        }else if(input$use_mean == "median"){
+          data_mode_selected() %>%
+            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
+            mutate(across(where(is.numeric),  ~ median(.x, na.rm = TRUE))) %>%
+            ungroup()
+        }else if(input$use_mean == "max"){
+          data_mode_selected() %>%
+            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
+            mutate(across(where(is.numeric),  ~ max(.x, na.rm = TRUE))) %>%
+            ungroup()
+        }else if(input$use_mean == "min"){
+          data_mode_selected() %>%
+            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
+            mutate(across(where(is.numeric),  ~ min(.x, na.rm = TRUE))) %>%
             ungroup()
         }else{
           data_mode_selected()
@@ -1274,15 +1292,17 @@ server <- function(input, output, session) {
       })
       #change value of selected variable to the value from user
       observeEvent(input$reorder_button, {
+          new_order = c(input$reorder_order, setdiff(unique(data_prm_combined_plot_rename$data[[input$reorder_variable]]),input$reorder_order))
+        
           reorder_df <- data_prm_combined_plot_rename$data
-          reorder_df[[input$reorder_variable]] <- factor(reorder_df[[input$reorder_variable]], levels = input$reorder_order)
+          reorder_df[[input$reorder_variable]] <- factor(reorder_df[[input$reorder_variable]], levels = new_order)
           data_prm_combined_plot_rename$data <- reorder_df
       })
       
      #remember variable set for plotting, so can be recovered after making change to dataframe and plotting engine reactively update, reinitialise
       plot_var_select_cache <- reactiveValues() 
       observe({
-        req(input$y_var,input$x_var, input$col_var,input$shape_var,input$linetype_var,input$facet_var)
+        req(input$y_var,input$x_var, input$col_var,input$shape_var,input$linetype_var,input$facet_var, input$group_var)
         
         plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
@@ -1290,6 +1310,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
       })
       #record everytime that the value change, keep only the most recent previous value and current value
       observeEvent(input$y_var, ignoreNULL = F,{
@@ -1299,6 +1320,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$x_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
@@ -1307,6 +1329,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$col_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
@@ -1315,6 +1338,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$shape_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
@@ -1323,6 +1347,7 @@ server <- function(input, output, session) {
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$facet_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
@@ -1331,7 +1356,17 @@ server <- function(input, output, session) {
         plot_var_select_cache$shape_var <- input$shape_var
         plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
         })
+      observeEvent(input$group_var, ignoreNULL = F,{
+        plot_var_select_cache$y_var <- input$y_var
+        plot_var_select_cache$x_var <- input$x_var
+        plot_var_select_cache$col_var <- input$col_var
+        plot_var_select_cache$shape_var <- input$shape_var
+        plot_var_select_cache$linetype_var <- input$linetype_var
+        plot_var_select_cache$facet_var <- input$facet_var
+        plot_var_select_cache$group_var <- input$group_var
+      })
 
     ###set y and x axis range in plot
       observeEvent(input$y_var, {
@@ -1352,7 +1387,27 @@ server <- function(input, output, session) {
           }
         }
       })
+      
+      ###update axis range once summary statistics are used
+      observeEvent(data_prm_combined_plot_rename$data, {
+        req(data_prm_combined_plot_rename$data, input$y_var, input$x_var)
+        if(is.numeric(data_prm_combined_plot_rename$data[[input$y_var]])){
+          min = min(data_prm_combined_plot_rename$data[[input$y_var]])
+          max = max(data_prm_combined_plot_rename$data[[input$y_var]])
+          updateSliderInput(inputId = "y_var_range", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+        }
 
+        if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]])){
+          min = min(data_prm_combined_plot_rename$data[[input$x_var]])
+          max = max(data_prm_combined_plot_rename$data[[input$x_var]])
+          if(str_detect(input$x_var, "[y,Y]ear")){
+            updateSliderInput(inputId = "x_var_range", min = min, max = max, value = c(min,max), step =1) 
+          } else{
+            updateSliderInput(inputId = "x_var_range", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+          }
+        }
+      })
+      
     #set color palette
     custom_palette <- reactive({
       default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
@@ -1416,7 +1471,7 @@ server <- function(input, output, session) {
     })
     
     ggplot_plugin <- reactive({
-      
+      req(data_prm_combined_plot_rename$data)
       withProgress(message = "Plotting", value = 0.7,{
       #initial plot according to selected coloring and group variable
       if(length(input$shape_var) > 0 & length(input$col_var) > 0 & length(input$linetype_var) > 0){
