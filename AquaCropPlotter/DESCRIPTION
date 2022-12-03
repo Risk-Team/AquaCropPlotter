@@ -1,4 +1,4 @@
-Package: AquaCropVis
+Package: AquaCropPlotter
 Type: Package
 Title: Easy loading and visualization of AquaCrop results
 Version: 1.0.0

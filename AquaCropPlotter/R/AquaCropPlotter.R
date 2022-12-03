@@ -8,7 +8,7 @@
 #' aquacropvis()
 #'
 
-aquacropvis <- function() {
+aquacropplotter <- function() {
 
 runApp(appDir = system.file("shinyapp", package="AquaCropVis"))
 
