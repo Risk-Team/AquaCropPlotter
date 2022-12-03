@@ -239,7 +239,7 @@ ui <- dashboardPage(
                                 selectizeInput("x_var", "Variable to plot on X axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                 selectizeInput("plot_element", 
                                                label = tags$span("Components of plot to show", bsButton("plot_info5", label = "", icon = icon("info"), size = "extra-small")), 
-                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "loess_smooth_trend","background_grid")),
+                                               input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","background_grid")),
                                 bsPopover(id = "plot_info5", title = "Select or delete any number of components to show in the plot", placement = "right", trigger = "hover"),
                                 div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1", "Plot", icon = icon("chevron-right")))
                                 ),
@@ -1292,8 +1292,10 @@ server <- function(input, output, session) {
       })
       #change value of selected variable to the value from user
       observeEvent(input$reorder_button, {
+          new_order = c(input$reorder_order, setdiff(unique(data_prm_combined_plot_rename$data[[input$reorder_variable]]),input$reorder_order))
+        
           reorder_df <- data_prm_combined_plot_rename$data
-          reorder_df[[input$reorder_variable]] <- factor(reorder_df[[input$reorder_variable]], levels = input$reorder_order)
+          reorder_df[[input$reorder_variable]] <- factor(reorder_df[[input$reorder_variable]], levels = new_order)
           data_prm_combined_plot_rename$data <- reorder_df
       })
       
