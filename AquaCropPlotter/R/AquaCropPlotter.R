@@ -10,6 +10,6 @@
 
 aquacropplotter <- function() {
 
-runApp(appDir = system.file("shinyapp", package="AquaCropVis"))
+runApp(appDir = system.file("shinyapp", package="AquaCropPlotter"))
 
 }
