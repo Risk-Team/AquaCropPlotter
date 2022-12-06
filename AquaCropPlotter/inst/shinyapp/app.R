@@ -117,7 +117,14 @@ ui <- dashboardPage(
                                            #display boxes for data and prm files upload
                                              box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
                                                  fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, and .PRM or .PRO)", multiple = TRUE),
-                                                 tableOutput("upload_progress")
+                                                 tableOutput("upload_progress"),
+                                                 div(textOutput("upload_warning"), style = "font-size: 18px;")
+                                             ),
+                                             box(title = "Project files", status = "primary", solidHeader = TRUE, width = 4,
+                                                 #upload parameter file
+                                                 #fileInput("upload_prm_files", "Add more files (.PRM)", multiple = TRUE, accept = ".PRM"),
+                                                 div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
+                                                 div(dataTableOutput("missing_prm_file_error"), style = "font-size: 75%; width: 100%")
                                              ),
                                              box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
                                                  #upload data file
@@ -129,12 +136,6 @@ ui <- dashboardPage(
                                                  #upload data file
                                                  #fileInput("upload_daily_data_files", "Add more files (day.OUT)", multiple = TRUE, accept = ".OUT"),
                                                  div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 75%; width: 100%")
-                                             ),
-                                             box(title = "Project files", status = "primary", solidHeader = TRUE, width = 4,
-                                                 #upload parameter file
-                                                 #fileInput("upload_prm_files", "Add more files (.PRM)", multiple = TRUE, accept = ".PRM"),
-                                                 div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                                                 div(dataTableOutput("missing_prm_file_error"), style = "font-size: 75%; width: 100%")
                                              )
                                            )
                         ),
@@ -157,7 +158,7 @@ ui <- dashboardPage(
                         fluidRow(
                         #display combined data table
                         tabBox(width = 12,
-                               tabPanel(title = "Parameter",
+                               tabPanel(title = "Project files",
                                         width = 12,
                                         status = "primary",
                                         solidHeader = FALSE,
@@ -185,7 +186,7 @@ ui <- dashboardPage(
                             div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
                         )
                         ),  
-                        box(title = "Rename parameter column",
+                        box(title = "Rename column",
                             width = 4,
                             #height = "550px",
                             status = "primary",
@@ -194,7 +195,7 @@ ui <- dashboardPage(
                             textInput("rename_col_to", "Rename to"),
                             actionButton("rename_col_button", "Rename")
                             ),
-                        box(title = "filter dataset",
+                        box(title = "Filter dataset",
                             width = 4,
                             #height = "550px",
                             status = "primary",
@@ -212,15 +213,15 @@ ui <- dashboardPage(
                       ),
                       actionButton("advanced_button", "Advanced data labeling", style = "margin-bottom: 15px; margin-left: 20px; "),
                       shinyjs::hidden(div(id = "advanced_box", fluidRow(
-                          box(title = "Add labels to historical data by year",
+                          box(title = "Add custom labels by year range",
                           width = 4,
                           #height = "550px",
                           status = "primary",
                           solidHeader = TRUE,
                           selectizeInput("historical_column", tags$span("Select column to add label to", bsButton("advanced_info", label = "", icon = icon("info"), size = "extra-small")), choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
-                          bsPopover(id = "advanced_info", title = "label values of a selected column in selected year range as historical data", placement = "right", trigger = "hover"),
+                          bsPopover(id = "advanced_info", title = "add custom labels to values of a selected column in a selected year range", placement = "right", trigger = "hover"),
                           sliderInput("historical_year", "Select year range to label", sep = "", min = 0, max = 0, value = c(0,0)),
-                          textInput("historical_text", "Label as", value = "historical"),
+                          textInput("historical_text", "Label as"),
                           actionButton("historical_button", "Label"),
                           actionButton("historical_reset_button", "Reset")
                       ))))
@@ -280,11 +281,12 @@ ui <- dashboardPage(
                                 selectInput("use_mean", 
                                             label = tags$span("Plot summary statistics",   bsButton("plot_info1", label = "", icon = icon("info"), size = "extra-small")), 
                                             c("none","mean","median", "sum", "min", "max"), selected = "none"),
-                                bsPopover(id = "plot_info1", title = "If Yes, Plot will use only mean values summarised from all data points within the grouping variables selected in the previous box", placement = "right", trigger = "hover"),
-                                selectizeInput("group_var", 
+                                bsPopover(id = "plot_info1", title = "plot the selected summary statistics from all data points within the grouping variables selected in the previous box and additional variables in the box below", placement = "right", trigger = "hover"),
+                                conditionalPanel(condition = "input.use_mean != 'none'",
+                                              selectizeInput("group_var", 
                                                label = tags$span("Extra grouping variables for summary statistics", bsButton("plot_info15", label = "", icon = icon("info"), size = "extra-small")), 
                                                choices = NULL,
-                                               multiple = TRUE),
+                                               multiple = TRUE)),
                                 bsPopover(id = "plot_info15", title = "Selected variable will be used for calculating summary statistics together with previously selected grouping variables for plotting ", placement = "right", trigger = "hover"),
                                 )
                             ))
@@ -813,6 +815,13 @@ server <- function(input, output, session) {
                                                           distinct(),
                                                           options = list(scrollX = TRUE, pageLength = 5))
     
+    #give warning/notification of number of factors detected from file names
+    upload_factors <- reactive({
+      req(input$upload_all_files)
+      length(colnames(upload_prm_combined())[str_detect(colnames(upload_prm_combined()), "name.variable[0-9]+")])
+    })
+    output$upload_warning <- renderText(paste0(upload_factors()," factors detected from file names (Multiple factors in the file name should be separated by underscores to be detected)"))
+    
     #option for renaming column name
     #create observe event module to monitor if user input select variable to rename
     #if variable selected, update the select input list for value choices of the selected variable
@@ -1202,7 +1211,7 @@ server <- function(input, output, session) {
     observe({
       req(input$plot_mode)
       req(input$upload_all_files)
-      
+
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
       updateSelectInput(inputId = "y_var", choices = sort(axis.choices), selected = plot_var_select_cache$y_var)
@@ -1217,15 +1226,15 @@ server <- function(input, output, session) {
           group.choices <- c(group.choices, "Stage")
         }
         group.choices <- group.choices[which(!str_detect(group.choices, "\\.duration\\."))]
-        
+
       }
-      updateSelectizeInput(inputId = "col_var", choices = sort(group.choices), selected = plot_var_select_cache$col_var) 
-      updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var) 
-      updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$linetype_var) 
-      updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var) 
-      updateSelectizeInput(inputId = "group_var", choices = sort(group.choices), selected = plot_var_select_cache$group_var) 
-      updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
-      updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
+      updateSelectizeInput(inputId = "col_var", choices = sort(group.choices), selected = plot_var_select_cache$col_var)
+      updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var)
+      updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$linetype_var)
+      updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var)
+      updateSelectizeInput(inputId = "group_var", choices = sort(group.choices), selected = plot_var_select_cache$group_var)
+      updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices))
+      updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices))
     })
     
     ## if plotting mean is selected, calculate mean based on grouping variable selected
@@ -1233,34 +1242,44 @@ server <- function(input, output, session) {
         req(input$plot_mode)
         req(input$upload_all_files)
         
-        if(input$use_mean == "mean"){
-          data_mode_selected() %>%
-            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
-            mutate(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE))) %>%
-            ungroup()
-        }else if(input$use_mean == "sum"){
-          data_mode_selected() %>%
-            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
-            mutate(across(where(is.numeric),  ~ sum(.x, na.rm = TRUE))) %>%
-            ungroup()
-        }else if(input$use_mean == "median"){
-          data_mode_selected() %>%
-            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
-            mutate(across(where(is.numeric),  ~ median(.x, na.rm = TRUE))) %>%
-            ungroup()
-        }else if(input$use_mean == "max"){
-          data_mode_selected() %>%
-            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
-            mutate(across(where(is.numeric),  ~ max(.x, na.rm = TRUE))) %>%
-            ungroup()
-        }else if(input$use_mean == "min"){
-          data_mode_selected() %>%
-            group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$group_var)))) %>%
-            mutate(across(where(is.numeric),  ~ min(.x, na.rm = TRUE))) %>%
-            ungroup()
-        }else{
-          data_mode_selected()
-        }
+          if(input$use_mean == "mean"){
+            tryCatch(error = function(cnd) data_mode_selected(),
+              data_mode_selected() %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              mutate(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE))) %>%
+              ungroup()
+              )
+          }else if(input$use_mean == "sum"){
+            tryCatch(error = function(cnd) data_mode_selected(),
+            data_mode_selected() %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              mutate(across(where(is.numeric),  ~ sum(.x, na.rm = TRUE))) %>%
+              ungroup()
+            )
+          }else if(input$use_mean == "median"){
+            tryCatch(error = function(cnd) data_mode_selected(),
+            data_mode_selected() %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              mutate(across(where(is.numeric),  ~ median(.x, na.rm = TRUE))) %>%
+              ungroup()
+            )
+          }else if(input$use_mean == "max"){
+            tryCatch(error = function(cnd) data_mode_selected(),
+            data_mode_selected() %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              mutate(across(where(is.numeric),  ~ max(.x, na.rm = TRUE))) %>%
+              ungroup()
+            )
+          }else if(input$use_mean == "min"){
+            tryCatch(error = function(cnd) data_mode_selected(),
+            data_mode_selected() %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              mutate(across(where(is.numeric),  ~ min(.x, na.rm = TRUE))) %>%
+              ungroup()
+            )
+          }else{
+            data_mode_selected()
+          }
       })
       
       ###option for renaming variable
