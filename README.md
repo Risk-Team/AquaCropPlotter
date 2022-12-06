@@ -4,7 +4,7 @@
 AquaCrop is the crop-water productivity model developed by the NSL division at FAO. Currently, AquaCrop produces output txt files that can be difficult to process and visualize. We intend to fill that gap by developing an R Shiny app that would automatically read the output simulations of AquaCrop and produce meaningfull plots and statistics that the user can automatically embed into reports. 
 AquaCropPlotter works with the outputs of both AquaCrop version 6 and 7. Previous versions are not recognised by the app. 
 
-## Where to find AquaCropVis
+## Where to find AquaCropPlotter
 
 AquaCropPlotter is currently hosted in shinyapps.io so that you do not need to install anything in your local computer. [Simply connect to the server](https://tntps.shinyapps.io/aquacropvis) and enjoy using the app. However, if you want to run AquaCropPlotter locally, simply install it from GitHub:
 
