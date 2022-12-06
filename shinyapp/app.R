@@ -268,7 +268,11 @@ ui <- dashboardPage(
                                 selectizeInput("facet_var", 
                                                label = tags$span("Variable to split into subpanels by", bsButton("plot_info4", label = "", icon = icon("info"), size = "extra-small")), 
                                                choices = NULL,
-                                               multiple = TRUE, options = list(maxItems = 2)),
+                                               multiple = TRUE, options = list(maxItems = 1)),
+                                selectizeInput("facet_var2", 
+                                               label = NULL,
+                                               choices = NULL,
+                                               multiple = TRUE, options = list(maxItems = 1)),
                                 bsPopover(id = "plot_info4", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover")
                                 )
                             )),
@@ -1178,6 +1182,7 @@ server <- function(input, output, session) {
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "facet_var2", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "group_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
@@ -1198,7 +1203,8 @@ server <- function(input, output, session) {
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
-          updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices)) 
+          updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices))
+          updateSelectizeInput(inputId = "facet_var2", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "group_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices)) 
@@ -1232,7 +1238,7 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var)
       updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices), selected = plot_var_select_cache$linetype_var)
       updateSelectizeInput(inputId = "facet_var", choices = sort(group.choices), selected = plot_var_select_cache$facet_var)
-      updateSelectizeInput(inputId = "group_var", choices = sort(group.choices), selected = plot_var_select_cache$group_var)
+      updateSelectizeInput(inputId = "facet_var2", choices = sort(group.choices), selected = plot_var_select_cache$facet_var2)
       updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices))
       updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices))
     })
@@ -1245,35 +1251,35 @@ server <- function(input, output, session) {
           if(input$use_mean == "mean"){
             tryCatch(error = function(cnd) data_mode_selected(),
               data_mode_selected() %>%
-              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$facet_var2, input$group_var)))) %>%
               mutate(across(where(is.numeric),  ~ mean(.x, na.rm = TRUE))) %>%
-              ungroup()
+              ungroup() 
               )
           }else if(input$use_mean == "sum"){
             tryCatch(error = function(cnd) data_mode_selected(),
             data_mode_selected() %>%
-              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$facet_var2, input$group_var)))) %>%
               mutate(across(where(is.numeric),  ~ sum(.x, na.rm = TRUE))) %>%
               ungroup()
             )
           }else if(input$use_mean == "median"){
             tryCatch(error = function(cnd) data_mode_selected(),
             data_mode_selected() %>%
-              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$facet_var2, input$group_var)))) %>%
               mutate(across(where(is.numeric),  ~ median(.x, na.rm = TRUE))) %>%
               ungroup()
             )
           }else if(input$use_mean == "max"){
             tryCatch(error = function(cnd) data_mode_selected(),
             data_mode_selected() %>%
-              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$facet_var2, input$group_var)))) %>%
               mutate(across(where(is.numeric),  ~ max(.x, na.rm = TRUE))) %>%
               ungroup()
             )
           }else if(input$use_mean == "min"){
             tryCatch(error = function(cnd) data_mode_selected(),
             data_mode_selected() %>%
-              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$group_var)))) %>%
+              group_by(across(all_of(c(input$x_var, input$col_var,input$shape_var,input$linetype_var, input$facet_var, input$facet_var2, input$group_var)))) %>%
               mutate(across(where(is.numeric),  ~ min(.x, na.rm = TRUE))) %>%
               ungroup()
             )
@@ -1320,71 +1326,32 @@ server <- function(input, output, session) {
       
      #remember variable set for plotting, so can be recovered after making change to dataframe and plotting engine reactively update, reinitialise
       plot_var_select_cache <- reactiveValues() 
-      observe({
-        req(input$y_var,input$x_var, input$col_var,input$shape_var,input$linetype_var,input$facet_var, input$group_var)
-        
-        plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
-        plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
-        plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
-      })
+      
       #record everytime that the value change, keep only the most recent previous value and current value
       observeEvent(input$y_var, ignoreNULL = F,{
         plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
-        plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
-        plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$x_var, ignoreNULL = F,{
-        plot_var_select_cache$y_var <- input$y_var
         plot_var_select_cache$x_var <- input$x_var
-        plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
-        plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$col_var, ignoreNULL = F,{
-        plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
         plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
-        plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
         })
       observeEvent(input$shape_var, ignoreNULL = F,{
-        plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
-        plot_var_select_cache$col_var <- input$col_var
         plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
-        plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
         })
+      observeEvent(input$linetype_var, ignoreNULL = F,{
+        plot_var_select_cache$linetype_var <- input$linetype_var
+      })
       observeEvent(input$facet_var, ignoreNULL = F,{
-        plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
-        plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
         plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
         })
-      observeEvent(input$group_var, ignoreNULL = F,{
-        plot_var_select_cache$y_var <- input$y_var
-        plot_var_select_cache$x_var <- input$x_var
-        plot_var_select_cache$col_var <- input$col_var
-        plot_var_select_cache$shape_var <- input$shape_var
-        plot_var_select_cache$linetype_var <- input$linetype_var
-        plot_var_select_cache$facet_var <- input$facet_var
-        plot_var_select_cache$group_var <- input$group_var
+      observeEvent(input$facet_var2, ignoreNULL = F,{
+        plot_var_select_cache$facet_var2 <- input$facet_var2
+      })
+
+      observeEvent(input$x_var_range,{
+        plot_var_select_cache$x_var_range <- input$x_var_range
       })
 
     ###set y and x axis range in plot
@@ -1578,17 +1545,19 @@ server <- function(input, output, session) {
       }
       
       #select facet variable
-      if(length(input$facet_var) == 1){
-        p <- p + facet_wrap(~get(input$facet_var[1]))
-      } else if(length(input$facet_var) == 2){
-        p <- p + facet_grid(get(input$facet_var[2])~get(input$facet_var[1]))
+      if(length(input$facet_var) == 1 & length(input$facet_var2) == 1){
+        p <- p + facet_grid(get(input$facet_var2)~get(input$facet_var))
+      } else if(length(input$facet_var) == 1){
+        p <- p + facet_grid(.~get(input$facet_var))
+      } else if(length(input$facet_var2) == 1){
+        p <- p + facet_grid(get(input$facet_var2)~.)
       } else {
         p <- p
       }
       
       #select plotting elements (geom)
       if("point" %in% input$plot_element){
-        p <- p + geom_point(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency))
+        p <- p + geom_point(size = as.numeric(input$point_size), alpha = as.numeric(input$point_transparency), stat = "unique")
       }     
       if("line" %in% input$plot_element){
         p <- p + geom_line(size = as.numeric(input$line_size), alpha = as.numeric(input$line_transparency))
@@ -1633,38 +1602,27 @@ server <- function(input, output, session) {
     #select facet variable
     observeEvent(input$facet_var, {
       if(length(input$facet_var) == 1){
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 1){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var]])) == 1){
           updateTextInput(session, "export_plot_width", value = "19")
-          updateTextInput(session,"export_plot_height", value = "12")
         }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 2){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var]])) == 2){
           updateTextInput(session, "export_plot_width", value = "29")
-          updateTextInput(session,"export_plot_height", value = "12")
         }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) > 2){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var]])) > 2){
           updateTextInput(session, "export_plot_width", value = "39")
+        }
+      }
+    })
+    observeEvent(input$facet_var2, {
+      if(length(input$facet_var2) == 1){
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var2]])) == 1){
           updateTextInput(session,"export_plot_height", value = "12")
         }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) > 3){
-          updateTextInput(session, "export_plot_width", value = "39")
-          updateTextInput(session,"export_plot_height", value = "23")
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var2]])) == 2){
+          updateTextInput(session,"export_plot_height", value = "22")
         }
-      } 
-      if(length(input$facet_var) == 2){
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 1){
-          updateTextInput(session,"export_plot_width", value = "19")
-        }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) == 2){
-          updateTextInput(session,"export_plot_width", value = "29")
-        }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[1]]])) > 2){
-          updateTextInput(session,"export_plot_width", value = "39")
-        }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) == 1){
-          updateTextInput(session,"export_plot_height", value = "12")
-        }
-        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var[2]]])) > 1){
-          updateTextInput(session,"export_plot_height", value = "23")
+        if(length(unique(data_prm_combined_plot_rename$data[[input$facet_var2]])) > 2){
+          updateTextInput(session,"export_plot_height", value = "32")
         }
       }
     })
