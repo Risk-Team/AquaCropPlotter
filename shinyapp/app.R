@@ -1404,7 +1404,7 @@ server <- function(input, output, session) {
       
       #make palette from custom colors selected from user
       if(length(input$col_palette) > 0){
-        palette <- color_choice_hex[input$col_palette]
+        palette <- c(color_choice_hex[input$col_palette], setdiff(default_palette, color_choice_hex[input$col_palette]))
       }else{
         palette <- default_palette
       }
@@ -1422,7 +1422,7 @@ server <- function(input, output, session) {
       
       #make palette from custom shapes selected from user
       if(length(input$shape_palette) > 0){
-        shape.palette <- shape_choice[input$shape_palette]
+        shape.palette <- c(shape_choice[input$shape_palette], setdiff(default_shape, shape_choice[input$shape_palette]))
       }else{
         shape.palette <- default_shape
       }
@@ -1440,7 +1440,7 @@ server <- function(input, output, session) {
       
       #make palette from custom shapes selected from user
       if(length(input$linetype_palette) > 0){
-        linetype.palette <- linetype_choice[input$linetype_palette]
+        linetype.palette <- c(linetype_choice[input$linetype_palette], setdiff(default_linetype, linetype_choice[input$linetype_palette]))
       }else{
         linetype.palette <- default_linetype
       }
@@ -1504,7 +1504,8 @@ server <- function(input, output, session) {
               legend.key = element_rect(colour = NA, fill = NA),
               #legend.key.size= unit(0.75, "cm"),
               strip.background=element_rect(colour="black",fill="grey80"),
-              plot.margin=unit(c(10,5,5,5),"mm")
+              plot.margin=unit(c(10,5,5,5),"mm"),
+              legend.box = "vertical"
               ) +
         scale_color_manual(values=custom_palette()) +
         scale_shape_manual(values=custom_shape()) +
