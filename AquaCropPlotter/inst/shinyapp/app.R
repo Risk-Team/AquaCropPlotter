@@ -232,7 +232,7 @@ ui <- dashboardPage(
                         fluidRow(
                             box(title = "Select plotting variables",
                                 width = 4,
-                                height = "500px",
+                                height = "520px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("plot_mode", "Data type to plot", c("daily","seasonal"), multiple = TRUE, options = list(maxItems = 1)),
@@ -247,7 +247,7 @@ ui <- dashboardPage(
                             shinyjs::hidden(div(id = "hiddenbox2",
                               box(title = "Optional: Select grouping variables",
                                 width = 4,
-                                height = "500px",
+                                height = "520px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectizeInput("col_var", 
@@ -279,7 +279,7 @@ ui <- dashboardPage(
                             shinyjs::hidden(div(id = "hiddenbox3",
                             box(title = "Optional: Summary statistics",
                                 width = 4,
-                                height = "500px",
+                                height = "520px",
                                 status = "primary",
                                 solidHeader = TRUE,
                                 selectInput("use_mean", 
@@ -442,6 +442,22 @@ ui <- dashboardPage(
                           div(dataTableOutput("glossary_display"), style = "font-size: 75%; width: 100%")
                           )
                     ))
+            ),
+            tabItem(tabName = "aquacrop_help",
+                    div(
+                      h2(strong("File naming convention")),
+                      h3("AquaCropPlotter facilitates the analysis of outputs from multiple AquaCrop simulations by automatically processing  all user-uploaded files at once. To allow the app to do this, some file naming conventions should be followed"),
+                      br(),
+                      h3(strong("1."), "Output files (day.OUT and season.OUT) and project files (.PRO or .PRM) of each simulation are recognised automatically by matching the name prefixes, so make sure all file names from one simulation have the same prefix (This should already be a default for output from AquaCrop)"),
+                      h3(strong("For example,"), "if a simulation is to be named simulation1, the resulting file names should be simulation1PRMday.OUT, simulation1PRMseason.OUT and simulation1.PRM"),
+                      br(),
+                      h3(strong("2."), "Variables from file name prefixes are automatically extracted when they are separated by underscores ( _ ). This allows users to supply variables/information associated with each simulation that can be used for plotting and analysis of the data inside the app"),
+                      h3(strong("For example,"), "if 2 simulations were run on different crops (maize and wheat) at two different locations, file name prefixes could be maize_location1 for simulation 1 and wheat_location2 for simulation 2"),
+                      h3("When these data are imported into the app, the detected variables are added into the dataset as new columns, designated by 'name.variable' followed by a number in the order that they were detected from the file name prefix."),
+                      h3("In this example, the first variable, crop, will be extracted into name.variable1 and the second variable, location, will be extracted into name.variable2",
+                         "These automatically generated name.variable columns can be renamed by the user to reflect the values they contain")
+
+                    )
             )
         )
     )
@@ -615,8 +631,15 @@ server <- function(input, output, session) {
             offseason.condition.file = str_extract(prm.file, ".+?\\.OFF") %>%
               unlist() %>%
               str_replace_all("(\\s)|(\\.OFF)","")
+            #start and end date of cropping period
+            cropping.period.start = str_extract(prm.file, "(?<=First day of cropping period - )[[:digit:]]+ [[:alpha:]]+ [[:digit:]]+") %>%
+              dmy() %>%
+              map_chr(function(x){paste(day(x), month(x, label = T), sep = "_")})
+            cropping.period.end = str_extract(prm.file, "(?<=Last day of cropping period - )[[:digit:]]+ [[:alpha:]]+ [[:digit:]]+") %>%
+              dmy() %>%
+              map_chr(function(x){paste(day(x), month(x, label = T), sep = "_")})
             #put parameters together in a table
-            param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file)
+            param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file, cropping.period.start, cropping.period.end)
           })) %>%
           unnest(parameter) %>%
           select(-size, -type, -datapath) %>%
@@ -640,8 +663,8 @@ server <- function(input, output, session) {
       req(input$upload_data_files_standard)
       
       upload_data_standard_combined_seasonal() %>%
-        mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
-        mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+        # mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+        # mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
     })
     
@@ -734,7 +757,7 @@ server <- function(input, output, session) {
             req(input$upload_all_files)
             
             #wrap data processing within progress bar so when it runs the progress bar shows up
-            withProgress(message = "Processing parameter data", value = 0.7,{
+            withProgress(message = "Processing project files", value = 0.7,{
               
             prm.df = input$upload_all_files %>%
                 #filter to read only .prm files
@@ -793,8 +816,15 @@ server <- function(input, output, session) {
                     offseason.condition.file = str_extract(prm.file, ".+?\\.OFF") %>%
                       unlist() %>%
                       str_replace_all("(\\s)|(\\.OFF)","")
+                    #start and end date of cropping period
+                    cropping.period.start = str_extract(prm.file, "(?<=First day of cropping period - )[[:digit:]]+ [[:alpha:]]+ [[:digit:]]+") %>%
+                      dmy() %>%
+                      map_chr(function(x){paste(day(x), month(x, label = T), sep = "_")})
+                    cropping.period.end = str_extract(prm.file, "(?<=Last day of cropping period - )[[:digit:]]+ [[:alpha:]]+ [[:digit:]]+") %>%
+                      dmy() %>%
+                      map_chr(function(x){paste(day(x), month(x, label = T), sep = "_")})
                     #put parameters together in a table
-                    param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file)
+                    param.table = data.frame(climate.file, temperature.file, reference.ET.file, rain.file, co2.file, crop.file, irrigation.file, field.management.file, soil.file, groundwater.table.file, initial.condition.file, offseason.condition.file, cropping.period.start, cropping.period.end)
                 })) %>%
                 unnest(parameter) %>%
                 select(-size, -type, -datapath) %>%
@@ -824,7 +854,7 @@ server <- function(input, output, session) {
       req(input$upload_all_files)
       length(colnames(upload_prm_combined())[str_detect(colnames(upload_prm_combined()), "name.variable[0-9]+")])
     })
-    output$upload_warning <- renderText(paste0(upload_factors()," factors detected from file names (Multiple factors in the file name should be separated by underscores to be detected)"))
+    output$upload_warning <- renderText(paste0(upload_factors()," variables detected from file names (Multiple variables separated by underscores in file names are automatically detected)"))
     
     #option for renaming column name
     #create observe event module to monitor if user input select variable to rename
@@ -865,8 +895,9 @@ server <- function(input, output, session) {
     })
     
     #output datatable of the combined parameters
-    output$prm_combined_display <- renderDataTable(datatable(upload_prm_combined_renamecol$data %>%
-                                                               select(prm.file.name, matches("name.variable[0-9]"), everything()), 
+    output$prm_combined_display <- renderDataTable(datatable(tryCatch(error = function(cnd) NULL,
+                                                              upload_prm_combined_renamecol$data %>%
+                                                               select(prm.file.name, matches("name.variable[0-9]"), everything())), 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                              ))
     #for downloading combined prm
@@ -888,8 +919,8 @@ server <- function(input, output, session) {
         }else{
           req(input$upload_all_files)
           data_prm_combined$data <- upload_data_combined() %>%
-            mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
-            mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+            # mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+            # mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
             mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
             left_join(upload_prm_combined_renamecol$data, by = "name.variable")
         }
@@ -897,8 +928,9 @@ server <- function(input, output, session) {
 
    
     #output datatable of the combined data and parameters
-    output$data_prm_combined_display <- renderDataTable(datatable(data_prm_combined$data  %>%
-                                                                  select(prm.file.name, matches("name.variable[0-9]"), everything()), 
+    output$data_prm_combined_display <- renderDataTable(datatable(tryCatch(error = function(cnd) NULL,
+                                                                  data_prm_combined$data  %>%
+                                                                  select(prm.file.name, matches("name.variable[0-9]"), everything())), 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                                   ))
     #for downloading combined dataset
@@ -1015,8 +1047,9 @@ server <- function(input, output, session) {
 
     
     #output datatable of the combined daily data and parameters
-    output$daily_data_prm_combined_display <- renderDataTable(datatable(daily_data_prm_combined$data  %>%
-                                                                        select(prm.file.name, matches("name.variable[0-9]"), everything()), 
+    output$daily_data_prm_combined_display <- renderDataTable(datatable(tryCatch(error = function(cnd) NULL,
+                                                                        daily_data_prm_combined$data  %>%
+                                                                        select(prm.file.name, matches("name.variable[0-9]"), everything())), 
                                                                   options = list(scrollX = TRUE, pageLength = 5)
                                                                   ))
     #for downloading combined daily dataset
@@ -1076,12 +1109,14 @@ server <- function(input, output, session) {
       })
       #filter data
       observeEvent(input$filter_data_button,{
+        req(input$filter_data_column)
         if(input$filter_data_column == "Year"){ 
           daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
             filter(Year >= as.numeric(input$filter_data_num[1]) & Year <= as.numeric(input$filter_data_num[2]))
           data_prm_combined$data <- data_prm_combined$data %>%
             filter(Year1 >= as.numeric(input$filter_data_num[1]) & Year1 <= as.numeric(input$filter_data_num[2]))
         }else{
+          req(input$filter_data_chr)
           daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
             filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
           data_prm_combined$data <- data_prm_combined$data %>%
@@ -1110,8 +1145,8 @@ server <- function(input, output, session) {
           }else{
             req(input$upload_all_files)
             data_prm_combined$data <- upload_data_combined() %>%
-              mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
-              mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
+              # mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
+              # mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
               mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
               left_join(upload_prm_combined_renamecol$data, by = "name.variable")
           }
@@ -1142,6 +1177,7 @@ server <- function(input, output, session) {
       observeEvent(input$historical_button, {
         req(input$standard_vs_plugin_select)
         req(input$upload_all_files)
+        req(input$historical_text)
           daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
             mutate(!!input$historical_column := ifelse(Year >= as.numeric(input$historical_year[1]) & Year <= as.numeric(input$historical_year[2]), input$historical_text, .data[[input$historical_column]]))
           data_prm_combined$data <- data_prm_combined$data %>%
@@ -1158,7 +1194,7 @@ server <- function(input, output, session) {
       shinyjs::show(id = "hiddenbox2")
     })
     observeEvent(input$plot_next1, {
-      shinyjs::toggle(id = "hiddenbox3")
+      shinyjs::show(id = "hiddenbox3")
     })
     observeEvent(input$plot_next5, {
       shinyjs::toggle(id = "hiddenbox5")
@@ -1178,6 +1214,7 @@ server <- function(input, output, session) {
           #update choices for grouping variable
           group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
           group.choices <- c(group.choices, "Stage", "Year","Month")
+          group.choices <- setdiff(group.choices, "date")
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices)) 
           updateSelectizeInput(inputId = "linetype_var", choices = sort(group.choices)) 
@@ -1214,7 +1251,8 @@ server <- function(input, output, session) {
       })
     
 
-    observe({
+      delay(10000, 
+      observe({
       req(input$plot_mode)
       req(input$upload_all_files)
 
@@ -1226,13 +1264,13 @@ server <- function(input, output, session) {
       if(input$plot_mode == "daily"){
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
         group.choices <- c(group.choices, "Stage", "Year","Month")
+        group.choices <- setdiff(group.choices, "date")
       }else{
         group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
         if("Stage" %in% colnames(data_prm_combined$data)){
           group.choices <- c(group.choices, "Stage")
         }
         group.choices <- group.choices[which(!str_detect(group.choices, "\\.duration\\."))]
-
       }
       updateSelectizeInput(inputId = "col_var", choices = sort(group.choices), selected = plot_var_select_cache$col_var)
       updateSelectizeInput(inputId = "shape_var", choices = sort(group.choices), selected = plot_var_select_cache$shape_var)
@@ -1242,6 +1280,12 @@ server <- function(input, output, session) {
       updateSelectizeInput(inputId = "rename_variable", choices = sort(group.choices))
       updateSelectizeInput(inputId = "reorder_variable", choices = sort(group.choices))
     })
+    )
+    
+    observe({
+       updateSliderInput(inputId = "x_var_range", value = c(plot_var_select_cache$x_var_range1, plot_var_select_cache$x_var_range2))
+      
+     })
     
     ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
@@ -1317,6 +1361,7 @@ server <- function(input, output, session) {
       })
       #change value of selected variable to the value from user
       observeEvent(input$reorder_button, {
+        req(input$reorder_variable, input$reorder_order)
           new_order = c(input$reorder_order, setdiff(unique(data_prm_combined_plot_rename$data[[input$reorder_variable]]),input$reorder_order))
         
           reorder_df <- data_prm_combined_plot_rename$data
@@ -1350,8 +1395,9 @@ server <- function(input, output, session) {
         plot_var_select_cache$facet_var2 <- input$facet_var2
       })
 
-      observeEvent(input$x_var_range,{
-        plot_var_select_cache$x_var_range <- input$x_var_range
+      observeEvent(input$x_var_range, ignoreNULL = F,{
+        plot_var_select_cache$x_var_range1 <- input$x_var_range[1]
+        plot_var_select_cache$x_var_range2 <- input$x_var_range[2]
       })
 
     ###set y and x axis range in plot
@@ -1834,7 +1880,8 @@ server <- function(input, output, session) {
         updateSelectInput(inputId = "regression_x_variable", choices = sort(axis.choices))
         #update choices for grouping variable
         group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
-        group.choices <- c(group.choices, "Stage")
+        group.choices <- c(group.choices, "Stage", "Year","Month")
+        group.choices <- setdiff(group.choices, "date")
         updateSelectizeInput(inputId = "regression_group", choices = sort(group.choices)) 
       }else{
         #update choices for variables
