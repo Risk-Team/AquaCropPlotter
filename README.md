@@ -6,7 +6,7 @@ AquaCropPlotter works with the outputs of both AquaCrop version 6 and 7. Previou
 
 ## Where to find AquaCropPlotter
 
-AquaCropPlotter is currently hosted in shinyapps.io so that you do not need to install anything in your local computer. [Simply connect to the server](https://tntps.shinyapps.io/aquacropvis) and enjoy using the app. However, if you want to run AquaCropPlotter locally, simply install it from GitHub:
+AquaCropPlotter is currently hosted in shinyapps.io so that you do not need to install anything in your local computer. [Simply connect to the server](https://tntps.shinyapps.io/aquacropplotter/) and enjoy using the app. However, if you want to run AquaCropPlotter locally, simply install it from GitHub:
 
 ```
 # if you are using windows you would likely need to resolve some dependencies issues when installing the library devtools
