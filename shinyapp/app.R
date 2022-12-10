@@ -480,9 +480,9 @@ server <- function(input, output, session) {
     
     ##glossary for varaible names
     glossary <- reactive({
-      read.csv("glossary.csv")
+      read.csv("www/glossary.csv")
     })
-    output$glossary_display <- renderDataTable(glossary())
+    output$glossary_display <- renderDataTable(glossary(), rownames = FALSE, options = list(pageLength = 140))
     
     ##########standard
     ###upload data
