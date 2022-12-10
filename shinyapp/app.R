@@ -20,7 +20,7 @@ ui <- dashboardPage(
     #   title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
     #           tags$img(src="shinyaquacrop_logo.png",height="121",width="181"))
     #   ),
-    dashboardHeader(title = "ShinyApp"),
+    dashboardHeader(title = "AquaCropPlotter"),
     
     dashboardSidebar(collapsed = FALSE,
         # Adjust the sidebar padding to allow large logo in the heading
@@ -47,7 +47,7 @@ ui <- dashboardPage(
                                     .main-sidebar {font-weight: bold; font-size: 22px;}
                                     .treeview-menu>li>a {font-weight: bold; font-size: 22px!important;}
                                     
-                                    .skin-blue .main-header .logo {background-color: #ffffff;}
+                                    .skin-blue .main-header .logo {background-color: #ffffff; color: #446380;}
                                     .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
                                     .skin-blue .main-header .navbar {background-color: #ffffff;}
                                     .skin-blue .main-sidebar {background-color: #D4EAFF; color: #D4EAFF;}
