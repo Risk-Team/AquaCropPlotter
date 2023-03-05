@@ -116,7 +116,7 @@ ui <- dashboardPage(
                           conditionalPanel(condition = "input.standard_vs_plugin_select == 'plugin'",
                                            #display boxes for data and prm files upload
                                              box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
-                                                 fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, and .PRM or .PRO)", multiple = TRUE),
+                                                 fileInput("upload_all_files", "Upload all files (season.OUT, .PRM or .PRO, (optional: day.out))", multiple = TRUE),
                                                  tableOutput("upload_progress"),
                                                  div(textOutput("upload_warning"), style = "font-size: 18px;")
                                              ),
@@ -942,6 +942,13 @@ server <- function(input, output, session) {
     )
     
     ###daily data
+    #first check if daily data are uploaded
+    daily_upload_check <- reactive({
+      req(input$upload_all_files)
+      any(str_detect(input$upload_all_files$name, "day\\.OUT$"))
+    })
+
+    #
     upload_daily_data_combined <-
       reactive({
         # #require uploaded data files before evaluating
@@ -957,6 +964,9 @@ server <- function(input, output, session) {
         
         #get a list of file paths from uploaded files
         req(input$upload_all_files)
+        
+        #check if daily data uploaded, only run if daily data were uploaded
+        req(daily_upload_check())
         
         #wrap data processing within progress bar so when it runs the progress bar shows up
         withProgress(message = "Processing daily data", value = 0.7,{
@@ -1046,6 +1056,15 @@ server <- function(input, output, session) {
     })
 
     
+    #if no daily data uploaded, reset the dataframe to NULL
+    observe({
+      req(input$standard_vs_plugin_select)
+      req(input$upload_all_files)
+      if(daily_upload_check() == FALSE){
+        daily_data_prm_combined$data <- NULL
+      }
+    })
+
     #output datatable of the combined daily data and parameters
     output$daily_data_prm_combined_display <- renderDataTable(datatable(tryCatch(error = function(cnd) NULL,
                                                                         daily_data_prm_combined$data  %>%
@@ -1201,6 +1220,17 @@ server <- function(input, output, session) {
     })
     
     ###data for plotting
+    
+    #update options for plot mode, if daily data not uploaded, remove daily option for plot mode
+    observe({
+      req(input$upload_all_files)
+      if(daily_upload_check() == FALSE){
+        updateSelectizeInput(inputId = "plot_mode", choices = c("seasonal"))
+      }else{
+        updateSelectizeInput(inputId = "plot_mode", choices = c("daily","seasonal"))
+      }
+    })
+    
     ##select data mode daily or seasonal  
       data_mode_selected <- reactive({
         req(input$plot_mode)
