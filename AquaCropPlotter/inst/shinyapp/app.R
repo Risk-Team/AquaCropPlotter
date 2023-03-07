@@ -116,7 +116,7 @@ ui <- dashboardPage(
                           conditionalPanel(condition = "input.standard_vs_plugin_select == 'plugin'",
                                            #display boxes for data and prm files upload
                                              box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
-                                                 fileInput("upload_all_files", "Upload all files (season.OUT, day.OUT, and .PRM or .PRO)", multiple = TRUE),
+                                                 fileInput("upload_all_files", "Upload all files (season.OUT, .PRM or .PRO, (optional: day.out))", multiple = TRUE),
                                                  tableOutput("upload_progress"),
                                                  div(textOutput("upload_warning"), style = "font-size: 18px;")
                                              ),
@@ -498,6 +498,7 @@ server <- function(input, output, session) {
         #list of file extensions of all output files (9 files)
         file.extension = c("Clim.OUT","CompEC.OUT","CompWC.OUT","Crop.OUT","Inet.OUT","Prof.OUT","Run.OUT","Salt.OUT","Wabal.OUT")
         
+        withProgress(message = "Processing data", value = 0.7,{
         #read data
         input$upload_data_files_standard %>%
           filter(str_detect(name, "\\.OUT$")) %>%
@@ -529,7 +530,7 @@ server <- function(input, output, session) {
               select(-1) #remove blank column at the start
           })) %>%
           select(-size, -type, -datapath) 
-        
+        })
       })
     
     #output uploaded files list
@@ -573,6 +574,7 @@ server <- function(input, output, session) {
         #set up parallel processing for future_map function
         plan(multisession, workers = 2) 
         
+        withProgress(message = "Processing PRM data", value = 0.7,{
         #get a list of prm file path from uploaded
         prm.df = input$upload_data_files_standard %>%
           #filter to read only .prm files
@@ -646,6 +648,7 @@ server <- function(input, output, session) {
           mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file)) %>%
           mutate(name.variable = str_replace(name, "\\.PRM$","")) %>%
           rename(prm.file.name = name)
+        })
         
         #check name for _ delimiter to extract different variables out of file name and give number
         n.name.var = str_split(prm.df$name.variable,"_") %>%
@@ -662,10 +665,12 @@ server <- function(input, output, session) {
     data_prm_standard_combined_seasonal <- reactive({
       req(input$upload_data_files_standard)
       
+      withProgress(message = "Processing seasonal data", value = 0.7,{
       upload_data_standard_combined_seasonal() %>%
         # mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
         # mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+      })  
     })
     
     
@@ -673,9 +678,11 @@ server <- function(input, output, session) {
     data_prm_standard_combined_daily <- reactive({
       req(input$upload_data_files_standard)
       
+      withProgress(message = "Processing daily data", value = 0.7,{
       upload_data_standard_combined_daily() %>%    
         mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+      })  
     })
     
     output$prm_std <- renderDataTable(datatable(upload_prm_standard_combined(), options = list(scrollX = TRUE)))
@@ -863,19 +870,20 @@ server <- function(input, output, session) {
     
     observe({
       req(input$standard_vs_plugin_select)
-      req(input$upload_all_files)
       
       #select if standard or plugin mode used
       if(input$standard_vs_plugin_select == "standard"){
+        req(input$upload_data_files_standard)
         upload_prm_combined_renamecol$data <- upload_prm_standard_combined()
       }else{
+        req(input$upload_all_files)
         upload_prm_combined_renamecol$data <- upload_prm_combined()
       }
     })
     
     observe({
       req(input$standard_vs_plugin_select)
-      req(input$upload_all_files)
+      req(upload_prm_combined_renamecol$data)
       
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
@@ -915,6 +923,7 @@ server <- function(input, output, session) {
 
         #select if standard or plugin mode used
         if(input$standard_vs_plugin_select == "standard"){
+          req(input$upload_data_files_standard)
           data_prm_combined$data <- data_prm_standard_combined_seasonal()
         }else{
           req(input$upload_all_files)
@@ -942,6 +951,13 @@ server <- function(input, output, session) {
     )
     
     ###daily data
+    #first check if daily data are uploaded
+    daily_upload_check <- reactive({
+      req(input$upload_all_files)
+      any(str_detect(input$upload_all_files$name, "day\\.OUT$"))
+    })
+
+    #
     upload_daily_data_combined <-
       reactive({
         # #require uploaded data files before evaluating
@@ -957,6 +973,9 @@ server <- function(input, output, session) {
         
         #get a list of file paths from uploaded files
         req(input$upload_all_files)
+        
+        #check if daily data uploaded, only run if daily data were uploaded
+        req(daily_upload_check())
         
         #wrap data processing within progress bar so when it runs the progress bar shows up
         withProgress(message = "Processing daily data", value = 0.7,{
@@ -1034,10 +1053,10 @@ server <- function(input, output, session) {
       req(input$standard_vs_plugin_select)
         #select if standard or plugin mode used
         if(input$standard_vs_plugin_select == "standard"){
+          req(input$upload_data_files_standard)
           daily_data_prm_combined$data <- data_prm_standard_combined_daily()
         }else{
           req(input$upload_all_files)
-          
           daily_data_prm_combined$data <- upload_daily_data_combined() %>%    
             mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
             mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
@@ -1046,6 +1065,15 @@ server <- function(input, output, session) {
     })
 
     
+    #if no daily data uploaded, reset the dataframe to NULL
+    observe({
+      req(input$standard_vs_plugin_select)
+      req(input$upload_all_files)
+      if(daily_upload_check() == FALSE){
+        daily_data_prm_combined$data <- NULL
+      }
+    })
+
     #output datatable of the combined daily data and parameters
     output$daily_data_prm_combined_display <- renderDataTable(datatable(tryCatch(error = function(cnd) NULL,
                                                                         daily_data_prm_combined$data  %>%
@@ -1183,7 +1211,8 @@ server <- function(input, output, session) {
           data_prm_combined$data <- data_prm_combined$data %>%
             mutate(!!input$historical_column := ifelse(Year1 >= as.numeric(input$historical_year[1]) & Year1 <= as.numeric(input$historical_year[2]), input$historical_text, .data[[input$historical_column]]))
       })
-      
+
+            
 ############### ggplot ###############
 
     #reactive for showing next boxes to input plotting instructions
@@ -1201,18 +1230,34 @@ server <- function(input, output, session) {
     })
     
     ###data for plotting
+    
+    #update options for plot mode, if daily data not uploaded, remove daily option for plot mode
+    observe({
+      req(input$upload_all_files)
+      if(daily_upload_check() == FALSE){
+        updateSelectizeInput(inputId = "plot_mode", choices = c("seasonal"))
+      }else{
+        updateSelectizeInput(inputId = "plot_mode", choices = c("daily","seasonal"))
+      }
+    })
+    
     ##select data mode daily or seasonal  
       data_mode_selected <- reactive({
         req(input$plot_mode)
-        req(input$upload_all_files)
-        
+
         if(input$plot_mode == "daily"){
+          req(daily_data_prm_combined$data)
           #update choices for plotting axis
           axis.choices = unique(colnames(daily_data_prm_combined$data))
           updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
-          group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
+          group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+            setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
+          } else{
+            setdiff(colnames(daily_data_prm_combined$data), colnames(upload_data_standard_combined_daily()))
+          }
+            
           group.choices <- c(group.choices, "Stage", "Year","Month")
           group.choices <- setdiff(group.choices, "date")
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
@@ -1226,12 +1271,18 @@ server <- function(input, output, session) {
           #return data to use
           daily_data_prm_combined$data
         }else{
+          req(data_prm_combined$data)
           #update choices for plotting axis
           axis.choices = unique(colnames(data_prm_combined$data))
           updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
-          group.choices <- setdiff(colnames(data_prm_combined$data), colnames(upload_data_combined()))
+          group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+            setdiff(colnames(data_prm_combined$data), colnames(upload_data_combined()))
+          } else{
+            setdiff(colnames(data_prm_combined$data), colnames(upload_data_standard_combined_seasonal()))
+          }
+          
           if("Stage" %in% colnames(data_prm_combined$data)){
             group.choices <- c(group.choices, "Stage")
           }
@@ -1254,7 +1305,7 @@ server <- function(input, output, session) {
       delay(10000, 
       observe({
       req(input$plot_mode)
-      req(input$upload_all_files)
+      req(data_prm_combined_plot_rename$data)
 
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
@@ -1262,11 +1313,20 @@ server <- function(input, output, session) {
       updateSelectInput(inputId = "x_var", choices = sort(axis.choices), selected = plot_var_select_cache$x_var)
       #update choices for grouping variable
       if(input$plot_mode == "daily"){
-        group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
+        group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
+        } else{
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_standard_combined_daily()))
+        }
         group.choices <- c(group.choices, "Stage", "Year","Month")
         group.choices <- setdiff(group.choices, "date")
       }else{
-        group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+        group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+        } else{
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_standard_combined_seasonal()))
+        }
+        
         if("Stage" %in% colnames(data_prm_combined$data)){
           group.choices <- c(group.choices, "Stage")
         }
@@ -1290,7 +1350,7 @@ server <- function(input, output, session) {
     ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
         req(input$plot_mode)
-        req(input$upload_all_files)
+        req(data_mode_selected())
         
           if(input$use_mean == "mean"){
             tryCatch(error = function(cnd) data_mode_selected(),
@@ -1786,6 +1846,7 @@ server <- function(input, output, session) {
     #calculate summary 
     daily_data_prm_combined_stress <- reactive({
       req(input$upload_all_files)
+      req(daily_upload_check()) #require that daily data are uploaded
       
       #selecting variables
       
@@ -1854,6 +1915,16 @@ server <- function(input, output, session) {
 
     
 ######regression
+    
+    #update options for data mode, if daily data not uploaded, remove daily option for mode
+    observe({
+      req(input$upload_all_files)
+      if(daily_upload_check() == FALSE){
+        updateSelectizeInput(inputId = "regression_mode", choices = c("seasonal"))
+      }else{
+        updateSelectizeInput(inputId = "regression_mode", choices = c("daily","seasonal"))
+      }
+    })
     
     ##select data mode daily or seasonal  
     data_mode_selected_regression <- reactive({
