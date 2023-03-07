@@ -863,19 +863,20 @@ server <- function(input, output, session) {
     
     observe({
       req(input$standard_vs_plugin_select)
-      req(input$upload_all_files)
       
       #select if standard or plugin mode used
       if(input$standard_vs_plugin_select == "standard"){
+        req(input$upload_data_files_standard)
         upload_prm_combined_renamecol$data <- upload_prm_standard_combined()
       }else{
+        req(input$upload_all_files)
         upload_prm_combined_renamecol$data <- upload_prm_combined()
       }
     })
     
     observe({
       req(input$standard_vs_plugin_select)
-      req(input$upload_all_files)
+      req(upload_prm_combined_renamecol$data)
       
       choices <- colnames(upload_prm_combined_renamecol$data)
       choices <- choices[! choices %in% c("name.variable")]
