@@ -1761,6 +1761,10 @@ server <- function(input, output, session) {
         hideTab("analysis_tabbox", "Time period window")
         hideTab("analysis_tabbox", "Stress duration")
         hideTab("analysis_tabbox", "Regression")
+      } else{
+        showTab("analysis_tabbox", "Time period window")
+        showTab("analysis_tabbox", "Stress duration")
+        showTab("analysis_tabbox", "Regression")
       }
     })
     
