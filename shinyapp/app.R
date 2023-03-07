@@ -498,6 +498,7 @@ server <- function(input, output, session) {
         #list of file extensions of all output files (9 files)
         file.extension = c("Clim.OUT","CompEC.OUT","CompWC.OUT","Crop.OUT","Inet.OUT","Prof.OUT","Run.OUT","Salt.OUT","Wabal.OUT")
         
+        withProgress(message = "Processing data", value = 0.7,{
         #read data
         input$upload_data_files_standard %>%
           filter(str_detect(name, "\\.OUT$")) %>%
@@ -529,7 +530,7 @@ server <- function(input, output, session) {
               select(-1) #remove blank column at the start
           })) %>%
           select(-size, -type, -datapath) 
-        
+        })
       })
     
     #output uploaded files list
@@ -573,6 +574,7 @@ server <- function(input, output, session) {
         #set up parallel processing for future_map function
         plan(multisession, workers = 2) 
         
+        withProgress(message = "Processing PRM data", value = 0.7,{
         #get a list of prm file path from uploaded
         prm.df = input$upload_data_files_standard %>%
           #filter to read only .prm files
@@ -646,6 +648,7 @@ server <- function(input, output, session) {
           mutate(irrigation.file = ifelse(is.na(irrigation.file), "rainfed", irrigation.file)) %>%
           mutate(name.variable = str_replace(name, "\\.PRM$","")) %>%
           rename(prm.file.name = name)
+        })
         
         #check name for _ delimiter to extract different variables out of file name and give number
         n.name.var = str_split(prm.df$name.variable,"_") %>%
@@ -662,10 +665,12 @@ server <- function(input, output, session) {
     data_prm_standard_combined_seasonal <- reactive({
       req(input$upload_data_files_standard)
       
+      withProgress(message = "Processing seasonal data", value = 0.7,{
       upload_data_standard_combined_seasonal() %>%
         # mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
         # mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+      })  
     })
     
     
@@ -673,9 +678,11 @@ server <- function(input, output, session) {
     data_prm_standard_combined_daily <- reactive({
       req(input$upload_data_files_standard)
       
+      withProgress(message = "Processing daily data", value = 0.7,{
       upload_data_standard_combined_daily() %>%    
         mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+      })  
     })
     
     output$prm_std <- renderDataTable(datatable(upload_prm_standard_combined(), options = list(scrollX = TRUE)))
