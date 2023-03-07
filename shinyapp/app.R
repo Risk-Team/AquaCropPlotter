@@ -392,6 +392,7 @@ ui <- dashboardPage(
                     h2(
                       fluidRow(
                         tabBox(width = 12,
+                               id = "analysis_tabbox",
                                tabPanel(title = "Time period window",
                                         width = 12,
                                         status = "primary",
@@ -1157,6 +1158,7 @@ server <- function(input, output, session) {
           req(input$standard_vs_plugin_select)
           #select if standard or plugin mode used
           if(input$standard_vs_plugin_select == "standard"){
+            req(input$upload_data_files_standard)
             daily_data_prm_combined$data <- data_prm_standard_combined_daily()
           }else{
             req(input$upload_all_files)
@@ -1169,6 +1171,7 @@ server <- function(input, output, session) {
           req(input$standard_vs_plugin_select)
           #select if standard or plugin mode used
           if(input$standard_vs_plugin_select == "standard"){
+            req(input$upload_data_files_standard)
             data_prm_combined$data <- data_prm_standard_combined_seasonal()
           }else{
             req(input$upload_all_files)
@@ -1751,6 +1754,15 @@ server <- function(input, output, session) {
     
     
 ###### Analysis ####    
+
+###if standard aquacrop mode selected, hide analysis tabs
+    observeEvent(input$standard_vs_plugin_select, {
+      if (input$standard_vs_plugin_select == "standard") {
+        hideTab("analysis_tabbox", "Time period window")
+        hideTab("analysis_tabbox", "Stress duration")
+        hideTab("analysis_tabbox", "Regression")
+      }
+    })
     
 ###create reactive dataset for analyses (take from seasonal data)
     data_prm_combined_analysis <- reactiveValues()
