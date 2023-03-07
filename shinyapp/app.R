@@ -1816,6 +1816,7 @@ server <- function(input, output, session) {
     #calculate summary 
     daily_data_prm_combined_stress <- reactive({
       req(input$upload_all_files)
+      req(daily_upload_check()) #require that daily data are uploaded
       
       #selecting variables
       
@@ -1884,6 +1885,16 @@ server <- function(input, output, session) {
 
     
 ######regression
+    
+    #update options for data mode, if daily data not uploaded, remove daily option for mode
+    observe({
+      req(input$upload_all_files)
+      if(daily_upload_check() == FALSE){
+        updateSelectizeInput(inputId = "regression_mode", choices = c("seasonal"))
+      }else{
+        updateSelectizeInput(inputId = "regression_mode", choices = c("daily","seasonal"))
+      }
+    })
     
     ##select data mode daily or seasonal  
     data_mode_selected_regression <- reactive({
