@@ -923,6 +923,7 @@ server <- function(input, output, session) {
 
         #select if standard or plugin mode used
         if(input$standard_vs_plugin_select == "standard"){
+          req(input$upload_data_files_standard)
           data_prm_combined$data <- data_prm_standard_combined_seasonal()
         }else{
           req(input$upload_all_files)
@@ -1052,10 +1053,10 @@ server <- function(input, output, session) {
       req(input$standard_vs_plugin_select)
         #select if standard or plugin mode used
         if(input$standard_vs_plugin_select == "standard"){
+          req(input$upload_data_files_standard)
           daily_data_prm_combined$data <- data_prm_standard_combined_daily()
         }else{
           req(input$upload_all_files)
-          
           daily_data_prm_combined$data <- upload_daily_data_combined() %>%    
             mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
             mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
@@ -1210,7 +1211,8 @@ server <- function(input, output, session) {
           data_prm_combined$data <- data_prm_combined$data %>%
             mutate(!!input$historical_column := ifelse(Year1 >= as.numeric(input$historical_year[1]) & Year1 <= as.numeric(input$historical_year[2]), input$historical_text, .data[[input$historical_column]]))
       })
-      
+
+            
 ############### ggplot ###############
 
     #reactive for showing next boxes to input plotting instructions
@@ -1242,15 +1244,20 @@ server <- function(input, output, session) {
     ##select data mode daily or seasonal  
       data_mode_selected <- reactive({
         req(input$plot_mode)
-        req(input$upload_all_files)
-        
+
         if(input$plot_mode == "daily"){
+          req(daily_data_prm_combined$data)
           #update choices for plotting axis
           axis.choices = unique(colnames(daily_data_prm_combined$data))
           updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
-          group.choices <- setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
+          group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+            setdiff(colnames(daily_data_prm_combined$data), colnames(upload_daily_data_combined()))
+          } else{
+            setdiff(colnames(daily_data_prm_combined$data), colnames(upload_data_standard_combined_daily()))
+          }
+            
           group.choices <- c(group.choices, "Stage", "Year","Month")
           group.choices <- setdiff(group.choices, "date")
           updateSelectizeInput(inputId = "col_var", choices = sort(group.choices)) 
@@ -1264,12 +1271,18 @@ server <- function(input, output, session) {
           #return data to use
           daily_data_prm_combined$data
         }else{
+          req(data_prm_combined$data)
           #update choices for plotting axis
           axis.choices = unique(colnames(data_prm_combined$data))
           updateSelectInput(inputId = "y_var", choices = sort(axis.choices))
           updateSelectInput(inputId = "x_var", choices = sort(axis.choices))
           #update choices for grouping variable
-          group.choices <- setdiff(colnames(data_prm_combined$data), colnames(upload_data_combined()))
+          group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+            setdiff(colnames(data_prm_combined$data), colnames(upload_data_combined()))
+          } else{
+            setdiff(colnames(data_prm_combined$data), colnames(upload_data_standard_combined_seasonal()))
+          }
+          
           if("Stage" %in% colnames(data_prm_combined$data)){
             group.choices <- c(group.choices, "Stage")
           }
@@ -1292,7 +1305,7 @@ server <- function(input, output, session) {
       delay(10000, 
       observe({
       req(input$plot_mode)
-      req(input$upload_all_files)
+      req(data_prm_combined_plot_rename$data)
 
       #update choices for plotting axis
       axis.choices = unique(colnames(data_prm_combined_plot_rename$data))
@@ -1300,11 +1313,20 @@ server <- function(input, output, session) {
       updateSelectInput(inputId = "x_var", choices = sort(axis.choices), selected = plot_var_select_cache$x_var)
       #update choices for grouping variable
       if(input$plot_mode == "daily"){
-        group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
+        group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_daily_data_combined()))
+        } else{
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_standard_combined_daily()))
+        }
         group.choices <- c(group.choices, "Stage", "Year","Month")
         group.choices <- setdiff(group.choices, "date")
       }else{
-        group.choices <- setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+        group.choices <- if(input$standard_vs_plugin_select == "plugin"){
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_combined()))
+        } else{
+          setdiff(colnames(data_prm_combined_plot_rename$data), colnames(upload_data_standard_combined_seasonal()))
+        }
+        
         if("Stage" %in% colnames(data_prm_combined$data)){
           group.choices <- c(group.choices, "Stage")
         }
@@ -1328,7 +1350,7 @@ server <- function(input, output, session) {
     ## if plotting mean is selected, calculate mean based on grouping variable selected
       data_prm_combined_plot <- reactive({
         req(input$plot_mode)
-        req(input$upload_all_files)
+        req(data_mode_selected())
         
           if(input$use_mean == "mean"){
             tryCatch(error = function(cnd) data_mode_selected(),
