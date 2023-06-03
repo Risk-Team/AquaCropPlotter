@@ -1567,7 +1567,8 @@ server <- function(input, output, session) {
     
     ggplot_plugin <- reactive({
       req(data_prm_combined_plot_rename$data)
-      withProgress(message = "Plotting", value = 0.7,{
+      showModal(modalDialog(title = "Processing data...", "Please wait while the data is being processed. ", easyClose=FALSE, footer = NULL))
+      
       #initial plot according to selected coloring and group variable
       if(length(input$shape_var) > 0 & length(input$col_var) > 0 & length(input$linetype_var) > 0){
         p <- ggplot(data = data_prm_combined_plot_rename$data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]], group = interaction(.data[[input$shape_var]], .data[[input$col_var]], .data[[input$linetype_var]]), col = .data[[input$col_var]], fill = .data[[input$col_var]], shape = .data[[input$shape_var]], linetype = .data[[input$linetype_var]]))
@@ -1705,7 +1706,8 @@ server <- function(input, output, session) {
         p <- p + labs(title = paste(input$title_label))
       }
       print(p)
-      })
+      
+      removeModal()
     })
     
     #adjust default plot size according to facets
