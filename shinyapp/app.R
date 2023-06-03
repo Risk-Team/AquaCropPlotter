@@ -1705,6 +1705,15 @@ server <- function(input, output, session) {
       if(nchar(input$title_label) > 0){
         p <- p + labs(title = paste(input$title_label))
       }
+      #reset custom title when axis choice changes
+      observeEvent(input$x_var,ignoreInit = T, {
+        updateTextInput(inputId = "x_var_label", value = "")
+      })
+      observeEvent(input$y_var, ignoreInit = T, {
+        updateTextInput(inputId = "y_var_label", value = "")
+      })
+      
+      #plot
       print(p)
       
       removeModal()
