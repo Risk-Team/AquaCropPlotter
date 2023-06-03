@@ -404,23 +404,23 @@ ui <- dashboardPage(
                                   div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%"),
                                   downloadButton("download_data_prm_combined_timeperiod", "Download")
                          ),
-                         tabPanel(title = "Stress duration",
-                                  width = 12,
-                                  status = "primary",
-                                  solidHeader = FALSE,
-                                  fluidRow(
-                                    column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
-                                    column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
-                                    column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
-                                    column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE))
-                                  ),
-                                  selectizeInput("stress_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
-                                  selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
-                                  div(dataTableOutput("daily_data_prm_combined_stress_display"), style = "font-size: 75%; width: 100%"),
-                                  downloadButton("download_daily_data_prm_combined_stress", "Download"),
-                                  actionButton("append_stress_data_button", "Append stress data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
-                                  
-                         ),
+                         # tabPanel(title = "Stress duration",
+                         #          width = 12,
+                         #          status = "primary",
+                         #          solidHeader = FALSE,
+                         #          fluidRow(
+                         #            column(3, sliderInput("StExp_threshold", label = "Threshold of water stress reducing leaf expansion (StExp)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                         #            column(3, sliderInput("StSto_threshold", label = "Threshold of water stress inducing stomatal closure (StSto)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                         #            column(3, sliderInput("StSen_threshold", label = "Threshold of water stress triggering early senescence (StSen)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE)),
+                         #            column(3, sliderInput("StTr_threshold", label = "Threshold of temperature stress affecting transpiration (StTr)", min = 0, max = 100, value = 5, step = 1, ticks = FALSE))
+                         #          ),
+                         #          selectizeInput("stress_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
+                         #          selectInput("by_phenological", label = "Separate by phenological stages", choices = c("yes","no"), selected = "no"),
+                         #          div(dataTableOutput("daily_data_prm_combined_stress_display"), style = "font-size: 75%; width: 100%"),
+                         #          downloadButton("download_daily_data_prm_combined_stress", "Download"),
+                         #          actionButton("append_stress_data_button", "Append stress data to Seasonal dataset for plotting and other analyses", icon = icon("share-square")),
+                         #          
+                         # ),
                          tabPanel(title = "Regression",
                                   width = 12,
                                   status = "primary",
@@ -1576,7 +1576,7 @@ server <- function(input, output, session) {
   
   ggplot_plugin <- reactive({
     req(data_prm_combined_plot_rename$data)
-    showModal(modalDialog(title = "Processing data...", "Please wait while the data is being processed. /n Click anywhere outside this box to close ", easyClose = TRUE, footer = NULL))
+    showModal(modalDialog(title = "Processing data...", "Please wait while the data is being processed.", easyClose = FALSE, footer = NULL))
     
     #initial plot according to selected coloring and group variable
     if(length(input$shape_var) > 0 & length(input$col_var) > 0 & length(input$linetype_var) > 0){
@@ -1943,6 +1943,7 @@ server <- function(input, output, session) {
   
   ##append stress duration data to seasonal dataset for plotting and other analyses
   observeEvent(input$append_stress_data_button, {
+    showModal(modalDialog(title = "Processing data...", "Please wait while the data is being processed.", easyClose = FALSE, footer = NULL))
     req(data_prm_combined$data, data_prm_combined_analysis$data, daily_data_prm_combined_stress())
     data_prm_combined_analysis$data <- left_join(data_prm_combined_analysis$data %>% select(all_of(setdiff(colnames(data_prm_combined_analysis$data),c("Stage", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))) %>% distinct(),
                                                  daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
@@ -1951,8 +1952,9 @@ server <- function(input, output, session) {
     data_prm_combined$data  <- left_join(data_prm_combined$data %>% select(all_of(setdiff(colnames(data_prm_combined$data),c("Stage", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent")))) %>% distinct(),
                                          daily_data_prm_combined_stress() %>% select("prm.file.name", "Year", "StExp.duration.days", "StSto.duration.days", "StSen.duration.days", "StTr.duration.days", "StExp.duration.percent", "StSto.duration.percent", "StSen.duration.percent", "StTr.duration.percent"),
                                          by = c("prm.file.name" = "prm.file.name", "Year1"="Year"))
+    removeModal()
   })
-  
+
   
   ######regression
   
