@@ -230,6 +230,12 @@ ui <- dashboardPage(
       tabItem(tabName = "tab_plot_plugin",
               h2(
                 fluidRow(
+                  tabBox(width = 12,
+                         tabPanel(title = "Scatter plot",
+                                  width = 12,
+                                  status = "primary",
+                                  solidHeader = FALSE,
+                                  fluidRow(
                   box(title = "Select plotting variables",
                       width = 4,
                       height = "520px",
@@ -384,8 +390,19 @@ ui <- dashboardPage(
                                                       div(style = "overflow-x: scroll; height:850px; overflow-y: scroll;", plotOutput("ggplot_plugin_display")),
                                                       
                                              )
-                                      ),
+                                      )
                                     )))
+                  ),
+                tabPanel(title = "Boxplot",
+                         width = 12,
+                         status = "primary",
+                         solidHeader = FALSE,
+                         fluidRow(
+
+                         )
+                         )
+                )
+                )
               )
       ),
       tabItem(tabName = "tab_analysis_plugin",
