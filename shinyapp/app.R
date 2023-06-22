@@ -398,6 +398,142 @@ ui <- dashboardPage(
                          status = "primary",
                          solidHeader = FALSE,
                          fluidRow(
+                           box(title = "Select plotting variables",
+                               width = 4,
+                               height = "520px",
+                               status = "primary",
+                               solidHeader = TRUE,
+                               selectizeInput("y_var_boxplot", "Variable to plot on Y axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                               selectizeInput("x_var_boxplot", "Variable to plot on X axis", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                               # selectizeInput("plot_element_boxplot", 
+                               #                label = tags$span("Components of plot to show", bsButton("plot_info5_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
+                               #                input_plot_element_choice, multiple = TRUE, selected = c("point", "linear_trend","background_grid")),
+                               bsPopover(id = "plot_info5_boxplot", title = "Select or delete any number of components to show in the plot", placement = "right", trigger = "hover"),
+                               div(style = "position:absolute;right:0.1em; bottom:0.1em;date",actionButton("plot_next1_boxplot", "Plot", icon = icon("chevron-right")))
+                           ),
+                           shinyjs::hidden(div(id = "hiddenbox2_boxplot",
+                                               box(title = "Optional: Select grouping variables",
+                                                   width = 4,
+                                                   height = "520px",
+                                                   status = "primary",
+                                                   solidHeader = TRUE,
+                                                   selectizeInput("col_var_boxplot", 
+                                                                  label = tags$span("Variable to split into colors by",  bsButton("plot_info3_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                  choices = NULL,
+                                                                  multiple = TRUE, options = list(maxItems = 1)),
+                                                   bsPopover(id = "plot_info3_boxplot", title = "Each value of the selected variable will be plotted with different colors", placement = "right", trigger = "hover"),
+                                                   selectizeInput("facet_var_boxplot", 
+                                                                  label = tags$span("Variable to split into subpanels by", bsButton("plot_info4_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                  choices = NULL,
+                                                                  multiple = TRUE, options = list(maxItems = 1)),
+                                                   selectizeInput("facet_var2_boxplot", 
+                                                                  label = NULL,
+                                                                  choices = NULL,
+                                                                  multiple = TRUE, options = list(maxItems = 1)),
+                                                   bsPopover(id = "plot_info4_boxplot", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover")
+                                               )
+                           )),
+                           shinyjs::hidden(div(id = "hiddenbox3_boxplot",
+                                               box(title = "Optional: Plot values relative to an average from reference period",
+                                                   width = 4,
+                                                   height = "520px",
+                                                   status = "primary",
+                                                   solidHeader = TRUE,
+                                                   selectInput("use_mean_boxplot", 
+                                                               label = tags$span("Plot relative values",   bsButton("plot_info1_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
+                                                               c("no","yes"), selected = "no"),
+                                                   bsPopover(id = "plot_info1_boxplot", title = "plot values as relative percentage change compared to an average from selected reference period", placement = "right", trigger = "hover"),
+                                                   conditionalPanel(condition = "input.use_mean_boxplot != 'no'",
+                                                                    sliderInput("ref_period_boxplot", "reference period (year range)", sep = "", min = 0, max = 0, value = c(0,0)))
+                                               )
+                           ))
+                         ,
+                        shinyjs::hidden(div(id = "hiddenbox5_boxplot",
+                                               div(style= "overflow-x: scroll;" , fluidRow(
+                                                 box(title = "Rename / Reorder",
+                                                     width = 2,
+                                                     height = "700px",
+                                                     status = "primary",
+                                                     solidHeader = TRUE,
+                                                     selectizeInput("rename_variable_boxplot", "Select variable to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                                     selectizeInput("rename_from_boxplot", "Select value to rename", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                                     textInput("rename_to_boxplot", "Rename to"),
+                                                     actionButton("rename_button_boxplot", "Rename", style = "margin-bottom: 15px; "),
+                                                     selectizeInput("reorder_variable_boxplot", "Select variable to reorder", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
+                                                     selectizeInput("reorder_order_boxplot", "Select values in order", choices = NULL, multiple = TRUE),
+                                                     actionButton("reorder_button_boxplot", "Reorder", style = "margin-bottom: 15px; ")
+                                                 ),
+                                                 box(title = "Customise plot",
+                                                     width = 2,
+                                                     height = "730px",
+                                                     status = "primary",
+                                                     solidHeader = TRUE,
+                                                     selectizeInput("col_palette_boxplot", 
+                                                                    label = tags$span("color palette", bsButton("plot_info6_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                    input_color_choice, multiple = TRUE),
+                                                     bsPopover(id = "plot_info6_boxplot", title = "Select the same number of colors as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
+                                                     textInput("point_size_boxplot", "point size", value = "2"),
+                                                     textInput("line_size_boxplot", "line size", value = "1"),
+                                                     sliderInput("point_transparency_boxplot", "point transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
+                                                     sliderInput("line_transparency_boxplot", "line transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
+                                                     sliderInput("fill_transparency_boxplot", "fill transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE)
+                                                     
+                                                 ),
+                                                 box(title = "Customise labels",
+                                                     width = 2,
+                                                     height = "730px",
+                                                     status = "primary",
+                                                     solidHeader = TRUE,
+                                                     textInput("title_label_boxplot", "plot title"),
+                                                     textInput("y_var_label_boxplot", "Y axis label"),
+                                                     textInput("x_var_label_boxplot", "X axis label"),
+                                                     textInput("x_axis_label_angle_boxplot", "X axis label angle", value = "45"),
+                                                     selectInput("legend_position_boxplot", "Legend position", input_legend_pos, selected = "bottom"),
+                                                     selectInput("show_legend_title_boxplot", "Legend title", c("yes","no"), selected = "yes")
+                                                 ),
+                                                 box(title = "Customise font size",
+                                                     width = 2,
+                                                     height = "730px",
+                                                     status = "primary",
+                                                     solidHeader = TRUE,
+                                                     textInput("font_size_plot_title_boxplot", "plot title", value = "16"),
+                                                     textInput("font_size_axis_text_boxplot", "axis text", value = "16"),
+                                                     textInput("font_size_axis_title_boxplot", "axis title", value = "16"),
+                                                     textInput("font_size_legend_boxplot", "legend", value = "16"),
+                                                     textInput("font_size_facet_boxplot", "subpanel label", value = "16")
+                                                 ),
+                                                 box(title = "Customise axis",
+                                                     width = 2,
+                                                     height = "730px",
+                                                     status = "primary",
+                                                     solidHeader = TRUE,
+                                                     sliderInput("y_var_range_boxplot", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
+                                                     sliderInput("x_var_range_boxplot", "X axis range to plot", sep = "", min = 0, max = 0, value = c(0,0))
+                                                 ),
+                                                 box(title = "Export plot",
+                                                     width = 2,
+                                                     height = "730px",
+                                                     status = "primary",
+                                                     solidHeader = TRUE,
+                                                     textInput("export_plot_width_boxplot", "Width (cm)", value = "19"),
+                                                     textInput("export_plot_height_boxplot", "Height (cm)", value = "12"),
+                                                     selectInput("export_plot_format_boxplot", "Format", c("pdf","png"), selected = "pdf"),
+                                                     downloadButton("ggplot_plugin_download_boxplot", "Download"))
+                                               )
+                                               ))),
+                           shinyjs::hidden(div(id = "hiddenbox4_boxplot",
+                                               fluidRow(
+                                                 tabBox(width = 12,
+                                                        height = "900px",
+                                                        id = "plugin_plot_tabbox_boxplot",
+                                                        tabPanel("Plot",
+                                                                 div(style = "position:absolute;right:1em; top:0.25em;",actionButton("plot_next5_boxplot", "Customise & export plot")),
+                                                                 div(style = "overflow-x: scroll; height:850px; overflow-y: scroll;", plotOutput("ggplot_plugin_display_boxplot")),
+                                                                 
+                                                        )
+                                                 )
+                                               )))
+
 
                          )
                          )
@@ -1792,6 +1928,26 @@ server <- function(input, output, session) {
       ggsave(file, plot = ggplot_plugin(), device = {{input$export_plot_format}} , width = as.numeric({{input$export_plot_width}}), height = as.numeric({{input$export_plot_height}}), units = "cm")
     }
   )
+  
+  ############### boxplot ###############
+  #make a reactive value to monitor plot visibility
+  plot_visibility_boxplot <- reactiveValues()
+  observe({plot_visibility_boxplot$value <- FALSE})
+  
+  #reactive for showing next boxes to input plotting instructions
+  observeEvent(input$plot_next1_boxplot, {
+    shinyjs::show(id = "hiddenbox4_boxplot")
+    plot_visibility_boxplot$value = TRUE
+  })
+  observeEvent(input$plot_next1_boxplot, {
+    shinyjs::show(id = "hiddenbox2_boxplot")
+  })
+  observeEvent(input$plot_next1_boxplot, {
+    shinyjs::toggle(id = "hiddenbox3_boxplot")
+  })
+  observeEvent(input$plot_next5_boxplot, {
+    shinyjs::toggle(id = "hiddenbox5_boxplot")
+  })
   
   
   ###### Analysis ####    
