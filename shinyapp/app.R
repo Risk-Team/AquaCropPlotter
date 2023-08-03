@@ -1951,6 +1951,41 @@ server <- function(input, output, session) {
     shinyjs::toggle(id = "hiddenbox5_boxplot")
   })
   
+  ###data for plotting
+  data_prm_combined_plot_rename_boxplot <- reactiveValues()
+  observe({req(data_prm_combined$data)
+          data_prm_combined_plot_rename_boxplot$data <- data_prm_combined$data})
+  
+        observe({
+          req(data_prm_combined_plot_rename_boxplot$data)
+          
+          #update choices for plotting axis
+          axis.choices = unique(colnames(data_prm_combined_plot_rename_boxplot$data))
+          updateSelectInput(inputId = "y_var_boxplot", choices = sort(axis.choices))
+          updateSelectInput(inputId = "x_var_boxplot", choices = sort(axis.choices))
+        })
+     
+  #boxplot
+  ggplot_plugin_boxplot <- reactive({
+    req(data_prm_combined_plot_rename_boxplot$data)
+    
+    p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]]))+
+      stat_boxplot(geom="errorbar")+ #add horizontal line to end of whiskers
+      geom_boxplot()
+    
+    print(p)
+  })
+    
+  #render ggplot display in app
+  output$ggplot_plugin_display_boxplot <- renderPlot({
+    if(isTRUE(plot_visibility_boxplot$value)){
+      if(!is_null(input$x_var_boxplot) & !is_null(input$y_var_boxplot)){
+        ggplot_plugin_boxplot()
+      }
+    }
+  },width=exprToFunction(as.numeric(input$export_plot_width_boxplot)*36), height=exprToFunction(as.numeric(input$export_plot_height_boxplot)*36))
+  
+  
   
   ###### Analysis ####    
   
