@@ -1722,10 +1722,11 @@ server <- function(input, output, session) {
       updateTextInput(inputId = "y_var_label", value = "")
     })
     
+    removeModal()
+    
     #plot
     print(p)
     
-    removeModal()
   })
   
   #adjust default plot size according to facets
