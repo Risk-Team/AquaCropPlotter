@@ -20,7 +20,7 @@ ggplot(data, aes(y=BioMass, x=name.variable3, fill=name.variable7))+
   facet_grid(.~name.variable4)
 
 #select reference year range
-ref.year = c(2020,2030)
+ref.year = c(2020,2020)
 xaxis.var = "name.variable3"
 grouping.var = "name.variable7"
 
@@ -32,14 +32,28 @@ data.ref = data %>%
 
 data.norm = data %>%
   group_by(across(all_of(c(xaxis.var, grouping.var)))) %>%
-  mutate(across(where(is.numeric), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) %>%
-  select(!starts_with(c("Day","Month","Year")))
-  
+  mutate(across(where(is.numeric) &!starts_with(c("Day","Month","Year")), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) 
+
 ggplot(data.norm, aes(y=BioMass, x=name.variable3, fill=name.variable7))+
   stat_boxplot(geom="errorbar")+#add horizontal line to end of whiskers
   geom_boxplot()+
   #geom_point(position = position_jitterdodge(jitter.width = 0.2), size=0.1)
   facet_grid(.~name.variable4)
 
+ggplot(data.norm, aes(y=BioMass, x=name.variable3))+
+  stat_boxplot(geom="errorbar")+#add horizontal line to end of whiskers
+  geom_boxplot()+
+  #geom_point(position = position_jitterdodge(jitter.width = 0.2), size=0.1)
+  facet_grid(.~name.variable4)
 
+
+ggplot(data, aes(y=BioMass, x=Year1))+
+  geom_point()+
+  geom_line()+
+  #geom_point(position = position_jitterdodge(jitter.width = 0.2), size=0.1)
+  facet_grid(name.variable3~name.variable7)
+ggplot(data.norm, aes(y=BioMass, x=Year1))+
+  geom_point()+
+  geom_line()+
+  facet_grid(name.variable3~name.variable7)
   

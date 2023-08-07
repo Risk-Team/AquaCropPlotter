@@ -444,7 +444,10 @@ ui <- dashboardPage(
                                                                c("no","yes"), selected = "no"),
                                                    bsPopover(id = "plot_info1_boxplot", title = "plot values as relative percentage change compared to an average from selected reference period", placement = "right", trigger = "hover"),
                                                    conditionalPanel(condition = "input.use_mean_boxplot != 'no'",
-                                                                    sliderInput("ref_period_boxplot", "reference period (year range)", sep = "", min = 0, max = 0, value = c(0,0)))
+                                                                    sliderInput("ref_period_boxplot", "reference period (year range)", sep = "", min = 0, max = 0, value = c(0,0)),
+                                                                    downloadButton("download_ref_norm_dataset", "Download relative data", style = "margin-bottom: 15px; "),
+                                                   )
+                                                   
                                                )
                            ))
                          ,
@@ -1955,9 +1958,17 @@ server <- function(input, output, session) {
   observe({
     req(data_prm_combined$data)
     #update choices for plotting axis
-    axis.choices = unique(colnames(data_prm_combined$data))
-    updateSelectInput(inputId = "y_var_boxplot", choices = sort(axis.choices))
-    updateSelectInput(inputId = "x_var_boxplot", choices = sort(axis.choices))
+    numeric.column = data_prm_combined$data %>% select_if(is.numeric) %>% colnames()
+    factor.column = data_prm_combined$data %>% select_if(is.factor) %>% colnames()
+    character.column = data_prm_combined$data %>% select_if(is.character) %>% colnames()
+    
+    updateSelectInput(inputId = "y_var_boxplot", choices = sort(numeric.column))
+    updateSelectInput(inputId = "x_var_boxplot", choices = sort(union(factor.column, character.column)))
+    
+    updateSelectizeInput(inputId = "col_var_boxplot", choices = sort(union(factor.column, character.column)))
+    updateSelectizeInput(inputId = "facet_var_boxplot", choices = sort(union(factor.column, character.column)))
+    updateSelectizeInput(inputId = "facet_var2_boxplot", choices = sort(union(factor.column, character.column)))
+    
   })
   
   #update year range choice for selecting reference period for calculating relative to mean historial period 
@@ -1974,27 +1985,31 @@ server <- function(input, output, session) {
     req(data_prm_combined$data)
     req(input$use_mean_boxplot)
     req(input$ref_period_boxplot)
+    req(input$x_var_boxplot)
     
     if(input$use_mean_boxplot == "yes"){
       
       #select reference year range
       ref.year = c(input$ref_period_boxplot[1],input$ref_period_boxplot[2])
+      
+      #select variable for grouping to calculate mean for normalisation
       xaxis.var = input$x_var_boxplot
-      grouping.var = c(input$col_var_boxplot, input$facet_var_boxplot, input$facet_var2_boxplot)
-
-      data.ref = tryCatch(error = function(cnd) data_prm_combined$data,
-        data_prm_combined$data %>%
-        filter(Year1 %in% c(ref.year[1]:ref.year[2])) %>%
-        select(!starts_with(c("Day","Month","Year"))) %>%
-        group_by(across(all_of(c(xaxis.var, grouping.var)))) %>%
-        summarise(across(where(is.numeric), ~mean(.x, na.rm = TRUE)))
-      )
-
+      grouping.var = xaxis.var
+      if(!is.null(input$col_var_boxplot)){
+        grouping.var = union(grouping.var, input$col_var_boxplot)
+      }
+      if(!is.null(input$facet_var_boxplot)){
+        grouping.var = union(grouping.var, input$facet_var_boxplot)
+      }
+      if(!is.null(input$facet_var_boxplot)){
+        grouping.var = union(grouping.var, input$facet_var2_boxplot)
+      }
+      
+      #normalise data
       data.norm = tryCatch(error = function(cnd) data_prm_combined$data,
         data_prm_combined$data %>%
-        group_by(across(all_of(c(xaxis.var, grouping.var)))) %>%
-        mutate(across(where(is.numeric), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) %>%
-        select(!starts_with(c("Day","Month","Year")))
+        group_by(across(all_of(grouping.var))) %>%
+        mutate(across(where(is.numeric) & !starts_with(c("Day","Month","Year")), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) 
       )
       
       return(data.norm)
@@ -2003,22 +2018,114 @@ server <- function(input, output, session) {
     }
   })
   
+  #for downloading reference period normalised dataset
+  output$download_ref_norm_dataset <- downloadHandler(
+    filename = "reference_period_normalised_data.tsv",
+    content = function(file) {
+      write_tsv(data_prm_combined_plot_boxplot(), file)
+    }
+  )
+  
+  
   ###data for plotting
   data_prm_combined_plot_rename_boxplot <- reactiveValues()
   observe({req(data_prm_combined_plot_boxplot())
     data_prm_combined_plot_rename_boxplot$data <- data_prm_combined_plot_boxplot()})
 
+  #set color palette
+  custom_palette_boxplot <- reactive({
+    default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
+    
+    #vector of available color choices to form custom palette
+    color_choice_hex <- c("#000000","#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#E41A1C","#A6D854")
+    names(color_choice_hex) <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
+    
+    #make palette from custom colors selected from user
+    if(length(input$col_palette_boxplot) > 0){
+      palette <- c(color_choice_hex[input$col_palette_boxplot], setdiff(default_palette, color_choice_hex[input$col_palette_boxplot]))
+    }else{
+      palette <- default_palette
+    }
+    unname(palette)
+  })
      
   #boxplot
   ggplot_plugin_boxplot <- reactive({
     req(data_prm_combined_plot_rename_boxplot$data)
     
-    p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]]))+
-      stat_boxplot(geom="errorbar")+ #add horizontal line to end of whiskers
-      geom_boxplot()
+    #initial plot according to selected coloring and group variable
+    if(length(input$col_var_boxplot) > 0){
+      p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]], col = .data[[input$col_var_boxplot]], fill = .data[[input$col_var_boxplot]]))
+    } else{
+      p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]]))
+    }
+
+    #add boxplot
+    p <- p + 
+      #stat_boxplot(geom="errorbar", width = 0.2) + #add horizontal line to end of whiskers
+      geom_boxplot(width = 0.5)
+
+    #select facet variable
+    if(length(input$facet_var_boxplot) == 1 & length(input$facet_var2_boxplot) == 1){
+      p <- p + facet_grid(get(input$facet_var2_boxplot)~get(input$facet_var_boxplot))
+    } else if(length(input$facet_var_boxplot) == 1){
+      p <- p + facet_grid(.~get(input$facet_var_boxplot))
+    } else if(length(input$facet_var2_boxplot) == 1){
+      p <- p + facet_grid(get(input$facet_var2_boxplot)~.)
+    } else {
+      p <- p
+    }
     
+    #theme
+    p <- p +
+      theme(
+          panel.background = element_rect(colour = "black", fill = "white"),
+          plot.background = element_rect(colour = NA, fill = "white"),
+          axis.line = element_line(colour="black",size=0.1),
+          axis.ticks = element_line(),
+          axis.title.x = element_text(vjust = -2.5, face = "bold"),
+          axis.title.y = element_text(vjust = +2.5, face="bold"),
+          legend.key = element_rect(colour = NA, fill = NA),
+          strip.background=element_rect(colour="black",fill="grey80"),
+          plot.margin=unit(c(10,5,5,5),"mm")
+          )+
+      scale_color_manual(values=custom_palette_boxplot()) +
+      guides(color = guide_legend(keywidth = 5, keyheight = 3)
+      )
+    
+    #plot
     print(p)
   })
+  
+  #adjust default plot size according to facets
+  #select facet variable
+  observeEvent(input$facet_var_boxplot, {
+    if(length(input$facet_var_boxplot) == 1){
+      if(length(unique(data_prm_combined_plot_rename_boxplot$data[[input$facet_var_boxplot]])) == 1){
+        updateTextInput(session, "export_plot_width_boxplot", value = "19")
+      }
+      if(length(unique(data_prm_combined_plot_rename_boxplot$data[[input$facet_var_boxplot]])) == 2){
+        updateTextInput(session, "export_plot_width_boxplot", value = "29")
+      }
+      if(length(unique(data_prm_combined_plot_rename_boxplot$data[[input$facet_var_boxplot]])) > 2){
+        updateTextInput(session, "export_plot_width_boxplot", value = "39")
+      }
+    }
+  })
+  observeEvent(input$facet_var2_boxplot, {
+    if(length(input$facet_var2_boxplot) == 1){
+      if(length(unique(data_prm_combined_plot_rename_boxplot$data[[input$facet_var2_boxplot]])) == 1){
+        updateTextInput(session,"export_plot_height_boxplot", value = "12")
+      }
+      if(length(unique(data_prm_combined_plot_rename_boxplot$data[[input$facet_var2_boxplot]])) == 2){
+        updateTextInput(session,"export_plot_height_boxplot", value = "22")
+      }
+      if(length(unique(data_prm_combined_plot_rename_boxplot$data[[input$facet_var2_boxplot]])) > 2){
+        updateTextInput(session,"export_plot_height_boxplot", value = "32")
+      }
+    }
+  })
+  
     
   #render ggplot display in app
   output$ggplot_plugin_display_boxplot <- renderPlot({
@@ -2029,6 +2136,13 @@ server <- function(input, output, session) {
     }
   },width=exprToFunction(as.numeric(input$export_plot_width_boxplot)*36), height=exprToFunction(as.numeric(input$export_plot_height_boxplot)*36))
   
+  #for downloading ggplot
+  output$ggplot_plugin_download_boxplot <- downloadHandler(
+    filename = function() {paste0("boxplot.", input$export_plot_format_boxplot)},
+    content = function(file) {
+      ggsave(file, plot = ggplot_plugin_boxplot(), device = {{input$export_plot_format_boxplot}} , width = as.numeric({{input$export_plot_width_boxplot}}), height = as.numeric({{input$export_plot_height_boxplot}}), units = "cm")
+    }
+  )
   
   
   ###### Analysis ####    
