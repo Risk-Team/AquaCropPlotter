@@ -1951,19 +1951,63 @@ server <- function(input, output, session) {
     shinyjs::toggle(id = "hiddenbox5_boxplot")
   })
   
+  #update axis choice  
+  observe({
+    req(data_prm_combined$data)
+    #update choices for plotting axis
+    axis.choices = unique(colnames(data_prm_combined$data))
+    updateSelectInput(inputId = "y_var_boxplot", choices = sort(axis.choices))
+    updateSelectInput(inputId = "x_var_boxplot", choices = sort(axis.choices))
+  })
+  
+  #update year range choice for selecting reference period for calculating relative to mean historial period 
+  observe({
+    req(data_prm_combined$data)
+    #update choices for plotting axis
+    min_range = min(data_prm_combined$data$Year1)
+    max_range = max(data_prm_combined$data$Year1)
+    updateSliderInput(inputId = "ref_period_boxplot", min = min_range, max = max_range, step = 1, value = c(min_range, min_range+2))
+  })
+  
+  ## if plotting relative to mean is selected, calculate mean based on selected reference period
+  data_prm_combined_plot_boxplot <- reactive({
+    req(data_prm_combined$data)
+    req(input$use_mean_boxplot)
+    req(input$ref_period_boxplot)
+    
+    if(input$use_mean_boxplot == "yes"){
+      
+      #select reference year range
+      ref.year = c(input$ref_period_boxplot[1],input$ref_period_boxplot[2])
+      xaxis.var = input$x_var_boxplot
+      grouping.var = c(input$col_var_boxplot, input$facet_var_boxplot, input$facet_var2_boxplot)
+
+      data.ref = tryCatch(error = function(cnd) data_prm_combined$data,
+        data_prm_combined$data %>%
+        filter(Year1 %in% c(ref.year[1]:ref.year[2])) %>%
+        select(!starts_with(c("Day","Month","Year"))) %>%
+        group_by(across(all_of(c(xaxis.var, grouping.var)))) %>%
+        summarise(across(where(is.numeric), ~mean(.x, na.rm = TRUE)))
+      )
+
+      data.norm = tryCatch(error = function(cnd) data_prm_combined$data,
+        data_prm_combined$data %>%
+        group_by(across(all_of(c(xaxis.var, grouping.var)))) %>%
+        mutate(across(where(is.numeric), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) %>%
+        select(!starts_with(c("Day","Month","Year")))
+      )
+      
+      return(data.norm)
+    }else{
+      return(data_prm_combined$data)
+    }
+  })
+  
   ###data for plotting
   data_prm_combined_plot_rename_boxplot <- reactiveValues()
-  observe({req(data_prm_combined$data)
-          data_prm_combined_plot_rename_boxplot$data <- data_prm_combined$data})
-  
-        observe({
-          req(data_prm_combined_plot_rename_boxplot$data)
-          
-          #update choices for plotting axis
-          axis.choices = unique(colnames(data_prm_combined_plot_rename_boxplot$data))
-          updateSelectInput(inputId = "y_var_boxplot", choices = sort(axis.choices))
-          updateSelectInput(inputId = "x_var_boxplot", choices = sort(axis.choices))
-        })
+  observe({req(data_prm_combined_plot_boxplot())
+    data_prm_combined_plot_rename_boxplot$data <- data_prm_combined_plot_boxplot()})
+
      
   #boxplot
   ggplot_plugin_boxplot <- reactive({
