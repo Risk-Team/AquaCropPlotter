@@ -108,7 +108,7 @@ ui <- dashboardPage(
       tabItem(tabName = "tab_upload_data",
               h2(
                 #to select data mode
-                selectizeInput("standard_vs_plugin_select", "AquaCrop programme used", choices = c("standard","plugin"), multiple = TRUE, options = list(maxItems = 1)),
+                selectizeInput("standard_vs_plugin_select", "AquaCrop programme used", choices = c("GUI","plugin"), multiple = TRUE, options = list(maxItems = 1)),
                 
                 #show upload data according to mode selected
                 #plugin
@@ -141,7 +141,7 @@ ui <- dashboardPage(
                 ),
                 #standard
                 fluidRow(
-                  conditionalPanel(condition = "input.standard_vs_plugin_select == 'standard'",
+                  conditionalPanel(condition = "input.standard_vs_plugin_select == 'GUI'",
                                    box(title = "Data and PRM files", status = "primary", solidHeader = TRUE, width = 6,
                                        #upload data file
                                        fileInput("upload_data_files_standard", "Upload data files (.OUT and .PRM)", multiple = TRUE)
@@ -1029,7 +1029,7 @@ server <- function(input, output, session) {
     req(input$standard_vs_plugin_select)
     
     #select if standard or plugin mode used
-    if(input$standard_vs_plugin_select == "standard"){
+    if(input$standard_vs_plugin_select == "GUI"){
       req(input$upload_data_files_standard)
       upload_prm_combined_renamecol$data <- upload_prm_standard_combined()
     }else{
@@ -1079,7 +1079,7 @@ server <- function(input, output, session) {
     req(input$standard_vs_plugin_select)
     
     #select if standard or plugin mode used
-    if(input$standard_vs_plugin_select == "standard"){
+    if(input$standard_vs_plugin_select == "GUI"){
       req(input$upload_data_files_standard)
       data_prm_combined$data <- data_prm_standard_combined_seasonal()
     }else{
@@ -1209,7 +1209,7 @@ server <- function(input, output, session) {
   observe({
     req(input$standard_vs_plugin_select)
     #select if standard or plugin mode used
-    if(input$standard_vs_plugin_select == "standard"){
+    if(input$standard_vs_plugin_select == "GUI"){
       req(input$upload_data_files_standard)
       daily_data_prm_combined$data <- data_prm_standard_combined_daily()
     }else{
@@ -1313,7 +1313,7 @@ server <- function(input, output, session) {
     #reset daily data to the original processing from uploads
     req(input$standard_vs_plugin_select)
     #select if standard or plugin mode used
-    if(input$standard_vs_plugin_select == "standard"){
+    if(input$standard_vs_plugin_select == "GUI"){
       req(input$upload_data_files_standard)
       daily_data_prm_combined$data <- data_prm_standard_combined_daily()
     }else{
@@ -1326,7 +1326,7 @@ server <- function(input, output, session) {
     #reset seasonal data to the original processing from uploads
     req(input$standard_vs_plugin_select)
     #select if standard or plugin mode used
-    if(input$standard_vs_plugin_select == "standard"){
+    if(input$standard_vs_plugin_select == "GUI"){
       req(input$upload_data_files_standard)
       data_prm_combined$data <- data_prm_standard_combined_seasonal()
     }else{
@@ -2009,7 +2009,8 @@ server <- function(input, output, session) {
       data.norm = tryCatch(error = function(cnd) data_prm_combined$data,
         data_prm_combined$data %>%
         group_by(across(all_of(grouping.var))) %>%
-        mutate(across(where(is.numeric) & !starts_with(c("Day","Month","Year")), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) 
+        mutate(across(where(is.numeric) & !starts_with(c("Day","Month","Year")), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) %>%
+        filter(! Year1 %in%  c(input$ref_period_boxplot[1]:input$ref_period_boxplot[2]))
       )
       
       return(data.norm)
@@ -2052,10 +2053,11 @@ server <- function(input, output, session) {
   #boxplot
   ggplot_plugin_boxplot <- reactive({
     req(data_prm_combined_plot_rename_boxplot$data)
+    showModal(modalDialog(title = "Processing data...", "Please wait while the data is being processed.", easyClose = FALSE, footer = NULL))
     
     #initial plot according to selected coloring and group variable
     if(length(input$col_var_boxplot) > 0){
-      p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]], col = .data[[input$col_var_boxplot]], fill = .data[[input$col_var_boxplot]]))
+      p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]], fill = .data[[input$col_var_boxplot]]))
     } else{
       p <- ggplot(data = data_prm_combined_plot_rename_boxplot$data, aes(x = .data[[input$x_var_boxplot]], y = .data[[input$y_var_boxplot]]))
     }
@@ -2089,12 +2091,15 @@ server <- function(input, output, session) {
           strip.background=element_rect(colour="black",fill="grey80"),
           plot.margin=unit(c(10,5,5,5),"mm")
           )+
-      scale_color_manual(values=custom_palette_boxplot()) +
+      scale_fill_manual(values=custom_palette_boxplot()) +
       guides(color = guide_legend(keywidth = 5, keyheight = 3)
       )
     
+    removeModal()
+    
     #plot
     print(p)
+    
   })
   
   #adjust default plot size according to facets
@@ -2149,7 +2154,7 @@ server <- function(input, output, session) {
   
   ###if standard aquacrop mode selected, hide analysis tabs
   observeEvent(input$standard_vs_plugin_select, {
-    if (input$standard_vs_plugin_select == "standard") {
+    if (input$standard_vs_plugin_select == "GUI") {
       hideTab("analysis_tabbox", "Time period window")
       hideTab("analysis_tabbox", "Stress duration")
       hideTab("analysis_tabbox", "Regression")
