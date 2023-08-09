@@ -430,7 +430,9 @@ ui <- dashboardPage(
                                                                   label = NULL,
                                                                   choices = NULL,
                                                                   multiple = TRUE, options = list(maxItems = 1)),
-                                                   bsPopover(id = "plot_info4_boxplot", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover")
+                                                   bsPopover(id = "plot_info4_boxplot", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover"),
+                                                   conditionalPanel(condition = "input.facet_var_boxplot == 'time.horizon'",
+                                                                    sliderInput("time_horizon_duration", "Time horizon duration", sep = "", min = 0, max = 0, value = 0),)
                                                )
                            )),
                            shinyjs::hidden(div(id = "hiddenbox3_boxplot",
@@ -1966,8 +1968,15 @@ server <- function(input, output, session) {
     updateSelectInput(inputId = "x_var_boxplot", choices = sort(union(factor.column, character.column)))
     
     updateSelectizeInput(inputId = "col_var_boxplot", choices = sort(union(factor.column, character.column)))
-    updateSelectizeInput(inputId = "facet_var_boxplot", choices = sort(union(factor.column, character.column)))
+    updateSelectizeInput(inputId = "facet_var_boxplot", choices = c(sort(union(factor.column, character.column)), "time.horizon"))
     updateSelectizeInput(inputId = "facet_var2_boxplot", choices = sort(union(factor.column, character.column)))
+    
+    #update choice of time horizon duration based on data
+    horizon.year.max = max(data_prm_combined$data$Year1)
+    horizon.year.min = min(data_prm_combined$data$Year1)
+    horizon.year.range = horizon.year.max - horizon.year.min
+    horizon.default = ifelse(horizon.year.range >= 10, 10, 1)
+    updateSliderInput(inputId = "time_horizon_duration", min = 1, max = horizon.year.range, step = 1, value = horizon.default)
     
   })
   
@@ -2033,6 +2042,32 @@ server <- function(input, output, session) {
   observe({req(data_prm_combined_plot_boxplot())
     data_prm_combined_plot_rename_boxplot$data <- data_prm_combined_plot_boxplot()})
 
+  #add time horizon variable for data for plotting in case facet by time horizon
+  observe({
+    req(data_prm_combined_plot_rename_boxplot$data)
+    
+      # Define the bin size
+      bin_size <- input$time_horizon_duration
+      
+      # Calculate the minimum and maximum years
+      min_year <- min(data_prm_combined_plot_rename_boxplot$data$Year1)
+      max_year <- max(data_prm_combined_plot_rename_boxplot$data$Year1)
+      
+      # Create the bin labels
+      bin_labels <- paste(seq(min_year, max_year, by = bin_size),
+                          unique(c(seq(min_year + bin_size - 1, max_year, by = bin_size), max_year)),
+                          sep = "-")
+      
+      # Create a new column with bin categories
+      data_prm_combined_plot_rename_boxplot$data$time.horizon <- tryCatch(error = function(cnd) NULL,
+                              cut(data_prm_combined_plot_rename_boxplot$data$Year1,
+                              breaks = seq(min_year, max_year + bin_size, by = bin_size),
+                              labels = bin_labels,
+                              include.lowest = TRUE)
+      )
+  })
+
+  
   #set color palette
   custom_palette_boxplot <- reactive({
     default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
