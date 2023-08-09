@@ -432,7 +432,7 @@ ui <- dashboardPage(
                                                                   multiple = TRUE, options = list(maxItems = 1)),
                                                    bsPopover(id = "plot_info4_boxplot", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover"),
                                                    conditionalPanel(condition = "input.facet_var_boxplot == 'time.horizon'",
-                                                                    sliderInput("time_horizon_duration", "Time horizon duration", sep = "", min = 0, max = 0, value = 0),)
+                                                                    sliderInput("time_horizon_duration", "Time horizon duration (year)", sep = "", min = 1, max = 1, value = 1),)
                                                )
                            )),
                            shinyjs::hidden(div(id = "hiddenbox3_boxplot",
@@ -1980,6 +1980,8 @@ server <- function(input, output, session) {
     
   })
   
+
+  
   #update year range choice for selecting reference period for calculating relative to mean historial period 
   observe({
     req(data_prm_combined$data)
@@ -1996,6 +1998,29 @@ server <- function(input, output, session) {
     req(input$ref_period_boxplot)
     req(input$x_var_boxplot)
     
+    #add time horizon variable for data for plotting in case facet by time horizon
+      # Define the bin size
+      bin_size <- input$time_horizon_duration
+      
+      # Calculate the minimum and maximum years
+      min_year <- min(data_prm_combined$data$Year1)
+      max_year <- max(data_prm_combined$data$Year1)
+      
+      # Create the bin labels
+      bin_labels <- paste(seq(min_year, max_year, by = bin_size),
+                          unique(c(seq(min_year + bin_size - 1, max_year, by = bin_size), max_year)),
+                          sep = "-")
+      
+      # Create a new column with bin categories
+      data.timehorizon <- data_prm_combined$data
+      data.timehorizon$time.horizon <- tryCatch(error = function(cnd) NULL,
+                                                      cut(data.timehorizon$Year1,
+                                                          breaks = seq(min_year, max_year + bin_size, by = bin_size),
+                                                          labels = bin_labels,
+                                                          include.lowest = TRUE))
+    
+    
+    #calculate reference period normalisation
     if(input$use_mean_boxplot == "yes"){
       
       #select reference year range
@@ -2013,10 +2038,11 @@ server <- function(input, output, session) {
       if(!is.null(input$facet_var_boxplot)){
         grouping.var = union(grouping.var, input$facet_var2_boxplot)
       }
+      grouping.var = setdiff(grouping.var, "time.horizon") #not include time horizon as grouping variable
       
       #normalise data
-      data.norm = tryCatch(error = function(cnd) data_prm_combined$data,
-        data_prm_combined$data %>%
+      data.norm = tryCatch(error = function(cnd) data.timehorizon,
+        data.timehorizon %>%
         group_by(across(all_of(grouping.var))) %>%
         mutate(across(where(is.numeric) & !starts_with(c("Day","Month","Year")), ~ 100*(.x - mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE))/mean(.x[which(Year1 %in% c(ref.year[1]:ref.year[2]))], na.rm = TRUE) )) %>%
         filter(! Year1 %in%  c(input$ref_period_boxplot[1]:input$ref_period_boxplot[2]))
@@ -2024,7 +2050,7 @@ server <- function(input, output, session) {
       
       return(data.norm)
     }else{
-      return(data_prm_combined$data)
+      return(data.timehorizon)
     }
   })
   
@@ -2042,32 +2068,6 @@ server <- function(input, output, session) {
   observe({req(data_prm_combined_plot_boxplot())
     data_prm_combined_plot_rename_boxplot$data <- data_prm_combined_plot_boxplot()})
 
-  #add time horizon variable for data for plotting in case facet by time horizon
-  observe({
-    req(data_prm_combined_plot_rename_boxplot$data)
-    
-      # Define the bin size
-      bin_size <- input$time_horizon_duration
-      
-      # Calculate the minimum and maximum years
-      min_year <- min(data_prm_combined_plot_rename_boxplot$data$Year1)
-      max_year <- max(data_prm_combined_plot_rename_boxplot$data$Year1)
-      
-      # Create the bin labels
-      bin_labels <- paste(seq(min_year, max_year, by = bin_size),
-                          unique(c(seq(min_year + bin_size - 1, max_year, by = bin_size), max_year)),
-                          sep = "-")
-      
-      # Create a new column with bin categories
-      data_prm_combined_plot_rename_boxplot$data$time.horizon <- tryCatch(error = function(cnd) NULL,
-                              cut(data_prm_combined_plot_rename_boxplot$data$Year1,
-                              breaks = seq(min_year, max_year + bin_size, by = bin_size),
-                              labels = bin_labels,
-                              include.lowest = TRUE)
-      )
-  })
-
-  
   #set color palette
   custom_palette_boxplot <- reactive({
     default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
