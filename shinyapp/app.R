@@ -454,7 +454,7 @@ ui <- dashboardPage(
                            ))
                          ,
                         shinyjs::hidden(div(id = "hiddenbox5_boxplot",
-                                               div(style= "overflow-x: scroll;" , fluidRow(
+                                               div(fluidRow(
                                                  box(title = "Rename / Reorder",
                                                      width = 2,
                                                      height = "700px",
