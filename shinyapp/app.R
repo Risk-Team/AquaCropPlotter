@@ -513,7 +513,6 @@ ui <- dashboardPage(
                                                      status = "primary",
                                                      solidHeader = TRUE,
                                                      sliderInput("y_var_range_boxplot", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
-                                                     sliderInput("x_var_range_boxplot", "X axis range to plot", sep = "", min = 0, max = 0, value = c(0,0))
                                                  ),
                                                  box(title = "Export plot",
                                                      width = 2,
@@ -1980,6 +1979,56 @@ server <- function(input, output, session) {
     
   })
   
+  #remember variable set for plotting, so can be recovered after making change to dataframe and plotting engine reactively update, reinitialise
+  plot_var_select_cache_boxplot <- reactiveValues() 
+  
+  #record everytime that the value change, keep only the most recent previous value and current value
+  observeEvent(input$y_var_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$y_var <- input$y_var_boxplot
+  })
+  observeEvent(input$x_var_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$x_var <- input$x_var_boxplot
+  })
+  observeEvent(input$col_var_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$col_var <- input$col_var_boxplot
+  })
+  observeEvent(input$facet_var_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$facet_var <- input$facet_var_boxplot
+  })
+  observeEvent(input$facet_var2_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$facet_var2 <- input$facet_var2_boxplot
+  })
+  
+  observeEvent(input$y_var_range_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$y_var_range1 <- input$y_var_range_boxplot[1]
+    plot_var_select_cache_boxplot$y_var_range2 <- input$y_var_range_boxplot[2]
+  })
+  
+  #update value selected with the cache stored from previous user selection
+  delay(10000, 
+        observe({
+          req(data_prm_combined_plot_rename_boxplot$data)
+          #update choices for plotting axis
+          numeric.column = data_prm_combined_plot_rename_boxplot$data %>% select_if(is.numeric) %>% colnames()
+          factor.column = data_prm_combined_plot_rename_boxplot$data %>% select_if(is.factor) %>% colnames()
+          character.column = data_prm_combined_plot_rename_boxplot$data %>% select_if(is.character) %>% colnames()
+          
+          #update choices for plotting axis
+          updateSelectInput(inputId = "y_var_boxplot", choices = sort(numeric.column), selected = plot_var_select_cache_boxplot$y_var)
+          updateSelectInput(inputId = "x_var_boxplot", choices = sort(union(factor.column, character.column)), selected = plot_var_select_cache_boxplot$x_var)
+          #update choices for grouping variable
+          updateSelectizeInput(inputId = "col_var_boxplot", choices = sort(union(factor.column, character.column)), selected = plot_var_select_cache_boxplot$col_var)
+          updateSelectizeInput(inputId = "facet_var_boxplot", choices = sort(c(union(factor.column, character.column), "time.horizon")), selected = plot_var_select_cache_boxplot$facet_var)
+          updateSelectizeInput(inputId = "facet_var2_boxplot", choices = sort(union(factor.column, character.column)), selected = plot_var_select_cache_boxplot$facet_var2)
+          updateSelectizeInput(inputId = "rename_variable_boxplot", choices = sort(union(factor.column, character.column)))
+          updateSelectizeInput(inputId = "reorder_variable_boxplot", choices = sort(union(factor.column, character.column)))
+        })
+  )
+  
+  # observe({
+  #   updateSliderInput(inputId = "y_var_range_boxplot", value = c(plot_var_select_cache_boxplot$y_var_range1, plot_var_select_cache_boxplot$y_var_range2))
+  # })
+  
 
   
   #update year range choice for selecting reference period for calculating relative to mean historial period 
@@ -2067,7 +2116,60 @@ server <- function(input, output, session) {
   data_prm_combined_plot_rename_boxplot <- reactiveValues()
   observe({req(data_prm_combined_plot_boxplot())
     data_prm_combined_plot_rename_boxplot$data <- data_prm_combined_plot_boxplot()})
+  
+  ###set y axis range in plot
+  observeEvent(input$y_var_boxplot, {
+    if(is.numeric(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])){
+      min = min(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
+      max = max(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
+      updateSliderInput(inputId = "y_var_range_boxplot", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+    }
+  })
+  observeEvent(data_prm_combined_plot_rename_boxplot$data, {
+    req(data_prm_combined_plot_rename_boxplot$data, input$y_var_boxplot, input$x_var_boxplot)
+    if(is.numeric(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])){
+      min = min(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
+      max = max(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
+      updateSliderInput(inputId = "y_var_range_boxplot", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+    }
+  })
 
+  ###option for renaming variable
+  #create observe event module to monitor if user input select variable to rename
+  #if variable selected, update the select input list for value choices of the selected variable
+  observeEvent(input$rename_variable_boxplot, {
+    choices <- unique(data_prm_combined_plot_rename_boxplot$data[[input$rename_variable_boxplot]])
+    updateSelectInput(inputId = "rename_from_boxplot", choices = sort(choices)) 
+  })
+  #change value of selected variable to the value from user
+  observeEvent(input$rename_button_boxplot, {
+    if(input$rename_to_boxplot != ""){
+      rename_df <- data_prm_combined_plot_rename_boxplot$data
+      rename_df[input$rename_variable_boxplot][rename_df[input$rename_variable_boxplot] == input$rename_from_boxplot] <- input$rename_to_boxplot
+      data_prm_combined_plot_rename_boxplot$data <- rename_df
+    }
+    choices <- unique(data_prm_combined_plot_rename_boxplot$data[[input$rename_variable_boxplot]])
+    updateSelectInput(inputId = "rename_from_boxplot", choices = sort(choices)) 
+  })
+  
+  ###option for reordering variable
+  #create observe event module to monitor if user input select variable to reorder
+  #if variable selected, update the select input list for value choices of the selected variable
+  observeEvent(input$reorder_variable_boxplot, {
+    choices <- unique(data_prm_combined_plot_rename_boxplot$data[[input$reorder_variable_boxplot]])
+    updateSelectInput(inputId = "reorder_order_boxplot", choices = sort(choices)) 
+  })
+  #change value of selected variable to the value from user
+  observeEvent(input$reorder_button_boxplot, {
+    req(input$reorder_variable_boxplot, input$reorder_order_boxplot)
+    new_order = c(input$reorder_order_boxplot, setdiff(unique(data_prm_combined_plot_rename_boxplot$data[[input$reorder_variable_boxplot]]),input$reorder_order_boxplot))
+    
+    reorder_df <- data_prm_combined_plot_rename_boxplot$data
+    reorder_df[[input$reorder_variable_boxplot]] <- factor(reorder_df[[input$reorder_variable_boxplot]], levels = new_order)
+    data_prm_combined_plot_rename_boxplot$data <- reorder_df
+  })
+  
+  
   #set color palette
   custom_palette_boxplot <- reactive({
     default_palette <- c("#999999", "#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")
@@ -2083,6 +2185,16 @@ server <- function(input, output, session) {
       palette <- default_palette
     }
     unname(palette)
+  })
+  
+  
+  #set legend direction
+  legend_direction_boxplot <- reactive({
+    if(input$legend_position_boxplot %in% c("top","bottom")){
+      "horizontal"
+    } else{
+      "vertical"
+    }
   })
      
   #boxplot
@@ -2115,20 +2227,68 @@ server <- function(input, output, session) {
     
     #theme
     p <- p +
-      theme(
+      theme(axis.title = element_text(size = as.numeric(input$font_size_axis_title_boxplot)), 
+            axis.text = element_text(size = as.numeric(input$font_size_axis_text_boxplot)),
+            #legend.title = element_text(size = as.numeric(input$font_size_legend_boxplot)),
+            legend.title = element_text(size = as.numeric(input$font_size_legend_boxplot), face = "bold"),
+            legend.text = element_text(size = as.numeric(input$font_size_legend_boxplot)),
+            strip.text = element_text(size = as.numeric(input$font_size_facet_boxplot)),
+            plot.title = element_text(size = as.numeric(input$font_size_plot_title_boxplot)),
+            legend.position = paste(input$legend_position_boxplot),
           panel.background = element_rect(colour = "black", fill = "white"),
           plot.background = element_rect(colour = NA, fill = "white"),
+          legend.direction = paste(legend_direction_boxplot()),
           axis.line = element_line(colour="black",size=0.1),
           axis.ticks = element_line(),
           axis.title.x = element_text(vjust = -2.5, face = "bold"),
           axis.title.y = element_text(vjust = +2.5, face="bold"),
           legend.key = element_rect(colour = NA, fill = NA),
           strip.background=element_rect(colour="black",fill="grey80"),
-          plot.margin=unit(c(10,5,5,5),"mm")
+          plot.margin=unit(c(10,5,5,5),"mm"),
+          legend.box = "vertical"
           )+
       scale_fill_manual(values=custom_palette_boxplot()) +
       guides(color = guide_legend(keywidth = 5, keyheight = 3)
       )
+    
+    #pretty scales for numeric variable
+    if(is.numeric(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])){
+      p <- p +
+        scale_y_continuous(breaks = breaks_pretty(), limits = c(as.numeric(input$y_var_range_boxplot[1]),as.numeric(input$y_var_range_boxplot[2])))
+    }
+    if(is.Date(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])){
+      p <- p +
+        scale_y_date(breaks = breaks_pretty())
+    }
+    
+    #show legend title
+    if(input$show_legend_title_boxplot == "no"){
+      p <-  p + theme(legend.title = element_blank())
+    }
+    
+    #x axis text angle
+    if(as.numeric(input$x_axis_label_angle_boxplot) > 0){
+      p <- p + theme(axis.text.x = element_text(angle = as.numeric(input$x_axis_label_angle_boxplot), hjust = 1, vjust = 1))
+    }
+    
+    #add custom text for axis label
+    if(nchar(input$y_var_label_boxplot) > 0){
+      p <- p + labs(y = paste(input$y_var_label_boxplot))
+    }
+    if(nchar(input$x_var_label_boxplot) > 0){
+      p <- p + labs(x = paste(input$x_var_label_boxplot))
+    }
+    if(nchar(input$title_label_boxplot) > 0){
+      p <- p + labs(title = paste(input$title_label_boxplot))
+    }
+    
+    #reset custom title when axis choice changes
+    observeEvent(input$x_var_boxplot,ignoreInit = T, {
+      updateTextInput(inputId = "x_var_label_boxplot", value = "")
+    })
+    observeEvent(input$y_var_boxplot, ignoreInit = T, {
+      updateTextInput(inputId = "y_var_label_boxplot", value = "")
+    })
     
     removeModal()
     
