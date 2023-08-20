@@ -477,12 +477,7 @@ ui <- dashboardPage(
                                                                     label = tags$span("color palette", bsButton("plot_info6_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
                                                                     input_color_choice, multiple = TRUE),
                                                      bsPopover(id = "plot_info6_boxplot", title = "Select the same number of colors as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
-                                                     textInput("point_size_boxplot", "point size", value = "2"),
-                                                     textInput("line_size_boxplot", "line size", value = "1"),
-                                                     sliderInput("point_transparency_boxplot", "point transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
-                                                     sliderInput("line_transparency_boxplot", "line transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
-                                                     sliderInput("fill_transparency_boxplot", "fill transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE)
-                                                     
+
                                                  ),
                                                  box(title = "Customise labels",
                                                      width = 2,
