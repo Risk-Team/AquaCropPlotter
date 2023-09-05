@@ -29,10 +29,16 @@ ui <- dashboardPage(
                    sidebarMenu(id = "menu_tabs",
                                menuItem("Home", tabName = "tab_home", icon = icon("home")),
                                menuItem("Workflow", tabName = "aquacrop_plugin", icon = icon("list-alt"), startExpanded = TRUE,
-                                        menuSubItem("Upload data", tabName = "tab_upload_data", icon = icon("caret-right")),
-                                        menuSubItem("Combine data", tabName = "tab_combined_data_plugin", icon = icon("caret-right")),
-                                        menuSubItem("Plot", tabName = "tab_plot_plugin", icon = icon("caret-right")),
-                                        menuSubItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("caret-right"))
+                                        menuSubItem("Upload data", tabName = "tab_upload_data", icon = icon("angle-right")),
+                                        menuSubItem("Combine data", tabName = "tab_combined_data_plugin", icon = icon("angle-right")),
+                                        menuItem("Plot", tabName = "tab_plot_plugin", icon = icon("angle-right"),
+                                                 menuSubItem("Scatter/Trend", tabName = "tab_plot_plugin_scatter"),
+                                                 menuSubItem("Boxplot", tabName = "tab_plot_plugin_boxplot")
+                                                 ),
+                                        menuItem("Analysis", tabName = "tab_analysis_plugin", icon = icon("angle-right"),
+                                                 menuSubItem("Time window", tabName = "tab_analysis_plugin_timewindow"),
+                                                 menuSubItem("Regression", tabName = "tab_analysis_plugin_regression")
+                                                 )
                                ),
                                menuItem("Glossary", tabName = "aquacrop_glossary", icon = icon("book")),
                                menuItem("Help", tabName = "aquacrop_help", icon = icon("question-circle"))
@@ -51,9 +57,11 @@ ui <- dashboardPage(
                                     .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
                                     .skin-blue .main-header .navbar {background-color: #ffffff;}
                                     .skin-blue .main-sidebar {background-color: #D4EAFF; color: #D4EAFF;}
+                                    .skin-blue .main-sidebar .treeview-menu {background-color: #D4EAFF!important; color: #D4EAFF!important;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #D4EAFF; color: #414042;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;border-left-color: #446380;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;border-left-color: #D4EAFF;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #446380; color: #ffffff;border-left-color: #446380;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open {background-color: #D4EAFF!important; color: #D4EAFF!important;}
                                     .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #D4EAFF!important; color: #414042!important;}
                                     .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
