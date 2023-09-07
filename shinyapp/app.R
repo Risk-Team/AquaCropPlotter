@@ -375,7 +375,8 @@ ui <- dashboardPage(
                                                             status = "primary",
                                                             solidHeader = TRUE,
                                                             sliderInput("y_var_range", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
-                                                            sliderInput("x_var_range", "X axis range to plot", sep = "", min = 0, max = 0, value = c(0,0))
+                                                            sliderInput("x_var_range", "X axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
+                                                            actionButton("update_axis_range", "Update", style = "margin-bottom: 15px; ")
                                                         ),
                                                         box(title = "Export plot",
                                                             width = 2,
@@ -1646,9 +1647,13 @@ server <- function(input, output, session) {
     plot_var_select_cache$facet_var2 <- input$facet_var2
   })
   
-  observeEvent(input$x_var_range, ignoreNULL = F,{
+  observeEvent(input$update_axis_range, ignoreNULL = F,{
+    plot_var_select_cache$x_var_range_check <- 1 #turn this variable to be 1 when update axis range button is clicked, so plot will update axis range
+    plot_var_select_cache$y_var_range_check <- 1 #turn this variable to be 1 when update axis range button is clicked, so plot will update axis range
     plot_var_select_cache$x_var_range1 <- input$x_var_range[1]
     plot_var_select_cache$x_var_range2 <- input$x_var_range[2]
+    plot_var_select_cache$y_var_range1 <- input$y_var_range[1]
+    plot_var_select_cache$y_var_range2 <- input$y_var_range[2]
   })
   
   ###set y and x axis range in plot
@@ -1657,6 +1662,7 @@ server <- function(input, output, session) {
       min = min(data_prm_combined_plot_rename$data[[input$y_var]])
       max = max(data_prm_combined_plot_rename$data[[input$y_var]])
       updateSliderInput(inputId = "y_var_range", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+      plot_var_select_cache$y_var_range_check <- 0 #initiate this variable to be 0 by default when x variable just selected so the default values of axis range can be plotted, will change to 1 if axis range customisation updated
     }
   })
   observeEvent(input$x_var, {
@@ -1665,8 +1671,10 @@ server <- function(input, output, session) {
       max = max(data_prm_combined_plot_rename$data[[input$x_var]])
       if(str_detect(input$x_var, "[y,Y]ear")){
         updateSliderInput(inputId = "x_var_range", min = min, max = max, value = c(min,max), step =1) 
+        plot_var_select_cache$x_var_range_check <- 0 #initiate this variable to be 0 by default when x variable just selected so the default values of axis range can be plotted, will change to 1 if axis range customisation updated
       } else{
         updateSliderInput(inputId = "x_var_range", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+        plot_var_select_cache$x_var_range_check <- 0 #initiate this variable to be 0 by default when x variable just selected so the default values of axis range can be plotted, will change to 1 if axis range customisation updated
       }
     }
   })
@@ -1814,15 +1822,23 @@ server <- function(input, output, session) {
              linetype = guide_legend(keywidth = 5, keyheight = 3),
              shape = guide_legend(keywidth = 5, keyheight = 5)
       )
-    
+
     #pretty scales for numeric variable
-    if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]])){
+    if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]]) & plot_var_select_cache$x_var_range_check == 0){
       p <- p +
-        scale_x_continuous(breaks = breaks_pretty(), limits = c(as.numeric(input$x_var_range[1]),as.numeric(input$x_var_range[2])))
+        scale_x_continuous(breaks = breaks_pretty())
     }
-    if(is.numeric(data_prm_combined_plot_rename$data[[input$y_var]])){
+    if(is.numeric(data_prm_combined_plot_rename$data[[input$x_var]]) & plot_var_select_cache$x_var_range_check == 1){
       p <- p +
-        scale_y_continuous(breaks = breaks_pretty(), limits = c(as.numeric(input$y_var_range[1]),as.numeric(input$y_var_range[2])))
+        scale_x_continuous(breaks = breaks_pretty(), limits = c(as.numeric(plot_var_select_cache$x_var_range1),as.numeric(plot_var_select_cache$x_var_range2)))
+    }
+    if(is.numeric(data_prm_combined_plot_rename$data[[input$y_var]]) & plot_var_select_cache$y_var_range_check == 0){
+      p <- p +
+        scale_y_continuous(breaks = breaks_pretty())
+    }
+    if(is.numeric(data_prm_combined_plot_rename$data[[input$y_var]]) & plot_var_select_cache$y_var_range_check == 1){
+      p <- p +
+        scale_y_continuous(breaks = breaks_pretty(), limits = c(as.numeric(plot_var_select_cache$y_var_range1),as.numeric(plot_var_select_cache$y_var_range2)))
     }
     if(is.Date(data_prm_combined_plot_rename$data[[input$x_var]])){
       p <- p +
