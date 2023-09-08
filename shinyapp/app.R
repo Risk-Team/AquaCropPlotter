@@ -1597,6 +1597,7 @@ server <- function(input, output, session) {
   observeEvent(input$rename_button, {
     if(input$rename_to != ""){
       rename_df <- data_prm_combined_plot_rename$data
+      levels(rename_df[[input$rename_variable]]) <- c(levels(rename_df[[input$rename_variable]]), input$rename_to)
       rename_df[input$rename_variable][rename_df[input$rename_variable] == input$rename_from] <- input$rename_to
       data_prm_combined_plot_rename$data <- rename_df
     }
