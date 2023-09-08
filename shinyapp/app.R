@@ -525,6 +525,7 @@ ui <- dashboardPage(
                                                               status = "primary",
                                                               solidHeader = TRUE,
                                                               sliderInput("y_var_range_boxplot", "Y axis range to plot", sep = "", min = 0, max = 0, value = c(0,0)),
+                                                              actionButton("update_axis_range_boxplot", "Update", style = "margin-bottom: 15px; ")
                                                           ),
                                                           box(title = "Export plot",
                                                               width = 2,
@@ -2038,7 +2039,8 @@ server <- function(input, output, session) {
     plot_var_select_cache_boxplot$facet_var2 <- input$facet_var2_boxplot
   })
   
-  observeEvent(input$y_var_range_boxplot, ignoreNULL = F,{
+  observeEvent(input$update_axis_range_boxplot, ignoreNULL = F,{
+    plot_var_select_cache_boxplot$y_var_range_check <- 1 #turn this variable to be 1 when update axis range button is clicked, so plot will update axis range
     plot_var_select_cache_boxplot$y_var_range1 <- input$y_var_range_boxplot[1]
     plot_var_select_cache_boxplot$y_var_range2 <- input$y_var_range_boxplot[2]
   })
@@ -2162,6 +2164,7 @@ server <- function(input, output, session) {
       min = min(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
       max = max(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
       updateSliderInput(inputId = "y_var_range_boxplot", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+      plot_var_select_cache_boxplot$y_var_range_check <- 0 #initiate this variable to be 0 by default when x variable just selected so the default values of axis range can be plotted, will change to 1 if axis range customisation updated
     }
   })
   observeEvent(data_prm_combined_plot_rename_boxplot$data, {
@@ -2170,6 +2173,7 @@ server <- function(input, output, session) {
       min = min(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
       max = max(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])
       updateSliderInput(inputId = "y_var_range_boxplot", min = 0, max = ceiling(max*1.5), value = c(min,max)) 
+      plot_var_select_cache_boxplot$y_var_range_check <- 0 #initiate this variable to be 0 by default when x variable just selected so the default values of axis range can be plotted, will change to 1 if axis range customisation updated
     }
   })
 
@@ -2184,6 +2188,7 @@ server <- function(input, output, session) {
   observeEvent(input$rename_button_boxplot, {
     if(input$rename_to_boxplot != ""){
       rename_df <- data_prm_combined_plot_rename_boxplot$data
+      levels(rename_df[[input$rename_variable_boxplot]]) <- c(levels(rename_df[[input$rename_variable_boxplot]]), input$rename_to_boxplot)
       rename_df[input$rename_variable_boxplot][rename_df[input$rename_variable_boxplot] == input$rename_from_boxplot] <- input$rename_to_boxplot
       data_prm_combined_plot_rename_boxplot$data <- rename_df
     }
@@ -2291,9 +2296,13 @@ server <- function(input, output, session) {
       )
     
     #pretty scales for numeric variable
-    if(is.numeric(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])){
+    if(is.numeric(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]]) & plot_var_select_cache_boxplot$y_var_range_check == 0){
       p <- p +
-        scale_y_continuous(breaks = breaks_pretty(), limits = c(as.numeric(input$y_var_range_boxplot[1]),as.numeric(input$y_var_range_boxplot[2])))
+        scale_y_continuous(breaks = breaks_pretty())
+    }
+    if(is.numeric(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]]) & plot_var_select_cache_boxplot$y_var_range_check == 1){
+      p <- p +
+        scale_y_continuous(breaks = breaks_pretty(), limits = c(as.numeric(plot_var_select_cache_boxplot$y_var_range1),as.numeric(plot_var_select_cache_boxplot$y_var_range2)))
     }
     if(is.Date(data_prm_combined_plot_rename_boxplot$data[[input$y_var_boxplot]])){
       p <- p +
