@@ -1,5 +1,5 @@
 <h1 align="center">
-<img src="AQUACROP.png" width = "900" height = "100" align="center" />
+<img src="AQUACROP.png" width = "900" height = "200" align="center" />
   <br>
   <h4 align="center">AquaCropPlotter: R package for visualizing AquaCrop model results</h4>
   <br>
