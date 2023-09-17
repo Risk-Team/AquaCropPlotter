@@ -1,5 +1,12 @@
-![AQUACROP](https://github.com/Risk-Team/AquaCropPlotter/assets/40058235/07121105-256b-4ff2-8e6f-86f59b7dd46f)
-
+<h1 align="center">
+<img src="AQUACROP.png" width = "900" height = "200" align="center" />
+  <br>
+  <h4 align="center">AquaCropPlotter: R package for visualizing AquaCrop model results</h4>
+  <br>
+<div align="center">
+   <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
+</div>
+</h1>
 
 ## Status
 
