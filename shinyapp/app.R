@@ -14,7 +14,7 @@ ui <- dashboardPage(
   dashboardHeader(
     #use image logo of FAO
     title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
-            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-blue-3lines-en.svg", height = "55"))),
+            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55"))),
   #dashboardHeader(title = "AquaCropPlotter"),
   
   dashboardSidebar(collapsed = FALSE,
