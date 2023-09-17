@@ -1,4 +1,5 @@
-# AquaCropPlotter
+
+![AQUACROP](https://github.com/Risk-Team/AquaCropPlotter/assets/40058235/07121105-256b-4ff2-8e6f-86f59b7dd46f)
 
 ## Status
 
