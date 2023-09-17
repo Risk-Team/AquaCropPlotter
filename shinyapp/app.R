@@ -107,8 +107,8 @@ ui <- dashboardPage(
               h2(
                 fluidRow(
                   tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
-                  box(width = 9,
-                      imageOutput("aquacrop_logo", height = "auto"))
+                  box(width = 12,
+                      imageOutput("aquacrop_logo", height = "auto", width = "1000px"))
                 )
               )
       ),
