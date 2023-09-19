@@ -108,7 +108,11 @@ ui <- dashboardPage(
                 fluidRow(
                   tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
                   box(width = 12,
-                      imageOutput("aquacrop_logo", height = "auto", width = "1000px"))
+                      imageOutput("aquacropplotter", height = "auto", width = "auto")
+                      ),
+                  box(width = 12,
+                      imageOutput("workflow", height = "auto", width = "auto")
+                  )
                 )
               )
       ),
@@ -668,7 +672,15 @@ server <- function(input, output, session) {
   options(shiny.maxRequestSize=50*1024^2)
   
   #home image
-  output$aquacrop_logo <- renderImage({
+  output$aquacropplotter <- renderImage({
+    list(
+      src = file.path("www/aquacropplotter.png"),
+      contentType = "image/jpg",
+      width = "100%"
+    )
+  }, deleteFile = FALSE)
+  #home image
+  output$workflow <- renderImage({
     list(
       src = file.path("www/workflow.png"),
       contentType = "image/jpg",
