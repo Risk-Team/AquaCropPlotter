@@ -5,6 +5,7 @@
   <br>
 <div align="center">
    <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
+  <a href="http://hits.dwyl.com/Risk-team/AquaCropPlotter"><img src="http://hits.dwyl.com/Risk-team/AquaCropPlotter.svg"/></a>
 </div>
 </h1>
 
