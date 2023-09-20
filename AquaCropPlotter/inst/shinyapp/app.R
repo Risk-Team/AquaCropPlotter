@@ -11,16 +11,11 @@ input_linetype_choice <- c("solid", "dashed", "dotted", "dotdash", "longdash", "
 
 #define UI dashboard
 ui <- dashboardPage(
-  # dashboardHeader(
-  #   # Set height of dashboardHeader
-  #   tags$li(class = "dropdown",
-  #           tags$style(".main-header .logo {height: 130px}")
-  #           ),
-  #   #use image logo, link to github
-  #   title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
-  #           tags$img(src="shinyaquacrop_logo.png",height="121",width="181"))
-  #   ),
-  dashboardHeader(title = "AquaCropPlotter"),
+  dashboardHeader(
+    #use image logo of FAO
+    title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
+            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55"))),
+  #dashboardHeader(title = "AquaCropPlotter"),
   
   dashboardSidebar(collapsed = FALSE,
                    # Adjust the sidebar padding to allow large logo in the heading
@@ -49,24 +44,28 @@ ui <- dashboardPage(
     #use shinyjs library
     useShinyjs(),
     #customise fonts and colors in the header and sidebar 
-    tags$head(tags$style(HTML(".main-header .logo {font-weight: bold; font-size: 24px;}
-                                    .main-sidebar {font-weight: bold; font-size: 22px;}
+    tags$head(tags$style(HTML("body {font-family:Open Sans, sans-serif;}
+                                h1,h2,h3 {font-family:Open Sans, sans-serif;}
+                                h2 {font-family:Open Sans, sans-serif; min-height:75vh;}
+                                    .main-header .logo {font-weight: bold; font-size: 24px;}
+                                    .main-sidebar {font-weight: bold; font-size: 22px;padding-top:75px;}
                                     .treeview-menu>li>a {font-weight: bold; font-size: 22px!important;}
-                                    
-                                    .skin-blue .main-header .logo {background-color: #ffffff; color: #446380;}
+                                    .skin-blue .main-header .logo {background-color: #ffffff; color: #1C4767; height:75px; display: flex; justify-content: center; align-items: center;}
                                     .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
                                     .skin-blue .main-header .navbar {background-color: #ffffff;}
-                                    .skin-blue .main-sidebar {background-color: #D4EAFF; color: #D4EAFF;}
-                                    .skin-blue .main-sidebar .treeview-menu {background-color: #D4EAFF!important; color: #D4EAFF!important;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #D4EAFF; color: #414042;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #446380!important; color: #D4EAFF!important;border-left-color: #D4EAFF;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #446380; color: #ffffff;border-left-color: #446380;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open {background-color: #D4EAFF!important; color: #D4EAFF!important;}
-                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #446380!important; color: #ffffff!important;}
-                                    .box.box-solid.box-primary>.box-header {background-color: #5792c9;}
+                                    .skin-blue .main-sidebar {background-color: #E5ECF4; color: #E5ECF4;}
+                                    .skin-blue .main-sidebar .treeview-menu {background-color: #E5ECF4!important; color: #E5ECF4!important;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a{background-color: #E5ECF4; color: #414042;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{background-color: #1C4767!important; color: #E5ECF4!important;border-left-color: #E5ECF4;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{background-color: #1C4767; color: #ffffff;border-left-color: #1C4767;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open {background-color: #E5ECF4!important; color: #E5ECF4!important;}
+                                    .skin-blue .main-sidebar .sidebar .sidebar-menu .treeview-menu .menu-open .active a{background-color: #1C4767!important; color: #ffffff!important;}
+                                    .box.box-solid.box-primary>.box-header {background-color: #116AAB;}
                                     .content-wrapper, .right-side {background-color: #f2f2f2;}
                                     .content-wrapper, .right-side {background-color: #ffffff;}
-                                    .btn {background-color: #D4EAFF;}
+                                    .btn {background-color: #E5ECF4;}
+                                    .line-above-footer {border-top: 2px solid #F2F2F2; padding-top: 20px; margin-top: 20px;margin-bottom: 20px; }
+                                    
 
                                     #add customise color to palette choices 
                                     .option[data-value=black], .item[data-value=black] {background: #000000 !important; color: white !important;}
@@ -107,9 +106,13 @@ ui <- dashboardPage(
       tabItem(tabName = "tab_home",
               h2(
                 fluidRow(
-                  tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none}"),
-                  box(width = 12,height=0,
-                      imageOutput("aquacrop_logo"))
+                  tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
+                  box(width = 12,
+                      imageOutput("aquacropplotter", height = "auto", width = "auto")
+                      ),
+                  box(width = 12,
+                      imageOutput("workflow", height = "auto", width = "auto")
+                  )
                 )
               )
       ),
@@ -627,7 +630,7 @@ ui <- dashboardPage(
       ),
       tabItem(tabName = "aquacrop_help",
               div(
-                h2(strong("File naming convention")),
+                h3(strong("File naming convention")),
                 h3("AquaCropPlotter facilitates the analysis of outputs from multiple AquaCrop simulations by automatically processing  all user-uploaded files at once. To allow the app to do this, some file naming conventions should be followed"),
                 br(),
                 h3(strong("1."), "Output files (day.OUT and season.OUT) and project files (.PRO or .PRM) of each simulation are recognised automatically by matching the name prefixes, so make sure all file names from one simulation have the same prefix (This should already be a default for output from AquaCrop)"),
@@ -641,9 +644,26 @@ ui <- dashboardPage(
                 
               )
       )
+    ),
+    tags$footer(
+      div(
+        class = "line-above-footer",
+        style = "text-align: left; font-size:18px; margin-top:10px;",
+        HTML(
+          paste(
+            "&copy; FAO 2023 ",
+            a("Contact us | ", href = "http://fao.org/contact-us/en/"),
+            a("Terms and conditions | ", href = "http://fao.org/contact-us/terms/en/", target = "_blank"),
+            a("Data protection and privacy | ", href = "http://fao.org/contact-us/data-protection-and-privacy/en/", target = "_blank"),
+            a("Scam alert | ", href = "http://fao.org/contact-us/scam-alert/en/", target = "_blank"),
+            a("Report misconduct ", href = "https://www.fao.org/aud/69204/en", target = "_blank")
+          )
+        )
+      )
     )
   )
 )
+
 
 # Define server logic 
 server <- function(input, output, session) {
@@ -652,7 +672,15 @@ server <- function(input, output, session) {
   options(shiny.maxRequestSize=50*1024^2)
   
   #home image
-  output$aquacrop_logo <- renderImage({
+  output$aquacropplotter <- renderImage({
+    list(
+      src = file.path("www/aquacropplotter.png"),
+      contentType = "image/jpg",
+      width = "100%"
+    )
+  }, deleteFile = FALSE)
+  #home image
+  output$workflow <- renderImage({
     list(
       src = file.path("www/workflow.png"),
       contentType = "image/jpg",
