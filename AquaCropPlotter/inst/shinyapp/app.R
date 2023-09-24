@@ -14,9 +14,12 @@ ui <- dashboardPage(
   dashboardHeader(
     #use image logo of FAO
     title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
-            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55"))),
-  #dashboardHeader(title = "AquaCropPlotter"),
-  
+            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55")),
+    tags$li(class = "dropdown",
+            tags$img(src="aquacropplotter.png", height = "60"),
+            )
+    ),  
+
   dashboardSidebar(collapsed = FALSE,
                    # Adjust the sidebar padding to allow large logo in the heading
                    #tags$style(".left-side, .main-sidebar {padding-top: 130px}"),
@@ -36,10 +39,10 @@ ui <- dashboardPage(
                                                  )
                                ),
                                menuItem("Glossary", tabName = "aquacrop_glossary", icon = icon("book")),
-                               menuItem("Help", tabName = "aquacrop_help", icon = icon("question-circle"))
+                               menuItem("Help", tabName = "aquacrop_help", icon = icon("question-circle")),
+                               menuItem("About", tabName = "aquacrop_about", icon = icon("info-circle"))
                    )
   ),
-  
   dashboardBody(
     #use shinyjs library
     useShinyjs(),
@@ -65,7 +68,6 @@ ui <- dashboardPage(
                                     .content-wrapper, .right-side {background-color: #ffffff;}
                                     .btn {background-color: #E5ECF4;}
                                     .line-above-footer {border-top: 2px solid #F2F2F2; padding-top: 20px; margin-top: 20px;margin-bottom: 20px; }
-                                    
 
                                     #add customise color to palette choices 
                                     .option[data-value=black], .item[data-value=black] {background: #000000 !important; color: white !important;}
@@ -108,9 +110,7 @@ ui <- dashboardPage(
                 fluidRow(
                   tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
                   box(width = 12,
-                      imageOutput("aquacropplotter", height = "auto", width = "auto")
-                      ),
-                  box(width = 12,
+                      style = "max-width:1200px;",
                       imageOutput("workflow", height = "auto", width = "auto")
                   )
                 )
@@ -637,11 +637,24 @@ ui <- dashboardPage(
                 h3(strong("For example,"), "if a simulation is to be named simulation1, the resulting file names should be simulation1PRMday.OUT, simulation1PRMseason.OUT and simulation1.PRM"),
                 br(),
                 h3(strong("2."), "Variables from file name prefixes are automatically extracted when they are separated by underscores ( _ ). This allows users to supply variables/information associated with each simulation that can be used for plotting and analysis of the data inside the app"),
-                h3(strong("For example,"), "if 2 simulations were run on different crops (maize and wheat) at two different locations, file name prefixes could be maize_location1 for simulation 1 and wheat_location2 for simulation 2"),
+                h3(strong("For example,"), "if 2 simulations were run on different crops (maize and wheat) at two different locations (1 and 2), file name prefixes could be maize_location1 for simulation 1 and wheat_location2 for simulation 2"),
                 h3("When these data are imported into the app, the detected variables are added into the dataset as new columns, designated by 'name.variable' followed by a number in the order that they were detected from the file name prefix."),
                 h3("In this example, the first variable, crop, will be extracted into name.variable1 and the second variable, location, will be extracted into name.variable2",
                    "These automatically generated name.variable columns can be renamed by the user to reflect the values they contain")
                 
+              )
+      ),
+      tabItem(tabName = "aquacrop_about",
+              div(
+                h3(strong("About AquaCropPlotter")),
+                h3("AquaCropPlotter is a tool designed to facilitate the analysis and visualisation of data from AquaCrop, the crop-water productivity model developed by FAO. AquaCropPlotter provides a simple interface for users to upload and process output data files from AquaCrop simulations to generate meaningful plots and simple statistical analysis. This tool aims to streamline data processing to allow users to gain insight into complex data without requiring computing background."),
+                h3("Learn more at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/", "Github page", target = "_blank")),
+                h3("Report issues at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/issues", "Reporting issues page", target = "_blank")), 
+                br(),
+                h3(strong("Developers and contributors")),
+                h3("AquaCropPlotter is developed and maintained by Nattapong Sanguankiattichai and Riccardo Soldan"),
+                h3("with contributions from the AquaCrop developer team"),
+                h3("with support from The Office of Climate Change, Biodiversity and Environment (OCB) and the Land and Water Division (NSL) of The Food and Agriculture Organization (FAO)")
               )
       )
     ),
@@ -671,14 +684,6 @@ server <- function(input, output, session) {
   #allow upload file size max limit of 50 MB
   options(shiny.maxRequestSize=50*1024^2)
   
-  #home image
-  output$aquacropplotter <- renderImage({
-    list(
-      src = file.path("www/aquacropplotter.png"),
-      contentType = "image/jpg",
-      width = "100%"
-    )
-  }, deleteFile = FALSE)
   #home image
   output$workflow <- renderImage({
     list(
