@@ -637,11 +637,24 @@ ui <- dashboardPage(
                 h3(strong("For example,"), "if a simulation is to be named simulation1, the resulting file names should be simulation1PRMday.OUT, simulation1PRMseason.OUT and simulation1.PRM"),
                 br(),
                 h3(strong("2."), "Variables from file name prefixes are automatically extracted when they are separated by underscores ( _ ). This allows users to supply variables/information associated with each simulation that can be used for plotting and analysis of the data inside the app"),
-                h3(strong("For example,"), "if 2 simulations were run on different crops (maize and wheat) at two different locations, file name prefixes could be maize_location1 for simulation 1 and wheat_location2 for simulation 2"),
+                h3(strong("For example,"), "if 2 simulations were run on different crops (maize and wheat) at two different locations (1 and 2), file name prefixes could be maize_location1 for simulation 1 and wheat_location2 for simulation 2"),
                 h3("When these data are imported into the app, the detected variables are added into the dataset as new columns, designated by 'name.variable' followed by a number in the order that they were detected from the file name prefix."),
                 h3("In this example, the first variable, crop, will be extracted into name.variable1 and the second variable, location, will be extracted into name.variable2",
                    "These automatically generated name.variable columns can be renamed by the user to reflect the values they contain")
                 
+              )
+      ),
+      tabItem(tabName = "aquacrop_about",
+              div(
+                h3(strong("About AquaCropPlotter")),
+                h3("AquaCropPlotter is a tool designed to facilitate the analysis and visualisation of data from AquaCrop, the crop-water productivity model developed by FAO. AquaCropPlotter provides a simple interface for users to upload and process output data files from AquaCrop simulations to generate meaningful plots and simple statistical analysis. This tool aims to streamline data processing to allow users to gain insight into complex data without requiring computing background."),
+                h3("Learn more at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/", "Github page", target = "_blank")),
+                h3("Report issues at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/issues", "Reporting issues page", target = "_blank")), 
+                br(),
+                h3(strong("Developers and contributors")),
+                h3("AquaCropPlotter is developed and maintained by Nattapong Sanguankiattichai and Riccardo Soldan"),
+                h3("with contributions from the AquaCrop developer team"),
+                h3("with support from The Office of Climate Change, Biodiversity and Environment (OCB) and the Land and Water Division (NSL) of The Food and Agriculture Organization (FAO)")
               )
       )
     ),
