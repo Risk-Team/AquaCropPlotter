@@ -14,9 +14,12 @@ ui <- dashboardPage(
   dashboardHeader(
     #use image logo of FAO
     title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
-            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55"))),
-  #dashboardHeader(title = "AquaCropPlotter"),
-  
+            tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55")),
+    tags$li(class = "dropdown",
+            tags$img(src="aquacropplotter.png", height = "60"),
+            )
+    ),  
+
   dashboardSidebar(collapsed = FALSE,
                    # Adjust the sidebar padding to allow large logo in the heading
                    #tags$style(".left-side, .main-sidebar {padding-top: 130px}"),
@@ -36,10 +39,10 @@ ui <- dashboardPage(
                                                  )
                                ),
                                menuItem("Glossary", tabName = "aquacrop_glossary", icon = icon("book")),
-                               menuItem("Help", tabName = "aquacrop_help", icon = icon("question-circle"))
+                               menuItem("Help", tabName = "aquacrop_help", icon = icon("question-circle")),
+                               menuItem("About", tabName = "aquacrop_about", icon = icon("info-circle"))
                    )
   ),
-  
   dashboardBody(
     #use shinyjs library
     useShinyjs(),
@@ -65,7 +68,6 @@ ui <- dashboardPage(
                                     .content-wrapper, .right-side {background-color: #ffffff;}
                                     .btn {background-color: #E5ECF4;}
                                     .line-above-footer {border-top: 2px solid #F2F2F2; padding-top: 20px; margin-top: 20px;margin-bottom: 20px; }
-                                    
 
                                     #add customise color to palette choices 
                                     .option[data-value=black], .item[data-value=black] {background: #000000 !important; color: white !important;}
@@ -108,9 +110,7 @@ ui <- dashboardPage(
                 fluidRow(
                   tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
                   box(width = 12,
-                      imageOutput("aquacropplotter", height = "auto", width = "auto")
-                      ),
-                  box(width = 12,
+                      style = "max-width:1200px;",
                       imageOutput("workflow", height = "auto", width = "auto")
                   )
                 )
@@ -671,14 +671,6 @@ server <- function(input, output, session) {
   #allow upload file size max limit of 50 MB
   options(shiny.maxRequestSize=50*1024^2)
   
-  #home image
-  output$aquacropplotter <- renderImage({
-    list(
-      src = file.path("www/aquacropplotter.png"),
-      contentType = "image/jpg",
-      width = "100%"
-    )
-  }, deleteFile = FALSE)
   #home image
   output$workflow <- renderImage({
     list(
