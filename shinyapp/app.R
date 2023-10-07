@@ -647,7 +647,7 @@ ui <- dashboardPage(
       tabItem(tabName = "aquacrop_about",
               div(
                 h3(strong("About AquaCropPlotter")),
-                h3("AquaCropPlotter is a tool designed to facilitate the analysis and visualisation of data from AquaCrop, the crop-water productivity model developed by FAO. AquaCropPlotter provides a simple interface for users to upload and process output data files from AquaCrop simulations to generate meaningful plots and simple statistical analysis. This tool aims to streamline data processing to allow users to gain insight into complex data without requiring computing background."),
+                h3("AquaCropPlotter is a tool designed to facilitate the analysis and visualisation of data from AquaCrop (version 6 and 7), the crop-water productivity model developed by FAO. AquaCropPlotter provides a simple interface for users to upload and process output data files from AquaCrop simulations to generate meaningful plots and simple statistical analysis. This tool aims to streamline data processing to allow users to gain insight into complex data without requiring computing background."),
                 h3("Learn more at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/", "Github page", target = "_blank")),
                 h3("Report issues at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/issues", "Reporting issues page", target = "_blank")), 
                 br(),
