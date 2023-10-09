@@ -11,7 +11,8 @@
 
 ## Status
 
-**The app is now officially launched. Training materials will be released soon**
+**The app is now officially launched. Training materials will be released soon**.
+
 [link](https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/)
 ## Background
 AquaCrop is the crop-water productivity model developed by FAO. Currently, AquaCrop produces output txt files that can be difficult to process and visualize. AquaCropPlotter fills that gap by automatically reading the output simulations of AquaCrop and producing meaningful plots and statistics that the user can automatically embed into reports. 
