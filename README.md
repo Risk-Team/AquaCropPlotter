@@ -3,6 +3,8 @@
   <br>
   <h4 align="center">AquaCropPlotter: R package for visualizing AquaCrop model results</h4>
   <br>
+  <h4 align="center">[Click here](https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/)</h4>
+  <br>
 <div align="center">
    <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
   <a href="http://hits.dwyl.com/Risk-team/AquaCropPlotter"><img src="http://hits.dwyl.com/Risk-team/AquaCropPlotter.svg"/></a>
