@@ -47,7 +47,6 @@ system.file("data/", package="AquaCropPlotter")
 Regardless of whether you use the app locally or online, the app would work in the same way.
 
 ![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/10773204/add551fc-2d98-48de-86ca-21449cbdab02)
-
 |:--:| 
 | Workflow of AquaCropPlotter |
 
