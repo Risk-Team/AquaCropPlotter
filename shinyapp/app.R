@@ -772,11 +772,12 @@ server <- function(input, output, session) {
       nest() %>%
       mutate(all_data = future_map(data, function(data){
         data$dataset %>%
-          reduce(left_join, by = c("Day", "Month", "Year", "DAP", "Stage"))
+          reduce(left_join, by = c("Day", "Month", "Year", "DAP", "Stage"), suffix = c("", ".y"))
       })) %>%
       select(-data) %>%
       unnest(all_data) %>%
-      mutate(date = dmy(paste(Day, Month, Year, sep="-")))
+      mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+      select(!ends_with(".y"))
   })
   
   ##seasonal data
