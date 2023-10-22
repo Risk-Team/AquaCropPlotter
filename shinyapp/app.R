@@ -50,9 +50,9 @@ ui <- dashboardPage(
     tags$head(tags$style(HTML("body {font-family:Open Sans, sans-serif;}
                                 h1,h2,h3 {font-family:Open Sans, sans-serif;}
                                 h2 {font-family:Open Sans, sans-serif; min-height:75vh;}
-                                    .main-header .logo {font-weight: bold; font-size: 24px;}
-                                    .main-sidebar {font-weight: bold; font-size: 22px;padding-top:75px;}
-                                    .treeview-menu>li>a {font-weight: bold; font-size: 22px!important;}
+                                    .main-header .logo {font-weight: bold; font-size: 20px;}
+                                    .main-sidebar {font-weight: bold; font-size: 20px;padding-top:75px;}
+                                    .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
                                     .skin-blue .main-header .logo {background-color: #ffffff; color: #1C4767; height:75px; display: flex; justify-content: center; align-items: center;}
                                     .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
                                     .skin-blue .main-header .navbar {background-color: #ffffff;}
@@ -87,15 +87,16 @@ ui <- dashboardPage(
                                   "))),
     
     #customise style text size of different elements
-    tags$style(type='text/css', ".selectize-input { font-size: 20px; line-height: 20px; width:80%; } 
-                                      .selectize-dropdown { font-size: 20px; line-height: 20px; width:80%; }
-                                      .control-label { font-size: 20px; line-height: 20px; }
-                                      .btn { font-size: 20px; }
-                                      .form-control { font-size: 18px; line-height: 18px; height:42px; width:80%; }
-                                      .box-title { font-size: 22px!important; line-height: 22px; font-weight:bold; }
-                                      .nav-tabs { font-size: 22px; line-height: 20px; font-weight:bold; }
-                                      .shiny-output-error-validation { font-size: 22px; line-height: 22px; padding-top: 15px; }
-                                      .shiny-notification { font-size: 20px;}
+    tags$style(type='text/css', ".selectize-input { font-size: 18px; line-height: 20px; width:80%; } 
+                                      .selectize-dropdown { font-size: 18px; line-height: 20px; width:80%; }
+                                      .control-label { font-size: 18px; line-height: 20px; }
+                                      .btn { font-size: 18px; }
+                                      .form-control { font-size: 16px; line-height: 18px; height:42px; width:80%; }
+                                      .box-title { font-size: 18px!important; line-height: 18px; font-weight:bold; }
+                                      .box-header { font-size: 24px!important; line-height: 24px; }
+                                      .nav-tabs { font-size: 18px; line-height: 20px; font-weight:bold; }
+                                      .shiny-output-error-validation { font-size: 18px; line-height: 22px; padding-top: 15px; }
+                                      .shiny-notification { font-size: 18px;}
                                     
                                     #font size of slider input
                                     .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {font-size: 14px!important}
@@ -110,7 +111,7 @@ ui <- dashboardPage(
                 fluidRow(
                   tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
                   box(width = 12,
-                      style = "max-width:1200px;",
+                      style = "max-width:1000px;",
                       imageOutput("workflow", height = "auto", width = "auto")
                   )
                 )
@@ -134,19 +135,19 @@ ui <- dashboardPage(
                                    box(title = "Project files", status = "primary", solidHeader = TRUE, width = 4,
                                        #upload parameter file
                                        #fileInput("upload_prm_files", "Add more files (.PRM)", multiple = TRUE, accept = ".PRM"),
-                                       div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 75%; width: 100%"),
-                                       div(dataTableOutput("missing_prm_file_error"), style = "font-size: 75%; width: 100%")
+                                       div(dataTableOutput("upload_prm_combined_display"), style = "font-size: 60%; width: 100%"),
+                                       div(dataTableOutput("missing_prm_file_error"), style = "font-size: 60%; width: 100%")
                                    ),
                                    box(title = "Seasonal data files", status = "primary", solidHeader = TRUE, width = 4,
                                        #upload data file
                                        #fileInput("upload_data_files", "Add more files (season.OUT)", multiple = TRUE, accept = ".OUT"),
-                                       div(dataTableOutput("upload_data_combined_display"), style = "font-size: 75%; width: 100%"),
+                                       div(dataTableOutput("upload_data_combined_display"), style = "font-size: 60%; width: 100%"),
                                        dataTableOutput("missing_seasonal_file_error")
                                    ),
                                    box(title = "Daily data files", status = "primary", solidHeader = TRUE, width = 4,
                                        #upload data file
                                        #fileInput("upload_daily_data_files", "Add more files (day.OUT)", multiple = TRUE, accept = ".OUT"),
-                                       div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 75%; width: 100%")
+                                       div(dataTableOutput("upload_daily_data_combined_display"), style = "font-size: 60%; width: 100%")
                                    )
                   )
                 ),
@@ -158,7 +159,7 @@ ui <- dashboardPage(
                                        fileInput("upload_data_files_standard", "Upload data files (.OUT and .PRM)", multiple = TRUE)
                                    ),
                                    box(title = "Uploaded files", status = "primary", solidHeader = TRUE, width = 6,
-                                       div(dataTableOutput("upload_standard_list"), style = "font-size: 75%; width: 100%")
+                                       div(dataTableOutput("upload_standard_list"), style = "font-size: 60%; width: 100%")
                                    )
                   )
                 )
@@ -176,7 +177,7 @@ ui <- dashboardPage(
                                   #button for downloading all combined data
                                   downloadButton("download_combined_prm", "Download", style = "margin-bottom: 15px; "),
                                   #data table
-                                  div(dataTableOutput("prm_combined_display"), style = "font-size: 75%; width: 100%")
+                                  div(dataTableOutput("prm_combined_display"), style = "font-size: 60%; width: 100%")
                          ),
                          tabPanel(title = "Seasonal dataset",
                                   width = 12,
@@ -185,7 +186,7 @@ ui <- dashboardPage(
                                   #button for downloading all combined data
                                   downloadButton("download_combined_dataset", "Download", style = "margin-bottom: 15px; "),
                                   #data table
-                                  div(dataTableOutput("data_prm_combined_display"), style = "font-size: 75%; width: 100%")
+                                  div(dataTableOutput("data_prm_combined_display"), style = "font-size: 60%; width: 100%")
                          ),
                          tabPanel(title = "Daily dataset",
                                   width = 12,
@@ -194,7 +195,7 @@ ui <- dashboardPage(
                                   #button for downloading all combined data
                                   downloadButton("download_combined_daily_dataset", "Download", style = "margin-bottom: 15px; "),
                                   #data table
-                                  div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 75%; width: 100%")
+                                  div(dataTableOutput("daily_data_prm_combined_display"), style = "font-size: 60%; width: 100%")
                          )
                   ),  
                   box(title = "Rename column",
@@ -290,7 +291,7 @@ ui <- dashboardPage(
                                                                            label = NULL,
                                                                            choices = NULL,
                                                                            multiple = TRUE, options = list(maxItems = 1)),
-                                                            bsPopover(id = "plot_info4", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover")
+                                                            bsPopover(id = "plot_info4", title = "Selected variable will be used to split the plot into subplots by column and row, respectively", placement = "right", trigger = "hover")
                                                         )
                                     )),
                                     shinyjs::hidden(div(id = "hiddenbox3",
@@ -450,7 +451,7 @@ ui <- dashboardPage(
                                                                            label = NULL,
                                                                            choices = NULL,
                                                                            multiple = TRUE, options = list(maxItems = 1)),
-                                                            bsPopover(id = "plot_info4_boxplot", title = "Selected variable will be used to split plot into subplots. maximum of 2 variables can be selected", placement = "right", trigger = "hover"),
+                                                            bsPopover(id = "plot_info4_boxplot", title = "Selected variable will be used to split plot into subplots by column and row, respectively", placement = "right", trigger = "hover"),
                                                             conditionalPanel(condition = "input.facet_var_boxplot == 'time.horizon'",
                                                                              sliderInput("time_horizon_duration", "Time horizon duration (year)", sep = "", min = 1, max = 1, value = 1),)
                                                         )
@@ -574,7 +575,7 @@ ui <- dashboardPage(
                                   sliderInput("time_period", label = "Select time period window size (years)", min = 1, max = 1, value = 1, step = 1),
                                   selectizeInput("time_period_variable", label = "Select variable to calculate summary", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                   selectizeInput("time_period_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
-                                  div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 75%; width: 100%"),
+                                  div(dataTableOutput("data_prm_combined_timeperiod_display"), style = "font-size: 60%; width: 100%"),
                                   downloadButton("download_data_prm_combined_timeperiod", "Download")
                          ),
                          selected = "Time period window"
@@ -613,7 +614,7 @@ ui <- dashboardPage(
                                   selectizeInput("regression_x_variable", label = "Select independent (X) variable", choices = NULL, multiple = TRUE, options = list(maxItems = 1)),
                                   selectizeInput("regression_group", label = "Select grouping variable", choices = NULL, multiple = TRUE),
                                   
-                                  div(dataTableOutput("regression_display"), style = "font-size: 75%; width: 100%"),
+                                  div(dataTableOutput("regression_display"), style = "font-size: 60%; width: 100%"),
                                   downloadButton("download_regression", "Download"),
                          ),
                          selected = "Regression"
@@ -624,7 +625,7 @@ ui <- dashboardPage(
       tabItem(tabName = "aquacrop_glossary",
               h2(fluidRow(
                 box(width = 12 ,
-                    div(dataTableOutput("glossary_display"), style = "font-size: 75%; width: 100%")
+                    div(dataTableOutput("glossary_display"), style = "font-size: 60%; width: 100%")
                 )
               ))
       ),
@@ -749,7 +750,12 @@ server <- function(input, output, session) {
     })
   
   #output uploaded files list
-  output$upload_standard_list <- renderDataTable(datatable(upload_data_standard_combined() %>% select(name), options = list(scrollX = TRUE)))
+  upload_data_standard_list <- reactive({
+    req(input$upload_data_files_standard)
+    input$upload_data_files_standard %>%
+      select(name)
+    })
+  output$upload_standard_list <- renderDataTable(datatable(upload_data_standard_list(), options = list(scrollX = TRUE)))
   
   ##combined all daily data  
   upload_data_standard_combined_daily <- reactive({
