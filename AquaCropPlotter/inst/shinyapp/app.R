@@ -51,8 +51,8 @@ ui <- dashboardPage(
                                 h1,h2,h3 {font-family:Open Sans, sans-serif;}
                                 h2 {font-family:Open Sans, sans-serif; min-height:75vh;}
                                     .main-header .logo {font-weight: bold; font-size: 20px;}
-                                    .main-sidebar {font-weight: bold; font-size: 20px;padding-top:75px;}
-                                    .treeview-menu>li>a {font-weight: bold; font-size: 20px!important;}
+                                    .main-sidebar {font-weight: bold; font-size: 18px;padding-top:75px;}
+                                    .treeview-menu>li>a {font-weight: bold; font-size: 18px!important;}
                                     .skin-blue .main-header .logo {background-color: #ffffff; color: #1C4767; height:75px; display: flex; justify-content: center; align-items: center;}
                                     .skin-blue .main-header .logo:hover{background-color: #ffffff!important;}
                                     .skin-blue .main-header .navbar {background-color: #ffffff;}
@@ -87,15 +87,15 @@ ui <- dashboardPage(
                                   "))),
     
     #customise style text size of different elements
-    tags$style(type='text/css', ".selectize-input { font-size: 18px; line-height: 20px; width:80%; } 
-                                      .selectize-dropdown { font-size: 18px; line-height: 20px; width:80%; }
-                                      .control-label { font-size: 18px; line-height: 20px; }
+    tags$style(type='text/css', ".selectize-input { font-size: 16px; line-height: 20px; width:80%; } 
+                                      .selectize-dropdown { font-size: 16px; line-height: 20px; width:80%; }
+                                      .control-label { font-size: 16px; line-height: 20px; }
                                       .btn { font-size: 18px; }
-                                      .form-control { font-size: 16px; line-height: 18px; height:42px; width:80%; }
-                                      .box-title { font-size: 18px!important; line-height: 18px; font-weight:bold; }
-                                      .box-header { font-size: 24px!important; line-height: 24px; }
-                                      .nav-tabs { font-size: 18px; line-height: 20px; font-weight:bold; }
-                                      .shiny-output-error-validation { font-size: 18px; line-height: 22px; padding-top: 15px; }
+                                      .form-control { font-size: 14px; line-height: 18px; height:42px; width:80%; }
+                                      .box-title { font-size: 16px!important; line-height: 18px; font-weight:bold; }
+                                      .box-header { font-size: 20px!important; line-height: 24px; }
+                                      .nav-tabs { font-size: 16px; line-height: 20px; font-weight:bold; }
+                                      .shiny-output-error-validation { font-size: 16px; line-height: 22px; padding-top: 15px; }
                                       .shiny-notification { font-size: 18px;}
                                     
                                     #font size of slider input
@@ -130,7 +130,7 @@ ui <- dashboardPage(
                                    box(title = "Batch upload all files", status = "primary", solidHeader = TRUE, width = 12,
                                        fileInput("upload_all_files", "Upload all files (season.OUT, .PRM or .PRO, (optional: day.out))", multiple = TRUE),
                                        tableOutput("upload_progress"),
-                                       div(textOutput("upload_warning"), style = "font-size: 18px;")
+                                       div(textOutput("upload_warning"), style = "font-size: 16px;")
                                    ),
                                    box(title = "Project files", status = "primary", solidHeader = TRUE, width = 4,
                                        #upload parameter file
