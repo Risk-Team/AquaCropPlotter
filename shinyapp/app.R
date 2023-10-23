@@ -50,6 +50,7 @@ ui <- dashboardPage(
     tags$head(tags$style(HTML("body {font-family:Open Sans, sans-serif;}
                                 h1,h2,h3 {font-family:Open Sans, sans-serif;}
                                 h2 {font-family:Open Sans, sans-serif; min-height:75vh;}
+                                h3 {font-family:Open Sans, sans-serif; font-size:17px;}
                                     .main-header .logo {font-weight: bold; font-size: 20px;}
                                     .main-sidebar {font-weight: bold; font-size: 18px;padding-top:75px;}
                                     .treeview-menu>li>a {font-weight: bold; font-size: 18px!important;}
@@ -334,28 +335,28 @@ ui <- dashboardPage(
                                                             status = "primary",
                                                             solidHeader = TRUE,
                                                             selectizeInput("col_palette", 
-                                                                           label = tags$span("color palette", bsButton("plot_info6", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                           label = tags$span("Color palette", bsButton("plot_info6", label = "", icon = icon("info"), size = "extra-small")), 
                                                                            input_color_choice, multiple = TRUE),
                                                             bsPopover(id = "plot_info6", title = "Select the same number of colors as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
                                                             selectizeInput("shape_palette", 
-                                                                           label = tags$span("point shape palette", bsButton("plot_info8", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                           label = tags$span("Point shape palette", bsButton("plot_info8", label = "", icon = icon("info"), size = "extra-small")), 
                                                                            input_shape_choice, multiple = TRUE),
                                                             bsPopover(id = "plot_info8", title = "Select the same number of shapes as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
                                                             selectizeInput("linetype_palette", 
-                                                                           label = tags$span("line type palette", bsButton("plot_info10", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                           label = tags$span("Line type palette", bsButton("plot_info10", label = "", icon = icon("info"), size = "extra-small")), 
                                                                            input_linetype_choice, multiple = TRUE),
                                                             bsPopover(id = "plot_info10", title = "Select the same number of line types as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
-                                                            textInput("point_size", "point size", value = "2"),
-                                                            textInput("line_size", "line size", value = "1"),
-                                                            sliderInput("point_transparency", "point transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
-                                                            sliderInput("line_transparency", "line transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE)
+                                                            textInput("point_size", "Point size", value = "2"),
+                                                            textInput("line_size", "Line size", value = "1"),
+                                                            sliderInput("point_transparency", "Point transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE),
+                                                            sliderInput("line_transparency", "Line transparency", min = 0, max = 1, value = 1, step = 0.1, ticks = FALSE)
                                                         ),
                                                         box(title = "Customise labels",
                                                             width = 2,
                                                             height = "730px",
                                                             status = "primary",
                                                             solidHeader = TRUE,
-                                                            textInput("title_label", "plot title"),
+                                                            textInput("title_label", "Plot title"),
                                                             textInput("y_var_label", "Y axis label"),
                                                             textInput("x_var_label", "X axis label"),
                                                             textInput("x_axis_label_angle", "X axis label angle", value = "45"),
@@ -367,11 +368,11 @@ ui <- dashboardPage(
                                                             height = "730px",
                                                             status = "primary",
                                                             solidHeader = TRUE,
-                                                            textInput("font_size_plot_title", "plot title", value = "16"),
-                                                            textInput("font_size_axis_text", "axis text", value = "16"),
-                                                            textInput("font_size_axis_title", "axis title", value = "16"),
-                                                            textInput("font_size_legend", "legend", value = "16"),
-                                                            textInput("font_size_facet", "subpanel label", value = "16")
+                                                            textInput("font_size_plot_title", "Plot title", value = "16"),
+                                                            textInput("font_size_axis_text", "Axis text", value = "16"),
+                                                            textInput("font_size_axis_title", "Axis title", value = "16"),
+                                                            textInput("font_size_legend", "Legend", value = "16"),
+                                                            textInput("font_size_facet", "Subpanel label", value = "16")
                                                         ),
                                                         box(title = "Customise axis",
                                                             width = 2,
@@ -495,7 +496,7 @@ ui <- dashboardPage(
                                                               status = "primary",
                                                               solidHeader = TRUE,
                                                               selectizeInput("col_palette_boxplot", 
-                                                                             label = tags$span("color palette", bsButton("plot_info6_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
+                                                                             label = tags$span("Color palette", bsButton("plot_info6_boxplot", label = "", icon = icon("info"), size = "extra-small")), 
                                                                              input_color_choice, multiple = TRUE),
                                                               bsPopover(id = "plot_info6_boxplot", title = "Select the same number of colors as the number of values within the selected variable, in order", placement = "right", trigger = "hover"),
                                                               
@@ -505,7 +506,7 @@ ui <- dashboardPage(
                                                               height = "730px",
                                                               status = "primary",
                                                               solidHeader = TRUE,
-                                                              textInput("title_label_boxplot", "plot title"),
+                                                              textInput("title_label_boxplot", "Plot title"),
                                                               textInput("y_var_label_boxplot", "Y axis label"),
                                                               textInput("x_var_label_boxplot", "X axis label"),
                                                               textInput("x_axis_label_angle_boxplot", "X axis label angle", value = "45"),
@@ -517,11 +518,11 @@ ui <- dashboardPage(
                                                               height = "730px",
                                                               status = "primary",
                                                               solidHeader = TRUE,
-                                                              textInput("font_size_plot_title_boxplot", "plot title", value = "16"),
-                                                              textInput("font_size_axis_text_boxplot", "axis text", value = "16"),
-                                                              textInput("font_size_axis_title_boxplot", "axis title", value = "16"),
-                                                              textInput("font_size_legend_boxplot", "legend", value = "16"),
-                                                              textInput("font_size_facet_boxplot", "subpanel label", value = "16")
+                                                              textInput("font_size_plot_title_boxplot", "Plot title", value = "16"),
+                                                              textInput("font_size_axis_text_boxplot", "Axis text", value = "16"),
+                                                              textInput("font_size_axis_title_boxplot", "Axis title", value = "16"),
+                                                              textInput("font_size_legend_boxplot", "Legend", value = "16"),
+                                                              textInput("font_size_facet_boxplot", "Subpanel label", value = "16")
                                                           ),
                                                           box(title = "Customise axis",
                                                               width = 2,
@@ -632,17 +633,22 @@ ui <- dashboardPage(
       tabItem(tabName = "aquacrop_help",
               div(
                 h3(strong("File naming convention")),
-                h3("AquaCropPlotter facilitates the analysis of outputs from multiple AquaCrop simulations by automatically processing  all user-uploaded files at once. To allow the app to do this, some file naming conventions should be followed"),
+                h3("AquaCropPlotter facilitates the analysis of outputs from multiple AquaCrop simulations by automatically processing all user-uploaded files at once. To allow the app to do this, some file naming conventions should be followed."),
                 br(),
-                h3(strong("1."), "Output files (day.OUT and season.OUT) and project files (.PRO or .PRM) of each simulation are recognised automatically by matching the name prefixes, so make sure all file names from one simulation have the same prefix (This should already be a default for output from AquaCrop)"),
-                h3(strong("For example,"), "if a simulation is to be named simulation1, the resulting file names should be simulation1PRMday.OUT, simulation1PRMseason.OUT and simulation1.PRM"),
+                h3(strong("1. File name prefix "), "Output data files (.OUT) and project files (.PRO or .PRM) of each simulation are recognised automatically by matching the name prefixes, so make sure all file names from one simulation have the same prefix (This should already be the default for output from AquaCrop)."),
+                h3(strong("For example, "), "if a simulation from AquaCrop plug-in is to be named simulation1, the prefix is simulation1 and the resulting file names should be simulation1PRMday.OUT, simulation1PRMseason.OUT and simulation1.PRM"),
                 br(),
-                h3(strong("2."), "Variables from file name prefixes are automatically extracted when they are separated by underscores ( _ ). This allows users to supply variables/information associated with each simulation that can be used for plotting and analysis of the data inside the app"),
-                h3(strong("For example,"), "if 2 simulations were run on different crops (maize and wheat) at two different locations (1 and 2), file name prefixes could be maize_location1 for simulation 1 and wheat_location2 for simulation 2"),
-                h3("When these data are imported into the app, the detected variables are added into the dataset as new columns, designated by 'name.variable' followed by a number in the order that they were detected from the file name prefix."),
-                h3("In this example, the first variable, crop, will be extracted into name.variable1 and the second variable, location, will be extracted into name.variable2",
-                   "These automatically generated name.variable columns can be renamed by the user to reflect the values they contain")
-                
+                h3(strong("2. Name variable extraction "), "Variables from file name prefixes are automatically extracted when they are separated by underscores ( _ ). This allows users to supply variables or information associated with each simulation that can be used for plotting and analysis of the data inside the app. When these data are imported into the app, detected variables are added to the dataset as new columns, designated by 'name.variable' followed by a number in the order that they are detected from the file name prefix."),
+                h3(strong("For example,"), "if 2 AquaCrop simulations were run for two different locations (A and B) using two different climate models (model1 and model2) respectively, file name prefixes could be A_model1 and B_model2."),
+                h3("Once uploaded, the first variable, location, will be extracted into name.variable1 and the second variable, climate model, will be extracted into name.variable2.",
+                   "These automatically generated name.variable columns can be renamed (in Combined data step) by the user to reflect the values they contain"),
+                h3("The diagram below illustrates the naming convention described."),
+                h3(fluidRow(
+                  tags$style(".box {background-color: transparent; border-color: transparent; border-top-color: transparent; box-shadow: none;}"),
+                  box(width = 12,
+                      style = "max-width:850px;",
+                      imageOutput("naming_convention", height = "auto", width = "auto")
+                  )))
               )
       ),
       tabItem(tabName = "aquacrop_about",
@@ -653,16 +659,16 @@ ui <- dashboardPage(
                 h3("Report issues at", tags$a(href = "https://github.com/Risk-Team/AquaCropPlotter/issues", "Reporting issues page", target = "_blank")), 
                 br(),
                 h3(strong("Developers and contributors")),
-                h3("AquaCropPlotter is developed and maintained by Nattapong Sanguankiattichai and Riccardo Soldan"),
-                h3("with contributions from the AquaCrop developer team"),
-                h3("with support from The Office of Climate Change, Biodiversity and Environment (OCB) and the Land and Water Division (NSL) of The Food and Agriculture Organization (FAO)")
+                h3("AquaCropPlotter is developed and maintained by the Climate Risk Team, ",
+                   "with contributions from the AquaCrop developer team and ",
+                   "with support from The Office of Climate Change, Biodiversity and Environment (OCB) and the Land and Water Division (NSL) of The Food and Agriculture Organization (FAO)"),
               )
       )
     ),
     tags$footer(
       div(
         class = "line-above-footer",
-        style = "text-align: left; font-size:18px; margin-top:10px;",
+        style = "text-align: left; font-size:14px; margin-top:10px;",
         HTML(
           paste(
             "&copy; FAO 2023 ",
@@ -689,6 +695,15 @@ server <- function(input, output, session) {
   output$workflow <- renderImage({
     list(
       src = file.path("www/workflow.png"),
+      contentType = "image/jpg",
+      width = "100%"
+    )
+  }, deleteFile = FALSE)
+  
+  #naming convention image
+  output$naming_convention <- renderImage({
+    list(
+      src = file.path("www/naming convention.png"),
       contentType = "image/jpg",
       width = "100%"
     )
