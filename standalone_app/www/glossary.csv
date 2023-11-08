@@ -1,0 +1,140 @@
+No.,Variable,Description,Unit,Category,Dataset
+1,Period,"Length of period: Tot (Number simulation run) for total simulation run, Day for intermediate daily results, 10Day for intermediate 10-daily results, Month for intermediate monthly results",,time aggregation,seasonal
+2,Day1 ,Start Day of period ,,first day of considered period,seasonal
+3,Month1 ,Start Month of period ,,first day of considered period,seasonal
+4,Year1,Start Year of period,,first day of considered period,seasonal
+5,Rain,Rainfall,mm,climatic parameters,seasonal
+6,ETo ,Reference evapotranspiration ,mm,climatic parameters,seasonal
+7,GD ,Growing degrees ,degree C day,climatic parameters,seasonal
+8,CO2,Atmospheric CO2 concentration,ppm,climatic parameters,seasonal
+9,Irri ,"Amount of water applied by irrigation, or Net irrigation requirement (if requested) ",mm,soil water parameters,seasonal
+10,Infilt,Infiltrated water in the soil profile ,mm,soil water parameters,seasonal
+11,Runoff,Water lost by surface runoff ,mm,soil water parameters,seasonal
+12,Drain,Water drained out of the soil profile ,mm,soil water parameters,seasonal
+13,Upflow,Water moved upward by capillary rise ,mm,soil water parameters,seasonal
+14,E,Soil evaporation ,mm,soil water parameters,seasonal
+15,E/Ex,Relative mean soil evaporation (100 E/Ex) ,%,soil water parameters,seasonal
+16,Tr,Total transpiration of crop and weeds ,mm,soil water parameters,seasonal
+17,TrW,Crop transpiration in weed infested field ,mm,soil water parameters,seasonal
+18,Tr/Trx,Relative mean crop transpiration (100 Tr/Trx),%,soil water parameters,seasonal
+19,SaltIn,Salt infiltrated in the soil profile ,ton/ha ,soil salinity parameters,seasonal
+20,SaltOut ,Salt drained out of the soil profile ,ton/ha ,soil salinity parameters,seasonal
+21,SaltUp,Salt moved upward by capillary rise from groundwater table,ton/ha ,soil salinity parameters,seasonal
+22,SaltProf ,Salt stored in the soil profile ,ton/ha ,soil salinity parameters,seasonal
+23,Cycle,Length of crop cycle: from germination to maturity (or early senescence),days,average stresses during growing cycle,seasonal
+24,SaltStr,Average soil salinity stress ,%,average stresses during growing cycle,seasonal
+25,FertStr ,Average soil fertility stress ,%,average stresses during growing cycle,seasonal
+26,WeedStr ,Average relative cover of weeds ,%,average stresses during growing cycle,seasonal
+27,TempStr ,Average temperature stress (affecting transpiration),%,average stresses during growing cycle,seasonal
+28,ExpStr ,Average leaf expansion stress,%,average stresses during growing cycle,seasonal
+29,StoStr ,Average stomatal stress,%,average stresses during growing cycle,seasonal
+30,Biomass ,Total above-ground dry biomass ,ton/ha ,biomass production,seasonal
+31,Brelative ,"Relative biomass (Reference: no water, no soil fertility, no soil salinity stress, no weed infestation) ",%,biomass production,seasonal
+32,HI,"Harvest Index adjusted for failure of pollination, inadequate photosynthesis and water stress ",%,crop yield,seasonal
+33,Y(dry) ,Dry crop Yield (HI x Biomass) ,ton/ha ,crop yield,seasonal
+34,Y(fresh),Fresh crop Yield ,ton/ha ,crop yield,seasonal
+35,WPet ,ET Water Productivity for yield part (kg yield produced per m3 water evapotranspired) ,kg/m^3,crop yield,seasonal
+36,Bin ,Total mass of assimilates mobilized from root system at start of season ,ton/ha ,transfer of assimilates between above ground parts and root system ,seasonal
+37,Bout ,Total mass of assimilates stored in root systeme at end of season ,ton/ha ,transfer of assimilates between above ground parts and root system ,seasonal
+38,DayN,Day at end of period ,,last day of considered period ,seasonal
+39,MonthN ,Month at end of period ,,last day of considered period ,seasonal
+40,YearN,Year at end of period ,,last day of considered period ,seasonal
+41,File,Project file name ,,name of project,seasonal
+42,Day,,,general information,daily
+43,Month,,,general information,daily
+44,Year,,,general information,daily
+45,DAP,Days after planting/sowing ,,general information,daily
+46,Stage,Crop growth stage: 0 before or after cropping; 1 between sowing and germination or transplant recovering; 2 vegetative development; 3 flowering; 4 yield formation and ripening; -9 no crop as a result of early canopy senescence ,,general information,daily
+47,WC(x.xx) ,Water content in total soil profile with (x.xx): the soil depth in meter ,mm,soil water balance parameters,daily
+48,Rain ,Rainfall ,mm,soil water balance parameters,daily
+49,Irri,Water applied by irrigation Or net irrigation requirement if the determination of Net Irrigation requirement is requested in the IRR file ,mm,soil water balance parameters,daily
+50,Surf ,Stored water on soil surface between bunds ,mm,soil water balance parameters,daily
+51,Infilt ,Infiltrated water in soil profile,mm,soil water balance parameters,daily
+52,RO ,Surface runoff ,mm,soil water balance parameters,daily
+53,Drain,Water drained out of the soil profile ,mm,soil water balance parameters,daily
+54,CR,Water moved upward by capillary rise ,mm,soil water balance parameters,daily
+55,Zgwt ,Depth of the groundwater table (-9.90 if absent),m,soil water balance parameters,daily
+56,Ex,Maximum soil evaporation ,mm,soil water balance parameters,daily
+57,E,Actual soil evaporation ,mm,soil water balance parameters,daily
+58,E/Ex ,Relative evaporation (100 E/EX) ,%,soil water balance parameters,daily
+59,Trx,Maximum crop transpiration ,mm,soil water balance parameters,daily
+60,Tr,Total transpiration of crop and weeds,mm,soil water balance parameters,daily
+61,Tr/Trx,Relative transpiration (100 Tr/Trx) ,%,soil water balance parameters,daily
+62,Etx,Maximum evapotranspiration ,mm,soil water balance parameters,daily
+63,ET,Actual evapotranspiration,mm,soil water balance parameters,daily
+64,ET/Etx,Relative evapotranspiration (100 ET/ETx) ,%,soil water balance parameters,daily
+65,GD ,Growing degrees ,degree C day,crop development and production,daily
+66,Z,Effective rooting depth ,m,crop development and production,daily
+67,StExp ,Percent water stress reducing leaf expansion,%,crop development and production,daily
+68,StSto,Percent water stress inducing stomatal closure,%,crop development and production,daily
+69,StSen ,Percent water stress triggering early canopy senescence ,%,crop development and production,daily
+70,StSalt ,Percent salinity stress ,%,crop development and production,daily
+71,StWeed ,Relative cover of weeds ,%,crop development and production,daily
+72,CC ,Total green canopy cover of crop and weeds ,%,crop development and production,daily
+73,CCw,Crop green Canopy Cover in weed infested field ,%,crop development and production,daily
+74,StTr,Percent temperature stress affecting crop transpiration ,%,crop development and production,daily
+75,Kc(Tr) ,Crop coefficient for transpiration ,,crop development and production,daily
+76,Trx,Maximum crop transpiration of crop and weeds,mm,crop development and production,daily
+77,Tr,Total transpiration of crop and weeds,mm,crop development and production,daily
+78,TrW,Crop transpiration in weed infested field ,mm,crop development and production,daily
+79,Tr/Trx,Relative transpiration (100 Tr/Trx) ,%,crop development and production,daily
+80,WP ,"Crop water productivity adjusted for CO2, soil fertility and products synthesized ",g/m^2,crop development and production,daily
+81,Biomass,Total above-ground dry biomass ,ton/ha ,crop development and production,daily
+82,HI ,"Harvest Index adjusted for failure of pollination, inadequate photosynthesis and water stress ",%,crop development and production,daily
+83,Y(dry) ,Dry crop yield (HI x Biomass) ,ton/ha ,crop development and production,daily
+84,Y(fresh) ,Fresh crop yield ,ton/ha ,crop development and production,daily
+85,Brelative,"Relative biomass (Reference: no water, no soil fertility, no soil salinity stress, no weed infestation) ",%,crop development and production,daily
+86,WPet ,ET Water productivity for yield part (kg yield produced per m3 water evapotranspired) ,kg/m^3,crop development and production,daily
+87,Bin ,Daily mass of assimilates mobilized from root system at start of season ,ton/ha ,crop development and production,daily
+88,Bout,Daily mass of assimilates stored in root system at end of season ,ton/ha ,crop development and production,daily
+89,WC(x.xx) ,Water content total soil profile with (x.xx): the soil depth in meter ,mm,soil water content in the soil profile and root zone,daily
+90,Wr(x.xx) ,Water content in maximum effective root zone with (x.xx): the maximum effective root zone ,mm,soil water content in the soil profile and root zone,daily
+91,Z ,Effective rooting depth ,m,soil water content in the soil profile and root zone,daily
+92,Wr ,Water content in effective root zone,mm,soil water content in the soil profile and root zone,daily
+93,Wr(SAT) ,Water content in effective root zone if saturated ,mm,soil water content in the soil profile and root zone,daily
+94,Wr(FC) ,Water content in effective root zone at field capacity ,mm,soil water content in the soil profile and root zone,daily
+95,Wr(exp) ,Water content in effective root zone at upper threshold for leaf expansion ,mm,soil water content in the soil profile and root zone,daily
+96,Wr(sto) ,Water content in effective root zone at upper threshold for stomatal closure,mm,soil water content in the soil profile and root zone,daily
+97,Wr(sen) ,Water content in effective root zone at upper threshold for early canopy senescence ,mm,soil water content in the soil profile and root zone,daily
+98,Wr(PWP) ,Water content in effective root zone at permanent wilting point ,mm,soil water content in the soil profile and root zone,daily
+99,SaltIn ,Salt infiltrated in the soil profile ,ton/ha ,soil salinity in the soil profile and root zone ,daily
+100,SaltOut ,Salt drained out of the soil profile ,ton/ha ,soil salinity in the soil profile and root zone ,daily
+101,SaltUp ,Salt moved upward by capillary rise from groundwater table,ton/ha ,soil salinity in the soil profile and root zone ,daily
+102,Salt(x.xx) ,Salt content in the total soil profile with (x.xx): the soil depth in meter,ton/ha ,soil salinity in the soil profile and root zone ,daily
+103,SaltZ,Salt content in the effective root zone,ton/ha ,soil salinity in the soil profile and root zone ,daily
+104,Z,Effective rooting depth ,m,soil salinity in the soil profile and root zone ,daily
+105,ECe,Electrical conductivity of the saturated soil-paste extract from the root zone,dS/m,soil salinity in the soil profile and root zone ,daily
+106,ECsw ,Electrical conductivity of the soil water in the root zone ,dS/m,soil salinity in the soil profile and root zone ,daily
+107,StSalt ,Salinity stress ,%,soil salinity in the soil profile and root zone ,daily
+108,Zgwt ,Depth of the groundwater table ,m,soil salinity in the soil profile and root zone ,daily
+109,Ecgw,Electrical conductivity of the groundwater ,dS/m,soil salinity in the soil profile and root zone ,daily
+110,WC1,soil water content compartment 1 ,vol%,soil water content at various depths of the soil profile ,daily
+111,WC2,soil water content compartment 2,vol%,soil water content at various depths of the soil profile ,daily
+112,WC3,soil water content compartment 3,vol%,soil water content at various depths of the soil profile ,daily
+113,WC4,soil water content compartment 4,vol%,soil water content at various depths of the soil profile ,daily
+114,WC5,soil water content compartment 5,vol%,soil water content at various depths of the soil profile ,daily
+115,WC6,soil water content compartment 6,vol%,soil water content at various depths of the soil profile ,daily
+116,WC7,soil water content compartment 7,vol%,soil water content at various depths of the soil profile ,daily
+117,WC8,soil water content compartment 8,vol%,soil water content at various depths of the soil profile ,daily
+118,WC9,soil water content compartment 9,vol%,soil water content at various depths of the soil profile ,daily
+119,WC10,soil water content compartment 10,vol%,soil water content at various depths of the soil profile ,daily
+120,WC11,soil water content compartment 11,vol%,soil water content at various depths of the soil profile ,daily
+121,WC12,soil water content compartment 12,vol%,soil water content at various depths of the soil profile ,daily
+122,ECe1,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 1 ,dS/m,soil salinity at various depths of the soil profile,daily
+123,ECe2,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 2,dS/m,soil salinity at various depths of the soil profile,daily
+124,ECe3,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 3,dS/m,soil salinity at various depths of the soil profile,daily
+125,ECe4,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 4,dS/m,soil salinity at various depths of the soil profile,daily
+126,ECe5,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 5,dS/m,soil salinity at various depths of the soil profile,daily
+127,ECe6,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 6,dS/m,soil salinity at various depths of the soil profile,daily
+128,ECe7,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 7,dS/m,soil salinity at various depths of the soil profile,daily
+129,ECe8,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 8,dS/m,soil salinity at various depths of the soil profile,daily
+130,ECe9,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 9,dS/m,soil salinity at various depths of the soil profile,daily
+131,ECe10,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 10,dS/m,soil salinity at various depths of the soil profile,daily
+132,ECe11,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 11,dS/m,soil salinity at various depths of the soil profile,daily
+133,ECe12,Electrical conductivity of the saturated soil-paste extract (ECe) - compartment 12,dS/m,soil salinity at various depths of the soil profile,daily
+134,Rain,Rainfall,mm,climate input parameters,daily
+135,ETo ,Reference evapotranspiration ,mm,climate input parameters,daily
+136,Tmin,Minimum air temperature,degree C,climate input parameters,daily
+137,Tavg,Average air temperature ,degree C,climate input parameters,daily
+138,Tmax,Maximum air temperature,degree C,climate input parameters,daily
+139,CO2,Atmospheric CO2 concentration for that year ,ppm,climate input parameters,daily
