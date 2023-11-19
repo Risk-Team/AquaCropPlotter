@@ -1,13 +1,6 @@
-library(shiny)
-library(shinydashboard)
-library(tidyverse)
-library(DT)
-library(lubridate)
-library(shinyjs)
-library(shinyBS)
-library(furrr)
-library(broom)
-library(scales)
+# p_load install the packages if not present
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS, furrr, broom, scales)
 
 #sets of input variables to select for plotting
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
@@ -1383,33 +1376,23 @@ server <- function(input, output, session) {
   observeEvent(input$filter_data_button,{
     req(input$filter_data_column)
     if(input$filter_data_column == "Year"){ 
-      daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
-        filter(Year >= as.numeric(input$filter_data_num[1]) & Year <= as.numeric(input$filter_data_num[2]))
       data_prm_combined$data <- data_prm_combined$data %>%
         filter(Year1 >= as.numeric(input$filter_data_num[1]) & Year1 <= as.numeric(input$filter_data_num[2]))
+      req(daily_data_prm_combined$data)
+      daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
+        filter(Year >= as.numeric(input$filter_data_num[1]) & Year <= as.numeric(input$filter_data_num[2]))
+      
     }else{
       req(input$filter_data_chr)
-      daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
-        filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
       data_prm_combined$data <- data_prm_combined$data %>%
+        filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
+      req(daily_data_prm_combined$data)
+      daily_data_prm_combined$data <- daily_data_prm_combined$data %>%
         filter(.data[[input$filter_data_column]] %in% input$filter_data_chr)
     }
   })
   ##reset data to original before filter
   observeEvent(input$filter_reset_button | input$historical_reset_button,{
-    #reset daily data to the original processing from uploads
-    req(input$standard_vs_plugin_select)
-    #select if standard or plugin mode used
-    if(input$standard_vs_plugin_select == "GUI"){
-      req(input$upload_data_files_standard)
-      daily_data_prm_combined$data <- data_prm_standard_combined_daily()
-    }else{
-      req(input$upload_all_files)
-      daily_data_prm_combined$data <- upload_daily_data_combined() %>%    
-        mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
-        mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
-        left_join(upload_prm_combined_renamecol$data, by = "name.variable")
-    }
     #reset seasonal data to the original processing from uploads
     req(input$standard_vs_plugin_select)
     #select if standard or plugin mode used
@@ -1422,6 +1405,21 @@ server <- function(input, output, session) {
         # mutate(sowing.dmy = dmy(paste(Day1, Month1, Year1, sep="-"))) %>%
         # mutate(sowing.date = paste(day(sowing.dmy), month(sowing.dmy, label = T), sep = "_")) %>%
         mutate(name.variable = str_replace(name, "PRMseason.OUT$","")) %>%
+        left_join(upload_prm_combined_renamecol$data, by = "name.variable")
+    }
+    #reset daily data to the original processing from uploads
+    req(input$standard_vs_plugin_select)
+    #select if standard or plugin mode used
+    if(input$standard_vs_plugin_select == "GUI"){
+      req(input$upload_data_files_standard)
+      req(daily_data_prm_combined$data)
+      daily_data_prm_combined$data <- data_prm_standard_combined_daily()
+    }else{
+      req(input$upload_all_files)
+      req(daily_data_prm_combined$data)
+      daily_data_prm_combined$data <- upload_daily_data_combined() %>%    
+        mutate(date = dmy(paste(Day, Month, Year, sep="-"))) %>% 
+        mutate(name.variable = str_replace(name, "PRMday.OUT$","")) %>%
         left_join(upload_prm_combined_renamecol$data, by = "name.variable")
     }
   })
@@ -2731,17 +2729,6 @@ server <- function(input, output, session) {
       write_tsv(data_regression(), file)
     }
   )
-  
-  #to stop app when closing, for RInno stand alone app
-  function(input, output, session) {
-    
-    if (!interactive()) {
-      session$onSessionEnded(function() {
-        stopApp()
-        q("no")
-      })
-    }
-  }
   
 }
 
