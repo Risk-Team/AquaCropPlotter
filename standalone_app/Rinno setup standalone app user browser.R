@@ -28,8 +28,7 @@ create_app(
   app_icon = "aquacropplotter_icon.ico",
   desktop_icon = FALSE,
   info_before = "info_before.txt",
-  info_after = "info_after.txt",
-  license_file = "license_file.txt")
+  info_after = "info_after.txt")
 
 #when almost done, R will ask to update packages, say No
 

@@ -2,6 +2,6 @@ AquaCropPlotter has been installed on this computer.
 
 To launch, go to Start Menu/ AquaCropPlotter
 
-!!! You might get an error message about permission issue if the installation was not done with administrator privilege. You can safely ignore that. !!!
+!!! You might get an error message saying permission or access denied if the installation was not done with administrator privilege. You can safely ignore that. !!!
 
 

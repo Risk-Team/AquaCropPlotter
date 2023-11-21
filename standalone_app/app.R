@@ -1,6 +1,13 @@
-# p_load install the packages if not present
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load(shiny,shinydashboard, tidyverse, DT, lubridate, shinyjs, shinyBS, furrr, broom, scales)
+library(shiny)
+library(shinydashboard)
+library(tidyverse)
+library(DT)
+library(lubridate)
+library(shinyjs)
+library(shinyBS)
+library(furrr)
+library(broom)
+library(scales)
 
 #sets of input variables to select for plotting
 input_color_choice <- c("black","grey", "skyblue","orange","green","yellow","blue","vermillion","purple", "red","lightgreen")
@@ -2730,6 +2737,18 @@ server <- function(input, output, session) {
     }
   )
   
+  #to stop app when closing, for RInno stand alone app
+  function(input, output, session) {
+    
+    if (!interactive()) {
+      session$onSessionEnded(function() {
+        stopApp()
+        q("no")
+      })
+    }
+  }
+  #another way to make sure app stop
+  session$onSessionEnded(function() { stopApp() })
 }
 
 # Run the application 
