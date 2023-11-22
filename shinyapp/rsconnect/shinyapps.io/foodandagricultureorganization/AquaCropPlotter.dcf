@@ -5,6 +5,6 @@ account: foodandagricultureorganization
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9898517
-bundleId: 7780163
+bundleId: 7947255
 url: https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/
 version: 1

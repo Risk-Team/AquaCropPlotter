@@ -1,3 +1,14 @@
+<h1 align="center">
+<img src="logo.png" width = "400" height = "100" align="center" />
+  <br>
+  <h4 align="center">AquaCropPlotter: R package for visualizing AquaCrop model results</h4>
+  <br>
+<div align="center">
+   <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
+  <a href="http://hits.dwyl.com/Risk-team/AquaCropPlotter"><img src="http://hits.dwyl.com/Risk-team/AquaCropPlotter.svg"/></a>
+</div>
+</h1>
+
 ## Status
 
 **The app is now officially launched. Training materials will be released soon**.
