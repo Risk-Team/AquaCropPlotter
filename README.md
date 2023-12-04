@@ -42,6 +42,8 @@ The app comes with some example data. To find the data on your local computer af
 system.file("data/", package="AquaCropPlotter")
 
 ```
+
+If you are on Windows, you can also install the app locally by [executing the installer](https://www.dropbox.com/scl/fi/kywp8qnyiox4as6i84815/AquaCropPlotter_installer.exe?rlkey=jslyvxragwcvw9dokj0ma6b96&dl=0)
 ## AquaCropPlotter workflow
 
 Regardless of whether you use the app locally or online, the app would work in the same way.
