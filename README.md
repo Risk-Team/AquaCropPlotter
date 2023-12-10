@@ -48,7 +48,7 @@ system.file("data/", package="AquaCropPlotter")
 ```
 ### Local installation through installer (Windows only)
 
-If you are on Windows, you can also install the app locally by [executing the installer](https://www.dropbox.com/scl/fi/kywp8qnyiox4as6i84815/AquaCropPlotter_installer.exe?rlkey=jslyvxragwcvw9dokj0ma6b96&dl=0)
+If you are on Windows, you can also install the app locally by [executing the installer](https://github.com/Risk-Team/AquaCropPlotter/releases/download/standalone_v1.0.0/AquaCropPlotter_installer.exe)
 
 ## AquaCropPlotter workflow
 
