@@ -697,6 +697,8 @@ server <- function(input, output, session) {
   
   #allow upload file size max limit of 50 MB
   options(shiny.maxRequestSize=50*1024^2)
+  #option not to use ragg as default for graphics as it seems to be causing crashes 
+  options(shiny.useragg = FALSE)
   
   #home image
   output$workflow <- renderImage({
