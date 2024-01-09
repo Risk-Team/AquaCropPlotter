@@ -1,7 +1,7 @@
 <h1 align="center">
 <img src="logo.png" width = "400" height = "100" align="center" />
   <br>
-  <h4 align="center">AquaCropPlotter: R package for visualizing AquaCrop model results</h4>
+  <h4 align="center">AquaCropPlotter: R Shiny application for visualizing AquaCrop model results</h4>
   <br>
 <div align="center">
    <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
