@@ -54,7 +54,7 @@ If you are on Windows, you can also install the app locally by [executing the in
 
 Regardless of whether you use the app locally or online, the app would work in the same way.
 
-![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/40058235/1bbb0f16-dc47-4f1c-8224-45a65e9898da)
+![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/40058235/c38f4bbb-5b77-4638-a7ac-946b97fa9425)
 |:--:| 
 | Workflow of AquaCropPlotter |
 
