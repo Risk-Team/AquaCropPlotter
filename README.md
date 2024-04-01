@@ -1,7 +1,7 @@
 <h1 align="center">
 <img src="logo.png" width = "400" height = "100" align="center" />
   <br>
-  <h4 align="center">AquaCropPlotter: R package for visualizing AquaCrop model results</h4>
+  <h4 align="center">AquaCropPlotter: R Shiny application for visualizing AquaCrop model results</h4>
   <br>
 <div align="center">
    <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
@@ -54,11 +54,11 @@ If you are on Windows, you can also install the app locally by [executing the in
 
 Regardless of whether you use the app locally or online, the app would work in the same way.
 
-![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/10773204/add551fc-2d98-48de-86ca-21449cbdab02)
+![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/40058235/7cebedfc-f5b6-49f3-8bb4-6bcce77f2d24)
 |:--:| 
 | Workflow of AquaCropPlotter |
 
-## AquaCropPlotter tutorial
+## AquaCropPlotter Manual
 
-Tutorials will be released soon
+The draft manual can be found [here](https://github.com/Risk-Team/AquaCropPlotter/blob/main/AquaCropPlotter%20manual_V1.docx)
 
