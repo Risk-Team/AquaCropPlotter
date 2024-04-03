@@ -17,10 +17,10 @@ input_shape_choice <- c("circle", "triangle", "rectangle", "diamond", "cross", "
 input_linetype_choice <- c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
 
 #define UI dashboard
-ui <- dashboardPage(
+ui <- dashboardPage(title="AquaCropPlotter",
   dashboardHeader(
     #use image logo of FAO
-    title = tags$a(href="https://github.com/Risk-Team/aquacrop_shiny",
+    title = tags$a(
             tags$img(src="https://www.fao.org/images/corporatelibraries/fao-logo/fao-logo-archive/fao-logo-black-3lines-en.svg", height = "55")),
     tags$li(class = "dropdown",
             tags$img(src="aquacropplotter.png", height = "60"),
