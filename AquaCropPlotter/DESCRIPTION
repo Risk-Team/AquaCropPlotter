@@ -1,10 +1,10 @@
 Package: AquaCropPlotter
 Type: Package
 Title: Easy loading and visualization of AquaCrop results
-Version: 1.0.0
+Version: 2.1.1
 Author: Nattapong Sanguankiattichai and Riccardo Soldan
 Maintainer: Nattapong Sanguankiattichai <nattapong.sanguankiattichai@biology.ox.ac.uk>, Riccardo Soldan <riccardosoldan@hotmail.it>
-Description: A framework to load and visualize AquaCrop output files files
+Description: A framework to load and visualize AquaCrop output files
 License: GPL-2 | GPL-3
 Encoding: UTF-8
 LazyData: true
