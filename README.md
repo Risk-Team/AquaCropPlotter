@@ -11,7 +11,7 @@
 
 ## Status 
 
-** Active**
+**Active**
 
 [Link to the app](https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/)
 
