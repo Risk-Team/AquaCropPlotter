@@ -58,5 +58,5 @@ Regardless of whether you use the app locally or online, the app would work in t
 
 ## AquaCropPlotter Manual
 
-The manual will be released soon
+The manual can be found [here](https://www.fao.org/3/cd0086en/cd0086en.pdf)
 
