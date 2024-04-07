@@ -16,7 +16,7 @@ library(RInno)
 #set up components of the app in the folder
 create_app(
   app_name    = "AquaCropPlotter",
-  app_version = "1.0.0",
+  app_version = "2.1.1",
   pkgs        = c("installr","jsonlite", "shiny", "magrittr","shinydashboard", "tidyverse", "DT", "lubridate", "shinyjs", "shinyBS", "furrr", "broom", "scales"),  # CRAN-like repo packages
   include_R   = TRUE, # Download R and install it with your app, if necessary
   R_version   = "4.1.0",
@@ -28,12 +28,12 @@ create_app(
   app_icon = "aquacropplotter_icon.ico",
   desktop_icon = FALSE,
   info_before = "info_before.txt",
-  info_after = "info_after.txt")
+  info_after = "info_after.txt") 
+#for alternative port add argument app_port = 3838
 
 #when almost done, R will ask to update packages, say No
 
 #when done, replace icon (default.ico, setup.ico) in the current working directory and 
-#and (icon.ico) in \nativefier-app\AquaCropPlotter-win32-x64\resources\app
 #also replace infobefore, infoafter and licence with custom edited file.
 
 #compile to make an installer
