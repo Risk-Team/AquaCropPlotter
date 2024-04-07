@@ -9,11 +9,12 @@
 </div>
 </h1>
 
-## Status
+## Status 
 
-**The app is now officially launched. Training materials will be released soon**.
+**Active**
 
 [Link to the app](https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/)
+
 ## Background
 AquaCrop is the crop-water productivity model developed by FAO. Currently, AquaCrop produces output txt files that can be difficult to process and visualize. AquaCropPlotter fills that gap by automatically reading the output simulations of AquaCrop and producing meaningful plots and statistics that the user can automatically embed into reports. 
 AquaCropPlotter works with the outputs of both AquaCrop versions 6 and 7. Previous versions are not recognized by the app. 
@@ -48,17 +49,15 @@ system.file("data/", package="AquaCropPlotter")
 ```
 ### Local installation through installer (Windows only)
 
-If you are on Windows, you can also install the app locally by [executing the installer](https://github.com/Risk-Team/AquaCropPlotter/releases/download/standalone_v1.0.0/AquaCropPlotter_installer.exe)
+If you are on Windows, you can also install the app locally by [executing the installer](https://github.com/Risk-Team/AquaCropPlotter/releases/download/standalone_v1.0.1/AquaCropPlotter_installer.exe)
 
 ## AquaCropPlotter workflow
 
 Regardless of whether you use the app locally or online, the app would work in the same way.
-![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/10773204/aa244f02-af39-44aa-9ad7-fe09996d8705)
+![workflow](https://github.com/Risk-Team/AquaCropPlotter/assets/10773204/af494fcb-e21f-4f1f-ad3d-d23effc51c04)
 
-|:--:| 
-| Workflow of AquaCropPlotter |
 
 ## AquaCropPlotter Manual
 
-The draft manual can be found [here](https://github.com/Risk-Team/AquaCropPlotter/blob/main/AquaCropPlotter%20manual_V1.docx)
+The manual can be found [here](https://www.fao.org/3/cd0086en/cd0086en.pdf)
 
