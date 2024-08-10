@@ -12,6 +12,7 @@
 ## Status 
 
 [Link to the app](https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/)
+
 [Link to the manual](https://openknowledge.fao.org/server/api/core/bitstreams/a6c9db7b-ae5c-4d72-a307-813621835966/content)
 
 ## Background
