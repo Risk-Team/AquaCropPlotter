@@ -28,7 +28,6 @@ AquaCropPlotter is currently hosted in shinyapps.io so you do not need to instal
 However, if you want to run AquaCropPlotter locally, simply install it from GitHub:
 
 ```
-# if you are using windows you would likely need to resolve some dependencies issues when installing the library devtools
 install.packages("pak")
 library(pak)
 pkg_install("Risk-Team/AquaCropPlotter/AquaCropPlotter")
