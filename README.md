@@ -29,9 +29,9 @@ However, if you want to run AquaCropPlotter locally, simply install it from GitH
 
 ```
 # if you are using windows you would likely need to resolve some dependencies issues when installing the library devtools
-install.packages("devtools")
-library(devtools)
-install_github("Risk-Team/AquaCropPlotter/AquaCropPlotter")
+install.packages("pak")
+library(pak)
+pkg_install("Risk-Team/AquaCropPlotter/AquaCropPlotter")
 ```
   
 Then to launch the app:
