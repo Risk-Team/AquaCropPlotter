@@ -10,6 +10,7 @@
 </h1>
 
 ## Status 
+Running
 
 [Link to the app](https://foodandagricultureorganization.shinyapps.io/AquaCropPlotter/)
 
