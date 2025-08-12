@@ -4,10 +4,14 @@
   <h4 align="center">AquaCropPlotter: R Shiny application for visualizing AquaCrop model results</h4>
   <br>
 <div align="center">
-   <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display: inline-block;">
-  <a href="http://hits.dwyl.com/Risk-team/AquaCropPlotter"><img src="http://hits.dwyl.com/Risk-team/AquaCropPlotter.svg"/></a>
+  <img src="https://img.shields.io/github/v/release/Risk-team/AquaCropPlotter" alt="GitHub R package version" style="display:inline-block;">
+  <a href="https://doi.org/10.4060/cd0086en">
+    <img src="https://img.shields.io/badge/DOI-10.4060%2Fcd0086en-blue" alt="DOI: 10.4060/cd0086en" style="display:inline-block;">
+  </a>
+  <a href="https://www.fao.org/contact-us/data-protection-and-privacy/en/" aria-label="FAO Data Protection and Privacy policy">
+    <img src="https://img.shields.io/badge/Data%20Protection%20%26%20Privacy-FAO-blue" alt="FAO Data Protection and Privacy" style="display:inline-block;">
+  </a>
 </div>
-</h1>
 
 ## Status 
 Running
